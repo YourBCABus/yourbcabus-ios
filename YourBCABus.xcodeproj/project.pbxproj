@@ -15,6 +15,7 @@
 		4A113B16217A987100B7640E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A113B14217A987100B7640E /* LaunchScreen.storyboard */; };
 		4A113B21217A987100B7640E /* YourBCABusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B20217A987100B7640E /* YourBCABusTests.swift */; };
 		4A113B2C217A987100B7640E /* YourBCABusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B2B217A987100B7640E /* YourBCABusUITests.swift */; };
+		4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3B217A9D2300B7640E /* GradientNavigationBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		4A113B27217A987100B7640E /* YourBCABusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YourBCABusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A113B2B217A987100B7640E /* YourBCABusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourBCABusUITests.swift; sourceTree = "<group>"; };
 		4A113B2D217A987100B7640E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A113B3B217A9D2300B7640E /* GradientNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientNavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				4A113B0B217A986E00B7640E /* MasterViewController.swift */,
 				4A113B0D217A986E00B7640E /* DetailViewController.swift */,
 				4A113B0F217A986E00B7640E /* Main.storyboard */,
+				4A113B3B217A9D2300B7640E /* GradientNavigationBar.swift */,
 				4A113B12217A987100B7640E /* Assets.xcassets */,
 				4A113B14217A987100B7640E /* LaunchScreen.storyboard */,
 				4A113B17217A987100B7640E /* Info.plist */,
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A113B0E217A986E00B7640E /* DetailViewController.swift in Sources */,
+				4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */,
 				4A113B0C217A986E00B7640E /* MasterViewController.swift in Sources */,
 				4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */,
 			);
@@ -437,6 +441,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9G475R3MEF;
 				INFOPLIST_FILE = YourBCABus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -454,6 +459,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9G475R3MEF;
 				INFOPLIST_FILE = YourBCABus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
