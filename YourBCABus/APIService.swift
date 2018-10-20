@@ -85,10 +85,12 @@ class APIService {
     }
     
     private func getResource<T>(apiPath: String, cachedAs cacheIdentifier: String, cachingMode: APICachingMode, _ completion: @escaping (APIResult<T>) -> Void) where T: Codable {
+        var didFetchFromCache = false
         
         if cachingMode != .forceFetch {
             do {
                 completion(APIResult(ok: true, error: nil, result: try readCache(identifier: cacheIdentifier), source: .cached))
+                didFetchFromCache = true
                 
                 if cachingMode == .preferCache {
                     return
@@ -112,7 +114,9 @@ class APIService {
                     completion(APIResult(ok: true, error: nil, result: object, source: .fetched))
                     self.writeCache(object, identifier: cacheIdentifier)
                 } catch {
-                    completion(APIResult(ok: false, error: error, result: nil, source: .fetched))
+                    if (didFetchFromCache) {
+                        completion(APIResult(ok: false, error: error, result: nil, source: .fetched))
+                    }
                 }
             }
         }
