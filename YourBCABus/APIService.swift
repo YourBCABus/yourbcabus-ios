@@ -105,7 +105,9 @@ class APIService {
         if cachingMode != .forceCache {
             fetchFromAPI(path: apiPath) { (data, error) in
                 guard error == nil else {
-                    completion(APIResult(ok: false, error: error!, result: nil, source: .fetched))
+                    if (!didFetchFromCache) {
+                        completion(APIResult(ok: false, error: error!, result: nil, source: .fetched))
+                    }
                     return
                 }
                 
