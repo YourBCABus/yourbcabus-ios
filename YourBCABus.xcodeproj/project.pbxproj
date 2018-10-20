@@ -16,6 +16,8 @@
 		4A113B21217A987100B7640E /* YourBCABusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B20217A987100B7640E /* YourBCABusTests.swift */; };
 		4A113B2C217A987100B7640E /* YourBCABusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B2B217A987100B7640E /* YourBCABusUITests.swift */; };
 		4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3B217A9D2300B7640E /* GradientNavigationBar.swift */; };
+		4A113B3E217AA94A00B7640E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3D217AA94A00B7640E /* Models.swift */; };
+		4A113B40217AAC5B00B7640E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3F217AAC5B00B7640E /* APIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		4A113B2B217A987100B7640E /* YourBCABusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourBCABusUITests.swift; sourceTree = "<group>"; };
 		4A113B2D217A987100B7640E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A113B3B217A9D2300B7640E /* GradientNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientNavigationBar.swift; sourceTree = "<group>"; };
+		4A113B3D217AA94A00B7640E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		4A113B3F217AAC5B00B7640E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +107,9 @@
 			children = (
 				4A113B09217A986E00B7640E /* AppDelegate.swift */,
 				4A113B0B217A986E00B7640E /* MasterViewController.swift */,
+				4A113B3D217AA94A00B7640E /* Models.swift */,
 				4A113B0D217A986E00B7640E /* DetailViewController.swift */,
+				4A113B3F217AAC5B00B7640E /* APIService.swift */,
 				4A113B0F217A986E00B7640E /* Main.storyboard */,
 				4A113B3B217A9D2300B7640E /* GradientNavigationBar.swift */,
 				4A113B12217A987100B7640E /* Assets.xcassets */,
@@ -266,6 +272,8 @@
 				4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */,
 				4A113B0C217A986E00B7640E /* MasterViewController.swift in Sources */,
 				4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */,
+				4A113B40217AAC5B00B7640E /* APIService.swift in Sources */,
+				4A113B3E217AA94A00B7640E /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
