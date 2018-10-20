@@ -114,7 +114,7 @@ class APIService {
                     completion(APIResult(ok: true, error: nil, result: object, source: .fetched))
                     self.writeCache(object, identifier: cacheIdentifier)
                 } catch {
-                    if (didFetchFromCache) {
+                    if (!didFetchFromCache) {
                         completion(APIResult(ok: false, error: error, result: nil, source: .fetched))
                     }
                 }
