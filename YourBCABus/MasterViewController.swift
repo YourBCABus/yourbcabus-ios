@@ -20,7 +20,9 @@ class MasterViewController: UITableViewController {
     var sections: [MasterTableViewSection] = [.buses]
     
     func reloadBuses() {
-        
+        APIService.shared.getBuses(schoolId: "5bca51e785aa2627e14db459") { result in
+            print(result)
+        }
     }
 
     override func viewDidLoad() {
