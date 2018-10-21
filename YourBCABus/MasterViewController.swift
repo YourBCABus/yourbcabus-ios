@@ -30,6 +30,8 @@ class MasterViewController: UITableViewController {
                     self.buses = temp
                     self.tableView.reloadData()
                 }
+            } else {
+                print(result.error!)
             }
         }
     }

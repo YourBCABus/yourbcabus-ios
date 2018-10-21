@@ -9,17 +9,71 @@
 import Foundation
 
 struct Bus: Codable, Comparable, CustomStringConvertible {
+    static private let formatter = ISO8601DateFormatter()
+    
     let _id: String
     let school_id: String
     let available: Bool
     let name: String?
     let locations: [String]?
-    let boarding_time: Date?
-    let departure_time: Date?
-    let invalidate_time: Date?
+    var boarding_time: String? {
+        get {
+            guard let date = boards else {
+                return nil
+            }
+            
+            return Bus.formatter.string(from: date)
+        }
+        set {
+            guard let string = newValue else {
+                boards = nil
+                return
+            }
+            
+            boards = Bus.formatter.date(from: string)
+        }
+    }
+    var departure_time: String? {
+        get {
+            guard let date = departs else {
+                return nil
+            }
+            
+            return Bus.formatter.string(from: date)
+        }
+        set {
+            guard let string = newValue else {
+                departs = nil
+                return
+            }
+            
+            departs = Bus.formatter.date(from: string)
+        }
+    }
+    var invalidate_time: String? {
+        get {
+            guard let date = invalidates else {
+                return nil
+            }
+            
+            return Bus.formatter.string(from: date)
+        }
+        set {
+            guard let string = newValue else {
+                invalidates = nil
+                return
+            }
+            
+            invalidates = Bus.formatter.date(from: string)
+        }
+    }
+    
+    var boards: Date?
+    var departs: Date?
+    var invalidates: Date?
     
     func isValidated(asOf date: Date = Date()) -> Bool {
-        guard let invalidate = invalidate_time else {
+        guard let invalidate = invalidates else {
             return false
         }
         
