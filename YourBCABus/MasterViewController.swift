@@ -13,6 +13,8 @@ enum MasterTableViewSection {
 }
 
 class MasterViewController: UITableViewController {
+    
+    var schoolId = "5bca51e785aa2627e14db459"
 
     var detailViewController: DetailViewController? = nil
     var buses = [Bus]()
@@ -20,8 +22,15 @@ class MasterViewController: UITableViewController {
     var sections: [MasterTableViewSection] = [.buses]
     
     func reloadBuses() {
-        APIService.shared.getBuses(schoolId: "5bca51e785aa2627e14db459") { result in
-            print(result)
+        APIService.shared.getBuses(schoolId: schoolId) { result in
+            if result.ok {
+                let temp = result.result.sorted()
+                
+                DispatchQueue.main.async {
+                    self.buses = temp
+                    self.tableView.reloadData()
+                }
+            }
         }
     }
 
@@ -44,11 +53,18 @@ class MasterViewController: UITableViewController {
     // MARK: - Segues
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        /*if segue.identifier == "showDetail" {
+        if segue.identifier == "showDetail" {
+            let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            
             if let indexPath = tableView.indexPathForSelectedRow {
-                
+                controller.detailItem = buses[indexPath.row]
+                controller.navigationItem.title = controller.detailItem?.description
+            } else {
+                controller.detailItem = nil
             }
-        }*/
+        }
     }
 
     // MARK: - Table View
@@ -79,6 +95,13 @@ class MasterViewController: UITableViewController {
             let bus = buses[indexPath.row]
             cell.textLabel!.text = bus.name == nil ? "No Name" : bus.name!
             return cell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch sections[indexPath.section] {
+        case .buses:
+            performSegue(withIdentifier: "showDetail", sender: tableView)
         }
     }
 

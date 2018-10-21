@@ -30,6 +30,7 @@ class GradientNavigationBar: UINavigationBar {
     override func didMoveToWindow() {
         super.didMoveToWindow()
         self.barTintColor = UIColor(patternImage: GradientNavigationBar.gradient!)
+        self.tintColor = UIColor.white
     }
-
+        
 }

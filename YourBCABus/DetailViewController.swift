@@ -11,13 +11,19 @@ import UIKit
 class DetailViewController: UIViewController {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
-
+    
+    var detailItem: Bus? {
+        didSet {
+            configureView()
+        }
+    }
 
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = detailItem {
+        if let bus = detailItem {
             if let label = detailDescriptionLabel {
-                label.text = detail.description
+                navigationItem.title = bus.description
+                label.text = bus.description
             }
         }
     }
@@ -26,13 +32,6 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         configureView()
-    }
-
-    var detailItem: NSDate? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
     }
 
 

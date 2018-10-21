@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Bus: Codable {
+struct Bus: Codable, Comparable, CustomStringConvertible {
     let _id: String
     let school_id: String
     let available: Bool
@@ -24,5 +24,45 @@ class Bus: Codable {
         }
         
         return date < invalidate
+    }
+    
+    var description: String {
+        return name == nil ? "" : name!
+    }
+    
+    static func == (a: Bus, b: Bus) -> Bool {
+        return (a.available == b.available) && (a.name == b.name)
+    }
+    
+    static func > (a: Bus, b: Bus) -> Bool {
+        if a.available && !b.available {
+            return false
+        } else if !a.available && b.available {
+            return true
+        } else {
+            if a.name == nil {
+                return false
+            } else if b.name == nil {
+                return true
+            } else {
+                return a.name! > b.name!
+            }
+        }
+    }
+    
+    static func < (a: Bus, b: Bus) -> Bool {
+        if a.available && !b.available {
+            return true
+        } else if !a.available && b.available {
+            return false
+        } else {
+            if a.name == nil {
+                return true
+            } else if b.name == nil {
+                return false
+            } else {
+                return a.name! < b.name!
+            }
+        }
     }
 }
