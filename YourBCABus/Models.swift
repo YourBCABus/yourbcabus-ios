@@ -13,7 +13,7 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
     static private func formatDate(from: String) -> Date? {
         var temp = from
         if let match = temp.firstIndex(of: ".") {
-            temp.removeSubrange(match..<temp.index(match, offsetBy: 3))
+            temp.removeSubrange(match...temp.index(match, offsetBy: 3))
         }
         return Bus.formatter.date(from: temp)
     }
@@ -146,5 +146,73 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
                 return a.name! < b.name!
             }
         }
+    }
+}
+
+class BusManagerStarListener: Equatable {
+    let listener: (Bool) -> Void
+    init(listener closure: @escaping (Bool) -> Void) {
+        listener = closure
+    }
+    
+    static func == (a: BusManagerStarListener, b: BusManagerStarListener) -> Bool {
+        return a === b
+    }
+}
+
+class BusManager {
+    static var shared = BusManager(defaultsKey: "starredBuses")
+    
+    init(defaultsKey: String?) {
+        if let key = defaultsKey {
+            starredDefaultsKey = key
+            load()
+        }
+    }
+    
+    var buses = [Bus]()
+    var starListeners = [String: [BusManagerStarListener]]()
+    var starredDefaultsKey: String?
+    
+    private var isStarred = [String: Bool]()
+    
+    private func load() {
+        if let key = starredDefaultsKey {
+            if let dict = UserDefaults.standard.dictionary(forKey: key) as? [String: Bool] {
+                isStarred = dict
+            }
+        }
+    }
+    
+    private func save() {
+        if let key = starredDefaultsKey {
+            UserDefaults.standard.set(isStarred, forKey: key)
+        }
+    }
+    
+    func toggleStar(for bus: String) {
+        isStarred[bus] = isStarred[bus] != true
+        starListeners[bus]?.forEach { (listener) in
+            listener.listener(isStarred[bus]!)
+        }
+        
+        save()
+    }
+    
+    func addStarListener(_ listener: BusManagerStarListener, for bus: String) {
+        if starListeners[bus] == nil {
+            starListeners[bus] = []
+        }
+        starListeners[bus]!.append(listener)
+    }
+    
+    func removeStarListener(_ listener: BusManagerStarListener, for bus: String) {
+        if let index = starListeners[bus]?.firstIndex(of: listener) {
+            starListeners[bus]!.remove(at: index)
+        }
+    }
+    
+    func isStarred(bus: String) -> Bool {
+        return isStarred[bus] == true
     }
 }

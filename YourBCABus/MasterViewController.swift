@@ -17,7 +17,6 @@ class MasterViewController: UITableViewController {
     var schoolId = "5bca51e785aa2627e14db459"
 
     var detailViewController: DetailViewController? = nil
-    var buses = [Bus]()
     
     var sections: [MasterTableViewSection] = [.buses]
     
@@ -27,7 +26,7 @@ class MasterViewController: UITableViewController {
                 let temp = result.result.sorted()
                 
                 DispatchQueue.main.async {
-                    self.buses = temp
+                    BusManager.shared.buses = temp
                     self.tableView.reloadData()
                     completion?(true)
                 }
@@ -73,7 +72,7 @@ class MasterViewController: UITableViewController {
             controller.navigationItem.leftItemsSupplementBackButton = true
             
             if let indexPath = tableView.indexPathForSelectedRow {
-                controller.detailItem = buses[indexPath.row]
+                controller.detailItem = BusManager.shared.buses[indexPath.row]
                 controller.navigationItem.title = controller.detailItem?.description
             } else {
                 controller.detailItem = nil
@@ -97,7 +96,7 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
         case .buses:
-            return buses.count
+            return BusManager.shared.buses.count
         }
     }
 
@@ -106,7 +105,7 @@ class MasterViewController: UITableViewController {
         case .buses:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BusCell", for: indexPath) as! BusTableViewCell
             
-            cell.bus = buses[indexPath.row]
+            cell.bus = BusManager.shared.buses[indexPath.row]
             return cell
         }
     }
