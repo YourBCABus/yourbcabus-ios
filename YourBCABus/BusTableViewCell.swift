@@ -12,8 +12,8 @@ class BusTableViewCell: UITableViewCell {
     var starListener: BusManagerStarListener!
     
     func setupListener() {
-        starListener = BusManagerStarListener(listener: { [unowned self] isStarred in
-            self.configureStarButton(starred: isStarred)
+        starListener = BusManagerStarListener(listener: { [unowned self] in
+            self.configureStarButton(starred: BusManager.shared.isStarred(bus: self.bus!._id))
         })
     }
     

@@ -9,6 +9,7 @@
 import UIKit
 
 enum MasterTableViewSection {
+    case starred
     case buses
 }
 
@@ -19,6 +20,8 @@ class MasterViewController: UITableViewController {
     var detailViewController: DetailViewController? = nil
     
     var sections: [MasterTableViewSection] = [.buses]
+    
+    private var starredBusesChangeListener: BusManagerStarListener?
     
     func reloadBuses(cachingMode: APICachingMode, completion: ((Bool) -> Void)? = nil) {
         APIService.shared.getBuses(schoolId: schoolId, cachingMode: cachingMode) { result in
@@ -39,6 +42,12 @@ class MasterViewController: UITableViewController {
             }
         }
     }
+    
+    func removeStarredBusesChangeListener() {
+        if let listener = starredBusesChangeListener {
+            BusManager.shared.removeStarredBusesChangeListener(listener)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +59,17 @@ class MasterViewController: UITableViewController {
         
         reloadBuses(cachingMode: .both)
         refreshControl?.tintColor = UIColor.white
+        
+        removeStarredBusesChangeListener()
+        starredBusesChangeListener = BusManagerStarListener(listener: { [unowned self] in
+            let index = self.sections.firstIndex(of: .starred)
+            if index != nil && BusManager.shared.starredBuses.count > 0 {
+                self.tableView.reloadSections(IndexSet(integer: index!), with: .fade)
+            } else {
+                self.tableView.reloadData()
+            }
+        })
+        BusManager.shared.addStarredBusesChangeListener(starredBusesChangeListener!)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -72,10 +92,17 @@ class MasterViewController: UITableViewController {
             controller.navigationItem.leftItemsSupplementBackButton = true
             
             if let indexPath = tableView.indexPathForSelectedRow {
-                controller.detailItem = BusManager.shared.buses[indexPath.row]
+                switch sections[indexPath.section] {
+                case .starred:
+                    controller.detailItem = BusManager.shared.starredBuses[indexPath.row]
+                case .buses:
+                    controller.detailItem = BusManager.shared.buses[indexPath.row]
+                }
+                
                 controller.navigationItem.title = controller.detailItem?.description
             } else {
                 controller.detailItem = nil
+                controller.navigationItem.title = nil
             }
         }
     }
@@ -83,11 +110,14 @@ class MasterViewController: UITableViewController {
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        sections = BusManager.shared.starredBuses.count > 0 ? [.starred, .buses] : [.buses]
         return sections.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch sections[section] {
+        case .starred:
+            return "Starred Buses"
         case .buses:
             return "Buses"
         }
@@ -95,6 +125,8 @@ class MasterViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
+        case .starred:
+            return BusManager.shared.starredBuses.count
         case .buses:
             return BusManager.shared.buses.count
         }
@@ -102,6 +134,11 @@ class MasterViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
+        case .starred:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BusCell", for: indexPath) as! BusTableViewCell
+            
+            cell.bus = BusManager.shared.starredBuses[indexPath.row]
+            return cell
         case .buses:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BusCell", for: indexPath) as! BusTableViewCell
             
@@ -112,14 +149,14 @@ class MasterViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch sections[indexPath.section] {
-        case .buses:
+        case .starred, .buses:
             return 60
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections[indexPath.section] {
-        case .buses:
+        case .starred, .buses:
             performSegue(withIdentifier: "showDetail", sender: tableView)
         }
     }
@@ -128,7 +165,10 @@ class MasterViewController: UITableViewController {
         // Return false if you do not want the specified item to be editable.
         return false
     }
-
+    
+    deinit {
+        removeStarredBusesChangeListener()
+    }
 
 }
 

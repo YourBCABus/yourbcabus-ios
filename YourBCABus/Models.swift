@@ -27,6 +27,9 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
         case boarding_time = "boarding_time"
         case departure_time = "departure_time"
         case invalidate_time = "invalidate_time"
+        case boards = "boards"
+        case departs = "departs"
+        case invalidates = "invalidates"
     }
     
     init(from decoder: Decoder) throws {
@@ -37,25 +40,37 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
         name = container.contains(.name) ? try container.decode(String.self, forKey: .name) : nil
         locations = try container.decode([String].self, forKey: .locations)
         
-        let boarding_time = container.contains(.boarding_time) ? try container.decode(String?.self, forKey: .boarding_time) : nil
-        if let time = boarding_time {
-            boards = Bus.formatDate(from: time)
+        if container.contains(.boards) {
+            boards = try container.decode(Date.self, forKey: .boards)
         } else {
-            boards = nil
+            let boarding_time = container.contains(.boarding_time) ? try container.decode(String?.self, forKey: .boarding_time) : nil
+            if let time = boarding_time {
+                boards = Bus.formatDate(from: time)
+            } else {
+                boards = nil
+            }
         }
         
-        let departure_time = container.contains(.departure_time) ? try container.decode(String?.self, forKey: .departure_time) : nil
-        if let time = departure_time {
-            departs = Bus.formatDate(from: time)
+        if container.contains(.departs) {
+            departs = try container.decode(Date.self, forKey: .departs)
         } else {
-            departs = nil
+            let departure_time = container.contains(.departure_time) ? try container.decode(String?.self, forKey: .departure_time) : nil
+            if let time = departure_time {
+                departs = Bus.formatDate(from: time)
+            } else {
+                departs = nil
+            }
         }
         
-        let invalidate_time = container.contains(.invalidate_time) ? try container.decode(String?.self, forKey: .invalidate_time) : nil
-        if let time = invalidate_time {
-            invalidates = Bus.formatDate(from: time)
+        if container.contains(.invalidates) {
+            invalidates = try container.decode(Date.self, forKey: .invalidates)
         } else {
-            invalidates = nil
+            let invalidate_time = container.contains(.invalidate_time) ? try container.decode(String?.self, forKey: .invalidate_time) : nil
+            if let time = invalidate_time {
+                invalidates = Bus.formatDate(from: time)
+            } else {
+                invalidates = nil
+            }
         }
     }
     
@@ -98,7 +113,7 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
     
     func isValidated(asOf date: Date = Date()) -> Bool {
         guard let invalidate = invalidates else {
-            return false
+            return true
         }
         
         return date < invalidate
@@ -150,8 +165,8 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
 }
 
 class BusManagerStarListener: Equatable {
-    let listener: (Bool) -> Void
-    init(listener closure: @escaping (Bool) -> Void) {
+    let listener: () -> Void
+    init(listener closure: @escaping () -> Void) {
         listener = closure
     }
     
@@ -170,11 +185,23 @@ class BusManager {
         }
     }
     
-    var buses = [Bus]()
-    var starListeners = [String: [BusManagerStarListener]]()
+    var starredBuses: [Bus] {
+        return _starredBuses
+    }
+    
+    var buses = [Bus]() {
+        didSet {
+            _starredBuses = buses.filter { bus in
+                return self.isStarred(bus: bus._id)
+            }
+        }
+    }
     var starredDefaultsKey: String?
     
     private var isStarred = [String: Bool]()
+    private var _starredBuses = [Bus]()
+    private var starListeners = [String: [BusManagerStarListener]]()
+    private var starredBusesChangeListeners = [BusManagerStarListener]()
     
     private func load() {
         if let key = starredDefaultsKey {
@@ -193,7 +220,28 @@ class BusManager {
     func toggleStar(for bus: String) {
         isStarred[bus] = isStarred[bus] != true
         starListeners[bus]?.forEach { (listener) in
-            listener.listener(isStarred[bus]!)
+            listener.listener()
+        }
+        
+        if isStarred[bus] == true {
+            if let bus = buses.first(where: {aBus in
+                return aBus._id == bus
+            }) {
+                _starredBuses.append(bus)
+                _starredBuses.sort() // TODO: Find a more efficient way to do this
+                starredBusesChangeListeners.forEach { listener in
+                    listener.listener()
+                }
+            }
+        } else {
+            if let index = _starredBuses.firstIndex(where: {aBus in
+                return aBus._id == bus
+            }) {
+                _starredBuses.remove(at: index)
+                starredBusesChangeListeners.forEach { listener in
+                    listener.listener()
+                }
+            }
         }
         
         save()
@@ -209,6 +257,16 @@ class BusManager {
     func removeStarListener(_ listener: BusManagerStarListener, for bus: String) {
         if let index = starListeners[bus]?.firstIndex(of: listener) {
             starListeners[bus]!.remove(at: index)
+        }
+    }
+    
+    func addStarredBusesChangeListener(_ listener: BusManagerStarListener) {
+        starredBusesChangeListeners.append(listener)
+    }
+    
+    func removeStarredBusesChangeListener(_ listener: BusManagerStarListener) {
+        if let index = starredBusesChangeListeners.firstIndex(of: listener) {
+            starredBusesChangeListeners.remove(at: index)
         }
     }
     
