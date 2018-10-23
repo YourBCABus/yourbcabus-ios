@@ -21,17 +21,22 @@ class MasterViewController: UITableViewController {
     
     var sections: [MasterTableViewSection] = [.buses]
     
-    func reloadBuses() {
-        APIService.shared.getBuses(schoolId: schoolId) { result in
+    func reloadBuses(cachingMode: APICachingMode, completion: ((Bool) -> Void)? = nil) {
+        APIService.shared.getBuses(schoolId: schoolId, cachingMode: cachingMode) { result in
             if result.ok {
                 let temp = result.result.sorted()
                 
                 DispatchQueue.main.async {
                     self.buses = temp
                     self.tableView.reloadData()
+                    completion?(true)
                 }
             } else {
                 print(result.error!)
+                
+                DispatchQueue.main.async {
+                    completion?(false)
+                }
             }
         }
     }
@@ -44,12 +49,19 @@ class MasterViewController: UITableViewController {
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
         
-        reloadBuses()
+        reloadBuses(cachingMode: .both)
+        refreshControl?.tintColor = UIColor.white
     }
 
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+    }
+    
+    @IBAction func refreshControlPulled(sender: UIRefreshControl?) {
+        reloadBuses(cachingMode: .forceFetch) { (success) in
+            sender?.endRefreshing()
+        }
     }
 
     // MARK: - Segues
@@ -92,11 +104,17 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
         case .buses:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BusCell", for: indexPath) as! BusTableViewCell
             
-            let bus = buses[indexPath.row]
-            cell.textLabel!.text = bus.name == nil ? "No Name" : bus.name!
+            cell.bus = buses[indexPath.row]
             return cell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch sections[indexPath.section] {
+        case .buses:
+            return 60
         }
     }
     

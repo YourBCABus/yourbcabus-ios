@@ -10,12 +10,60 @@ import Foundation
 
 struct Bus: Codable, Comparable, CustomStringConvertible {
     static private let formatter = ISO8601DateFormatter()
+    static private func formatDate(from: String) -> Date? {
+        var temp = from
+        if let match = temp.firstIndex(of: ".") {
+            temp.removeSubrange(match..<temp.index(match, offsetBy: 3))
+        }
+        return Bus.formatter.date(from: temp)
+    }
+    
+    enum BusKeys: String, CodingKey {
+        case _id = "_id"
+        case school_id = "school_id"
+        case available = "available"
+        case name = "name"
+        case locations = "locations"
+        case boarding_time = "boarding_time"
+        case departure_time = "departure_time"
+        case invalidate_time = "invalidate_time"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: BusKeys.self)
+        _id = try container.decode(String.self, forKey: ._id)
+        school_id = try container.decode(String.self, forKey: .school_id)
+        available = try container.decode(Bool.self, forKey: .available)
+        name = container.contains(.name) ? try container.decode(String.self, forKey: .name) : nil
+        locations = try container.decode([String].self, forKey: .locations)
+        
+        let boarding_time = container.contains(.boarding_time) ? try container.decode(String?.self, forKey: .boarding_time) : nil
+        if let time = boarding_time {
+            boards = Bus.formatDate(from: time)
+        } else {
+            boards = nil
+        }
+        
+        let departure_time = container.contains(.departure_time) ? try container.decode(String?.self, forKey: .departure_time) : nil
+        if let time = departure_time {
+            departs = Bus.formatDate(from: time)
+        } else {
+            departs = nil
+        }
+        
+        let invalidate_time = container.contains(.invalidate_time) ? try container.decode(String?.self, forKey: .invalidate_time) : nil
+        if let time = invalidate_time {
+            invalidates = Bus.formatDate(from: time)
+        } else {
+            invalidates = nil
+        }
+    }
     
     let _id: String
     let school_id: String
     let available: Bool
     let name: String?
-    let locations: [String]?
+    let locations: [String]
     var boarding_time: String? {
         get {
             guard let date = boards else {
@@ -23,14 +71,6 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
             }
             
             return Bus.formatter.string(from: date)
-        }
-        set {
-            guard let string = newValue else {
-                boards = nil
-                return
-            }
-            
-            boards = Bus.formatter.date(from: string)
         }
     }
     var departure_time: String? {
@@ -41,14 +81,6 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
             
             return Bus.formatter.string(from: date)
         }
-        set {
-            guard let string = newValue else {
-                departs = nil
-                return
-            }
-            
-            departs = Bus.formatter.date(from: string)
-        }
     }
     var invalidate_time: String? {
         get {
@@ -58,19 +90,11 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
             
             return Bus.formatter.string(from: date)
         }
-        set {
-            guard let string = newValue else {
-                invalidates = nil
-                return
-            }
-            
-            invalidates = Bus.formatter.date(from: string)
-        }
     }
     
-    var boards: Date?
-    var departs: Date?
-    var invalidates: Date?
+    let boards: Date?
+    let departs: Date?
+    let invalidates: Date?
     
     func isValidated(asOf date: Date = Date()) -> Bool {
         guard let invalidate = invalidates else {
@@ -82,6 +106,10 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
     
     var description: String {
         return name == nil ? "" : name!
+    }
+    
+    var location: String? {
+        return isValidated() ? locations.first : nil
     }
     
     static func == (a: Bus, b: Bus) -> Bool {

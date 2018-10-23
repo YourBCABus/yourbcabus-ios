@@ -8,29 +8,30 @@
 
 import UIKit
 
-func createGradient() -> UIImage? {
+func createGradient() -> UIColor {
     let gradientLayer = CAGradientLayer()
-    gradientLayer.frame = UIScreen.main.bounds
+    let size = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+    gradientLayer.frame = CGRect(x: 0, y: 0, width: size, height: size)
     gradientLayer.colors = [UIColor(named: "Primary")!.cgColor, UIColor(named: "Primary Dark")!.cgColor]
-    gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
-    gradientLayer.endPoint = CGPoint(x: 0.7, y: 0.2)
+    gradientLayer.startPoint = CGPoint(x: 0.1, y: 0)
+    gradientLayer.endPoint = CGPoint(x: 0.2, y: 0.1)
     
     UIGraphicsBeginImageContext(UIScreen.main.bounds.size)
     gradientLayer.render(in: UIGraphicsGetCurrentContext()!)
-    let image = UIGraphicsGetImageFromCurrentImageContext()
+    let image = UIGraphicsGetImageFromCurrentImageContext()!
     UIGraphicsEndImageContext()
     
-    return image
+    return UIColor(patternImage: image)
 }
 
 class GradientNavigationBar: UINavigationBar {
     
-    private static var gradient: UIImage? = createGradient()
+    private static var gradient: UIColor? = createGradient()
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
-        self.barTintColor = UIColor(patternImage: GradientNavigationBar.gradient!)
         self.tintColor = UIColor.white
+        self.barTintColor = GradientNavigationBar.gradient!
     }
-        
+    
 }
