@@ -13,13 +13,16 @@ enum MasterTableViewSection {
     case buses
 }
 
-class MasterViewController: UITableViewController {
+class MasterViewController: UITableViewController, UISearchControllerDelegate, UISearchResultsUpdating {
     
     var schoolId = "5bca51e785aa2627e14db459"
 
     var detailViewController: DetailViewController? = nil
     
     var sections: [MasterTableViewSection] = [.buses]
+    
+    var resultsViewController: SearchResultsViewController!
+    var searchController: UISearchController!
     
     private var starredBusesChangeListener: BusManagerStarListener?
     
@@ -70,6 +73,26 @@ class MasterViewController: UITableViewController {
             }
         })
         BusManager.shared.addStarredBusesChangeListener(starredBusesChangeListener!)
+        
+        resultsViewController = SearchResultsViewController()
+        resultsViewController.tableView.delegate = self
+        
+        searchController = UISearchController(searchResultsController: resultsViewController)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.delegate = self
+        searchController.searchBar.tintColor = UIColor.white
+        
+        if #available(iOS 11.0, *) {
+            // For iOS 11 and later, place the search bar in the navigation bar.
+            navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = false
+        } else {
+            // For iOS 10 and earlier, place the search controller's search bar in the table view's header.
+            tableView.tableHeaderView = searchController.searchBar
+        }
+        
+        definesPresentationContext = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -90,13 +113,17 @@ class MasterViewController: UITableViewController {
             let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
-            
-            if let indexPath = tableView.indexPathForSelectedRow {
-                switch sections[indexPath.section] {
-                case .starred:
-                    controller.detailItem = BusManager.shared.starredBuses[indexPath.row]
-                case .buses:
-                    controller.detailItem = BusManager.shared.buses[indexPath.row]
+
+            if let indexPath = searchController?.isActive == true ? resultsViewController.tableView.indexPathForSelectedRow : tableView.indexPathForSelectedRow {
+                if searchController?.isActive == true {
+                    controller.detailItem = BusManager.shared.filteredBuses[indexPath.row]
+                } else {
+                    switch sections[indexPath.section] {
+                    case .starred:
+                        controller.detailItem = BusManager.shared.starredBuses[indexPath.row]
+                    case .buses:
+                        controller.detailItem = BusManager.shared.buses[indexPath.row]
+                    }
                 }
                 
                 controller.navigationItem.title = controller.detailItem?.description
@@ -155,9 +182,13 @@ class MasterViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch sections[indexPath.section] {
-        case .starred, .buses:
+        if searchController?.isActive == true {
             performSegue(withIdentifier: "showDetail", sender: tableView)
+        } else {
+            switch sections[indexPath.section] {
+            case .starred, .buses:
+                performSegue(withIdentifier: "showDetail", sender: tableView)
+            }
         }
     }
 
@@ -169,6 +200,15 @@ class MasterViewController: UITableViewController {
     deinit {
         removeStarredBusesChangeListener()
     }
+    
+    /*func didPresentSearchController(_ searchController: UISearchController) {
+        if let button = searchController.searchBar.subviews.first?.subviews.last as? UIButton {
+           button.tintColor = UIColor.white
+        }
+    }*/
 
+    func updateSearchResults(for searchController: UISearchController) {
+        BusManager.shared.updateFilteredBuses(term: searchController.searchBar.text!.trimmingCharacters(in: CharacterSet.whitespaces))
+        (searchController.searchResultsController as? UITableViewController)?.tableView.reloadData()
+    }
 }
-

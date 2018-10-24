@@ -43,7 +43,7 @@ class BusTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var locationView: BusLocationView!
-    @IBOutlet weak var starButton: UIButton!
+    @IBOutlet weak var starButton: UIButton?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -72,7 +72,7 @@ class BusTableViewCell: UITableViewCell {
     }
     
     func configureStarButton(starred: Bool) {
-        starButton.tintColor = starred ? UIColor(named: "Accent") : UIColor.lightGray
+        starButton?.tintColor = starred ? UIColor(named: "Accent") : UIColor.lightGray
     }
     
     deinit {

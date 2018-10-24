@@ -18,6 +18,9 @@
 		4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3B217A9D2300B7640E /* GradientNavigationBar.swift */; };
 		4A113B3E217AA94A00B7640E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3D217AA94A00B7640E /* Models.swift */; };
 		4A113B40217AAC5B00B7640E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3F217AAC5B00B7640E /* APIService.swift */; };
+		4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */; };
+		4A39FB0A217FF18B008032DE /* BusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB09217FF18B008032DE /* BusManager.swift */; };
+		4A39FB0C217FFAF7008032DE /* BusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */; };
 		4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */; };
 		4A97EC13217EAEDA003C7C60 /* BusLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +60,9 @@
 		4A113B3B217A9D2300B7640E /* GradientNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientNavigationBar.swift; sourceTree = "<group>"; };
 		4A113B3D217AA94A00B7640E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		4A113B3F217AAC5B00B7640E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		4A39FB09217FF18B008032DE /* BusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusManager.swift; sourceTree = "<group>"; };
+		4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BusTableViewCell.xib; sourceTree = "<group>"; };
 		4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusTableViewCell.swift; sourceTree = "<group>"; };
 		4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLocationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,7 +118,10 @@
 				4A113B09217A986E00B7640E /* AppDelegate.swift */,
 				4A113B0B217A986E00B7640E /* MasterViewController.swift */,
 				4A113B3D217AA94A00B7640E /* Models.swift */,
+				4A39FB09217FF18B008032DE /* BusManager.swift */,
 				4A113B0D217A986E00B7640E /* DetailViewController.swift */,
+				4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */,
+				4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */,
 				4A113B3F217AAC5B00B7640E /* APIService.swift */,
 				4A113B0F217A986E00B7640E /* Main.storyboard */,
 				4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */,
@@ -249,6 +258,7 @@
 			files = (
 				4A113B16217A987100B7640E /* LaunchScreen.storyboard in Resources */,
 				4A113B13217A987100B7640E /* Assets.xcassets in Resources */,
+				4A39FB0C217FFAF7008032DE /* BusTableViewCell.xib in Resources */,
 				4A113B11217A986E00B7640E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,11 +286,13 @@
 			files = (
 				4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */,
 				4A113B0E217A986E00B7640E /* DetailViewController.swift in Sources */,
+				4A39FB0A217FF18B008032DE /* BusManager.swift in Sources */,
 				4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */,
 				4A113B0C217A986E00B7640E /* MasterViewController.swift in Sources */,
 				4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */,
 				4A113B40217AAC5B00B7640E /* APIService.swift in Sources */,
 				4A97EC13217EAEDA003C7C60 /* BusLocationView.swift in Sources */,
+				4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */,
 				4A113B3E217AA94A00B7640E /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

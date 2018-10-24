@@ -18,6 +18,8 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
         return Bus.formatter.date(from: temp)
     }
     
+    static let locationKey = "location"
+    
     enum BusKeys: String, CodingKey {
         case _id = "_id"
         case school_id = "school_id"
@@ -161,116 +163,5 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
                 return a.name! < b.name!
             }
         }
-    }
-}
-
-class BusManagerStarListener: Equatable {
-    let listener: () -> Void
-    init(listener closure: @escaping () -> Void) {
-        listener = closure
-    }
-    
-    static func == (a: BusManagerStarListener, b: BusManagerStarListener) -> Bool {
-        return a === b
-    }
-}
-
-class BusManager {
-    static var shared = BusManager(defaultsKey: "starredBuses")
-    
-    init(defaultsKey: String?) {
-        if let key = defaultsKey {
-            starredDefaultsKey = key
-            load()
-        }
-    }
-    
-    var starredBuses: [Bus] {
-        return _starredBuses
-    }
-    
-    var buses = [Bus]() {
-        didSet {
-            _starredBuses = buses.filter { bus in
-                return self.isStarred(bus: bus._id)
-            }
-        }
-    }
-    var starredDefaultsKey: String?
-    
-    private var isStarred = [String: Bool]()
-    private var _starredBuses = [Bus]()
-    private var starListeners = [String: [BusManagerStarListener]]()
-    private var starredBusesChangeListeners = [BusManagerStarListener]()
-    
-    private func load() {
-        if let key = starredDefaultsKey {
-            if let dict = UserDefaults.standard.dictionary(forKey: key) as? [String: Bool] {
-                isStarred = dict
-            }
-        }
-    }
-    
-    private func save() {
-        if let key = starredDefaultsKey {
-            UserDefaults.standard.set(isStarred, forKey: key)
-        }
-    }
-    
-    func toggleStar(for bus: String) {
-        isStarred[bus] = isStarred[bus] != true
-        starListeners[bus]?.forEach { (listener) in
-            listener.listener()
-        }
-        
-        if isStarred[bus] == true {
-            if let bus = buses.first(where: {aBus in
-                return aBus._id == bus
-            }) {
-                _starredBuses.append(bus)
-                _starredBuses.sort() // TODO: Find a more efficient way to do this
-                starredBusesChangeListeners.forEach { listener in
-                    listener.listener()
-                }
-            }
-        } else {
-            if let index = _starredBuses.firstIndex(where: {aBus in
-                return aBus._id == bus
-            }) {
-                _starredBuses.remove(at: index)
-                starredBusesChangeListeners.forEach { listener in
-                    listener.listener()
-                }
-            }
-        }
-        
-        save()
-    }
-    
-    func addStarListener(_ listener: BusManagerStarListener, for bus: String) {
-        if starListeners[bus] == nil {
-            starListeners[bus] = []
-        }
-        starListeners[bus]!.append(listener)
-    }
-    
-    func removeStarListener(_ listener: BusManagerStarListener, for bus: String) {
-        if let index = starListeners[bus]?.firstIndex(of: listener) {
-            starListeners[bus]!.remove(at: index)
-        }
-    }
-    
-    func addStarredBusesChangeListener(_ listener: BusManagerStarListener) {
-        starredBusesChangeListeners.append(listener)
-    }
-    
-    func removeStarredBusesChangeListener(_ listener: BusManagerStarListener) {
-        if let index = starredBusesChangeListeners.firstIndex(of: listener) {
-            starredBusesChangeListeners.remove(at: index)
-        }
-    }
-    
-    func isStarred(bus: String) -> Bool {
-        return isStarred[bus] == true
     }
 }

@@ -164,19 +164,10 @@
                         </connections>
                     </refreshControl>
                     <connections>
-                        <outlet property="searchDisplayController" destination="S2e-cn-IOk" id="UKn-4F-ObD"/>
                         <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="2N6-Jf-NID"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="S2e-cn-IOk">
-                    <connections>
-                        <outlet property="delegate" destination="7bK-jq-Zjz" id="4DV-5U-4Ag"/>
-                        <outlet property="searchContentsController" destination="7bK-jq-Zjz" id="ibH-Ml-KCe"/>
-                        <outlet property="searchResultsDataSource" destination="7bK-jq-Zjz" id="1mW-nJ-fF1"/>
-                        <outlet property="searchResultsDelegate" destination="7bK-jq-Zjz" id="eLP-um-aI8"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="708" y="-630.13493253373315"/>
         </scene>
