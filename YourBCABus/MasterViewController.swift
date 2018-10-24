@@ -113,6 +113,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.navigationItem.largeTitleDisplayMode = .never
 
             if let indexPath = searchController?.isActive == true ? resultsViewController.tableView.indexPathForSelectedRow : tableView.indexPathForSelectedRow {
                 if searchController?.isActive == true {
