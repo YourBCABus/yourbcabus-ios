@@ -19,13 +19,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8p-bw-R6R">
-                        <rect key="frame" x="16" y="31" width="287" height="18"/>
+                        <rect key="frame" x="16" y="31" width="234" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" name="Secondary Text"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfh-4I-IOB">
-                        <rect key="frame" x="16" y="11" width="287" height="21"/>
+                        <rect key="frame" x="16" y="11" width="234" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -38,16 +38,32 @@
                             <constraint firstAttribute="width" constant="48" id="KDv-6g-yR3"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXx-VC-9ad">
+                        <rect key="frame" x="253" y="5" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="SWe-QN-Rc5"/>
+                            <constraint firstAttribute="height" constant="50" id="u4G-MD-PS4"/>
+                        </constraints>
+                        <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" title="Button" image="Star"/>
+                        <connections>
+                            <action selector="toggleStarWithSender:" destination="e6d-2w-6HZ" eventType="touchUpInside" id="Wom-0E-3i4"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="YJD-7B-fTi" firstAttribute="leading" secondItem="f8p-bw-R6R" secondAttribute="trailing" constant="8" id="5KV-xu-xuf"/>
+                    <constraint firstItem="YJD-7B-fTi" firstAttribute="leading" secondItem="XXx-VC-9ad" secondAttribute="trailing" constant="8" id="D30-IY-T0T"/>
                     <constraint firstItem="xfh-4I-IOB" firstAttribute="top" secondItem="efh-en-Fad" secondAttribute="top" constant="11" id="HBm-Qi-ea4"/>
+                    <constraint firstItem="XXx-VC-9ad" firstAttribute="leading" secondItem="f8p-bw-R6R" secondAttribute="trailing" constant="3" id="KPS-f8-bhH"/>
                     <constraint firstItem="xfh-4I-IOB" firstAttribute="leading" secondItem="efh-en-Fad" secondAttribute="leading" constant="16" id="LLF-Xj-bFa"/>
+                    <constraint firstItem="XXx-VC-9ad" firstAttribute="leading" secondItem="f8p-bw-R6R" secondAttribute="trailing" constant="3" id="Qj9-w7-4qk"/>
+                    <constraint firstItem="XXx-VC-9ad" firstAttribute="leading" secondItem="f8p-bw-R6R" secondAttribute="trailing" constant="3" id="XR2-iv-zsY"/>
                     <constraint firstAttribute="trailing" secondItem="YJD-7B-fTi" secondAttribute="trailing" constant="16" id="ZPe-M6-8l8"/>
                     <constraint firstItem="f8p-bw-R6R" firstAttribute="leading" secondItem="efh-en-Fad" secondAttribute="leading" constant="16" id="e8y-ex-I86"/>
                     <constraint firstItem="f8p-bw-R6R" firstAttribute="top" secondItem="xfh-4I-IOB" secondAttribute="bottom" constant="-1" id="f4N-kB-zii"/>
                     <constraint firstItem="YJD-7B-fTi" firstAttribute="centerY" secondItem="efh-en-Fad" secondAttribute="centerY" id="fYl-UI-ajx"/>
-                    <constraint firstItem="YJD-7B-fTi" firstAttribute="leading" secondItem="xfh-4I-IOB" secondAttribute="trailing" constant="8" id="xhL-8w-rKp"/>
+                    <constraint firstItem="XXx-VC-9ad" firstAttribute="leading" secondItem="xfh-4I-IOB" secondAttribute="trailing" constant="3" id="mFJ-Tp-BLg"/>
+                    <constraint firstItem="XXx-VC-9ad" firstAttribute="centerY" secondItem="YJD-7B-fTi" secondAttribute="centerY" id="p9o-72-Syj"/>
                     <constraint firstAttribute="bottom" secondItem="f8p-bw-R6R" secondAttribute="bottom" constant="10.5" id="zDI-rW-SCR"/>
                 </constraints>
             </tableViewCellContentView>
@@ -55,11 +71,13 @@
                 <outlet property="descriptionLabel" destination="f8p-bw-R6R" id="zff-1y-yRf"/>
                 <outlet property="locationView" destination="YJD-7B-fTi" id="PNk-sa-akf"/>
                 <outlet property="nameLabel" destination="xfh-4I-IOB" id="43q-nJ-oV8"/>
+                <outlet property="starButton" destination="XXx-VC-9ad" id="Hjp-yQ-2yG"/>
             </connections>
             <point key="canvasLocation" x="24.800000000000001" y="136.73163418290855"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Star" width="1000" height="1000"/>
         <namedColor name="Secondary Text">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
