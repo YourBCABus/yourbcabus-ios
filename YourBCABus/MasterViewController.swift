@@ -9,6 +9,7 @@
 import UIKit
 
 enum MasterTableViewSection {
+    case maps
     case starred
     case buses
 }
@@ -19,7 +20,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     var detailViewController: DetailViewController? = nil
     
-    var sections: [MasterTableViewSection] = [.buses]
+    var sections: [MasterTableViewSection] = [.maps, .buses]
     
     var resultsViewController: SearchResultsViewController!
     var searchController: UISearchController!
@@ -124,6 +125,9 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
                         controller.detailItem = BusManager.shared.starredBuses[indexPath.row]
                     case .buses:
                         controller.detailItem = BusManager.shared.buses[indexPath.row]
+                    default:
+                        controller.detailItem = nil
+                        controller.navigationItem.title = nil
                     }
                 }
                 
@@ -132,18 +136,25 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
                 controller.detailItem = nil
                 controller.navigationItem.title = nil
             }
+        } else if segue.identifier == "showMap" {
+            let controller = (segue.destination as! UINavigationController).topViewController!
+            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.navigationItem.largeTitleDisplayMode = .never
         }
     }
 
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        sections = BusManager.shared.starredBuses.count > 0 ? [.starred, .buses] : [.buses]
+        sections = BusManager.shared.starredBuses.count > 0 ? [.maps, .starred, .buses] : [.maps, .buses]
         return sections.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch sections[section] {
+        case .maps:
+            return "Maps"
         case .starred:
             return "Starred Buses"
         case .buses:
@@ -153,6 +164,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
+        case .maps:
+            return 1
         case .starred:
             return BusManager.shared.starredBuses.count
         case .buses:
@@ -162,6 +175,11 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
+        case .maps:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
+            
+            cell.textLabel?.text = "BCA Parking Lot Map"
+            return cell
         case .starred:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BusCell", for: indexPath) as! BusTableViewCell
             
@@ -176,9 +194,15 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch sections[indexPath.section] {
-        case .starred, .buses:
+        if searchController?.isActive == true {
             return 60
+        } else {
+            switch sections[indexPath.section] {
+            case .maps:
+                return 44
+            case .starred, .buses:
+                return 60
+            }
         }
     }
     
@@ -187,8 +211,12 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             performSegue(withIdentifier: "showDetail", sender: tableView)
         } else {
             switch sections[indexPath.section] {
+            case .maps:
+                performSegue(withIdentifier: "showMap", sender: tableView)
             case .starred, .buses:
                 performSegue(withIdentifier: "showDetail", sender: tableView)
+            default:
+                break
             }
         }
     }
