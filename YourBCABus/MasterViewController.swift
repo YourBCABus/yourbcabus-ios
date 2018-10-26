@@ -25,7 +25,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     var resultsViewController: SearchResultsViewController!
     var searchController: UISearchController!
     
-    private var starredBusesChangeListener: BusManagerStarListener?
+    private var notificationTokens = [NotificationToken]()
     
     func reloadBuses(cachingMode: APICachingMode, completion: ((Bool) -> Void)? = nil) {
         APIService.shared.getBuses(schoolId: schoolId, cachingMode: cachingMode) { result in
@@ -34,6 +34,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
                 
                 DispatchQueue.main.async {
                     BusManager.shared.buses = temp
+                    BusManager.shared.busesUpdated()
                     self.tableView.reloadData()
                     completion?(true)
                 }
@@ -44,12 +45,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
                     completion?(false)
                 }
             }
-        }
-    }
-    
-    func removeStarredBusesChangeListener() {
-        if let listener = starredBusesChangeListener {
-            BusManager.shared.removeStarredBusesChangeListener(listener)
         }
     }
 
@@ -64,16 +59,14 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         reloadBuses(cachingMode: .both)
         refreshControl?.tintColor = UIColor.white
         
-        removeStarredBusesChangeListener()
-        starredBusesChangeListener = BusManagerStarListener(listener: { [unowned self] in
+        notificationTokens.append(NotificationCenter.default.observe(name: Notification.Name(BusManager.NotificationName.starredBusesChange.rawValue), object: nil, queue: nil, using: { [unowned self] notification in
             let index = self.sections.firstIndex(of: .starred)
             if index != nil && BusManager.shared.starredBuses.count > 0 {
                 self.tableView.reloadSections(IndexSet(integer: index!), with: .fade)
             } else {
                 self.tableView.reloadData()
             }
-        })
-        BusManager.shared.addStarredBusesChangeListener(starredBusesChangeListener!)
+        }))
         
         resultsViewController = SearchResultsViewController()
         resultsViewController.tableView.delegate = self
@@ -224,10 +217,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return false
-    }
-    
-    deinit {
-        removeStarredBusesChangeListener()
     }
     
     /*func didPresentSearchController(_ searchController: UISearchController) {

@@ -7,11 +7,10 @@
 //
 
 import UIKit
+import MapKit
 
 class DetailViewController: UIViewController {
-
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
-    
+        
     var detailItem: Bus? {
         didSet {
             configureView()
@@ -21,17 +20,19 @@ class DetailViewController: UIViewController {
     func configureView() {
         // Update the user interface for the detail item.
         if let bus = detailItem {
-            if let label = detailDescriptionLabel {
-                navigationItem.title = bus.description
-                label.text = bus.description
-            }
+            navigationItem.title = bus.description
+            (children.first(where: { controller in
+                return controller is MapViewController
+            }) as? MapViewController)?.detailBus = bus._id
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
+        
         // Do any additional setup after loading the view, typically from a nib.
+                
         configureView()
     }
 

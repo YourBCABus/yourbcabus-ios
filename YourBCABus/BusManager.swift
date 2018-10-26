@@ -8,25 +8,27 @@
 
 import Foundation
 
-class BusManagerStarListener: Equatable {
-    let listener: () -> Void
-    init(listener closure: @escaping () -> Void) {
-        listener = closure
-    }
-    
-    static func == (a: BusManagerStarListener, b: BusManagerStarListener) -> Bool {
-        return a === b
-    }
-}
-
 class BusManager {
     static var shared = BusManager(defaultsKey: "starredBuses")
+    
+    enum NotificationName: String {
+        case starredBusesChange = "YBBStar"
+        case busesChange = "YBBBusesChange"
+    }
+    
+    enum NotificationUserInfoKey {
+        case busID
+    }
     
     init(defaultsKey: String?) {
         if let key = defaultsKey {
             starredDefaultsKey = key
             load()
         }
+        
+        notificationTokens.append(notificationCenter.observe(name: Notification.Name(NotificationName.busesChange.rawValue), object: self, queue: nil, using: { [unowned self] notification in
+            self._starredBuses = self.buses.filter { self.isStarred(bus: $0._id) }
+        }))
     }
     
     var starredBuses: [Bus] {
@@ -37,20 +39,15 @@ class BusManager {
         return _filteredBuses
     }
     
-    var buses = [Bus]() {
-        didSet {
-            _starredBuses = buses.filter { bus in
-                return self.isStarred(bus: bus._id)
-            }
-        }
-    }
+    var buses = [Bus]()
+    
     var starredDefaultsKey: String?
+    var notificationCenter = NotificationCenter.default
     
     private var isStarred = [String: Bool]()
     private var _starredBuses = [Bus]()
     private var _filteredBuses = [Bus]()
-    private var starListeners = [String: [BusManagerStarListener]]()
-    private var starredBusesChangeListeners = [BusManagerStarListener]()
+    private var notificationTokens = [NotificationToken]()
     
     private func load() {
         if let key = starredDefaultsKey {
@@ -68,9 +65,6 @@ class BusManager {
     
     func toggleStar(for bus: String) {
         isStarred[bus] = isStarred[bus] != true
-        starListeners[bus]?.forEach { (listener) in
-            listener.listener()
-        }
         
         if isStarred[bus] == true {
             if let bus = buses.first(where: {aBus in
@@ -78,45 +72,21 @@ class BusManager {
             }) {
                 _starredBuses.append(bus)
                 _starredBuses.sort() // TODO: Find a more efficient way to do this
-                starredBusesChangeListeners.forEach { listener in
-                    listener.listener()
-                }
             }
         } else {
             if let index = _starredBuses.firstIndex(where: {aBus in
                 return aBus._id == bus
             }) {
                 _starredBuses.remove(at: index)
-                starredBusesChangeListeners.forEach { listener in
-                    listener.listener()
-                }
             }
         }
         
+        notificationCenter.post(name: NSNotification.Name(NotificationName.starredBusesChange.rawValue), object: self, userInfo: [NotificationUserInfoKey.busID: bus])
         save()
     }
     
-    func addStarListener(_ listener: BusManagerStarListener, for bus: String) {
-        if starListeners[bus] == nil {
-            starListeners[bus] = []
-        }
-        starListeners[bus]!.append(listener)
-    }
-    
-    func removeStarListener(_ listener: BusManagerStarListener, for bus: String) {
-        if let index = starListeners[bus]?.firstIndex(of: listener) {
-            starListeners[bus]!.remove(at: index)
-        }
-    }
-    
-    func addStarredBusesChangeListener(_ listener: BusManagerStarListener) {
-        starredBusesChangeListeners.append(listener)
-    }
-    
-    func removeStarredBusesChangeListener(_ listener: BusManagerStarListener) {
-        if let index = starredBusesChangeListeners.firstIndex(of: listener) {
-            starredBusesChangeListeners.remove(at: index)
-        }
+    func busesUpdated() {
+        notificationCenter.post(name: NSNotification.Name(NotificationName.busesChange.rawValue), object: self)
     }
     
     func isStarred(bus: String) -> Bool {

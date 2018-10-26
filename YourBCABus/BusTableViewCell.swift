@@ -9,34 +9,17 @@
 import UIKit
 
 class BusTableViewCell: UITableViewCell {
-    var starListener: BusManagerStarListener!
-    
-    func setupListener() {
-        starListener = BusManagerStarListener(listener: { [unowned self] in
-            self.configureStarButton(starred: BusManager.shared.isStarred(bus: self.bus!._id))
-        })
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupListener()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupListener()
-    }
+    private var starListener: NotificationToken?
     
     var bus: Bus? {
-        willSet {
-            if let id = bus?._id {
-                BusManager.shared.removeStarListener(starListener, for: id)
-            }
-        }
         didSet {
             configureView()
             if let id = bus?._id {
-                BusManager.shared.addStarListener(starListener, for: id)
+                starListener = NotificationCenter.default.observe(name: NSNotification.Name(BusManager.NotificationName.starredBusesChange.rawValue), object: nil, queue: nil, using: { [unowned self] notification in
+                    if notification.userInfo?[BusManager.NotificationUserInfoKey.busID] as? String == id {
+                        self.configureStarButton(starred: BusManager.shared.isStarred(bus: id))
+                    }
+                })
             }
         }
     }
@@ -73,12 +56,6 @@ class BusTableViewCell: UITableViewCell {
     
     func configureStarButton(starred: Bool) {
         starButton?.tintColor = starred ? UIColor(named: "Accent") : UIColor.lightGray
-    }
-    
-    deinit {
-        if let id = bus?._id {
-            BusManager.shared.removeStarListener(starListener, for: id)
-        }
     }
 
 }
