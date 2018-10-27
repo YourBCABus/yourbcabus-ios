@@ -173,6 +173,9 @@
                     <navigationItem key="navigationItem" title="YourBCABus" id="Zdf-7t-Un8">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="iUO-aF-SMC">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="bZv-Tc-Ktj" kind="presentation" modalPresentationStyle="formSheet" id="ayf-st-iwA"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="iz3-zH-zrJ">
@@ -229,6 +232,80 @@
             </objects>
             <point key="canvasLocation" x="2362" y="-630"/>
         </scene>
+        <!--Settings-->
+        <scene sceneID="4Jh-Uy-eAl">
+            <objects>
+                <tableViewController id="iVQ-ew-cfH" customClass="SettingsViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="hi8-tf-FO6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="Background"/>
+                        <sections>
+                            <tableViewSection headerTitle="Notifications" footerTitle="These notifications will appear for starred buses." id="2Jv-Tb-e54">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="jpu-JO-I2d">
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jpu-JO-I2d" id="TK0-MS-R5N">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bus Arrival" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5m-wt-bE3">
+                                                    <rect key="frame" x="16" y="11.333333333333336" width="284" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jib-8t-gHz">
+                                                    <rect key="frame" x="308" y="6.3333333333333321" width="51" height="30.999999999999996"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Jib-8t-gHz" secondAttribute="trailing" constant="18" id="4MK-VS-Gzu"/>
+                                                <constraint firstItem="Jib-8t-gHz" firstAttribute="centerY" secondItem="TK0-MS-R5N" secondAttribute="centerY" id="Dmv-bj-5Jo"/>
+                                                <constraint firstItem="C5m-wt-bE3" firstAttribute="leading" secondItem="TK0-MS-R5N" secondAttribute="leading" constant="16" id="Ip6-ny-pcv"/>
+                                                <constraint firstItem="Jib-8t-gHz" firstAttribute="leading" secondItem="C5m-wt-bE3" secondAttribute="trailing" constant="8" id="JH7-eU-0Bo"/>
+                                                <constraint firstItem="C5m-wt-bE3" firstAttribute="centerY" secondItem="TK0-MS-R5N" secondAttribute="centerY" id="unP-01-Cqh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="iVQ-ew-cfH" id="8bc-MG-9N0"/>
+                            <outlet property="delegate" destination="iVQ-ew-cfH" id="zyF-4F-Mmo"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="ebM-KK-FbI">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="gvX-qq-bfr">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="doneWithSender:" destination="iVQ-ew-cfH" id="4sN-WA-VKd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bcV-hd-zac" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2360.8000000000002" y="-1339.6551724137933"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="33D-1h-y8h">
+            <objects>
+                <navigationController id="bZv-Tc-Ktj" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="bVq-J6-IQR" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="iVQ-ew-cfH" kind="relationship" relationship="rootViewController" id="7sc-HG-NFm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fro-pK-2Qs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1580" y="-1339"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="vQu-bN-kQm">
             <objects>
@@ -255,6 +332,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="eDm-vV-CvY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDR-eL-33F" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -272,7 +350,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QJR-56-JLJ"/>
+        <segue reference="bNr-5q-qI0"/>
         <segue reference="J2R-ju-KXf"/>
     </inferredMetricsTieBreakers>
 </document>
