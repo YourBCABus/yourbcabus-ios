@@ -7,6 +7,12 @@
 //
 
 import Foundation
+import CoreLocation
+
+struct Coordinate: Codable {
+    let latitude: Double
+    let longitude: Double
+}
 
 struct Bus: Codable, Comparable, CustomStringConvertible {
     static private let formatter = ISO8601DateFormatter()
@@ -163,5 +169,110 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
                 return a.name! < b.name!
             }
         }
+    }
+}
+
+struct Stop: Codable, Comparable, CustomStringConvertible {
+    static private let formatter = ISO8601DateFormatter()
+    static private func formatDate(from: String) -> Date? {
+        var temp = from
+        if let match = temp.firstIndex(of: ".") {
+            temp.removeSubrange(match...temp.index(match, offsetBy: 3))
+        }
+        return Stop.formatter.date(from: temp)
+    }
+    
+    enum Keys: String, CodingKey {
+        case _id = "_id"
+        case bus_id = "bus_id"
+        case available = "available"
+        case name = "name"
+        case location = "location"
+        case arrival_time = "arrival_time"
+        case invalidate_time = "invalidate_time"
+        case arrives = "arrives"
+        case invalidates = "invalidates"
+        case order = "order"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Keys.self)
+        _id = try container.decode(String.self, forKey: ._id)
+        bus_id = try container.decode(String.self, forKey: .bus_id)
+        available = try container.decode(Bool.self, forKey: .available)
+        name = container.contains(.name) ? try container.decode(String.self, forKey: .name) : nil
+        location = try container.decode(Coordinate.self, forKey: .location)
+        order = try container.decode(Double.self, forKey: .order)
+        
+        if container.contains(.arrives) {
+            arrives = try container.decode(Date.self, forKey: .arrives)
+        } else {
+            let arrival_time = container.contains(.arrival_time) ? try container.decode(String?.self, forKey: .arrival_time) : nil
+            if let time = arrival_time {
+                arrives = Stop.formatDate(from: time)
+            } else {
+                arrives = nil
+            }
+        }
+        
+        if container.contains(.invalidates) {
+            invalidates = try container.decode(Date.self, forKey: .invalidates)
+        } else {
+            let invalidate_time = container.contains(.invalidate_time) ? try container.decode(String?.self, forKey: .invalidate_time) : nil
+            if let time = invalidate_time {
+                invalidates = Stop.formatDate(from: time)
+            } else {
+                invalidates = nil
+            }
+        }
+    }
+    
+    let _id: String
+    let bus_id: String
+    let name: String?
+    let location: Coordinate
+    let order: Double
+    let arrives: Date?
+    let invalidates: Date?
+    let available: Bool
+    
+    static func < (a: Stop, b: Stop) -> Bool {
+        return a.order < b.order
+    }
+    
+    static func == (a: Stop, b: Stop) -> Bool {
+        return a.order == b.order
+    }
+    
+    static func > (a: Stop, b: Stop) -> Bool {
+        return a.order > b.order
+    }
+    
+    var description: String {
+        if let name = name {
+            return name
+        } else {
+            return "\(location.latitude), \(location.longitude)"
+        }
+    }
+}
+
+extension Bus {
+    func getStatus() -> String {
+        guard self.available else {
+            return "Not running"
+        }
+        
+        if self.location == nil {
+            return "Not at BCA"
+        }
+        
+        return "Arrived at BCA"
+    }
+}
+
+extension CLLocationCoordinate2D {
+    init(from: Coordinate) {
+        self.init(latitude: CLLocationDegrees(from.latitude), longitude: CLLocationDegrees(from.longitude))
     }
 }

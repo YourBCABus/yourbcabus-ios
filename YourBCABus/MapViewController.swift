@@ -12,6 +12,8 @@ import MapKit
 struct MapViewControllerPoints {
     static var standard = MapViewControllerPoints()
     
+    var school = CLLocationCoordinate2D(latitude: 40.900623, longitude: -74.033684)
+    
     var au = CLLocationCoordinate2D(latitude: 40.9017077, longitude: -74.0346963)
     var auString = "AU"
     
@@ -95,6 +97,16 @@ class BusAnnotation: MKPointAnnotation {
     var type = BusType.standard
 }
 
+class StopAnnotation: MKPointAnnotation {
+    var bus: Bus?
+}
+
+struct BusMapPoint {
+    let coordinate: CLLocationCoordinate2D
+    let title: String
+    let bus: Bus?
+}
+
 class MapViewController: UIViewController, MKMapViewDelegate {
     
     var points = MapViewControllerPoints.standard
@@ -104,7 +116,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     var schoolRect =
-        MKMapRect(origin: MKMapPoint(CLLocationCoordinate2D(latitude: 40.900623, longitude: -74.033684)), size: MKMapSize(width: 400, height: 100))
+        MKMapRect(origin: MKMapPoint(MapViewControllerPoints.standard.school), size: MKMapSize(width: 400, height: 100))
     
     var busImage = UIImage(named: "Annotation - Bus")!
     var starredImage = UIImage(named: "Annotation - Bus Starred")!
@@ -127,8 +139,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    var mapPoints: [[BusMapPoint]]? {
+        didSet {
+            if isViewLoaded {
+                reloadStops()
+            }
+        }
+    }
     
     @objc func reloadAnnotations(notification: Notification? = nil) {
+        mapView.removeAnnotations(mapView.annotations.filter {$0 is BusAnnotation})
         mapView.addAnnotations(BusManager.shared.buses.map({ (bus) in
             guard let loc = bus.location else {
                 return nil
@@ -153,6 +173,64 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             return annotation!
         }))
     }
+    
+    func reloadStops() {
+        mapView.removeOverlays(mapView.overlays)
+        mapView.removeAnnotations(mapView.annotations.filter { $0 is StopAnnotation })
+        
+        if let pointSets = mapPoints {
+            let rootAnnotation = StopAnnotation()
+            rootAnnotation.coordinate = points.school
+            rootAnnotation.title = "BCA"
+            mapView.addAnnotation(rootAnnotation)
+            
+            pointSets.forEach { pointSet in
+                let coords = [points.school] + pointSet.map { $0.coordinate }
+                let overlay = MKPolyline(coordinates: coords, count: coords.count)
+                mapView.addOverlay(overlay)
+                
+                mapView.addAnnotations(pointSet.map { point in
+                    let annotation = StopAnnotation()
+                    annotation.coordinate = point.coordinate
+                    annotation.title = point.title
+                    annotation.bus = point.bus
+                    return annotation
+                })
+            }
+        }
+    }
+    
+    func showMapPoints() {
+        if mapPoints?.first(where: { $0.count > 0 }) != nil {
+            mapView.mapType = .mutedStandard
+            
+            let maxDeg = CLLocationDegrees(Int.max)
+            let minLat = mapPoints!.reduce(maxDeg, { res, set in
+                return min(res, set.reduce(points.school.latitude, { res, point in
+                    return min(res, Double(point.coordinate.latitude))
+                }))
+            })
+            let minLong = mapPoints!.reduce(maxDeg, { res, set in
+                return min(res, set.reduce(points.school.longitude, { res, point in
+                    return min(res, Double(point.coordinate.longitude))
+                }))
+            })
+            
+            let minDeg = CLLocationDegrees(Int.min)
+            let maxLat = mapPoints!.reduce(minDeg, { res, set in
+                return max(res, set.reduce(points.school.latitude, { res, point in
+                    return max(res, Double(point.coordinate.latitude))
+                }))
+            })
+            let maxLong = mapPoints!.reduce(minDeg, { res, set in
+                return max(res, set.reduce(points.school.longitude, { res, point in
+                    return max(res, Double(point.coordinate.longitude))
+                }))
+            })
+            
+            mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLong + maxLong) / 2), span: MKCoordinateSpan(latitudeDelta: maxLat - minLat + 0.03, longitudeDelta: maxLong - minLong + 0.02)), animated: true)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -163,21 +241,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.mapType = .hybridFlyover
         mapView.delegate = self
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: "BusView")
-        
-        /* for i in "ABCDEFGHIJK" {
-            for j in 1...10 {
-                if let coord = points.pointForLocation("\(i)\(j)") {
-                    let a = MKPointAnnotation()
-                    a.coordinate = coord
-                    a.title = "\(i)\(j)"
-                    mapView.addAnnotation(a)
-                }
-            }
-        } */
+        mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "StopView")
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadAnnotations(notification:)), name: Notification.Name(BusManager.NotificationName.busesChange.rawValue), object: nil)
         
         reloadAnnotations()
+        reloadStops()
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
@@ -214,6 +283,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
             
             return view
+        case _ as StopAnnotation:
+            return mapView.dequeueReusableAnnotationView(withIdentifier: "StopView", for: annotation)
         default:
             return nil
         }
@@ -230,6 +301,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         default:
             break
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor(named: "Accent")!
+        renderer.lineWidth = 3
+        return renderer
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

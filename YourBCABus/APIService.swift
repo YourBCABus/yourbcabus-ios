@@ -127,4 +127,8 @@ class APIService {
     func getBuses(schoolId: String, cachingMode: APICachingMode = .preferCache, _ completion: @escaping (APIResult<[Bus]>) -> Void) {
         getResource(apiPath: "/schools/\(schoolId)/buses", cachedAs: "\(schoolId).buses", cachingMode: cachingMode, completion)
     }
+    
+    func getStops(schoolId: String, busId: String, cachingMode: APICachingMode = .preferCache, _ completion: @escaping (APIResult<[Stop]>) -> Void) {
+        getResource(apiPath: "/schools/\(schoolId)/buses/\(busId)/stops", cachedAs: "\(schoolId).buses.\(busId).stops", cachingMode: cachingMode, completion)
+    }
 }
