@@ -12,6 +12,21 @@ import CoreLocation
 struct Coordinate: Codable {
     let latitude: Double
     let longitude: Double
+    
+    init(latitude: Double, longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+    
+    init(from coordinate: CLLocationCoordinate2D) {
+        self.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
+    }
+}
+
+struct School: Codable {
+    let _id: String
+    let name: String
+    let location: Coordinate
 }
 
 struct Bus: Codable, Comparable, CustomStringConvertible {
