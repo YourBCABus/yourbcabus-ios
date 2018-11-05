@@ -37,6 +37,7 @@ class BusTableViewCell: UITableViewCell {
         if let bus = bus {
             nameLabel.text = bus.name == nil ? "(no name)" : bus.name!
             descriptionLabel.text = bus.location == nil ? "Not at BCA" : "Arrived at BCA"
+            locationView.available = bus.available
             locationView.location = bus.location
             configureStarButton(starred: BusManager.shared.isStarred(bus: bus._id))
         }

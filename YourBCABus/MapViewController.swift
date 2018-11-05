@@ -228,7 +228,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 }))
             })
             
-            mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLong + maxLong) / 2), span: MKCoordinateSpan(latitudeDelta: maxLat - minLat + 0.03, longitudeDelta: maxLong - minLong + 0.02)), animated: true)
+            mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLong + maxLong) / 2), span: MKCoordinateSpan(latitudeDelta: maxLat - minLat + 0.03, longitudeDelta: maxLong - minLong + 0.02)), animated: false)
         }
     }
 

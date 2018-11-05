@@ -29,6 +29,10 @@
 		4AD958352180AEF800AC7EA9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD958342180AEF800AC7EA9 /* MapKit.framework */; };
 		4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEE49C2180CF5200F827FB /* MapViewController.swift */; };
 		4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */; };
+		4AE7066C218FE4C100A95AC0 /* Navigation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */; };
+		4AE7066E218FE80E00A95AC0 /* NavigationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7066D218FE80E00A95AC0 /* NavigationTableViewController.swift */; };
+		4AE70673218FED2200A95AC0 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE70672218FED2200A95AC0 /* RoutesTableViewController.swift */; };
+		4AE70675218FED3A00A95AC0 /* ModalNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE70674218FED3A00A95AC0 /* ModalNavigationViewController.swift */; };
 		7C738D456BF364DD8B3E1793 /* Pods_YourBCABusUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */; };
 		BDEF7596E79AB6338CCFAF6F /* Pods_YourBCABusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56128607A369641345A3EA52 /* Pods_YourBCABusTests.framework */; };
 		E4310F9683A7319F8290BE04 /* Pods_YourBCABus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A35AB7A4B47B8135C0288F /* Pods_YourBCABus.framework */; };
@@ -82,6 +86,10 @@
 		4AD958342180AEF800AC7EA9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4ADEE49C2180CF5200F827FB /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterHelpers.swift; sourceTree = "<group>"; };
+		4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Navigation.storyboard; sourceTree = "<group>"; };
+		4AE7066D218FE80E00A95AC0 /* NavigationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTableViewController.swift; sourceTree = "<group>"; };
+		4AE70672218FED2200A95AC0 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
+		4AE70674218FED3A00A95AC0 /* ModalNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationViewController.swift; sourceTree = "<group>"; };
 		4CFBF44AFBEE9A224C81F575 /* Pods-YourBCABusUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABusUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABusUITests/Pods-YourBCABusUITests.release.xcconfig"; sourceTree = "<group>"; };
 		56128607A369641345A3EA52 /* Pods_YourBCABusTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABusTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABusUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,6 +173,7 @@
 				4AC8478321850792001E8698 /* Utilities */,
 				4A113B09217A986E00B7640E /* AppDelegate.swift */,
 				4A113B0F217A986E00B7640E /* Main.storyboard */,
+				4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */,
 				4A113B12217A987100B7640E /* Assets.xcassets */,
 				4AC84784218507A4001E8698 /* Resources */,
 			);
@@ -192,11 +201,11 @@
 		4AC8477D2185070B001E8698 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4A113B0B217A986E00B7640E /* MasterViewController.swift */,
+				4AE70670218FE82100A95AC0 /* Master */,
+				4AE70671218FE83400A95AC0 /* Navigation */,
 				4A113B0D217A986E00B7640E /* DetailViewController.swift */,
 				4ADEE49C2180CF5200F827FB /* MapViewController.swift */,
 				4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */,
-				4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -251,6 +260,25 @@
 				57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4AE70670218FE82100A95AC0 /* Master */ = {
+			isa = PBXGroup;
+			children = (
+				4A113B0B217A986E00B7640E /* MasterViewController.swift */,
+				4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */,
+			);
+			name = Master;
+			sourceTree = "<group>";
+		};
+		4AE70671218FE83400A95AC0 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				4AE7066D218FE80E00A95AC0 /* NavigationTableViewController.swift */,
+				4AE70672218FED2200A95AC0 /* RoutesTableViewController.swift */,
+				4AE70674218FED3A00A95AC0 /* ModalNavigationViewController.swift */,
+			);
+			name = Navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,6 +397,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AE7066C218FE4C100A95AC0 /* Navigation.storyboard in Resources */,
 				4A113B16217A987100B7640E /* LaunchScreen.storyboard in Resources */,
 				4A113B13217A987100B7640E /* Assets.xcassets in Resources */,
 				4ABB8C7E2180C05A00158FD6 /* GoogleService-Info.plist in Resources */,
@@ -493,8 +522,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AE7066E218FE80E00A95AC0 /* NavigationTableViewController.swift in Sources */,
 				4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */,
 				4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */,
+				4AE70673218FED2200A95AC0 /* RoutesTableViewController.swift in Sources */,
 				4A113B0E217A986E00B7640E /* DetailViewController.swift in Sources */,
 				4A39FB0A217FF18B008032DE /* BusManager.swift in Sources */,
 				4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */,
@@ -506,6 +537,7 @@
 				4A97EC13217EAEDA003C7C60 /* BusLocationView.swift in Sources */,
 				4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */,
 				4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */,
+				4AE70675218FED3A00A95AC0 /* ModalNavigationViewController.swift in Sources */,
 				4A113B3E217AA94A00B7640E /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

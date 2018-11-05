@@ -9,6 +9,7 @@
 import UIKit
 
 enum MasterTableViewSection {
+    case navigation
     case maps
     case starred
     case buses
@@ -20,7 +21,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     var detailViewController: DetailViewController? = nil
     
-    var sections: [MasterTableViewSection] = [.maps, .buses]
+    var sections: [MasterTableViewSection] = [.navigation, .maps, .buses]
     
     var resultsViewController: SearchResultsViewController!
     var searchController: UISearchController!
@@ -140,7 +141,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        sections = BusManager.shared.starredBuses.count > 0 ? [.maps, .starred, .buses] : [.maps, .buses]
+        sections = BusManager.shared.starredBuses.count > 0 ? [.navigation, .maps, .starred, .buses] : [.navigation, .maps, .buses]
         return sections.count
     }
     
@@ -152,11 +153,15 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             return "Starred Buses"
         case .buses:
             return "Buses"
+        default:
+            return nil
         }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
+        case .navigation:
+            return 1
         case .maps:
             return 1
         case .starred:
@@ -168,6 +173,11 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
+        case .navigation:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
+            
+            cell.textLabel?.text = "Navigation"
+            return cell
         case .maps:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
             
@@ -191,7 +201,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             return 60
         } else {
             switch sections[indexPath.section] {
-            case .maps:
+            case .navigation, .maps:
                 return 44
             case .starred, .buses:
                 return 60
@@ -204,6 +214,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             performSegue(withIdentifier: "showDetail", sender: tableView)
         } else {
             switch sections[indexPath.section] {
+            case .navigation:
+                performSegue(withIdentifier: "showNavigation", sender: tableView)
             case .maps:
                 performSegue(withIdentifier: "showMap", sender: tableView)
             case .starred, .buses:

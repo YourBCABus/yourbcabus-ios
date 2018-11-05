@@ -109,6 +109,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             cell.statusLabel.text = detailItem?.getStatus()
             cell.secondaryLabel.text = detailItem == nil ? nil : "\(stops.count) stop\(stops.count == 1 ? "" : "s")"
             cell.locationView.location = detailItem?.location
+            cell.locationView.available = detailItem?.available == true
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "StopCell")!

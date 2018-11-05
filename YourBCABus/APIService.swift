@@ -29,6 +29,7 @@ enum APICachingMode {
 
 enum APIError: Error {
     case noData
+    case noCacheIdentifier
 }
 
 class APIService {
@@ -84,13 +85,17 @@ class APIService {
         task.resume()
     }
     
-    private func getResource<T>(apiPath: String, cachedAs cacheIdentifier: String, cachingMode: APICachingMode, _ completion: @escaping (APIResult<T>) -> Void) where T: Codable {
+    private func getResource<T>(apiPath: String, cachedAs cacheIdentifier: String?, cachingMode: APICachingMode, _ completion: @escaping (APIResult<T>) -> Void) where T: Codable {
         var didFetchFromCache = false
         
         if cachingMode != .forceFetch {
             do {
-                completion(APIResult(ok: true, error: nil, result: try readCache(identifier: cacheIdentifier), source: .cached))
-                didFetchFromCache = true
+                if let identifier = cacheIdentifier {
+                    completion(APIResult(ok: true, error: nil, result: try readCache(identifier: identifier), source: .cached))
+                    didFetchFromCache = true
+                } else {
+                    throw APIError.noCacheIdentifier
+                }
                 
                 if cachingMode == .preferCache {
                     return
@@ -114,9 +119,11 @@ class APIService {
                 do {
                     let object = try self.decoder.decode(T.self, from: data!)
                     completion(APIResult(ok: true, error: nil, result: object, source: .fetched))
-                    self.writeCache(object, identifier: cacheIdentifier)
+                    if let identifier = cacheIdentifier {
+                        self.writeCache(object, identifier: identifier)
+                    }
                 } catch {
-                    if (!didFetchFromCache) {
+                    if !didFetchFromCache {
                         completion(APIResult(ok: false, error: error, result: nil, source: .fetched))
                     }
                 }
@@ -128,7 +135,20 @@ class APIService {
         getResource(apiPath: "/schools/\(schoolId)/buses", cachedAs: "\(schoolId).buses", cachingMode: cachingMode, completion)
     }
     
+    func getBus(schoolId: String, busId: String, _ completion: @escaping (APIResult<[Bus]>) -> Void) {
+        getResource(apiPath: "/schools/\(schoolId)/buses/\(busId)", cachedAs: nil, cachingMode: .forceFetch, completion)
+    }
+    
     func getStops(schoolId: String, busId: String, cachingMode: APICachingMode = .preferCache, _ completion: @escaping (APIResult<[Stop]>) -> Void) {
         getResource(apiPath: "/schools/\(schoolId)/buses/\(busId)/stops", cachedAs: "\(schoolId).buses.\(busId).stops", cachingMode: cachingMode, completion)
+    }
+    
+    func getStops(schoolId: String, near coord: Coordinate, distance: Int?, _ completion: @escaping (APIResult<[Stop]>) -> Void) {
+        var path = "/schools/\(schoolId)/stops/nearby?latitude=\(coord.latitude)&longitude=\(coord.longitude)"
+        if let dist = distance {
+            path.append("&distance=\(dist)")
+        }
+        
+        getResource(apiPath: path, cachedAs: nil, cachingMode: .forceFetch, completion)
     }
 }

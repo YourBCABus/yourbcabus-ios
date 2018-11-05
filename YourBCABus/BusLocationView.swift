@@ -16,11 +16,16 @@ class BusLocationView: UIView {
         }
     }
     
+    var available = true
+    
     var circleColor = UIColor(named: "Primary")!
     var textColor = UIColor.white
     
     var noLocationCircleColor = UIColor(named: "Background")!
     var noLocationTextColor = UIColor(named: "Primary")!
+    
+    var unavailableCircleColor = UIColor.lightGray
+    var unavailableTextColor = UIColor.darkGray
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -38,8 +43,13 @@ class BusLocationView: UIView {
             font = UIFont.systemFont(ofSize: fontSize, weight: .heavy)
             text = location
         } else {
-            circleCol = noLocationCircleColor
-            textCol = noLocationTextColor
+            if available {
+                circleCol = noLocationCircleColor
+                textCol = noLocationTextColor
+            } else {
+                circleCol = unavailableCircleColor
+                textCol = unavailableTextColor
+            }
             font = UIFont.systemFont(ofSize: fontSize, weight: .thin)
             text = "?"
         }
