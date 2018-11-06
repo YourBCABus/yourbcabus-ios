@@ -27,6 +27,7 @@
 		4ABB8C7E2180C05A00158FD6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4ABB8C7D2180C05A00158FD6 /* GoogleService-Info.plist */; };
 		4AC8478621851118001E8698 /* BusStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8478521851117001E8698 /* BusStatusTableViewCell.swift */; };
 		4AD958352180AEF800AC7EA9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD958342180AEF800AC7EA9 /* MapKit.framework */; };
+		4ADB65A5219118D300C29F34 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB65A4219118D300C29F34 /* TextFieldTableViewCell.swift */; };
 		4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEE49C2180CF5200F827FB /* MapViewController.swift */; };
 		4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */; };
 		4AE7066C218FE4C100A95AC0 /* Navigation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */; };
@@ -84,6 +85,7 @@
 		4AC8478521851117001E8698 /* BusStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStatusTableViewCell.swift; sourceTree = "<group>"; };
 		4AD958322180AEEA00AC7EA9 /* YourBCABus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YourBCABus.entitlements; sourceTree = "<group>"; };
 		4AD958342180AEF800AC7EA9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		4ADB65A4219118D300C29F34 /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		4ADEE49C2180CF5200F827FB /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterHelpers.swift; sourceTree = "<group>"; };
 		4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Navigation.storyboard; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */,
 				4AC8478521851117001E8698 /* BusStatusTableViewCell.swift */,
 				4A113B3B217A9D2300B7640E /* GradientNavigationBar.swift */,
+				4ADB65A4219118D300C29F34 /* TextFieldTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				4A97EC13217EAEDA003C7C60 /* BusLocationView.swift in Sources */,
 				4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */,
 				4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */,
+				4ADB65A5219118D300C29F34 /* TextFieldTableViewCell.swift in Sources */,
 				4AE70675218FED3A00A95AC0 /* ModalNavigationViewController.swift in Sources */,
 				4A113B3E217AA94A00B7640E /* Models.swift in Sources */,
 			);

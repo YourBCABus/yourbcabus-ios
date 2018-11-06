@@ -63,12 +63,12 @@ class APIService {
         }
     }
     
-    func fetchFromAPI(path: String, _ completion: @escaping (Data?, Error?) -> Void) {
-        let resourceURL = (path as NSString).pathComponents.reduce(url) { (url, component) in
-            return url.appendingPathComponent(component)
-        }
+    func fetchFromAPI(path: String, query: [URLQueryItem]?, _ completion: @escaping (Data?, Error?) -> Void) {
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+        components.path = path
+        components.queryItems = query
         
-        let task = urlSession.dataTask(with: resourceURL) { (data, response, e) in
+        let task = urlSession.dataTask(with: components.url!) { (data, response, e) in
             guard e == nil else {
                 completion(nil, e!)
                 return
@@ -85,7 +85,7 @@ class APIService {
         task.resume()
     }
     
-    private func getResource<T>(apiPath: String, cachedAs cacheIdentifier: String?, cachingMode: APICachingMode, _ completion: @escaping (APIResult<T>) -> Void) where T: Codable {
+    private func getResource<T>(apiPath: String, query: [URLQueryItem]? = nil, cachedAs cacheIdentifier: String?, cachingMode: APICachingMode, _ completion: @escaping (APIResult<T>) -> Void) where T: Codable {
         var didFetchFromCache = false
         
         if cachingMode != .forceFetch {
@@ -108,7 +108,7 @@ class APIService {
         }
         
         if cachingMode != .forceCache {
-            fetchFromAPI(path: apiPath) { (data, error) in
+            fetchFromAPI(path: apiPath, query: query) { (data, error) in
                 guard error == nil else {
                     if (!didFetchFromCache) {
                         completion(APIResult(ok: false, error: error!, result: nil, source: .fetched))
@@ -148,11 +148,11 @@ class APIService {
     }
     
     func getStops(schoolId: String, near coord: Coordinate, distance: Int?, _ completion: @escaping (APIResult<[Stop]>) -> Void) {
-        var path = "/schools/\(schoolId)/stops/nearby?latitude=\(coord.latitude)&longitude=\(coord.longitude)"
+        var query = [URLQueryItem(name: "latitude", value: String(coord.latitude)), URLQueryItem(name: "longitude", value: String(coord.longitude))]
         if let dist = distance {
-            path.append("&distance=\(dist)")
+            query.append(URLQueryItem(name: "distance", value: String(dist)))
         }
         
-        getResource(apiPath: path, cachedAs: nil, cachingMode: .forceFetch, completion)
+        getResource(apiPath: "/schools/\(schoolId)/stops/nearby", query: query, cachedAs: nil, cachingMode: .forceFetch, completion)
     }
 }

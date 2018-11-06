@@ -104,7 +104,12 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     // MARK: - Segues
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
+        if segue.identifier == "showNavigation" {
+            let navigation = (segue.destination as! UINavigationController).topViewController!.navigationItem
+            navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            navigationItem.leftItemsSupplementBackButton = true
+            navigationItem.largeTitleDisplayMode = .never
+        } else if segue.identifier == "showDetail" {
             let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
