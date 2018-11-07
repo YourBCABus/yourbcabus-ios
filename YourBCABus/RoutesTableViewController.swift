@@ -11,7 +11,7 @@ import MapKit
 
 class RoutesTableViewController: UITableViewController {
     
-    var destination: CLLocationCoordinate2D? {
+    var destination: MKMapItem? {
         didSet {
             configureView()
         }
@@ -19,17 +19,32 @@ class RoutesTableViewController: UITableViewController {
     
     var schoolId = "5bca51e785aa2627e14db459"
     
-    var stops = [Stop]()
+    var routes = [Route]()
     var maxDistance = 3220
+    var formatter = DateFormatter()
     
     func configureView() {
-        stops = []
+        routes = []
         
         if let dest = destination {
-            APIService.shared.getStops(schoolId: schoolId, near: Coordinate(from: dest), distance: maxDistance) { result in
+            APIService.shared.getStops(schoolId: schoolId, near: Coordinate(from: dest.placemark.coordinate), distance: maxDistance) { result in
                 if result.ok {
                     DispatchQueue.main.async {
-                        self.stops = result.result
+                        self.routes = result.result.map { stop in
+                            return Route(destination: dest, stop: stop, schoolId: self.schoolId)
+                        }
+                        self.routes.append(Route(destination: dest, stop: nil, schoolId: self.schoolId))
+                        self.routes.forEach { $0.fetchData { [weak self] (ok, error, route) in
+                            if let self = self {
+                                DispatchQueue.main.async {
+                                    self.tableView.reloadData()
+                                }
+                                
+                                if let eta = route.eta {
+                                    print("\(route.description) arrives at \(self.formatter.string(from: eta))")
+                                }
+                            }
+                        } }
                         self.tableView.reloadData()
                     }
                 }
@@ -41,6 +56,9 @@ class RoutesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -58,7 +76,7 @@ class RoutesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stops.count
+        return routes.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -67,7 +85,19 @@ class RoutesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RouteCell", for: indexPath)
-        cell.textLabel?.text = stops[indexPath.row].name
+        let route = routes[indexPath.row]
+        if route.stop != nil {
+            cell.textLabel?.text = route.bus?.name ?? "No bus"
+            cell.detailTextLabel?.text = route.description
+        } else {
+            cell.textLabel?.text = route.description
+            cell.detailTextLabel?.text = nil
+        }
+        if let eta = route.eta {
+            // cell.detailTextLabel?.text = formatter.string(from: eta)
+        } else {
+            // cell.detailTextLabel?.text = nil
+        }
         return cell
     }
 

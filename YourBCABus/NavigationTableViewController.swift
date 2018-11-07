@@ -163,7 +163,7 @@ class NavigationTableViewController: UITableViewController, UITextFieldDelegate 
         
         if selected.section == 1 {
             let place = places[selected.row]
-            routes.destination = place.placemark.coordinate
+            routes.destination = place
             
             let overage = places.count - 20
             if overage > 0 {
