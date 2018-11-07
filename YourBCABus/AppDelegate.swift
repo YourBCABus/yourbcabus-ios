@@ -67,6 +67,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(error)
     }
+    
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        DirectionsCache.shared.cache = [:]
+    }
 
     // MARK: - Split view
 

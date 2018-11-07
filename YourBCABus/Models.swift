@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-struct Coordinate: Codable {
+struct Coordinate: Codable, Equatable, Hashable {
     let latitude: Double
     let longitude: Double
     
@@ -20,6 +20,29 @@ struct Coordinate: Codable {
     
     init(from coordinate: CLLocationCoordinate2D) {
         self.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
+    }
+    
+    static func == (a: Coordinate, b: Coordinate) -> Bool {
+        return a.latitude == b.latitude && a.longitude == b.longitude
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(latitude)
+        hasher.combine(longitude)
+    }
+}
+
+struct CoordinatePair: Equatable, Hashable {
+    let origin: Coordinate
+    let destination: Coordinate
+    
+    static func == (a: CoordinatePair, b: CoordinatePair) -> Bool {
+        return a.origin == b.origin && a.destination == b.destination
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(origin)
+        hasher.combine(destination)
     }
 }
 

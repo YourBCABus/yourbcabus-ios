@@ -22,6 +22,7 @@ class RoutesTableViewController: UITableViewController {
     var routes = [Route]()
     var maxDistance = 3220
     var formatter = DateFormatter()
+    var distanceFormatter = MKDistanceFormatter()
     
     func configureView() {
         routes = []
@@ -39,10 +40,10 @@ class RoutesTableViewController: UITableViewController {
                                 DispatchQueue.main.async {
                                     self.tableView.reloadData()
                                 }
-                                
-                                if let eta = route.eta {
-                                    print("\(route.description) arrives at \(self.formatter.string(from: eta))")
-                                }
+                            }
+                            
+                            if let e = error {
+                                print(e)
                             }
                         } }
                         self.tableView.reloadData()
@@ -84,25 +85,59 @@ class RoutesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RouteCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RouteCell", for: indexPath) as! RouteTableViewCell
+        
+        cell.selectionStyle = .default
+        cell.accessoryType = .disclosureIndicator
         let route = routes[indexPath.row]
-        if route.stop != nil {
-            cell.textLabel?.text = route.bus?.name ?? "No bus"
-            cell.detailTextLabel?.text = route.description
+        
+        if route.fetchStatus == .fetched {
+            cell.selectionStyle = .default
+            cell.accessoryType = .disclosureIndicator
         } else {
-            cell.textLabel?.text = route.description
-            cell.detailTextLabel?.text = nil
+            cell.selectionStyle = .none
+            cell.accessoryType = .none
+            
+            if route.fetchStatus == .errored {
+                if route.stop == nil {
+                    cell.stopLabel?.text = "Could not find a route"
+                }
+                cell.etaLabel?.text = "Error"
+                cell.etaLabel?.textColor = UIColor.red
+                return cell
+            }
+        }
+        
+        if route.stop != nil {
+            cell.busLabel?.text = route.bus?.name ?? "No bus"
+            cell.stopLabel?.text = route.description
+        } else {
+            cell.busLabel?.text = "Walking"
+            if let walk = route.walkingRoute {
+                cell.stopLabel?.text = distanceFormatter.string(fromDistance: walk.distance)
+            } else if route.fetchStatus == .errored {
+                cell.stopLabel?.text = "Could not find a route"
+                cell.selectionStyle = .none
+                cell.accessoryType = .none
+            } else {
+                cell.stopLabel?.text = "Loading..."
+            }
         }
         if let eta = route.eta {
-            // cell.detailTextLabel?.text = formatter.string(from: eta)
+            cell.etaLabel?.text = formatter.string(from: eta)
+            cell.etaLabel?.textColor = UIColor(named: "Primary Dark")!
         } else {
-            // cell.detailTextLabel?.text = nil
+            cell.etaLabel?.text = "Loading..."
+            cell.etaLabel?.textColor = UIColor.lightGray
         }
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "startNavigation", sender: tableView)
+        let route = routes[indexPath.row]
+        if route.fetchStatus == .fetched {
+            performSegue(withIdentifier: "startNavigation", sender: tableView)
+        }
     }
 
     /*

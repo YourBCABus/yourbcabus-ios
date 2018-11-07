@@ -71,14 +71,7 @@ class Route: CustomStringConvertible {
                         update(true, nil, self)
                         
                         if let arrives = stop.arrives {
-                            let request = MKDirections.Request()
-                            request.transportType = .walking
-                            request.departureDate = arrives
-                            request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(from: stop.location)))
-                            request.destination = self.destination
-                            
-                            let directions = MKDirections(request: request)
-                            directions.calculate(completionHandler: { (resp, error) in
+                            DirectionsCache.shared.getDirections(origin: MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(from: stop.location))), destination: self.destination, departure: arrives) { (resp, error) in
                                 if let response = resp {
                                     self.walkingRoute = response.routes.first!
                                     self.eta = arrives.addingTimeInterval(self.walkingRoute!.expectedTravelTime)
@@ -87,7 +80,7 @@ class Route: CustomStringConvertible {
                                 } else {
                                     self._fetchStatus = .errored
                                 }
-                            })
+                            }
                         }
                     } else {
                         self._fetchStatus = .errored
@@ -123,8 +116,7 @@ class Route: CustomStringConvertible {
                     request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(from: self.school!.location)))
                     request.destination = self.destination
                     
-                    let directions = MKDirections(request: request)
-                    directions.calculate(completionHandler: { (resp, error) in
+                    DirectionsCache.shared.getDirections(origin: MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(from: self.school!.location))), destination: self.destination, departure: departureTime) { (resp, error) in
                         if let response = resp {
                             self.walkingRoute = response.routes.first!
                             self.eta = departureTime.addingTimeInterval(self.walkingRoute!.expectedTravelTime)
@@ -134,7 +126,7 @@ class Route: CustomStringConvertible {
                             self._fetchStatus = .errored
                             update(false, error!, self)
                         }
-                    })
+                    }
                 } else {
                     self._fetchStatus = .errored
                     update(false, result.error, self)
@@ -148,6 +140,34 @@ class Route: CustomStringConvertible {
             return name
         } else {
             return "Walking"
+        }
+    }
+}
+
+class DirectionsCache {
+    static var shared = DirectionsCache()
+    
+    var cache = [CoordinatePair: MKDirections.Response]()
+    
+    func getDirections(origin: MKMapItem, destination: MKMapItem, departure: Date, _ handler: @escaping MKDirections.DirectionsHandler) {
+        let key = CoordinatePair(origin: Coordinate(from: origin.placemark.coordinate), destination: Coordinate(from: destination.placemark.coordinate))
+        if let cached = cache[key] {
+            handler(cached, nil)
+        } else {
+            let request = MKDirections.Request()
+            request.transportType = .walking
+            request.departureDate = departure
+            request.source = origin
+            request.destination = destination
+            
+            let directions = MKDirections(request: request)
+            directions.calculate(completionHandler: { [weak self] (resp, err) in
+                if let response = resp {
+                    self?.cache[key] = response
+                }
+                
+                handler(resp, err)
+            })
         }
     }
 }
