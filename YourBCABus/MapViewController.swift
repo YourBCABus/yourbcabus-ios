@@ -111,9 +111,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     var points = MapViewControllerPoints.standard
     
-    var mapView: MKMapView! {
-        return view as? MKMapView
-    }
+    var mapView: MKMapView!
     
     var schoolRect =
         MKMapRect(origin: MKMapPoint(MapViewControllerPoints.standard.school), size: MKMapSize(width: 400, height: 100))
@@ -234,6 +232,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if mapView == nil {
+            mapView = view as? MKMapView
+        }
 
         // Do any additional setup after loading the view.
         // TODO: Dynamic coordinates

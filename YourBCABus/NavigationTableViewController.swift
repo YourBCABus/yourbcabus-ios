@@ -165,7 +165,7 @@ class NavigationTableViewController: UITableViewController, UITextFieldDelegate 
             let place = places[selected.row]
             routes.destination = place
             
-            let overage = places.count - 20
+            let overage = recents.count - 20
             if overage > 0 {
                 recents.removeLast(overage)
             }

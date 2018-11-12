@@ -105,7 +105,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showNavigation" {
-            let navigation = (segue.destination as! UINavigationController).topViewController!.navigationItem
+            let navigationItem = (segue.destination as! UINavigationController).topViewController!.navigationItem
             navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             navigationItem.leftItemsSupplementBackButton = true
             navigationItem.largeTitleDisplayMode = .never
