@@ -14,6 +14,7 @@ class Route: CustomStringConvertible {
         case boarding
         case riding
         case walking
+        case andItsFamilyAfterGenus
     }
     
     enum FetchStatus {

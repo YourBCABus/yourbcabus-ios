@@ -18,6 +18,8 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     @IBOutlet weak var exitButton: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
     
+    var viewControllers = [UIViewController]()
+    
     private var formatter = DateFormatter()
     
     var route: Route? {
@@ -40,12 +42,29 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
                 }
                 destinationText.text = "to \(route.destination.name ?? "Unknown Destination")"
             }
+            
+            if let controller = viewControllers.first {
+                pageViewController.setViewControllers([controller], direction: .forward, animated: false, completion: nil)
+                
+                pageControl.currentPage = 0
+                pageControl.numberOfPages = viewControllers.count
+                pageControl.isHidden = false
+            } else {
+                pageViewController.setViewControllers(nil, direction: .forward, animated: false, completion: nil)
+                pageControl.isHidden = true
+            }
         }
     }
 
     override func viewDidLoad() {
         mapView = mapOutlet
         super.viewDidLoad()
+        
+        if let storyboard = storyboard {
+            for i in 0..<10 {
+                viewControllers.append(storyboard.instantiateViewController(withIdentifier: "And it's family after genus"))
+            }
+        }
         
         formatter.dateStyle = .none
         formatter.timeStyle = .short
@@ -74,25 +93,46 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
         
         pageViewController.dataSource = self
         pageViewController.delegate = self
-        pageViewController.setViewControllers([UIViewController()], direction: .forward, animated: false, completion: nil)
-        
-        pageControl.currentPage = 0
-        pageControl.numberOfPages = 100
         
         // Do any additional setup after loading the view.
         configureView()
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        if let index = viewControllers.firstIndex(of: viewController) {
+            if index > 0 {
+                return viewControllers[index - 1]
+            }
+        }
+        
         return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        if let index = viewControllers.firstIndex(of: viewController) {
+            if index < viewControllers.count - 1 {
+                return viewControllers[index + 1]
+            }
+        }
+        
         return nil
     }
     
+    private var pendingIndex: Int?
+    
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        
+        if let controller = pendingViewControllers.first {
+            if let index = viewControllers.firstIndex(of: controller) {
+                pendingIndex = index
+            }
+        }
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if let index = pendingIndex {
+            pageControl.currentPage = index
+            pendingIndex = nil
+        }
     }
     
     @IBAction func exit(sender: UIButton?) {
