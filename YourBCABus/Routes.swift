@@ -50,7 +50,7 @@ class Route: CustomStringConvertible {
         self.stop = stop
         self.schoolId = schoolId
         if let theStop = stop {
-            if destination.placemark.location != nil && CLLocation(latitude: theStop.location.latitude, longitude: theStop.location.longitude).distance(from: destination.placemark.location!) <= 100 {
+            if destination.placemark.location != nil && CLLocation(latitude: theStop.location.latitude, longitude: theStop.location.longitude).distance(from: destination.placemark.location!) <= 20 {
                 steps = [.boarding, .riding]
             } else {
                 steps = [.boarding, .riding, .walking]

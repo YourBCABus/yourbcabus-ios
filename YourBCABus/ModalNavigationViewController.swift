@@ -41,6 +41,27 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
                     etaLabel.text = "ETA Unavailable"
                 }
                 destinationText.text = "to \(route.destination.name ?? "Unknown Destination")"
+                
+                let controllers = route.steps.map({ step -> UIViewController? in
+                    switch step {
+                    case .boarding:
+                        return storyboard?.instantiateViewController(withIdentifier: "boarding")
+                    case .riding:
+                        return storyboard?.instantiateViewController(withIdentifier: "riding")
+                    case .walking:
+                        return storyboard?.instantiateViewController(withIdentifier: "walking")
+                    default:
+                        return storyboard?.instantiateViewController(withIdentifier: "And it's family after genus")
+                    }
+                })
+                
+                viewControllers = controllers.map({ controller in
+                    let stepController = (controller as? RouteStepViewController) ?? RouteStepViewController()
+                    stepController.route = route
+                    return stepController
+                })
+            } else {
+                viewControllers = []
             }
             
             if let controller = viewControllers.first {
@@ -59,12 +80,6 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     override func viewDidLoad() {
         mapView = mapOutlet
         super.viewDidLoad()
-        
-        if let storyboard = storyboard {
-            for i in 0..<10 {
-                viewControllers.append(storyboard.instantiateViewController(withIdentifier: "And it's family after genus"))
-            }
-        }
         
         formatter.dateStyle = .none
         formatter.timeStyle = .short

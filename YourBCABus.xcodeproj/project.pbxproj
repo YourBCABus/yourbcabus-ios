@@ -23,6 +23,7 @@
 		4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */; };
 		4A39FB0A217FF18B008032DE /* BusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB09217FF18B008032DE /* BusManager.swift */; };
 		4A39FB0C217FFAF7008032DE /* BusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */; };
+		4A7B2968219A37B600B465B6 /* RouteStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */; };
 		4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */; };
 		4A97EC13217EAEDA003C7C60 /* BusLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */; };
 		4AA37BFE21932AD300E02266 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA37BFD21932AD300E02266 /* Routes.swift */; };
@@ -82,6 +83,7 @@
 		4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		4A39FB09217FF18B008032DE /* BusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusManager.swift; sourceTree = "<group>"; };
 		4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BusTableViewCell.xib; sourceTree = "<group>"; };
+		4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStepViewController.swift; sourceTree = "<group>"; };
 		4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusTableViewCell.swift; sourceTree = "<group>"; };
 		4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLocationView.swift; sourceTree = "<group>"; };
 		4AA37BFD21932AD300E02266 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
@@ -204,6 +206,14 @@
 			path = YourBCABusUITests;
 			sourceTree = "<group>";
 		};
+		4A7B2965219A377A00B465B6 /* Steps */ = {
+			isa = PBXGroup;
+			children = (
+				4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */,
+			);
+			name = Steps;
+			sourceTree = "<group>";
+		};
 		4AC8477D2185070B001E8698 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +296,7 @@
 				4AE7066D218FE80E00A95AC0 /* NavigationTableViewController.swift */,
 				4AE70672218FED2200A95AC0 /* RoutesTableViewController.swift */,
 				4AE70674218FED3A00A95AC0 /* ModalNavigationViewController.swift */,
+				4A7B2965219A377A00B465B6 /* Steps */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -541,6 +552,7 @@
 				4AA37BFE21932AD300E02266 /* Routes.swift in Sources */,
 				4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */,
 				4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */,
+				4A7B2968219A37B600B465B6 /* RouteStepViewController.swift in Sources */,
 				4AC8478621851118001E8698 /* BusStatusTableViewCell.swift in Sources */,
 				4A113B0C217A986E00B7640E /* MasterViewController.swift in Sources */,
 				4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */,
