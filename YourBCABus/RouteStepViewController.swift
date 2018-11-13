@@ -55,6 +55,35 @@ class RidingStepScrimView: UIView {
     }
 }
 
+class RidingStepSummaryTableViewCell: UITableViewCell {
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var arrivalLabel: UILabel!
+    
+    var timeFormatter = { () -> DateFormatter in
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        return formatter
+    }()
+    
+    func configureView(with route: Route) {
+        if let stops = route.stops {
+            titleLabel.text = "Ride \(stops.count) stops to"
+        } else {
+            titleLabel.text = "Ride bus to"
+        }
+        
+        nameLabel.text = route.stop?.name
+        
+        if let arrives = route.stop?.arrives {
+            arrivalLabel.text = "Arrives at stop \(timeFormatter.string(from: arrives))"
+        } else {
+            arrivalLabel.text = nil
+        }
+    }
+}
+
 class RidingStepViewController: RouteStepViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     
@@ -71,11 +100,13 @@ class RidingStepViewController: RouteStepViewController, UITableViewDataSource, 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "SummaryCell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell") as! RidingStepSummaryTableViewCell
+        cell.configureView(with: route)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

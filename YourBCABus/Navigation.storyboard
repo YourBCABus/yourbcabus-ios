@@ -398,6 +398,7 @@
                             <constraint firstItem="bMO-nY-bbT" firstAttribute="top" secondItem="zNV-Gy-9sv" secondAttribute="top" constant="20" id="yrL-y3-f7V"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="40" right="20"/>
+                        <viewLayoutGuide key="safeArea" id="Mxu-yf-Z8i"/>
                     </view>
                     <size key="freeformSize" width="374" height="316"/>
                     <connections>
@@ -461,6 +462,7 @@
                             <constraint firstAttribute="trailing" secondItem="AW3-aT-6IS" secondAttribute="trailing" constant="20" id="zvK-Xf-X0Z"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="40" right="20"/>
+                        <viewLayoutGuide key="safeArea" id="gXe-uB-3gv"/>
                     </view>
                     <size key="freeformSize" width="374" height="316"/>
                     <connections>
@@ -485,7 +487,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="374" height="500"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SummaryCell" rowHeight="185" id="LNI-Uf-Knf">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SummaryCell" rowHeight="185" id="LNI-Uf-Knf" customClass="RidingStepSummaryTableViewCell" customModule="YourBCABus" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="374" height="185"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LNI-Uf-Knf" id="V8s-rF-ptL">
@@ -533,6 +535,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="arrivalLabel" destination="sWd-0r-W5Q" id="8af-It-IzG"/>
+                                            <outlet property="nameLabel" destination="Sa4-6J-YWy" id="38q-VN-k4Q"/>
+                                            <outlet property="titleLabel" destination="1um-qA-k2q" id="pKh-RK-r8c"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -555,6 +562,7 @@
                             <constraint firstAttribute="bottom" secondItem="sXP-Pl-QDV" secondAttribute="bottom" id="dd1-Kk-Nxn"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="40" right="20"/>
+                        <viewLayoutGuide key="safeArea" id="egd-xF-ucQ"/>
                     </view>
                     <size key="freeformSize" width="374" height="500"/>
                     <connections>

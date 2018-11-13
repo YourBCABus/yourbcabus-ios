@@ -71,15 +71,22 @@ class Route: CustomStringConvertible {
                         self.bus = bus
                         update(true, nil, self)
                         
-                        if let arrives = stop.arrives {
-                            DirectionsCache.shared.getDirections(origin: MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(from: stop.location))), destination: self.destination, departure: arrives) { (resp, error) in
-                                if let response = resp {
-                                    self.walkingRoute = response.routes.first!
-                                    self.eta = arrives.addingTimeInterval(self.walkingRoute!.expectedTravelTime)
-                                    self._fetchStatus = .fetched
-                                    update(true, nil, self)
-                                } else {
-                                    self._fetchStatus = .errored
+                        APIService.shared.getStops(schoolId: self.schoolId, busId: bus._id, cachingMode: .preferCache) { result in
+                            if result.ok {
+                                
+                            }
+                            
+                            if let arrives = stop.arrives {
+                                DirectionsCache.shared.getDirections(origin: MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(from: stop.location))), destination: self.destination, departure: arrives) { (resp, error) in
+                                    if let response = resp {
+                                        self.walkingRoute = response.routes.first!
+                                        self.eta = arrives.addingTimeInterval(self.walkingRoute!.expectedTravelTime)
+                                        self._fetchStatus = .fetched
+                                        update(true, nil, self)
+                                    } else {
+                                        self._fetchStatus = .errored
+                                        update(false, error!, self)
+                                    }
                                 }
                             }
                         }
