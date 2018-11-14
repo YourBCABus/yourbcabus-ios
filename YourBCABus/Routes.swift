@@ -73,7 +73,10 @@ class Route: CustomStringConvertible {
                         
                         APIService.shared.getStops(schoolId: self.schoolId, busId: bus._id, cachingMode: .preferCache) { result in
                             if result.ok {
-                                
+                                let stops = result.result.sorted()
+                                if let index = stops.firstIndex(where: {$0._id == stop._id}) {
+                                    self.stops = Array(stops[0..<index])
+                                }
                             }
                             
                             if let arrives = stop.arrives {
@@ -81,8 +84,15 @@ class Route: CustomStringConvertible {
                                     if let response = resp {
                                         self.walkingRoute = response.routes.first!
                                         self.eta = arrives.addingTimeInterval(self.walkingRoute!.expectedTravelTime)
-                                        self._fetchStatus = .fetched
-                                        update(true, nil, self)
+                                        
+                                        APIService.shared.getSchool(schoolId: self.schoolId, cachingMode: .preferCache) { result in
+                                            if result.ok {
+                                                self.school = result.result
+                                            }
+                                            
+                                            self._fetchStatus = .fetched
+                                            update(true, nil, self)
+                                        }
                                     } else {
                                         self._fetchStatus = .errored
                                         update(false, error!, self)
@@ -177,5 +187,11 @@ class DirectionsCache {
                 handler(resp, err)
             })
         }
+    }
+}
+
+extension MKMapRect {
+    init(a: MKMapPoint, b: MKMapPoint) {
+        self.init(x: min(a.x, b.x), y: min(a.y, b.y), width: abs(a.x - b.x), height: abs(a.y - b.y))
     }
 }

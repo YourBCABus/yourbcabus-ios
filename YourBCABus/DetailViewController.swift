@@ -23,7 +23,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                         if self.detailItem?._id == bus._id {
                             let temp = result.result.sorted()
                             let mapPoints = temp.map { stop in
-                                return BusMapPoint(coordinate: CLLocationCoordinate2D(from: stop.location), title: stop.description, bus: nil)
+                                return BusMapPoint(coordinate: CLLocationCoordinate2D(from: stop.location), title: stop.description, bus: nil, stopId: stop._id)
                             }
                             
                             DispatchQueue.main.async {

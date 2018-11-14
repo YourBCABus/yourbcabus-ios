@@ -99,15 +99,19 @@ class BusAnnotation: MKPointAnnotation {
 
 class StopAnnotation: MKPointAnnotation {
     var bus: Bus?
+    var stopId: String?
 }
 
 struct BusMapPoint {
     let coordinate: CLLocationCoordinate2D
     let title: String
     let bus: Bus?
+    let stopId: String?
 }
 
 class MapViewController: UIViewController, MKMapViewDelegate {
+    
+    static let noDetailBus = "This value will pretty much never be a bus ID. Enjoy!"
     
     var points = MapViewControllerPoints.standard
     
@@ -189,6 +193,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 
                 mapView.addAnnotations(pointSet.map { point in
                     let annotation = StopAnnotation()
+                    annotation.stopId = point.stopId
                     annotation.coordinate = point.coordinate
                     annotation.title = point.title
                     annotation.bus = point.bus
@@ -198,7 +203,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func showMapPoints() {
+    func regionForMapPoints(latitudePadding: CLLocationDegrees = 0.03, longitudePadding: CLLocationDegrees = 0.02) -> MKCoordinateRegion? {
         if mapPoints?.first(where: { $0.count > 0 }) != nil {
             mapView.mapType = .mutedStandard
             
@@ -226,7 +231,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 }))
             })
             
-            mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLong + maxLong) / 2), span: MKCoordinateSpan(latitudeDelta: maxLat - minLat + 0.03, longitudeDelta: maxLong - minLong + 0.02)), animated: false)
+            return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLong + maxLong) / 2), span: MKCoordinateSpan(latitudeDelta: maxLat - minLat + latitudePadding, longitudeDelta: maxLong - minLong + longitudePadding))
+        } else {
+            return nil
+        }
+    }
+    
+    func showMapPoints() {
+        if let region = regionForMapPoints() {
+            mapView.setRegion(region, animated: false)
         }
     }
 
