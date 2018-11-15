@@ -26,7 +26,12 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     var resultsViewController: SearchResultsViewController!
     var searchController: UISearchController!
     
+    var refreshInterval: TimeInterval = 60
+    private var refreshTimer: Timer?
+    
     private var notificationTokens = [NotificationToken]()
+    
+    static let didAskToSetUpNotificationsDefaultsKey = "didAskToSetUpBusArrivalNotifications"
     
     func reloadBuses(cachingMode: APICachingMode, completion: ((Bool) -> Void)? = nil) {
         APIService.shared.getBuses(schoolId: schoolId, cachingMode: cachingMode) { result in
@@ -48,6 +53,10 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             }
         }
     }
+    
+    func askToSetUpNotifications() {
+        performSegue(withIdentifier: "askToSetUpNotifications", sender: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,12 +69,18 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         reloadBuses(cachingMode: .both)
         refreshControl?.tintColor = UIColor.white
         
-        notificationTokens.append(NotificationCenter.default.observe(name: Notification.Name(BusManager.NotificationName.starredBusesChange.rawValue), object: nil, queue: nil, using: { [unowned self] notification in
-            let index = self.sections.firstIndex(of: .starred)
+        notificationTokens.append(NotificationCenter.default.observe(name: Notification.Name(BusManager.NotificationName.starredBusesChange.rawValue), object: nil, queue: nil, using: { [weak self] notification in
+            let index = self?.sections.firstIndex(of: .starred)
             if index != nil && BusManager.shared.starredBuses.count > 0 {
-                self.tableView.reloadSections(IndexSet(integer: index!), with: .fade)
+                self?.tableView.reloadSections(IndexSet(integer: index!), with: .fade)
             } else {
-                self.tableView.reloadData()
+                self?.tableView.reloadData()
+            }
+            
+            if let busId = notification.userInfo?[BusManager.NotificationUserInfoKey.busID] as? String {
+                if self?.view.window != nil && (BusManager.shared.starredBuses.contains(where: {$0._id == busId}) && !UserDefaults.standard.bool(forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)) {
+                    self?.askToSetUpNotifications()
+                }
             }
         }))
         
@@ -88,6 +103,12 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         }
         
         definesPresentationContext = true
+        
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: refreshInterval, repeats: true, block: { [weak self] timer in
+            if self?.view.window != nil {
+                self!.reloadBuses(cachingMode: .forceFetch)
+            }
+        })
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -245,5 +266,9 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     func updateSearchResults(for searchController: UISearchController) {
         BusManager.shared.updateFilteredBuses(term: searchController.searchBar.text!.trimmingCharacters(in: CharacterSet.whitespaces))
         (searchController.searchResultsController as? UITableViewController)?.tableView.reloadData()
+    }
+    
+    deinit {
+        refreshTimer?.invalidate()
     }
 }

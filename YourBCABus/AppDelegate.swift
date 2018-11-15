@@ -11,10 +11,15 @@ import Firebase
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
     var window: UIWindow?
-
+    private var notificationTokens = [NotificationToken]()
+    
+    var schoolId = "5bca51e785aa2627e14db459"
+    
+    static let busArrivalNotificationsDefaultKey = "busArrivalNotifications"
+    static let didChangeBusArrivalNotifications = NSNotification.Name("YBBDidChangeBusArrivalNotifications")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -27,13 +32,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         UNUserNotificationCenter.current().delegate = self
         
-        // TODO: Ask at a better time
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: authOptions,
-            completionHandler: {_, _ in })
-        
         application.registerForRemoteNotifications()
+        
+        notificationTokens.append(NotificationCenter.default.observe(name: NSNotification.Name(rawValue: BusManager.NotificationName.starredBusesChange.rawValue), object: nil, queue: nil, using: { [unowned self] notification in
+            if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) {
+                if let busID = notification.userInfo?[BusManager.NotificationUserInfoKey.busID] as? String {
+                    let topic = "school.\(self.schoolId).bus.\(busID)"
+                    if BusManager.shared.starredBuses.contains(where: {$0._id == busID}) {
+                        Messaging.messaging().subscribe(toTopic: topic)
+                    } else {
+                        Messaging.messaging().unsubscribe(fromTopic: topic)
+                    }
+                }
+            }
+        }))
+        
+        notificationTokens.append(NotificationCenter.default.observe(name: AppDelegate.didChangeBusArrivalNotifications, object: nil, queue: nil, using: { [unowned self] notification in
+            if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) {
+                BusManager.shared.starredBuses.forEach { bus in
+                    Messaging.messaging().subscribe(toTopic: "school.\(self.schoolId).bus.\(bus._id)")
+                }
+            } else {
+                BusManager.shared.starredBuses.forEach { bus in
+                    Messaging.messaging().unsubscribe(fromTopic: "school.\(self.schoolId).bus.\(bus._id)")
+                }
+            }
+        }))
         
         return true
     }
@@ -60,9 +84,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    /*func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
-    }
+    }*/
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(error)
@@ -71,7 +95,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
         DirectionsCache.shared.cache = [:]
     }
-
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
+        if let navigation = (window?.rootViewController as? UISplitViewController)?.viewControllers[0] as? UINavigationController {
+            if let master = navigation.topViewController as? MasterViewController {
+                master.performSegue(withIdentifier: "openSettings", sender: notification)
+            }
+        }
+    }
+    
     // MARK: - Split view
 
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {

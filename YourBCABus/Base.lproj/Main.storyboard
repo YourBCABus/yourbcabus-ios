@@ -313,7 +313,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="iUO-aF-SMC">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="bZv-Tc-Ktj" kind="presentation" modalPresentationStyle="formSheet" id="ayf-st-iwA"/>
+                                <segue destination="bZv-Tc-Ktj" kind="presentation" identifier="openSettings" modalPresentationStyle="formSheet" id="ayf-st-iwA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -328,6 +328,7 @@
                         <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="2N6-Jf-NID"/>
                         <segue destination="pCP-jQ-Jm4" kind="showDetail" identifier="showMap" id="bNr-5q-qI0"/>
                         <segue destination="wvN-cH-ViQ" kind="showDetail" identifier="showNavigation" id="i98-gj-Cat"/>
+                        <segue destination="AhB-3p-kzf" kind="presentation" identifier="askToSetUpNotifications" modalPresentationStyle="formSheet" id="fuN-SC-VsL"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
@@ -376,7 +377,7 @@
         <scene sceneID="4Jh-Uy-eAl">
             <objects>
                 <tableViewController id="iVQ-ew-cfH" customClass="SettingsViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="hi8-tf-FO6">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="hi8-tf-FO6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background"/>
@@ -398,6 +399,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jib-8t-gHz">
                                                     <rect key="frame" x="347" y="6.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="didChangeBusArrivalNotificationsWithSender:" destination="iVQ-ew-cfH" eventType="valueChanged" id="ftJ-Ft-ire"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -425,10 +429,86 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="busArrivalNotificationsSwitch" destination="Jib-8t-gHz" id="1co-EN-IUV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcV-hd-zac" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2360.8000000000002" y="-1339.6551724137933"/>
+        </scene>
+        <!--Notifications Prompt View Controller-->
+        <scene sceneID="06B-HU-gud">
+            <objects>
+                <viewController id="AhB-3p-kzf" customClass="NotificationsPromptViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Hkc-pU-dtV" customClass="GradientView" customModule="YourBCABus" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End the Guessing Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yWJ-hU-OVV">
+                                <rect key="frame" x="13" y="84" width="389" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get notified when a starred bus arrives." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XiC-TO-uks">
+                                <rect key="frame" x="13" y="128" width="389" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="59" id="98V-zP-Lsb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gI5-VQ-lhc">
+                                <rect key="frame" x="47.5" y="702" width="319" height="76"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="319" id="GHk-EM-etU"/>
+                                    <constraint firstAttribute="height" constant="76" id="Ha9-m8-msY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <state key="normal" title="Enable Notifications">
+                                    <color key="titleColor" name="Primary Dark"/>
+                                </state>
+                                <connections>
+                                    <action selector="tryToEnableNotificationsWithSender:" destination="AhB-3p-kzf" eventType="touchUpInside" id="alC-m7-NGj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6a-FH-Ddf">
+                                <rect key="frame" x="47.5" y="786" width="319" height="36"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <state key="normal" title="Don't Enable">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="exitWithSender:" destination="AhB-3p-kzf" eventType="touchUpInside" id="PZV-Ns-9nJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="Primary"/>
+                        <constraints>
+                            <constraint firstItem="6HX-Jz-6E7" firstAttribute="bottom" secondItem="R6a-FH-Ddf" secondAttribute="bottom" constant="40" id="5Di-Pa-cgh"/>
+                            <constraint firstItem="yWJ-hU-OVV" firstAttribute="top" secondItem="6HX-Jz-6E7" secondAttribute="top" constant="40" id="8HO-cf-dI5"/>
+                            <constraint firstItem="gI5-VQ-lhc" firstAttribute="centerX" secondItem="6HX-Jz-6E7" secondAttribute="centerX" id="BFJ-uy-msD"/>
+                            <constraint firstItem="R6a-FH-Ddf" firstAttribute="width" secondItem="gI5-VQ-lhc" secondAttribute="width" id="Pl6-7Y-RQB"/>
+                            <constraint firstItem="6HX-Jz-6E7" firstAttribute="trailing" secondItem="yWJ-hU-OVV" secondAttribute="trailing" constant="12" id="Q6q-h9-r7T"/>
+                            <constraint firstItem="yWJ-hU-OVV" firstAttribute="leading" secondItem="6HX-Jz-6E7" secondAttribute="leading" constant="13" id="R2A-cE-OI3"/>
+                            <constraint firstItem="R6a-FH-Ddf" firstAttribute="centerX" secondItem="6HX-Jz-6E7" secondAttribute="centerX" id="XKg-wg-Z9i"/>
+                            <constraint firstItem="XiC-TO-uks" firstAttribute="leading" secondItem="6HX-Jz-6E7" secondAttribute="leading" constant="13" id="aW3-hS-zc2"/>
+                            <constraint firstItem="R6a-FH-Ddf" firstAttribute="top" secondItem="gI5-VQ-lhc" secondAttribute="bottom" constant="8" id="hwA-p0-Nsw"/>
+                            <constraint firstItem="6HX-Jz-6E7" firstAttribute="trailing" secondItem="XiC-TO-uks" secondAttribute="trailing" constant="12" id="mbX-A6-bj8"/>
+                            <constraint firstItem="XiC-TO-uks" firstAttribute="top" secondItem="yWJ-hU-OVV" secondAttribute="bottom" constant="8" id="ruF-jo-vld"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6HX-Jz-6E7"/>
+                    </view>
+                    <connections>
+                        <outlet property="enableButton" destination="gI5-VQ-lhc" id="Xpe-99-4Lq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KRP-xx-JpG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="718.84057971014499" y="-1331.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="33D-1h-y8h">
@@ -487,6 +567,9 @@
         </namedColor>
         <namedColor name="Primary">
             <color red="0.0" green="0.47450980392156861" blue="0.41960784313725491" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="Primary Dark">
+            <color red="0.0" green="0.29803921568627451" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Secondary Text">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
