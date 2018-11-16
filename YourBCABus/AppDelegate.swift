@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import UserNotifications
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
@@ -107,10 +108,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     // MARK: - Split view
 
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
-        guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
-        guard let topAsDetailController = secondaryAsNavController.topViewController as? MapViewController else { return false }
+        /* guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
+        guard let topAsDetailController = secondaryAsNavController.topViewController as? MapViewController else { return false } */
         return true
     }
-
+    
+    // MARK: State Restoration
+    
+    static let versionRestorationKey = "YBBAppVersion"
+    
+    func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+        coder.encode("0.9", forKey: AppDelegate.versionRestorationKey)
+        return true
+    }
+    
+    func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+        guard coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey) == "0.9" else {
+            return false
+        }
+        
+        return true
+    }
+    
 }
 

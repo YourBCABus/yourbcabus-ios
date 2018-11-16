@@ -20,10 +20,14 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     @IBOutlet weak var destinationText: UILabel!
     @IBOutlet weak var exitButton: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var containerView: UIView!
+    
+    var onDoneBlock: (() -> Void)?
     
     var viewControllers = [UIViewController]()
     
     private var formatter = DateFormatter()
+    private var restoredPage: Int?
     
     var route: Route? {
         didSet {
@@ -82,17 +86,18 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
                 reloadStops()
             }
             
-            if let controller = viewControllers.first {
+            if viewControllers.count > 0 {
+                let controller = viewControllers[restoredPage ?? 0]
                 pageViewController.setViewControllers([controller], direction: .forward, animated: false, completion: nil)
                 
-                pageControl.currentPage = 0
+                pageControl.currentPage = restoredPage ?? 0
+                restoredPage = nil
                 pageControl.numberOfPages = viewControllers.count
                 pageControl.isHidden = false
                 if let region = (controller as? RouteStepViewController)?.getMapRegion(for: self) {
                     setRegion(to: region)
                 }
             } else {
-                pageViewController.setViewControllers(nil, direction: .forward, animated: false, completion: nil)
                 pageControl.isHidden = true
                 setRegion(to: MKCoordinateRegion(schoolRect))
             }
@@ -128,12 +133,18 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
         
         exitButton.layer.cornerRadius = 16
         
+        let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
+        addChild(pageViewController)
+        pageViewController.view.frame = containerView.frame
+        containerView.addSubview(pageViewController.view)
         pageViewController.dataSource = self
         pageViewController.delegate = self
         
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: "MidpointView")
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: "OriginView")
         mapView.register(MKPinAnnotationView.self, forAnnotationViewWithReuseIdentifier: "DestinationView")
+        
+        pageControl.addTarget(self, action: #selector(pageControlDidChangeValue(sender:)), for: .valueChanged)
         
         // Do any additional setup after loading the view.
         configureView()
@@ -144,14 +155,31 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
         
         if let route = route {
             if route.steps.contains(.walking) {
-                if let walk = route.walkingRoute {
-                    mapView.addOverlay(WalkOverlay(points: walk.polyline.points(), count: walk.polyline.pointCount))
+                if let walk = route.walkingPolyline {
+                    mapView.addOverlay(WalkOverlay(points: walk.points(), count: walk.pointCount))
                 }
                 
                 let annotation = DestinationAnnotation()
                 annotation.coordinate = route.destination.placemark.coordinate
                 annotation.title = route.destination.name
                 mapView.addAnnotation(annotation)
+            }
+        }
+    }
+    
+    @objc func pageControlDidChangeValue(sender: UIPageControl?) {
+        if let page = sender?.currentPage {
+            if (0..<viewControllers.count).contains(page) {
+                var direction = UIPageViewController.NavigationDirection.forward
+                if let current = pageViewController.viewControllers?.first {
+                    if let index = viewControllers.firstIndex(of: current) {
+                        if index > page {
+                            direction = .reverse
+                        }
+                    }
+                }
+                
+                pageViewController.setViewControllers([viewControllers[page]], direction: direction, animated: true, completion: nil)
             }
         }
     }
@@ -218,6 +246,7 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     }
     
     @IBAction func exit(sender: UIButton?) {
+        onDoneBlock?()
         dismiss(animated: true, completion: {})
     }
     
@@ -299,6 +328,41 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
             return renderer
         } else {
             return super.mapView(mapView, rendererFor: overlay)
+        }
+    }
+    
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        
+        if let route = route {
+            do {
+                coder.encode(try PropertyListEncoder().encode(route), forKey: "route")
+            } catch {}
+        }
+        
+        if let current = pageViewController.viewControllers?.first {
+            if let index = viewControllers.firstIndex(of: current) {
+                coder.encode(index, forKey: "currentPage")
+            }
+        }
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+        
+        if coder.containsValue(forKey: "route") {
+            do {
+                route = try PropertyListDecoder().decode(Route.self, from: coder.decodeObject(forKey: "route") as! Data)
+            } catch {}
+        }
+        
+        if coder.containsValue(forKey: "currentPage") {
+            restoredPage = coder.decodeInteger(forKey: "currentPage")
+            if restoredPage != nil && (0..<viewControllers.count).contains(restoredPage!) {
+                pageViewController.setViewControllers([viewControllers[restoredPage!]], direction: .forward, animated: false, completion: nil)
+                pageControl.currentPage = restoredPage!
+                restoredPage = nil
+            }
         }
     }
     

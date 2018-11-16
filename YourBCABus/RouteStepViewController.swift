@@ -218,12 +218,12 @@ class WalkingStepViewController: RouteStepViewController {
     var distanceFormatter = MKDistanceFormatter()
     
     override func viewDidLoad() {
-        continueInMapsButton?.isEnabled = route?.walkingRoute != nil
+        continueInMapsButton?.isEnabled = route?.walkingDistance != nil
         continueInMapsButton?.layer.cornerRadius = 16
         
-        if let directions = route?.walkingRoute {
-            timeLabel?.text = timeFormatter.string(from: directions.expectedTravelTime)
-            distanceLabel?.text = distanceFormatter.string(fromDistance: directions.distance)
+        if let eta = route?.walkingETA {
+            timeLabel?.text = timeFormatter.string(from: eta)
+            distanceLabel?.text = distanceFormatter.string(fromDistance: route!.walkingDistance!)
         }
     }
     
@@ -245,7 +245,7 @@ class WalkingStepViewController: RouteStepViewController {
     }
     
     override func getMapRegion(for: ModalNavigationViewController) -> MKCoordinateRegion? {
-        if let boundingMapRect = route?.walkingRoute?.polyline.boundingMapRect {
+        if let boundingMapRect = route?.walkingPolyline?.boundingMapRect {
             return MKCoordinateRegion(boundingMapRect)
         } else {
             return nil

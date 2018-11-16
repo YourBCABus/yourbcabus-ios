@@ -60,6 +60,8 @@ class RoutesTableViewController: UITableViewController {
         
         formatter.dateStyle = .none
         formatter.timeStyle = .short
+        
+        navigationItem.largeTitleDisplayMode = .never
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -113,8 +115,8 @@ class RoutesTableViewController: UITableViewController {
             cell.stopLabel?.text = route.description
         } else {
             cell.busLabel?.text = "Walking"
-            if let walk = route.walkingRoute {
-                cell.stopLabel?.text = distanceFormatter.string(fromDistance: walk.distance)
+            if let distance = route.walkingDistance {
+                cell.stopLabel?.text = distanceFormatter.string(fromDistance: distance)
             } else if route.fetchStatus == .errored {
                 cell.stopLabel?.text = "Could not find a route"
                 cell.selectionStyle = .none
@@ -148,8 +150,19 @@ class RoutesTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "startNavigation" {
             let route = routes[(sender as! UITableView).indexPathForSelectedRow!.row]
-            (segue.destination as? ModalNavigationViewController)?.route = route
+            let controller = (segue.destination as? UINavigationController)?.topViewController as? ModalNavigationViewController
+            controller?.route = route
         }
+    }
+    
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        coder.encode(destination, forKey: "destination")
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+        destination = coder.decodeObject(forKey: "destination") as? MKMapItem
     }
 
 }

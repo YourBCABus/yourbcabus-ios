@@ -13,7 +13,7 @@
         <!--Navigation-->
         <scene sceneID="J7f-MW-s7Z">
             <objects>
-                <tableViewController id="Aoc-NU-oiy" customClass="NavigationTableViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="YBBNavigationPlacesViewController" id="Aoc-NU-oiy" customClass="NavigationTableViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="bwG-HV-uyE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,7 +116,7 @@
         <!--Routes-->
         <scene sceneID="LqY-io-jhp">
             <objects>
-                <tableViewController id="lAf-Wb-Qz6" customClass="RoutesTableViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="YBBNavigationRoutesViewController" id="lAf-Wb-Qz6" customClass="RoutesTableViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="iAK-jz-cmd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -177,7 +177,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Routes" id="Ajx-cI-V7k"/>
                     <connections>
-                        <segue destination="rcD-Kz-JtF" kind="presentation" identifier="startNavigation" modalPresentationStyle="fullScreen" id="t36-3g-N2W"/>
+                        <segue destination="sPY-Qd-TfA" kind="presentation" identifier="startNavigation" modalPresentationStyle="fullScreen" id="vf6-1T-Kja"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dc3-dv-2SA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -187,7 +187,7 @@
         <!--Modal Navigation View Controller-->
         <scene sceneID="l5v-Np-OkR">
             <objects>
-                <viewController id="rcD-Kz-JtF" customClass="ModalNavigationViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="YBBNavigationModalViewController" id="rcD-Kz-JtF" customClass="ModalNavigationViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="T6D-EX-V0o">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -229,9 +229,6 @@
                                         <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cen-OU-kwm">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="316"/>
                                             <color key="backgroundColor" name="Background - Route"/>
-                                            <connections>
-                                                <segue destination="dyX-dg-ilC" kind="embed" id="eLl-bo-MC2"/>
-                                            </connections>
                                         </containerView>
                                         <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="qIx-cc-6gQ">
                                             <rect key="frame" x="167.5" y="279" width="39" height="37"/>
@@ -274,7 +271,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ViI-6f-aY3"/>
                     </view>
+                    <navigationItem key="navigationItem" id="8ly-qs-3SN"/>
                     <connections>
+                        <outlet property="containerView" destination="cen-OU-kwm" id="61F-Z4-hVm"/>
                         <outlet property="destinationText" destination="xru-wd-hxB" id="EqT-Hk-u7H"/>
                         <outlet property="etaLabel" destination="VeV-Tx-293" id="Xre-x4-k1Z"/>
                         <outlet property="exitButton" destination="NAQ-lT-EZd" id="PD2-4G-TQW"/>
@@ -285,15 +284,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wig-fB-Vfz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1346.376811594203" y="38.839285714285715"/>
+            <point key="canvasLocation" x="2145" y="39"/>
         </scene>
-        <!--Page View Controller-->
-        <scene sceneID="Bnt-gV-SYs">
+        <!--Navigation Controller-->
+        <scene sceneID="0My-Jv-h37">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="dyX-dg-ilC" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ExD-pj-fyo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController restorationIdentifier="YBBNavigationModalNavigationViewController" navigationBarHidden="YES" id="sPY-Qd-TfA" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PVo-EY-hq0">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="rcD-Kz-JtF" kind="relationship" relationship="rootViewController" id="kAN-KA-fN4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NOf-Xj-mHZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2120" y="39"/>
+            <point key="canvasLocation" x="1365" y="39"/>
         </scene>
         <!--Route Step View Controller-->
         <scene sceneID="x5b-0z-2Ov">
@@ -323,12 +329,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rJg-9F-RIg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4439" y="39"/>
+            <point key="canvasLocation" x="5199" y="15"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ba7-0g-C8H">
             <objects>
-                <navigationController id="8Qv-rA-Qfg" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="YBBNavigationNavigationViewController" id="8Qv-rA-Qfg" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="6y7-bN-8VF" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -409,7 +415,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cul-82-Lt5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3865" y="39"/>
+            <point key="canvasLocation" x="4625" y="15"/>
         </scene>
         <!--boarding-->
         <scene sceneID="SPs-L6-Fp6">
@@ -473,7 +479,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mr2-Xv-fhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2704" y="39"/>
+            <point key="canvasLocation" x="3464" y="15"/>
         </scene>
         <!--Riding Step View Controller-->
         <scene sceneID="AKw-jT-UqE">
@@ -549,7 +555,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Origin" translatesAutoresizingMaskIntoConstraints="NO" id="gdM-tL-C5T">
-                                                    <rect key="frame" x="20" y="0.0" width="36" height="36"/>
+                                                    <rect key="frame" x="20" y="0.0" width="36" height="36.5"/>
                                                     <color key="tintColor" name="Primary"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="oZy-Jq-VZs"/>
@@ -557,7 +563,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXn-cR-kuy">
-                                                    <rect key="frame" x="64" y="8" width="290" height="21"/>
+                                                    <rect key="frame" x="64" y="8.5" width="290" height="21"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -586,7 +592,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Midpoint" translatesAutoresizingMaskIntoConstraints="NO" id="nuE-EH-YUZ">
-                                                    <rect key="frame" x="20" y="0.0" width="36" height="36"/>
+                                                    <rect key="frame" x="20" y="0.0" width="36" height="36.5"/>
                                                     <color key="tintColor" name="Primary"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="nuE-EH-YUZ" secondAttribute="height" multiplier="1:1" id="6db-yD-A0C"/>
@@ -594,13 +600,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fyq-iQ-4lk">
-                                                    <rect key="frame" x="64" y="8" width="200" height="21"/>
+                                                    <rect key="frame" x="64" y="8.5" width="200" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:53PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JG7-en-HRI">
-                                                    <rect key="frame" x="272" y="8" width="82" height="21"/>
+                                                    <rect key="frame" x="272" y="8.5" width="82" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="82" id="PpZ-Bh-8Lw"/>
                                                     </constraints>
@@ -707,7 +713,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0jl-9d-ONn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3276.811594202899" y="38.839285714285715"/>
+            <point key="canvasLocation" x="4038" y="15"/>
         </scene>
     </scenes>
     <resources>

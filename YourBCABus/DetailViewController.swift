@@ -124,5 +124,26 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         return false
     }
     
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
+        
+        if let bus = detailItem {
+            do {
+                let encodedBusData = try PropertyListEncoder().encode(bus)
+                coder.encode(encodedBusData, forKey: "detailItem")
+            } catch {}
+        }
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+        
+        if let data = coder.decodeObject(of: NSData.self, forKey: "detailItem") {
+            do {
+                detailItem = try PropertyListDecoder().decode(Bus.self, from: data as Data)
+            } catch {}
+        }
+    }
+    
 }
 

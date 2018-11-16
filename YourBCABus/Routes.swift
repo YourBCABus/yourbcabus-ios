@@ -9,15 +9,30 @@
 import Foundation
 import MapKit
 
-class Route: CustomStringConvertible {
-    enum Step {
+class Route: CustomStringConvertible, Codable {
+    enum CodingKeys: String, CodingKey {
+        case mapKitData = "mapKitData"
+        case walkingPolyline
+        case walkingETA
+        case walkingDistance
+        case stop
+        case eta
+        case steps
+        case bus
+        case stops
+        case school
+        case schoolId
+        case fetchStatus
+    }
+    
+    enum Step: Int, Codable {
         case boarding
         case riding
         case walking
         case andItsFamilyAfterGenus
     }
     
-    enum FetchStatus {
+    enum FetchStatus: Int, Codable {
         case notFetched
         case fetching
         case errored
@@ -37,13 +52,100 @@ class Route: CustomStringConvertible {
     var bus: Bus?
     var stops: [Stop]?
     var school: School?
-    var walkingRoute: MKRoute?
+    
+    var walkingPolyline: MKPolyline?
+    var walkingETA: TimeInterval?
+    var walkingDistance: CLLocationDistance?
+    
+    private var walkingRoute: MKRoute? {
+        get {
+            return nil
+        }
+        set {
+            walkingPolyline = newValue!.polyline
+            walkingETA = newValue!.expectedTravelTime
+            walkingDistance = newValue!.distance
+        }
+    }
     
     var fetchStatus: FetchStatus {
         return _fetchStatus
     }
     
     private var _fetchStatus = FetchStatus.notFetched
+    
+    private struct Point: Codable {
+        let x: Double
+        let y: Double
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(NSKeyedArchiver.archivedData(withRootObject: destination, requiringSecureCoding: true), forKey: .mapKitData)
+        
+        try container.encode(stop, forKey: .stop)
+        try container.encode(steps, forKey: .steps)
+        try container.encode(eta, forKey: .eta)
+        try container.encode(schoolId, forKey: .schoolId)
+        try container.encode(bus, forKey: .bus)
+        try container.encode(stops, forKey: .stops)
+        try container.encode(school, forKey: .school)
+        try container.encode(fetchStatus, forKey: .fetchStatus)
+        
+        if let polyline = walkingPolyline {
+            let points = [MKMapPoint](UnsafeBufferPointer<MKMapPoint>(start: polyline.points(), count: polyline.pointCount))
+            
+            try container.encode(points.map {Point(x: $0.x, y: $0.y)}, forKey: .walkingPolyline)
+            try container.encode(walkingETA!, forKey: .walkingETA)
+            try container.encode(walkingDistance!, forKey: .walkingDistance)
+        }
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        steps = try container.decode([Step].self, forKey: .steps)
+        if container.contains(.eta) {
+            eta = try container.decode(Date.self, forKey: .eta)
+        } else {
+            eta = nil
+        }
+        if container.contains(.stop) {
+            stop = try container.decode(Stop.self, forKey: .stop)
+        } else {
+            stop = nil
+        }
+        if container.contains(.bus) {
+            bus = try container.decode(Bus.self, forKey: .bus)
+        } else {
+            bus = nil
+        }
+        if container.contains(.stops) {
+            stops = try container.decode([Stop].self, forKey: .stops)
+        } else {
+            stops = nil
+        }
+        if container.contains(.school) {
+            school = try container.decode(School.self, forKey: .school)
+        } else {
+            school = nil
+        }
+        schoolId = try container.decode(String.self, forKey: .schoolId)
+        _fetchStatus = try container.decode(FetchStatus.self, forKey: .fetchStatus)
+        
+        let data = try container.decode(Data.self, forKey: .mapKitData)
+        destination = try NSKeyedUnarchiver.unarchivedObject(ofClass: MKMapItem.self, from: data)!
+        
+        if container.contains(.walkingPolyline) {
+            let points = try container.decode([Point].self, forKey: .walkingPolyline)
+            let mapPoints = points.map({MKMapPoint(x: $0.x, y: $0.y).coordinate})
+            walkingPolyline = MKPolyline(coordinates: mapPoints, count: mapPoints.count)
+            
+            walkingETA = try container.decode(TimeInterval.self, forKey: .walkingETA)
+            walkingDistance = try container.decode(CLLocationDistance.self, forKey: .walkingDistance)
+        }
+    }
     
     init(destination: MKMapItem, stop: Stop?, schoolId: String) {
         self.destination = destination
@@ -82,8 +184,9 @@ class Route: CustomStringConvertible {
                             if let arrives = stop.arrives {
                                 DirectionsCache.shared.getDirections(origin: MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(from: stop.location))), destination: self.destination, departure: arrives) { (resp, error) in
                                     if let response = resp {
-                                        self.walkingRoute = response.routes.first!
-                                        self.eta = arrives.addingTimeInterval(self.walkingRoute!.expectedTravelTime)
+                                        let walkingRoute = response.routes.first!
+                                        self.walkingRoute = walkingRoute
+                                        self.eta = arrives.addingTimeInterval(walkingRoute.expectedTravelTime)
                                         
                                         APIService.shared.getSchool(schoolId: self.schoolId, cachingMode: .preferCache) { result in
                                             if result.ok {
@@ -137,7 +240,7 @@ class Route: CustomStringConvertible {
                     DirectionsCache.shared.getDirections(origin: MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(from: self.school!.location))), destination: self.destination, departure: departureTime) { (resp, error) in
                         if let response = resp {
                             self.walkingRoute = response.routes.first!
-                            self.eta = departureTime.addingTimeInterval(self.walkingRoute!.expectedTravelTime)
+                            self.eta = departureTime.addingTimeInterval(response.routes.first!.expectedTravelTime)
                             self._fetchStatus = .fetched
                             update(true, nil, self)
                         } else {

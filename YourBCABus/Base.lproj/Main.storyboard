@@ -13,7 +13,7 @@
         <!--Buses-->
         <scene sceneID="pY4-Hu-kfo">
             <objects>
-                <navigationController title="Buses" id="RMx-3f-FxP" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="YBBMasterNavigationViewController" title="Buses" id="RMx-3f-FxP" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" largeTitles="YES" id="Pmd-2v-anx" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -30,7 +30,7 @@
         <!--Detail-->
         <scene sceneID="yUG-lL-AsK">
             <objects>
-                <viewController title="Detail" id="JEX-9P-axG" customClass="DetailViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="YBBBusDetailViewController" title="Detail" id="JEX-9P-axG" customClass="DetailViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="svH-Pt-448">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -200,7 +200,7 @@
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
             <objects>
-                <splitViewController id="H1p-Uh-vWS" sceneMemberID="viewController">
+                <splitViewController restorationIdentifier="YBBSplitViewController" id="H1p-Uh-vWS" sceneMemberID="viewController">
                     <toolbarItems/>
                     <connections>
                         <segue destination="pCP-jQ-Jm4" kind="relationship" relationship="detailViewController" id="QJR-56-JLJ"/>
@@ -214,7 +214,7 @@
         <!--Buses-->
         <scene sceneID="smW-Zh-WAh">
             <objects>
-                <tableViewController title="Buses" clearsSelectionOnViewWillAppear="NO" id="7bK-jq-Zjz" customClass="MasterViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="YBBMasterViewController" title="Buses" clearsSelectionOnViewWillAppear="NO" id="7bK-jq-Zjz" customClass="MasterViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="r7i-6Z-zg0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -338,7 +338,7 @@
         <!--Navigation Controller-->
         <scene sceneID="r7l-gg-dq7">
             <objects>
-                <navigationController id="vC3-pB-5Vb" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="YBBBusDetailNavigationViewController" id="vC3-pB-5Vb" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" id="DjV-YW-jjY" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -356,7 +356,7 @@
         <!--Detail-->
         <scene sceneID="UvH-Fm-WcL">
             <objects>
-                <viewController title="Detail" id="4oZ-EO-NpM" customClass="MapViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="YBBMapViewController" title="Detail" id="4oZ-EO-NpM" customClass="MapViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5yK-bU-Be8" customClass="MKMapView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -529,7 +529,7 @@
         <!--Navigation Controller-->
         <scene sceneID="vQu-bN-kQm">
             <objects>
-                <navigationController id="pCP-jQ-Jm4" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="YBBMapNavigationViewController" id="pCP-jQ-Jm4" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="black" id="GPx-4f-3vU" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -576,7 +576,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bNr-5q-qI0"/>
-        <segue reference="J2R-ju-KXf"/>
+        <segue reference="QJR-56-JLJ"/>
+        <segue reference="GKi-kA-LjT"/>
     </inferredMetricsTieBreakers>
 </document>

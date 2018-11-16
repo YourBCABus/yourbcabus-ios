@@ -260,6 +260,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadAnnotations(notification:)), name: Notification.Name(BusManager.NotificationName.busesChange.rawValue), object: nil)
         
+        navigationItem.largeTitleDisplayMode = .never
+        
         reloadAnnotations()
         reloadStops()
     }
