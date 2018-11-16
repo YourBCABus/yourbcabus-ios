@@ -217,9 +217,9 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
         let padding: UIEdgeInsets
         
         if traitCollection.verticalSizeClass == .compact {
-            padding = UIEdgeInsets(top: view.safeAreaInsets.top, left: view.safeAreaInsets.left, bottom: view.safeAreaInsets.bottom, right: visualEffectView.frame.width + view.safeAreaInsets.right)
+            padding = UIEdgeInsets(top: view.safeAreaInsets.top + 30, left: view.safeAreaInsets.left + 30, bottom: view.safeAreaInsets.bottom + 30, right: visualEffectView.frame.width + view.safeAreaInsets.right + 30)
         } else {
-            padding = UIEdgeInsets(top: view.safeAreaInsets.top, left: view.safeAreaInsets.left, bottom: visualEffectView.frame.height + view.safeAreaInsets.bottom + 80, right: view.safeAreaInsets.right)
+            padding = UIEdgeInsets(top: view.safeAreaInsets.top + 30, left: view.safeAreaInsets.left + 30, bottom: visualEffectView.frame.height + view.safeAreaInsets.bottom + 80, right: view.safeAreaInsets.right + 30)
         }
         
         let latitudeDelta = region.span.latitudeDelta / 2
