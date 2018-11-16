@@ -103,6 +103,8 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
             }
         }
     }
+    
+    var shadowLayer = CALayer()
 
     override func viewDidLoad() {
         mapView = mapOutlet
@@ -114,22 +116,13 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
         visualEffectView.layer.cornerRadius = 10
         visualEffectView.layer.masksToBounds = true
         
-        let layer = CALayer()
-        layer.shadowColor = UIColor.lightGray.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 0)
-        layer.shadowOpacity = 0.4
-        layer.shadowRadius = 4
-        layer.shadowPath = UIBezierPath(roundedRect: visualEffectView.frame, cornerRadius: 10).cgPath
+        shadowLayer.shadowColor = UIColor.lightGray.cgColor
+        shadowLayer.shadowOffset = CGSize(width: 0, height: 0)
+        shadowLayer.shadowOpacity = 0.4
+        shadowLayer.shadowRadius = 4
+        shadowLayer.shadowPath = UIBezierPath(roundedRect: visualEffectView.frame, cornerRadius: 10).cgPath
         
-        /*let mask = CALayer()
-        mask.frame = visualEffectView.frame.insetBy(dx: -20, dy: -20)
-        mask.cornerRadius = 10
-        mask.backgroundColor = UIColor.clear.cgColor
-        mask.borderColor = UIColor.black.cgColor
-        mask.borderWidth = 20
-        layer.mask = mask*/
-        
-        view?.layer.insertSublayer(layer, below: visualEffectView.layer)
+        view?.layer.insertSublayer(shadowLayer, below: visualEffectView.layer)
         
         exitButton.layer.cornerRadius = 16
         
@@ -180,6 +173,10 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
                 }
                 
                 pageViewController.setViewControllers([viewControllers[page]], direction: direction, animated: true, completion: nil)
+                
+                if let region = (viewControllers[page] as? RouteStepViewController)?.getMapRegion(for: self) {
+                    setRegion(to: region)
+                }
             }
         }
     }
@@ -204,25 +201,14 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
         return nil
     }
     
-    private var pendingIndex: Int?
-    
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        if pendingIndex == nil {
-            if let controller = pendingViewControllers.first {
-                if let index = viewControllers.firstIndex(of: controller) {
-                    pendingIndex = index
-                }
-            }
-        }
-    }
-    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if let index = pendingIndex {
-            pageControl.currentPage = index
-            pendingIndex = nil
-            
-            if let region = (viewControllers[index] as? RouteStepViewController)?.getMapRegion(for: self) {
-                setRegion(to: region)
+        if completed {
+            if let index = viewControllers.firstIndex(of: pageViewController.viewControllers![0]) {
+                pageControl.currentPage = index
+                
+                if let region = (viewControllers[index] as? RouteStepViewController)?.getMapRegion(for: self) {
+                    setRegion(to: region)
+                }
             }
         }
     }
@@ -361,9 +347,18 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
             if restoredPage != nil && (0..<viewControllers.count).contains(restoredPage!) {
                 pageViewController.setViewControllers([viewControllers[restoredPage!]], direction: .forward, animated: false, completion: nil)
                 pageControl.currentPage = restoredPage!
+                
+                if let region = (viewControllers[restoredPage!] as? RouteStepViewController)?.getMapRegion(for: self) {
+                    setRegion(to: region)
+                }
+                
                 restoredPage = nil
             }
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        shadowLayer.shadowPath = UIBezierPath(roundedRect: visualEffectView.frame, cornerRadius: 10).cgPath
     }
     
 

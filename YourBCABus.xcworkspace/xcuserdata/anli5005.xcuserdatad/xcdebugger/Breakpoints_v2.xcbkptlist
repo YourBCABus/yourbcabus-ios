@@ -47,11 +47,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/ModalNavigationViewController.swift"
-            timestampString = "564074500.365867"
+            timestampString = "564076442.908457"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
             landmarkName = "decodeRestorableState(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -63,11 +63,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/ModalNavigationViewController.swift"
-            timestampString = "564074500.3664"
+            timestampString = "564076442.909089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "345"
-            endingLineNumber = "345"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
             landmarkName = "encodeRestorableState(with:)"
             landmarkType = "7">
          </BreakpointContent>
