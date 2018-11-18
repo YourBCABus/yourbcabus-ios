@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let splitViewController = window!.rootViewController as! UISplitViewController
+        
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         splitViewController.delegate = self
@@ -118,12 +119,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     static let versionRestorationKey = "YBBAppVersion"
     
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
-        coder.encode("0.9", forKey: AppDelegate.versionRestorationKey)
+        coder.encode("1.0b1", forKey: AppDelegate.versionRestorationKey)
         return true
     }
     
     func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        guard coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey) == "0.9" else {
+        guard coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey) == "1.0b1" else {
             return false
         }
         

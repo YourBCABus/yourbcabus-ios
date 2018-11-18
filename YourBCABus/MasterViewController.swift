@@ -112,7 +112,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
+        clearsSelectionOnViewWillAppear = splitViewController?.isCollapsed == true
         super.viewWillAppear(animated)
     }
     

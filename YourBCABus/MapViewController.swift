@@ -262,6 +262,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         navigationItem.largeTitleDisplayMode = .never
         
+        if let split = splitViewController {
+            navigationItem.leftBarButtonItem = split.displayModeButtonItem
+        }
+        
         reloadAnnotations()
         reloadStops()
     }

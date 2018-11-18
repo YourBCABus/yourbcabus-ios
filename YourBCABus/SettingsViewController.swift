@@ -73,5 +73,16 @@ class SettingsViewController: UITableViewController {
     @IBAction func done(sender: UIBarButtonItem?) {
         dismiss(animated: true, completion: nil)
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            openSupport()
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func openSupport() {
+        UIApplication.shared.open(URL(string: "https://support.yourbcabus.com")!, options: [:], completionHandler: nil)
+    }
 
 }
