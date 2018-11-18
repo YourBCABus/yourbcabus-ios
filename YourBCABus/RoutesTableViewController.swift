@@ -39,6 +39,10 @@ class RoutesTableViewController: UITableViewController {
                             if let self = self {
                                 DispatchQueue.main.async {
                                     self.tableView.reloadData()
+                                    
+                                    if !self.routes.contains(where: { $0.fetchStatus == Route.FetchStatus.fetching }) {
+                                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                                    }
                                 }
                             }
                             
@@ -47,6 +51,7 @@ class RoutesTableViewController: UITableViewController {
                             }
                         } }
                         self.tableView.reloadData()
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = true
                     }
                 }
             }

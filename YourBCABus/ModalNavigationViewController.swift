@@ -21,6 +21,7 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     @IBOutlet weak var exitButton: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var statusBarVisualEffectView: UIVisualEffectView!
     
     var onDoneBlock: (() -> Void)?
     
@@ -359,6 +360,7 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     
     override func viewDidLayoutSubviews() {
         shadowLayer.shadowPath = UIBezierPath(roundedRect: visualEffectView.frame, cornerRadius: 10).cgPath
+        statusBarVisualEffectView.frame = UIApplication.shared.statusBarFrame
     }
     
 
