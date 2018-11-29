@@ -27,6 +27,7 @@ class SettingsViewController: UITableViewController {
     func enableNotifications() {
         UserDefaults.standard.set(true, forKey: AppDelegate.busArrivalNotificationsDefaultKey)
         UserDefaults.standard.set(true, forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)
+        NotificationCenter.default.post(name: AppDelegate.didChangeBusArrivalNotifications, object: self)
     }
     
     func displayAlert(switch theSwitch: UISwitch) {
@@ -66,6 +67,7 @@ class SettingsViewController: UITableViewController {
             } else {
                 UserDefaults.standard.set(false, forKey: AppDelegate.busArrivalNotificationsDefaultKey)
                 UserDefaults.standard.set(true, forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)
+                NotificationCenter.default.post(name: AppDelegate.didChangeBusArrivalNotifications, object: self)
             }
         }
     }

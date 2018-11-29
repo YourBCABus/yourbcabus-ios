@@ -30,11 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         splitViewController.delegate = self
         
-        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
         
         UNUserNotificationCenter.current().delegate = self
         
         application.registerForRemoteNotifications()
+        FirebaseApp.configure()
+        
+        print("YourBCABus FCM registration token length: \(String(describing: Messaging.messaging().fcmToken?.count))")
         
         notificationTokens.append(NotificationCenter.default.observe(name: NSNotification.Name(rawValue: BusManager.NotificationName.starredBusesChange.rawValue), object: nil, queue: nil, using: { [unowned self] notification in
             if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) {
@@ -84,14 +87,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-    
-    /*func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Messaging.messaging().apnsToken = deviceToken
-    }*/
-    
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print(error)
     }
     
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
