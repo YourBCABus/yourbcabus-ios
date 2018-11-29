@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         application.registerForRemoteNotifications()
         FirebaseApp.configure()
         
-        print("YourBCABus FCM registration token length: \(String(describing: Messaging.messaging().fcmToken?.count))")
+        print("YourBCABus FCM registration token length: \(String(describing: Messaging.messaging().fcmToken?.count))") // HACK: Ensures that this app receives an FCM registration token
         
         notificationTokens.append(NotificationCenter.default.observe(name: NSNotification.Name(rawValue: BusManager.NotificationName.starredBusesChange.rawValue), object: nil, queue: nil, using: { [unowned self] notification in
             if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) {
