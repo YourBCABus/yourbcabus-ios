@@ -95,6 +95,9 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
                 restoredPage = nil
                 pageControl.numberOfPages = viewControllers.count
                 pageControl.isHidden = false
+                if let type = (controller as? RouteStepViewController)?.getMapType(for: self) {
+                    mapView.mapType = type
+                }
                 if let region = (controller as? RouteStepViewController)?.getMapRegion(for: self) {
                     setRegion(to: region)
                 }
@@ -109,6 +112,7 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
 
     override func viewDidLoad() {
         mapView = mapOutlet
+        reloadsMapTypeOnRegionChange = false
         super.viewDidLoad()
         
         formatter.dateStyle = .none
@@ -206,6 +210,10 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
         if completed {
             if let index = viewControllers.firstIndex(of: pageViewController.viewControllers![0]) {
                 pageControl.currentPage = index
+                
+                if let type = (viewControllers[index] as? RouteStepViewController)?.getMapType(for: self) {
+                    mapView.mapType = type
+                }
                 
                 if let region = (viewControllers[index] as? RouteStepViewController)?.getMapRegion(for: self) {
                     setRegion(to: region)

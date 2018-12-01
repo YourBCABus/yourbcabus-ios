@@ -18,6 +18,10 @@ class RouteStepViewController: UIViewController {
     func getMapRegion(for: ModalNavigationViewController) -> MKCoordinateRegion? {
         return nil
     }
+    
+    func getMapType(for controller: ModalNavigationViewController) -> MKMapType? {
+        return controller.standardMapType
+    }
 }
 
 class BoardingStepViewController: RouteStepViewController {
@@ -48,6 +52,11 @@ class BoardingStepViewController: RouteStepViewController {
     override func getMapRegion(for viewController: ModalNavigationViewController) -> MKCoordinateRegion? {
         return MKCoordinateRegion(center: MapViewControllerPoints.standard.school, latitudinalMeters: 150, longitudinalMeters: 150)
     }
+    
+    override func getMapType(for controller: ModalNavigationViewController) -> MKMapType? {
+        return controller.schoolAreaMapType
+    }
+
 }
 
 class RidingStepScrimView: UIView {

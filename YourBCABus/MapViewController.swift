@@ -270,15 +270,27 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         reloadStops()
     }
     
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        if mapView.camera.altitude < 1500 && mapView.visibleMapRect.intersects(schoolRect) {
-            if mapView.mapType != .hybridFlyover {
-                mapView.mapType = .hybridFlyover
+    var schoolAreaMapType = MKMapType.hybridFlyover
+    var schoolAreaMapTypeMaxAltitude: CLLocationDistance = 1500
+    var standardMapType = MKMapType.mutedStandard
+    
+    func reloadMapType() {
+        if mapView.camera.altitude < schoolAreaMapTypeMaxAltitude && mapView.visibleMapRect.intersects(schoolRect) {
+            if mapView.mapType != schoolAreaMapType {
+                mapView.mapType = schoolAreaMapType
             }
         } else {
-            if mapView.mapType != .mutedStandard {
-                mapView.mapType = .mutedStandard
+            if mapView.mapType != standardMapType {
+                mapView.mapType = standardMapType
             }
+        }
+    }
+    
+    @IBInspectable var reloadsMapTypeOnRegionChange = true
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        if reloadsMapTypeOnRegionChange {
+            reloadMapType()
         }
     }
     

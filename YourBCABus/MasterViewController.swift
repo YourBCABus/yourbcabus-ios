@@ -223,7 +223,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if searchController?.isActive == true {
+        if tableView !== self.tableView {
             return 60
         } else {
             switch sections[indexPath.section] {

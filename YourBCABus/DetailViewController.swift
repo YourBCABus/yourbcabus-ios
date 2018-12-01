@@ -103,19 +103,19 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    /* func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            
+            return 92
         } else {
-            
+            return 44
         }
-    } */
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "StatusCell") as! BusStatusTableViewCell
             cell.statusLabel.text = detailItem?.getStatus()
-            cell.secondaryLabel.text = detailItem == nil ? nil : "\(stops.count) stop\(stops.count == 1 ? "" : "s")"
+            cell.secondaryLabel.text = detailItem == nil ? nil : (stops.count < 1 ? "Stops unavailable" : "\(stops.count) stop\(stops.count == 1 ? "" : "s")")
             cell.locationView.location = detailItem?.location
             cell.locationView.available = detailItem?.available == true
             return cell
