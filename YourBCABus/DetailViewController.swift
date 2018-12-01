@@ -103,7 +103,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return 92
         } else {
