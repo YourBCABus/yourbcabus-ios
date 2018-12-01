@@ -84,7 +84,11 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        if stops.count > 0 {
+            return 2
+        } else {
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -100,14 +104,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             return 1
         } else {
             return stops.count
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 92
-        } else {
-            return 44
         }
     }
     
