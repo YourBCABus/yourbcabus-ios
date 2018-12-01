@@ -26,7 +26,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     var resultsViewController: SearchResultsViewController!
     var searchController: UISearchController!
     
-    var refreshInterval: TimeInterval = 60
+    var refreshInterval: TimeInterval = 15
     private var refreshTimer: Timer?
     
     private var notificationTokens = [NotificationToken]()
@@ -105,9 +105,9 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         definesPresentationContext = true
         
         refreshTimer = Timer.scheduledTimer(withTimeInterval: refreshInterval, repeats: true, block: { [weak self] timer in
-            if self?.view.window != nil {
-                self!.reloadBuses(cachingMode: .forceFetch)
-            }
+            // if self?.view.window != nil {
+                self?.reloadBuses(cachingMode: .forceFetch)
+            // }
         })
     }
 

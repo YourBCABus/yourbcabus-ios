@@ -28,7 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+        navigationController.topViewController!.navigationItem.leftItemsSupplementBackButton = true
         splitViewController.delegate = self
+        splitViewController.presentsWithGesture = false
+        // splitViewController.preferredDisplayMode = .allVisible
         
         Messaging.messaging().delegate = self
         
@@ -102,28 +105,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     // MARK: - Split view
+    
+    private var didPerformInitialCollapse = false
 
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
-        /* guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
-        guard let topAsDetailController = secondaryAsNavController.topViewController as? MapViewController else { return false } */
-        return true
+        let didPerform = didPerformInitialCollapse
+        didPerformInitialCollapse = true
+        return !didPerform
     }
     
     // MARK: State Restoration
     
     static let versionRestorationKey = "YBBAppVersion"
+    var versionRestorationValue = "1.0b5"
     
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
-        coder.encode("1.0b1", forKey: AppDelegate.versionRestorationKey)
+        coder.encode(versionRestorationValue, forKey: AppDelegate.versionRestorationKey)
         return true
     }
     
     func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        guard coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey) == "1.0b1" else {
+        guard coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey) == versionRestorationValue as NSString else {
             return false
         }
         
         return true
+    }
+    
+    func application(_ application: UIApplication, didDecodeRestorableStateWith coder: NSCoder) {
+        if coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey) == "1.0b1" {
+            if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) {
+                BusManager.shared.starredBusIDs.forEach { bus in
+                    Messaging.messaging().subscribe(toTopic: "school.\(self.schoolId).bus.\(bus)")
+                }
+            }
+        }
     }
     
 }

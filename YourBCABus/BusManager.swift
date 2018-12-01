@@ -35,6 +35,10 @@ class BusManager {
         return _starredBuses
     }
     
+    var starredBusIDs: [String] {
+        return Array(isStarred.filter({ $1 }).keys)
+    }
+    
     var filteredBuses: [Bus] {
         return _filteredBuses
     }
