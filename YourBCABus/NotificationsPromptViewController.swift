@@ -45,17 +45,23 @@ class NotificationsPromptViewController: UIViewController {
         UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
             switch settings.authorizationStatus {
             case .denied:
-                self.displayAlert()
+                DispatchQueue.main.async {
+                    self.displayAlert()
+                }
             case .notDetermined:
                 UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { authorized, error in
-                    if authorized {
-                        self.enableNotifications()
-                    } else {
-                        self.displayAlert()
+                    DispatchQueue.main.async {
+                        if authorized {
+                            self.enableNotifications()
+                        } else {
+                            self.displayAlert()
+                        }
                     }
                 })
             default:
-                self.enableNotifications()
+                DispatchQueue.main.async {
+                    self.enableNotifications()
+                }
             }
         })
     }
