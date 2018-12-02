@@ -254,6 +254,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // TODO: Dynamic coordinates
         mapView.setVisibleMapRect(schoolRect, animated: false)
         mapView.mapType = .hybridFlyover
+        mapView.showsUserLocation = true
         mapView.delegate = self
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: "BusView")
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "StopView")

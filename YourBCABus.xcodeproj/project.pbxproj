@@ -19,6 +19,8 @@
 		4A113B3E217AA94A00B7640E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3D217AA94A00B7640E /* Models.swift */; };
 		4A113B40217AAC5B00B7640E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3F217AAC5B00B7640E /* APIService.swift */; };
 		4A1778DF219347E800D72001 /* RouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1778DE219347E800D72001 /* RouteTableViewCell.swift */; };
+		4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */; };
+		4A1E96E221B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */; };
 		4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */; };
 		4A37C1EB219CF2FB0088D3CF /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A37C1EA219CF2FB0088D3CF /* GradientView.swift */; };
 		4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */; };
@@ -81,6 +83,8 @@
 		4A113B3D217AA94A00B7640E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		4A113B3F217AAC5B00B7640E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		4A1778DE219347E800D72001 /* RouteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTableViewCell.swift; sourceTree = "<group>"; };
+		4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertPromptViewController.swift; sourceTree = "<group>"; };
+		4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertEventReceiver.swift; sourceTree = "<group>"; };
 		4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4A37C1EA219CF2FB0088D3CF /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +214,15 @@
 			path = YourBCABusUITests;
 			sourceTree = "<group>";
 		};
+		4A1E96DE21B2F62600FB4038 /* Get Off Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */,
+				4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */,
+			);
+			name = "Get Off Alerts";
+			sourceTree = "<group>";
+		};
 		4A7B2965219A377A00B465B6 /* Steps */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,6 +315,7 @@
 				4AE7066D218FE80E00A95AC0 /* NavigationTableViewController.swift */,
 				4AE70672218FED2200A95AC0 /* RoutesTableViewController.swift */,
 				4AE70674218FED3A00A95AC0 /* ModalNavigationViewController.swift */,
+				4A1E96DE21B2F62600FB4038 /* Get Off Alerts */,
 				4A7B2965219A377A00B465B6 /* Steps */,
 			);
 			name = Navigation;
@@ -380,6 +394,9 @@
 					4A113B05217A986E00B7640E = {
 						CreatedOnToolsVersion = 10.0;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
@@ -560,10 +577,12 @@
 				4AA37BFE21932AD300E02266 /* Routes.swift in Sources */,
 				4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */,
 				4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */,
+				4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */,
 				4A7B2968219A37B600B465B6 /* RouteStepViewController.swift in Sources */,
 				4AC8478621851118001E8698 /* BusStatusTableViewCell.swift in Sources */,
 				4A113B0C217A986E00B7640E /* MasterViewController.swift in Sources */,
 				4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */,
+				4A1E96E221B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift in Sources */,
 				4A113B40217AAC5B00B7640E /* APIService.swift in Sources */,
 				4A97EC13217EAEDA003C7C60 /* BusLocationView.swift in Sources */,
 				4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */,
