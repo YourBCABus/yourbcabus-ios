@@ -49,10 +49,10 @@ class GetOffAlertPromptViewController: UIViewController, GetOffAlertEventReceive
             message = "Please enable Push Notifications to receive \"Get Off\" alerts."
         } else if permissionsRequired == [.locationServices] {
             title = "Enable Location Services"
-            message = "Please ensure that YourBCABus is Always allowed to use your location."
+            message = "Please ensure that YourBCABus is allowed to use your location."
         } else {
             title = "Check Permissions"
-            message = "Make sure that Push Notifications are enabled and Location Services is set to Always for YourBCABus."
+            message = "Please enable Push Notifications and Location Services for YourBCABus."
         }
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -98,7 +98,7 @@ class GetOffAlertPromptViewController: UIViewController, GetOffAlertEventReceive
     func locationAuthorizationDidChange(to status: CLAuthorizationStatus) {
         DispatchQueue.main.async {
             if self.requestingAuthorization {
-                if status == .authorizedAlways {
+                if status == .authorizedAlways || status == .authorizedWhenInUse {
                     self.locationEnabled()
                 } else {
                     self.displayAlert(permissionsRequired: [.locationServices])
@@ -113,11 +113,11 @@ class GetOffAlertPromptViewController: UIViewController, GetOffAlertEventReceive
     
     @IBAction func tryToEnableGetOffAlerts(sender: UIButton?) {
         switch CLLocationManager.authorizationStatus() {
-        case .authorizedAlways:
+        case .authorizedAlways, .authorizedWhenInUse:
             self.locationEnabled()
         case .notDetermined:
             requestingAuthorization = true
-            locationManager?.requestAlwaysAuthorization()
+            locationManager?.requestWhenInUseAuthorization()
         default:
             UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
                 switch settings.authorizationStatus {
