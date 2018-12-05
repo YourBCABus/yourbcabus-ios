@@ -9,6 +9,7 @@
 import UIKit
 
 enum MasterTableViewSection {
+    case notificationsAlert
     case navigation
     case maps
     case starred
@@ -32,6 +33,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     private var notificationTokens = [NotificationToken]()
     
     static let didAskToSetUpNotificationsDefaultsKey = "didAskToSetUpBusArrivalNotifications"
+    static let didOpenNotificationsAlertDefaultsKey = "didOpenNotificationsAlert"
     
     func reloadBuses(cachingMode: APICachingMode, completion: ((Bool) -> Void)? = nil) {
         APIService.shared.getBuses(schoolId: schoolId, cachingMode: cachingMode) { result in
@@ -165,9 +167,21 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     }
 
     // MARK: - Table View
+    
+    func refreshSections() {
+        if BusManager.shared.starredBuses.count > 0 {
+            if !sections.contains(.starred) {
+                sections.insert(.starred, at: sections.firstIndex(of: .buses)!)
+            }
+        } else {
+            if let index = sections.firstIndex(of: .starred) {
+                sections.remove(at: index)
+            }
+        }
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        sections = BusManager.shared.starredBuses.count > 0 ? [.navigation, .maps, .starred, .buses] : [.navigation, .maps, .buses]
+        refreshSections()
         return sections.count
     }
     
@@ -186,7 +200,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
-        case .navigation:
+        case .notificationsAlert, .navigation:
             return 1
         case .maps:
             return 1
@@ -199,6 +213,11 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
+        case .notificationsAlert:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
+            
+            cell.textLabel?.text = "Notifications not working?"
+            return cell
         case .navigation:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
             
@@ -227,7 +246,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             return 60
         } else {
             switch sections[indexPath.section] {
-            case .navigation, .maps:
+            case .notificationsAlert, .navigation, .maps:
                 return 44
             case .starred, .buses:
                 return 60
@@ -240,6 +259,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             performSegue(withIdentifier: "showDetail", sender: tableView)
         } else {
             switch sections[indexPath.section] {
+            case .notificationsAlert:
+                showNotificationsAlert()
             case .navigation:
                 performSegue(withIdentifier: "showNavigation", sender: tableView)
             case .maps:
@@ -266,6 +287,18 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     func updateSearchResults(for searchController: UISearchController) {
         BusManager.shared.updateFilteredBuses(term: searchController.searchBar.text!.trimmingCharacters(in: CharacterSet.whitespaces))
         (searchController.searchResultsController as? UITableViewController)?.tableView.reloadData()
+    }
+    
+    func showNotificationsAlert() {
+        let alert = UIAlertController(title: "Notifications not working?", message: "Try unstarring your buses, then starring them again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Got it", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+        
+        UserDefaults.standard.set(true, forKey: MasterViewController.didOpenNotificationsAlertDefaultsKey)
+        if let index = sections.firstIndex(of: .notificationsAlert) {
+            sections.remove(at: index)
+            tableView.deleteSections(IndexSet(arrayLiteral: index), with: .automatic)
+        }
     }
     
     deinit {

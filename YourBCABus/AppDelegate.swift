@@ -67,6 +67,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
         }))
         
+        UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: requests.filter({ $0.identifier.starts(with: ModalNavigationViewController.getOffAlertNotificationIdPrefix) }).map({ $0.identifier }))
+        })
+        
         return true
     }
 
@@ -117,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     // MARK: State Restoration
     
     static let versionRestorationKey = "YBBAppVersion"
-    var versionRestorationValue = "1.0b5"
+    var versionRestorationValue = "1.0b6"
     
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
         coder.encode(versionRestorationValue, forKey: AppDelegate.versionRestorationKey)
@@ -133,10 +137,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func application(_ application: UIApplication, didDecodeRestorableStateWith coder: NSCoder) {
-        if coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey) == "1.0b1" {
-            if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) {
-                BusManager.shared.starredBusIDs.forEach { bus in
-                    Messaging.messaging().subscribe(toTopic: "school.\(self.schoolId).bus.\(bus)")
+        let version = coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey)
+        if version == "1.0b1" || version == "1.0b5" {
+            if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) && !UserDefaults.standard.bool(forKey: MasterViewController.didOpenNotificationsAlertDefaultsKey) {
+                if let root = window?.rootViewController as? UISplitViewController {
+                    if let master = (root.viewControllers.first as? UINavigationController)?.topViewController as? MasterViewController {
+                        master.sections.insert(.notificationsAlert, at: 0)
+                    }
                 }
             }
         }

@@ -33,9 +33,10 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     
     static let getOffAlertsDefaultsKey = "stopArrivalNotificationsEnabled"
     static let getOffAlertRadiusDefaultKey = "stopArrivalNotificationsRadius"
-    static let getOffAlertDefaultRadius: CLLocationDistance = 100
+    static let getOffAlertDefaultRadius: CLLocationDistance = 270
     static let didAskToSetUpGetOffAlertsDefaultsKey = "didAskToSetUpStopArrivalNotifications"
     static let didChangeGetOffAlertsNotificationName = Notification.Name("YBBDidChangeGetOffAlerts")
+    static let getOffAlertNotificationIdPrefix = "YBBGetOffAlert"
     
     private var formatter = DateFormatter()
     private var restoredPage: Int?
@@ -68,7 +69,7 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
         
         let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
         
-        getOffAlertNotificationId = UUID().uuidString
+        getOffAlertNotificationId = "\(ModalNavigationViewController.getOffAlertNotificationIdPrefix).\(UUID().uuidString)"
         let request = UNNotificationRequest(identifier: getOffAlertNotificationId!, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
