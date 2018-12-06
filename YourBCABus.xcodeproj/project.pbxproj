@@ -19,6 +19,7 @@
 		4A113B3E217AA94A00B7640E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3D217AA94A00B7640E /* Models.swift */; };
 		4A113B40217AAC5B00B7640E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3F217AAC5B00B7640E /* APIService.swift */; };
 		4A1778DF219347E800D72001 /* RouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1778DE219347E800D72001 /* RouteTableViewCell.swift */; };
+		4A18A7F021B8B90D00D1042F /* GetOffAlertSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */; };
 		4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */; };
 		4A1E96E221B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */; };
 		4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */; };
@@ -83,6 +84,7 @@
 		4A113B3D217AA94A00B7640E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		4A113B3F217AAC5B00B7640E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		4A1778DE219347E800D72001 /* RouteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTableViewCell.swift; sourceTree = "<group>"; };
+		4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertSettingsViewController.swift; sourceTree = "<group>"; };
 		4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertPromptViewController.swift; sourceTree = "<group>"; };
 		4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertEventReceiver.swift; sourceTree = "<group>"; };
 		4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */,
+				4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */,
 				4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */,
 			);
 			name = "Get Off Alerts";
@@ -578,6 +581,7 @@
 				4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */,
 				4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */,
 				4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */,
+				4A18A7F021B8B90D00D1042F /* GetOffAlertSettingsViewController.swift in Sources */,
 				4A7B2968219A37B600B465B6 /* RouteStepViewController.swift in Sources */,
 				4AC8478621851118001E8698 /* BusStatusTableViewCell.swift in Sources */,
 				4A113B0C217A986E00B7640E /* MasterViewController.swift in Sources */,

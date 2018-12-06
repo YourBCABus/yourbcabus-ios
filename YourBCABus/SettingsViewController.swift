@@ -78,13 +78,24 @@ class SettingsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-            openSupport()
+            switch indexPath.row {
+            case 0:
+                openSupport()
+            case 1:
+                openPrivacyPolicy()
+            default:
+                break
+            }
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func openSupport() {
         UIApplication.shared.open(URL(string: "https://support.yourbcabus.com")!, options: [:], completionHandler: nil)
+    }
+    
+    func openPrivacyPolicy() {
+        UIApplication.shared.open(URL(string: "https://support.yourbcabus.com/privacy-policy")!, options: [:], completionHandler: nil)
     }
 
 }

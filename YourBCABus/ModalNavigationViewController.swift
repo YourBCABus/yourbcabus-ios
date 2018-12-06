@@ -23,6 +23,38 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var statusBarVisualEffectView: UIVisualEffectView!
+    @IBOutlet weak var getOffAlertButton: UIButton?
+    
+    enum GetOffAlertState {
+        case enabled
+        case disabled
+        case lacksPermissions
+        case unavailable
+        case undetermined
+    }
+    var getOffAlertState = GetOffAlertState.undetermined {
+        didSet {
+            if let button = getOffAlertButton {
+                switch getOffAlertState {
+                case .enabled:
+                    button.isEnabled = true
+                    button.setTitle("Get Off Alert Enabled...", for: .normal)
+                case .disabled:
+                    button.isEnabled = true
+                    button.setTitle("Get Off Alert Disabled...", for: .normal)
+                case .lacksPermissions:
+                    button.isEnabled = true
+                    button.setTitle("Get Off Alert Error...", for: .normal)
+                case .unavailable:
+                    button.isEnabled = false
+                    button.setTitle("Get Off Alert Unavailable", for: .disabled)
+                case .undetermined:
+                    button.isEnabled = true
+                    button.setTitle("Get Off Alert Settings...", for: .normal)
+                }
+            }
+        }
+    }
     
     var onDoneBlock: (() -> Void)?
     
@@ -133,17 +165,36 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
                             performSegue(withIdentifier: "askToSetUpGetOffAlerts", sender: nil)
                         }
                         
+                        if CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+                            UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
+                                DispatchQueue.main.async {
+                                    if settings.authorizationStatus == .authorized {
+                                        self.getOffAlertState = UserDefaults.standard.bool(forKey: ModalNavigationViewController.getOffAlertsDefaultsKey) ? .enabled : .disabled
+                                    } else {
+                                        self.getOffAlertState = .lacksPermissions
+                                    }
+                                }
+                            })
+                        } else {
+                            getOffAlertState = .lacksPermissions
+                        }
+                        
                         getOffAlertsChangedListener = NotificationCenter.default.observe(name: ModalNavigationViewController.didChangeGetOffAlertsNotificationName, object: nil, queue: nil, using: { [weak self] notification in
                             guard let self = self else { return }
                             
                             if UserDefaults.standard.bool(forKey: ModalNavigationViewController.getOffAlertsDefaultsKey) {
                                 self.configureGetOffAlert()
+                                self.getOffAlertState = .enabled
                             } else {
                                 self.disableGetOffAlert()
+                                self.getOffAlertState = .disabled
                             }
                         })
+                    } else {
+                        getOffAlertState = .unavailable
                     }
                 } else {
+                    getOffAlertState = .unavailable
                     mapPoints = nil
                 }
                 

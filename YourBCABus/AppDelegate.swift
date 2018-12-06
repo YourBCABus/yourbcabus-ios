@@ -151,3 +151,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
 }
 
+extension UIApplication {
+    func openSettings() {
+        open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+    }
+}

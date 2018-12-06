@@ -47,11 +47,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/ModalNavigationViewController.swift"
-            timestampString = "565673463.8457609"
+            timestampString = "565758720.3233939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
+            startingLineNumber = "496"
+            endingLineNumber = "496"
             landmarkName = "decodeRestorableState(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -63,11 +63,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/ModalNavigationViewController.swift"
-            timestampString = "565673463.846092"
+            timestampString = "565758720.3235461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "429"
-            endingLineNumber = "429"
+            startingLineNumber = "480"
+            endingLineNumber = "480"
             landmarkName = "encodeRestorableState(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -79,7 +79,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "565673463.84631"
+            timestampString = "565758720.323808"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "61"
@@ -95,7 +95,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "565673463.8463531"
+            timestampString = "565758720.323897"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "65"
@@ -111,7 +111,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "565673463.8463939"
+            timestampString = "565758720.324141"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
@@ -127,7 +127,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "565673463.8464971"
+            timestampString = "565758720.324236"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "52"
@@ -143,13 +143,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "565673463.84654"
+            timestampString = "565758720.324373"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "116"
             endingLineNumber = "116"
             landmarkName = "splitViewController(_:collapseSecondary:onto:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YourBCABus/AppDelegate.swift"
+            timestampString = "565758720.3244849"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;__C.UNNotificationRequest&gt;) -&gt; () in YourBCABus.AppDelegate.application(_: __C.UIApplication, didFinishLaunchingWithOptions: Swift.Optional&lt;Swift.Dictionary&lt;__C.UIApplicationLaunchOptionsKey, Any&gt;&gt;) -&gt; Swift.Bool"
+                  moduleName = "YourBCABus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anli5005/yourbcabus/YourBCABus/YourBCABus/AppDelegate.swift"
+                  timestampString = "565752870.25448"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UNNotificationRequest) -&gt; Swift.Bool in closure #3 (Swift.Array&lt;__C.UNNotificationRequest&gt;) -&gt; () in YourBCABus.AppDelegate.application(_: __C.UIApplication, didFinishLaunchingWithOptions: Swift.Optional&lt;Swift.Dictionary&lt;__C.UIApplicationLaunchOptionsKey, Any&gt;&gt;) -&gt; Swift.Bool"
+                  moduleName = "YourBCABus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anli5005/yourbcabus/YourBCABus/YourBCABus/AppDelegate.swift"
+                  timestampString = "565752870.257926"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.UNNotificationRequest) -&gt; Swift.String in closure #3 (Swift.Array&lt;__C.UNNotificationRequest&gt;) -&gt; () in YourBCABus.AppDelegate.application(_: __C.UIApplication, didFinishLaunchingWithOptions: Swift.Optional&lt;Swift.Dictionary&lt;__C.UIApplicationLaunchOptionsKey, Any&gt;&gt;) -&gt; Swift.Bool"
+                  moduleName = "YourBCABus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anli5005/yourbcabus/YourBCABus/YourBCABus/AppDelegate.swift"
+                  timestampString = "565752870.2596"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
