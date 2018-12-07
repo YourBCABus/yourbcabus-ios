@@ -442,16 +442,51 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="More" id="fP7-es-32X">
+                            <tableViewSection headerTitle="Advanced Options" id="fP7-es-32X">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="lBE-kv-gTF" style="IBUITableViewCellStyleDefault" id="ifh-ou-swZ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="aDA-VZ-wfX">
                                         <rect key="frame" x="0.0" y="199.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ifh-ou-swZ" id="UYi-Xd-jOF">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aDA-VZ-wfX" id="gWp-Zi-bV3">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use 3D Satellite Map" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jff-3i-hIZ">
+                                                    <rect key="frame" x="20" y="11.5" width="319" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="poG-oH-BVO">
+                                                    <rect key="frame" x="347" y="6.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="didChangeUseFlyoverMapWithSender:" destination="iVQ-ew-cfH" eventType="valueChanged" id="vxN-tv-azA"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="poG-oH-BVO" firstAttribute="centerY" secondItem="gWp-Zi-bV3" secondAttribute="centerY" id="6un-b4-Ygj"/>
+                                                <constraint firstAttribute="trailing" secondItem="poG-oH-BVO" secondAttribute="trailing" constant="18" id="FK0-qU-Xik"/>
+                                                <constraint firstItem="jff-3i-hIZ" firstAttribute="centerY" secondItem="gWp-Zi-bV3" secondAttribute="centerY" id="K17-8n-m8r"/>
+                                                <constraint firstItem="poG-oH-BVO" firstAttribute="leading" secondItem="jff-3i-hIZ" secondAttribute="trailing" constant="8" id="VB0-Kq-gta"/>
+                                                <constraint firstItem="jff-3i-hIZ" firstAttribute="leading" secondItem="yiJ-gO-0gm" secondAttribute="leading" constant="20" id="fPr-mR-OXd"/>
+                                            </constraints>
+                                            <viewLayoutGuide key="safeArea" id="yiJ-gO-0gm"/>
+                                        </tableViewCellContentView>
+                                        <viewLayoutGuide key="safeArea" id="SAB-lP-Cyb"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="More" id="mW3-HX-NuL">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="r2S-Hz-Q5G" style="IBUITableViewCellStyleDefault" id="kY4-eS-8SF">
+                                        <rect key="frame" x="0.0" y="299.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kY4-eS-8SF" id="mtV-VQ-D0e">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="YourBCABus Support" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lBE-kv-gTF">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="YourBCABus Support" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r2S-Hz-Q5G">
                                                     <rect key="frame" x="20" y="0.0" width="356" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -461,14 +496,14 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="IQs-mu-BEb" style="IBUITableViewCellStyleDefault" id="ztT-oe-v3W">
-                                        <rect key="frame" x="0.0" y="243.5" width="414" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="mND-6E-Gua" style="IBUITableViewCellStyleDefault" id="8ph-8S-USE">
+                                        <rect key="frame" x="0.0" y="343.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ztT-oe-v3W" id="df0-Hy-7l7">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8ph-8S-USE" id="JYo-aU-u5I">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="YourBCABus Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IQs-mu-BEb">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="YourBCABus Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mND-6E-Gua">
                                                     <rect key="frame" x="20" y="0.0" width="356" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -496,6 +531,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="busArrivalNotificationsSwitch" destination="Jib-8t-gHz" id="1co-EN-IUV"/>
+                        <outlet property="useFlyoverMapSwitch" destination="poG-oH-BVO" id="xT7-dj-7X8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcV-hd-zac" userLabel="First Responder" sceneMemberID="firstResponder"/>

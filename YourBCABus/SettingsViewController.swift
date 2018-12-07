@@ -11,11 +11,13 @@ import UserNotifications
 
 class SettingsViewController: UITableViewController {
     @IBOutlet weak var busArrivalNotificationsSwitch: UISwitch!
+    @IBOutlet weak var useFlyoverMapSwitch: UISwitch!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         busArrivalNotificationsSwitch.setOn(UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey), animated: false)
+        useFlyoverMapSwitch.setOn(UserDefaults.standard.bool(forKey: MapViewController.useFlyoverMapDefaultsKey), animated: false)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -76,8 +78,14 @@ class SettingsViewController: UITableViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func didChangeUseFlyoverMap(sender: UISwitch?) {
+        if let on = sender?.isOn {
+            UserDefaults.standard.set(on, forKey: MapViewController.useFlyoverMapDefaultsKey)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
+        if indexPath.section == 2 {
             switch indexPath.row {
             case 0:
                 openSupport()

@@ -220,6 +220,16 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
         return Stop.formatter.date(from: temp)
     }
     
+    static func getArrivalTimeForCustomStop(date: Date, now: Date = Date()) -> Date? {
+        let calendar = Calendar(identifier: .gregorian)
+        var components = calendar.dateComponents([.calendar, .timeZone, .era, .year, .month, .day], from: now)
+        components.hour = calendar.component(.hour, from: date)
+        components.minute = calendar.component(.minute, from: date)
+        components.second = calendar.component(.second, from: date)
+        components.nanosecond = calendar.component(.nanosecond, from: date)
+        return calendar.date(from: components)
+    }
+    
     enum Keys: String, CodingKey {
         case _id = "_id"
         case bus_id = "bus_id"
@@ -231,7 +241,10 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
         case arrives = "arrives"
         case invalidates = "invalidates"
         case order = "order"
+        case is_custom = "is_custom"
     }
+    
+    static let customStopIdPrefix = "YBBCustomStopIOS"
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Keys.self)
@@ -241,9 +254,11 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
         name = container.contains(.name) ? try container.decode(String.self, forKey: .name) : nil
         location = try container.decode(Coordinate.self, forKey: .location)
         order = try container.decode(Double.self, forKey: .order)
+        is_custom = try (container.contains(.is_custom) && container.decode(Bool.self, forKey: .is_custom))
         
         if container.contains(.arrives) {
-            arrives = try container.decode(Date.self, forKey: .arrives)
+            let date = try container.decode(Date.self, forKey: .arrives)
+            arrives = is_custom ? Stop.getArrivalTimeForCustomStop(date: date) : date
         } else {
             let arrival_time = container.contains(.arrival_time) ? try container.decode(String?.self, forKey: .arrival_time) : nil
             if let time = arrival_time {
@@ -265,6 +280,23 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
         }
     }
     
+    init(customStopAt location: Coordinate, bus bus_id: String, arrivesAt arrives: Date? = nil, name: String? = nil, order: Double = 0, id _id: String = "\(Stop.customStopIdPrefix).\(UUID().uuidString)") {
+        self._id = _id
+        self.bus_id = bus_id
+        self.name = name
+        self.location = location
+        self.order = order
+        self.invalidates = nil
+        self.available = true
+        self.is_custom = true
+        
+        if let date = arrives {
+            self.arrives = Stop.getArrivalTimeForCustomStop(date: date)
+        } else {
+            self.arrives = nil
+        }
+    }
+    
     let _id: String
     let bus_id: String
     let name: String?
@@ -273,6 +305,7 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
     let arrives: Date?
     let invalidates: Date?
     let available: Bool
+    let is_custom: Bool
     
     static func < (a: Stop, b: Stop) -> Bool {
         return a.order < b.order

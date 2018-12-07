@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     static let busArrivalNotificationsDefaultKey = "busArrivalNotifications"
     static let didChangeBusArrivalNotifications = NSNotification.Name("YBBDidChangeBusArrivalNotifications")
+    
+    private var shouldShowNotificationsAlert = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -70,6 +72,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: requests.filter({ $0.identifier.starts(with: ModalNavigationViewController.getOffAlertNotificationIdPrefix) }).map({ $0.identifier }))
         })
+        
+        if shouldShowNotificationsAlert {
+            if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) && !UserDefaults.standard.bool(forKey: MasterViewController.didOpenNotificationsAlertDefaultsKey) {
+                if let root = window?.rootViewController as? UISplitViewController {
+                    if let master = (root.viewControllers.first as? UINavigationController)?.topViewController as? MasterViewController {
+                        master.sections.insert(.notificationsAlert, at: 0)
+                    }
+                }
+            }
+        }
         
         return true
     }
@@ -121,7 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     // MARK: State Restoration
     
     static let versionRestorationKey = "YBBAppVersion"
-    var versionRestorationValue = "1.0b6"
+    var versionRestorationValue = "1.0b7"
     
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
         coder.encode(versionRestorationValue, forKey: AppDelegate.versionRestorationKey)
@@ -129,24 +141,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        guard coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey) == versionRestorationValue as NSString else {
+        let version = coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey)
+        if version == "1.0b1" || version == "1.0b5" {
+            shouldShowNotificationsAlert = true
+        }
+        
+        if version != versionRestorationValue as NSString {
             return false
         }
         
         return true
-    }
-    
-    func application(_ application: UIApplication, didDecodeRestorableStateWith coder: NSCoder) {
-        let version = coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey)
-        if version == "1.0b1" || version == "1.0b5" {
-            if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) && !UserDefaults.standard.bool(forKey: MasterViewController.didOpenNotificationsAlertDefaultsKey) {
-                if let root = window?.rootViewController as? UISplitViewController {
-                    if let master = (root.viewControllers.first as? UINavigationController)?.topViewController as? MasterViewController {
-                        master.sections.insert(.notificationsAlert, at: 0)
-                    }
-                }
-            }
-        }
     }
     
 }

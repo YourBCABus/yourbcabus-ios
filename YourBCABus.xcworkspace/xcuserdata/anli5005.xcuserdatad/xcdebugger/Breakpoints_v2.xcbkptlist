@@ -47,7 +47,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/ModalNavigationViewController.swift"
-            timestampString = "565758720.3233939"
+            timestampString = "565824550.004089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "496"
@@ -63,7 +63,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/ModalNavigationViewController.swift"
-            timestampString = "565758720.3235461"
+            timestampString = "565824550.0041521"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "480"
@@ -79,13 +79,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "565758720.323808"
+            timestampString = "565758809.441732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "61"
             endingLineNumber = "61"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -95,13 +95,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "565758720.323897"
+            timestampString = "565758809.441793"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "65"
             endingLineNumber = "65"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -111,13 +111,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "565758720.324141"
+            timestampString = "565758809.441846"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
             endingLineNumber = "50"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -127,13 +127,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "565758720.324236"
+            timestampString = "565758809.441885"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "52"
             endingLineNumber = "52"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -143,13 +143,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "565758720.324373"
+            timestampString = "565758809.441924"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "116"
             endingLineNumber = "116"
-            landmarkName = "splitViewController(_:collapseSecondary:onto:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -159,13 +159,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "565758720.3244849"
+            timestampString = "565758809.44196"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
             endingLineNumber = "71"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
             <Locations>
                <Location
                   shouldBeEnabled = "No"

@@ -112,6 +112,7 @@ struct BusMapPoint {
 class MapViewController: UIViewController, MKMapViewDelegate {
     
     static let noDetailBus = "This value will pretty much never be a bus ID. Enjoy!"
+    static let useFlyoverMapDefaultsKey = "mapViewControllerUseFlyoverMap"
     
     var points = MapViewControllerPoints.standard
     
@@ -249,11 +250,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if mapView == nil {
             mapView = view as? MKMapView
         }
+        
+        if UserDefaults.standard.bool(forKey: MapViewController.useFlyoverMapDefaultsKey) {
+            schoolAreaMapType = .hybridFlyover
+        }
 
         // Do any additional setup after loading the view.
         // TODO: Dynamic coordinates
         mapView.setVisibleMapRect(schoolRect, animated: false)
-        mapView.mapType = .hybridFlyover
+        mapView.mapType = schoolAreaMapType
         mapView.showsUserLocation = true
         mapView.delegate = self
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: "BusView")
@@ -271,7 +276,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         reloadStops()
     }
     
-    var schoolAreaMapType = MKMapType.hybridFlyover
+    var schoolAreaMapType = MKMapType.hybrid
     var schoolAreaMapTypeMaxAltitude: CLLocationDistance = 1500
     var standardMapType = MKMapType.mutedStandard
     
