@@ -149,6 +149,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    var standalonePoints: [BusMapPoint]?
     
     @objc func reloadAnnotations(notification: Notification? = nil) {
         mapView.removeAnnotations(mapView.annotations.filter {$0 is BusAnnotation})
@@ -202,31 +203,47 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 })
             }
         }
+        
+        if let standalone = standalonePoints {
+            mapView.addAnnotations(standalone.map { point in
+                let annotation = StopAnnotation()
+                annotation.stopId = point.stopId
+                annotation.coordinate = point.coordinate
+                annotation.title = point.title
+                annotation.bus = point.bus
+                return annotation
+            })
+        }
     }
     
     func regionForMapPoints(latitudePadding: CLLocationDegrees = 0.03, longitudePadding: CLLocationDegrees = 0.02) -> MKCoordinateRegion? {
-        if mapPoints?.first(where: { $0.count > 0 }) != nil {
+        if mapPoints?.first(where: { $0.count > 0 }) != nil || (standalonePoints?.count ?? 0) > 0 {
             mapView.mapType = .mutedStandard
             
+            var thePoints = mapPoints!
+            if let standalone = standalonePoints {
+                thePoints.append(standalone)
+            }
+            
             let maxDeg = CLLocationDegrees(Int.max)
-            let minLat = mapPoints!.reduce(maxDeg, { res, set in
+            let minLat = thePoints.reduce(maxDeg, { res, set in
                 return min(res, set.reduce(points.school.latitude, { res, point in
                     return min(res, Double(point.coordinate.latitude))
                 }))
             })
-            let minLong = mapPoints!.reduce(maxDeg, { res, set in
+            let minLong = thePoints.reduce(maxDeg, { res, set in
                 return min(res, set.reduce(points.school.longitude, { res, point in
                     return min(res, Double(point.coordinate.longitude))
                 }))
             })
             
             let minDeg = CLLocationDegrees(Int.min)
-            let maxLat = mapPoints!.reduce(minDeg, { res, set in
+            let maxLat = thePoints.reduce(minDeg, { res, set in
                 return max(res, set.reduce(points.school.latitude, { res, point in
                     return max(res, Double(point.coordinate.latitude))
                 }))
             })
-            let maxLong = mapPoints!.reduce(minDeg, { res, set in
+            let maxLong = thePoints.reduce(minDeg, { res, set in
                 return max(res, set.reduce(points.school.longitude, { res, point in
                     return max(res, Double(point.coordinate.longitude))
                 }))

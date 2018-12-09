@@ -148,6 +148,8 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
                 if let stop = route.stop {
                     if let stops = route.stops {
                         mapPoints = [stops.map {BusMapPoint(coordinate: CLLocationCoordinate2D(from: $0.location), title: $0.name ?? "", bus: nil, stopId: $0._id)}]
+                    } else {
+                        mapPoints = [[]]
                     }
                     mapPoints![0].append(BusMapPoint(coordinate: CLLocationCoordinate2D(from: stop.location), title: stop.name ?? "", bus: nil, stopId: stop._id))
                     

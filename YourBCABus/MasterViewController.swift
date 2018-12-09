@@ -221,7 +221,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         case .navigation:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
             
-            cell.textLabel?.text = "Navigation"
+            cell.textLabel?.text = "Navigation & Get Off Alerts"
             return cell
         case .maps:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)

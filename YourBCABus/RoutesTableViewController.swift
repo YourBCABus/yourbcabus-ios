@@ -66,8 +66,11 @@ class RoutesTableViewController: UITableViewController {
     var walkingRoute: Route?
     
     var maxDistance = 3220
+    var maxCustomStopDistance = 3220 * 1.5
     var formatter = DateFormatter()
     var distanceFormatter = MKDistanceFormatter()
+    
+    var customStops = [Stop]()
     
     func refreshActivityIndicator() {
         if walkingRoute?.fetchStatus != .fetching && !routes.contains(where: { $0.fetchStatus == Route.FetchStatus.fetching }) {
@@ -100,6 +103,17 @@ class RoutesTableViewController: UITableViewController {
                             self.routes = result.result.map { stop in
                                 return Route(destination: dest, stop: stop, schoolId: self.schoolId)
                             }
+                            
+                            let sortedRoutes = self.customStops.filter({ stop in
+                                return dest.placemark.location!.distance(from: CLLocation(latitude: stop.location.latitude, longitude: stop.location.longitude)) < self.maxCustomStopDistance
+                            }).sorted(by: { (a, b) in
+                                return dest.placemark.location!.distance(from: CLLocation(latitude: a.location.latitude, longitude: a.location.longitude)) < dest.placemark.location!.distance(from: CLLocation(latitude: b.location.latitude, longitude: b.location.longitude))
+                            })
+                            
+                            self.routes.append(contentsOf: sortedRoutes[0..<min(3, sortedRoutes.count)].map({ stop in
+                                return Route(destination: dest, stop: stop, schoolId: self.schoolId)
+                            }))
+                            
                             self.routes.forEach { $0.fetchData { [weak self] (ok, error, route) in
                                 if let self = self {
                                     DispatchQueue.main.async {
@@ -113,7 +127,6 @@ class RoutesTableViewController: UITableViewController {
                                 }
                                 } }
                             self.tableView.reloadData()
-                            UIApplication.shared.isNetworkActivityIndicatorVisible = true
                         }
                     }
                 }
@@ -123,8 +136,10 @@ class RoutesTableViewController: UITableViewController {
         }
     }
     
-    var loadingFooterView: UIView?
-    var normalFooterView: UIView?
+    var loadingFooterView: UIViewController?
+    var normalFooterView: UIViewController?
+    
+    private var notificationToken: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,19 +149,70 @@ class RoutesTableViewController: UITableViewController {
         
         navigationItem.largeTitleDisplayMode = .never
         
+        loadingFooterView = storyboard?.instantiateViewController(withIdentifier: "YBBRoutesLoadingFooterView")
+        normalFooterView = storyboard?.instantiateViewController(withIdentifier: "YBBRoutesNormalFooterView")
+        
+        if let button = normalFooterView?.view.subviews.first(where: {$0 is UIButton}) as? UIButton {
+            button.addTarget(self, action: #selector(addCustomStop(sender:)), for: .touchUpInside)
+        }
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
+        customStops = try! Stop.getCustomStops()
+        notificationToken = NotificationCenter.default.observe(name: CustomStopsCompletionViewController.finishNotificationName, object: nil, queue: nil, using: { [unowned self] notification in
+            self.customStops = try! Stop.getCustomStops()
+            
+            if let dest = self.destination {
+                self.routes.removeAll(where: {$0.stop?.is_custom == true})
+                
+                let sortedRoutes = self.customStops.filter({ stop in
+                    return dest.placemark.location!.distance(from: CLLocation(latitude: stop.location.latitude, longitude: stop.location.longitude)) < self.maxCustomStopDistance
+                }).sorted(by: { (a, b) in
+                    return dest.placemark.location!.distance(from: CLLocation(latitude: a.location.latitude, longitude: a.location.longitude)) < dest.placemark.location!.distance(from: CLLocation(latitude: b.location.latitude, longitude: b.location.longitude))
+                })
+                
+                let routes = sortedRoutes[0..<min(3, sortedRoutes.count)].map({ stop in
+                    return Route(destination: dest, stop: stop, schoolId: self.schoolId)
+                })
+                
+                self.isLoading = true
+                
+                routes.forEach { $0.fetchData { [weak self] (ok, error, route) in
+                    if let self = self {
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                            self.refreshActivityIndicator()
+                        }
+                    }
+                    
+                    if let e = error {
+                        print(e)
+                    }
+                } }
+            
+                self.routes.append(contentsOf: routes)
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            }
+        })
+        
         configureView(oldDestination: destination)
+    }
+    
+    @objc func addCustomStop(sender: Any?) {
+        performSegue(withIdentifier: "addCustomStop", sender: sender)
     }
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         sections = []
+        if customStopRoutes.count > 0 {
+            sections.append(.customStops)
+        }
         if nearestStopRoutes.count > 0 {
             sections.append(.nearestStops)
         }
@@ -157,7 +223,7 @@ class RoutesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
         case .customStops:
-            return 0
+            return customStopRoutes.count
         case .nearestStops:
             return nearestStopRoutes.count
         case .walking:
@@ -167,23 +233,27 @@ class RoutesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch sections[section] {
+        case .customStops:
+            return "Custom Stops"
         case .nearestStops:
             return "Nearest Stops"
         case .walking:
             return "Walking"
-        default:
-            return nil
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return sections[section] == .customStops ? "You can manage custom stops in Settings." : nil
     }
     
     func getRoute(for indexPath: IndexPath) -> Route? {
         switch sections[indexPath.section] {
+        case .customStops:
+            return customStopRoutes[indexPath.row]
         case .nearestStops:
             return nearestStopRoutes[indexPath.row]
         case .walking:
             return walkingRoute
-        default:
-            return nil
         }
     }
     
@@ -245,9 +315,20 @@ class RoutesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == sections.count - 1 {
-            return isLoading ? loadingFooterView : normalFooterView
+            let view = isLoading ? loadingFooterView?.view : normalFooterView?.view
+            return view
         } else {
             return nil
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == sections.count - 1 {
+            return 200
+        } else if sections[section] == .customStops {
+            return 30
+        } else {
+            return 0
         }
     }
     
