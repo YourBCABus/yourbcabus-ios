@@ -179,7 +179,7 @@ class RoutesTableViewController: UITableViewController {
                     return Route(destination: dest, stop: stop, schoolId: self.schoolId)
                 })
                 
-                self.isLoading = true
+                self.isLoading = routes.count > 0
                 
                 routes.forEach { $0.fetchData { [weak self] (ok, error, route) in
                     if let self = self {

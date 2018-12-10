@@ -179,7 +179,7 @@ class APIService {
                 return
             }
             
-            completion?(APIResult(ok: false, error: nil, result: (), source: .fetched))
+            completion?(APIResult(ok: true, error: nil, result: (), source: .fetched))
         }
         
         task.resume()

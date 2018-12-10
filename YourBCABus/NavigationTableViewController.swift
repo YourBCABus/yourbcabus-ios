@@ -61,7 +61,7 @@ class NavigationTableViewController: UITableViewController, UITextFieldDelegate 
         if section == 0 {
             return nil
         } else {
-            return isSearching ? "Search Results" : "Suggested"
+            return isSearching ? "Search Results" : "Recent Places"
         }
     }
 
