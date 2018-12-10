@@ -302,7 +302,7 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
     let name: String?
     let location: Coordinate
     let order: Double
-    let arrives: Date?
+    var arrives: Date?
     let invalidates: Date?
     let available: Bool
     let is_custom: Bool

@@ -233,6 +233,9 @@ class WalkingStepViewController: RouteStepViewController {
         if let eta = route?.walkingETA {
             timeLabel?.text = timeFormatter.string(from: eta)
             distanceLabel?.text = distanceFormatter.string(fromDistance: route!.walkingDistance!)
+        } else {
+            timeLabel?.text = "ETA Unavailable"
+            distanceLabel?.text = "Distance unavailable"
         }
     }
     

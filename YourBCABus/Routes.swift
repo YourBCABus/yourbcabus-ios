@@ -47,7 +47,7 @@ class Route: CustomStringConvertible, Codable {
     var eta: Date?
     
     let destination: MKMapItem
-    let stop: Stop?
+    var stop: Stop?
     let schoolId: String
     var bus: Bus?
     var stops: [Stop]?
@@ -164,7 +164,7 @@ class Route: CustomStringConvertible, Codable {
     
     func fetchData(_ update: @escaping (Bool, Error?, Route) -> Void) {
         _fetchStatus = .fetching
-        if let stop = stop {
+        if var stop = stop {
             APIService.shared.getBuses(schoolId: schoolId, cachingMode: .preferCache) { result in
                 if result.ok {
                     if let bus = result.result.first(where: { bus in
@@ -173,7 +173,7 @@ class Route: CustomStringConvertible, Codable {
                         self.bus = bus
                         update(true, nil, self)
                         
-                        APIService.shared.getStops(schoolId: self.schoolId, busId: bus._id, cachingMode: .preferCache) { result in
+                        APIService.shared.getStops(schoolId: self.schoolId, busId: bus._id, cachingMode: .forceFetch) { result in
                             if result.ok {
                                 let stops = result.result.sorted()
                                 if let index = stops.firstIndex(where: {$0._id == stop._id}) {
@@ -185,6 +185,12 @@ class Route: CustomStringConvertible, Codable {
                                         return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude).distance(from: CLLocation(latitude: stopCoordinate.latitude, longitude: stopCoordinate.longitude)) < 150
                                     }) {
                                         self.stops = Array(stops[0..<index])
+                                        if stop.is_custom {
+                                            if let date = stops[index].arrives {
+                                                stop.arrives = date
+                                                self.stop!.arrives = date
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -208,6 +214,15 @@ class Route: CustomStringConvertible, Codable {
                                         self._fetchStatus = .errored
                                         update(false, error!, self)
                                     }
+                                }
+                            } else {
+                                APIService.shared.getSchool(schoolId: self.schoolId, cachingMode: .preferCache) { result in
+                                    if result.ok {
+                                        self.school = result.result
+                                    }
+                                    
+                                    self._fetchStatus = .fetched
+                                    update(true, nil, self)
                                 }
                             }
                         }

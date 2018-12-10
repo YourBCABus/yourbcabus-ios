@@ -52,6 +52,7 @@ class RoutesTableViewController: UITableViewController {
         return routes.filter({route in
             return (route.fetchStatus == .fetched || route.fetchStatus == .errored) && route.stop?.is_custom == true
         }).sorted(by: { (a, b) in
+            let oneDay = 24 * 60 * 60
             if a.eta == nil && b.eta == nil {
                 return false
             } else if a.eta == nil {
@@ -59,7 +60,7 @@ class RoutesTableViewController: UITableViewController {
             } else if b.eta == nil {
                 return true
             } else {
-                return a.eta! < b.eta!
+                return Int(a.eta!.timeIntervalSince1970) % oneDay < Int(b.eta!.timeIntervalSince1970) % oneDay
             }
         })
     }
@@ -299,9 +300,12 @@ class RoutesTableViewController: UITableViewController {
         if let eta = route.eta {
             cell.etaLabel?.text = formatter.string(from: eta)
             cell.etaLabel?.textColor = UIColor(named: "Primary Dark")!
+        } else if route.fetchStatus == .fetched {
+            cell.etaLabel?.text = "ETA Unavailable"
+            cell.etaLabel?.textColor = .lightGray
         } else {
             cell.etaLabel?.text = "Loading..."
-            cell.etaLabel?.textColor = UIColor.lightGray
+            cell.etaLabel?.textColor = .lightGray
         }
         return cell
     }

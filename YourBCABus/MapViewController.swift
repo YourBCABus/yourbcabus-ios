@@ -309,7 +309,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    @IBInspectable var reloadsMapTypeOnRegionChange = true
+    @IBInspectable var reloadsMapTypeOnRegionChange = false
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         if reloadsMapTypeOnRegionChange {

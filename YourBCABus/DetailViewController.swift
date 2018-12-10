@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreLocation
+import MapKit
 
 class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -70,6 +70,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             mapController?.standalonePoints = customStops.map({ stop in
                 return BusMapPoint(coordinate: CLLocationCoordinate2D(from: stop.location), title: stop.description, bus: nil, stopId: stop._id)
             })
+            mapController?.reloadsMapTypeOnRegionChange = true
             mapController?.reloadStops()
         }
         
@@ -139,6 +140,19 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             cell.detailTextLabel?.text = stop.arrives == nil ? nil : formatter.string(from: stop.arrives!)
             return cell
         }
+    }
+    
+    var focusRegionRadius: CLLocationDistance = 500
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section > 0 {
+            let stop = indexPath.section == 1 && stops.count > 0 ? stops[indexPath.row] : customStops[indexPath.row]
+            (children.first(where: { controller in
+                return controller is MapViewController
+            }) as? MapViewController)?.mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(from: stop.location), latitudinalMeters: focusRegionRadius, longitudinalMeters: focusRegionRadius), animated: true)
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

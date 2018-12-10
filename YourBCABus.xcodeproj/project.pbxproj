@@ -255,14 +255,6 @@
 			name = "Get Off Alerts";
 			sourceTree = "<group>";
 		};
-		4A7B2965219A377A00B465B6 /* Steps */ = {
-			isa = PBXGroup;
-			children = (
-				4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */,
-			);
-			name = Steps;
-			sourceTree = "<group>";
-		};
 		4AC8477D2185070B001E8698 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,8 +342,8 @@
 				4AE7066D218FE80E00A95AC0 /* NavigationTableViewController.swift */,
 				4AE70672218FED2200A95AC0 /* RoutesTableViewController.swift */,
 				4AE70674218FED3A00A95AC0 /* ModalNavigationViewController.swift */,
+				4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */,
 				4A1E96DE21B2F62600FB4038 /* Get Off Alerts */,
-				4A7B2965219A377A00B465B6 /* Steps */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
