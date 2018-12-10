@@ -17,6 +17,8 @@ class CustomStopsCompletionViewController: UIViewController {
     
     @IBOutlet weak var finishButton: UIButton?
     @IBOutlet weak var submitButton: UIButton?
+    
+    var schoolId = "5bca51e785aa2627e14db459"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,11 @@ class CustomStopsCompletionViewController: UIViewController {
     }
     
     @IBAction func submitAndFinish(sender: Any?) {
+        try! APIService.shared.suggestStop(schoolId: schoolId, stop: stop!, { result in
+            if !result.ok {
+                print(result.error)
+            }
+        })
         finish(sender: sender)
     }
 

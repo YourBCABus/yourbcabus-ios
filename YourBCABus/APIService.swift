@@ -30,18 +30,21 @@ enum APICachingMode {
 enum APIError: Error {
     case noData
     case noCacheIdentifier
+    case noAuthToken
 }
 
 class APIService {
-    static var shared = APIService(url: URL(string: "https://db.yourbcabus.com")!, cacheURL: URL(fileURLWithPath:  NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!))
+    static var shared = APIService(url: URL(string: "https://db.yourbcabus.com")!, cacheURL: URL(fileURLWithPath:  NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!), authToken: "NjSnf2C/ewoFUaLe5ibvVKMatTP51o1GW5zZB7+BJxY=")
     
-    init(url: URL, cacheURL: URL) {
+    init(url: URL, cacheURL: URL, authToken: String? = nil) {
         self.url = url
         self.cacheURL = cacheURL
+        self.authToken = authToken
         encoder.outputFormatting = .prettyPrinted
     }
     
     let url: URL
+    let authToken: String?
     let cacheURL: URL
     let urlSession = URLSession(configuration: .default)
     
@@ -154,5 +157,42 @@ class APIService {
         }
         
         getResource(apiPath: "/schools/\(schoolId)/stops/nearby", query: query, cachedAs: nil, cachingMode: .forceFetch, completion)
+    }
+    
+    private func postResource<Resource: Encodable>(_ data: Resource, toPath path: String, query: [URLQueryItem]? = nil, withAuthToken useAuthToken: Bool = false, _ completion: ((APIResult<Void>) -> Void)?) throws {
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+        components.path = path
+        components.queryItems = query
+        
+        let encoder = JSONEncoder()
+        let json = try encoder.encode(data)
+        
+        var request = URLRequest(url: components.url!)
+        if useAuthToken {
+            guard let token = authToken else { throw APIError.noAuthToken }
+            request.setValue("Basic \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let task = urlSession.uploadTask(with: request, from: json) { (data, response, e) in
+            guard e == nil else {
+                completion?(APIResult(ok: false, error: e, result: nil, source: .fetched))
+                return
+            }
+            
+            completion?(APIResult(ok: false, error: nil, result: (), source: .fetched))
+        }
+        
+        task.resume()
+    }
+    
+    private struct StopSuggestionData: Encodable {
+        let location: Coordinate
+        let time: Int?
+    }
+    
+    func suggestStop(schoolId: String, stop: Stop, _ completion: ((APIResult<Void>) -> Void)?) throws {
+        let data = StopSuggestionData(location: stop.location, time: stop.arrives == nil ? nil : Int(stop.arrives!.timeIntervalSince1970 * 1000))
+        
+        try postResource(data, toPath: "/schools/\(schoolId)/buses/\(stop.bus_id)/stopsuggest", withAuthToken: true, completion)
     }
 }
