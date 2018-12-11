@@ -200,6 +200,10 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
                     mapPoints = nil
                 }
                 
+                let encoder = PropertyListEncoder()
+                let data = try! encoder.encode(route)
+                UserDefaults.standard.set(data, forKey: AppDelegate.currentRouteDefaultKey)
+                
                 reloadStops()
             } else {
                 viewControllers = []
@@ -382,9 +386,26 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
         mapView.setVisibleMapRect(MKMapRect(a: a, b: b), edgePadding: padding, animated: true)
     }
     
-    @IBAction func exit(sender: UIButton?) {
+    func finalExit() {
+        UserDefaults.standard.set(nil, forKey: AppDelegate.currentRouteDefaultKey)
+        
         onDoneBlock?()
         dismiss(animated: true, completion: {})
+    }
+    
+    @IBAction func exit(sender: UIButton?) {
+        if getOffAlertState == .enabled {
+            let alert = UIAlertController(title: "Exit navigation and disable Get Off alert?", message: "Exiting navigation will disable your Get Off alert until you restart navigation. Are you sure you want to exit?", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Exit", style: .default, handler: { action in
+                self.finalExit()
+            }))
+            
+            present(alert, animated: true, completion: nil)
+        } else {
+            finalExit()
+        }
     }
     
     lazy var midpointImage: UIImage? = {

@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var schoolId = "5bca51e785aa2627e14db459"
     
     static let busArrivalNotificationsDefaultKey = "busArrivalNotifications"
+    static let currentRouteDefaultKey = "currentYBBRoute"
     static let didChangeBusArrivalNotifications = NSNotification.Name("YBBDidChangeBusArrivalNotifications")
     
     private var shouldShowNotificationsAlert = false
@@ -136,12 +137,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var versionRestorationValue = "1.0b7"
     
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
-        coder.encode(versionRestorationValue, forKey: AppDelegate.versionRestorationKey)
-        return true
+        /* coder.encode(versionRestorationValue, forKey: AppDelegate.versionRestorationKey)
+        return true */
+        return false
     }
     
     func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        let version = coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey)
+        /* let version = coder.decodeObject(of: NSString.self, forKey: AppDelegate.versionRestorationKey)
         if version == "1.0b1" || version == "1.0b5" {
             shouldShowNotificationsAlert = true
         }
@@ -150,7 +152,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             return false
         }
         
-        return true
+        return true */
+        return false
     }
     
 }

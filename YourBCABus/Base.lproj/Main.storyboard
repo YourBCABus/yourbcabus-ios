@@ -200,10 +200,10 @@
             </objects>
             <point key="canvasLocation" x="1356" y="-997"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Root View Controller-->
         <scene sceneID="Nki-YV-4Qg">
             <objects>
-                <splitViewController restorationIdentifier="YBBSplitViewController" id="H1p-Uh-vWS" sceneMemberID="viewController">
+                <splitViewController restorationIdentifier="YBBSplitViewController" id="H1p-Uh-vWS" customClass="RootViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <connections>
                         <segue destination="RMx-3f-FxP" kind="relationship" relationship="masterViewController" id="0Xi-2F-TgO"/>
@@ -803,7 +803,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bNr-5q-qI0"/>
+        <segue reference="5dX-Dw-aYI"/>
         <segue reference="GKi-kA-LjT"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -36,6 +36,7 @@
 		4A39FB0A217FF18B008032DE /* BusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB09217FF18B008032DE /* BusManager.swift */; };
 		4A39FB0C217FFAF7008032DE /* BusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */; };
 		4A7B2968219A37B600B465B6 /* RouteStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */; };
+		4A85DA9D21BF4CB000F84F85 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */; };
 		4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */; };
 		4A97EC13217EAEDA003C7C60 /* BusLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */; };
 		4AA37BFE21932AD300E02266 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA37BFD21932AD300E02266 /* Routes.swift */; };
@@ -109,6 +110,7 @@
 		4A39FB09217FF18B008032DE /* BusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusManager.swift; sourceTree = "<group>"; };
 		4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BusTableViewCell.xib; sourceTree = "<group>"; };
 		4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStepViewController.swift; sourceTree = "<group>"; };
+		4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusTableViewCell.swift; sourceTree = "<group>"; };
 		4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLocationView.swift; sourceTree = "<group>"; };
 		4AA37BFD21932AD300E02266 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				4AE70671218FE83400A95AC0 /* Navigation */,
 				4A0E563F21BC29200019F6B0 /* Custom Stops */,
 				4A113B0D217A986E00B7640E /* DetailViewController.swift */,
+				4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */,
 				4ADEE49C2180CF5200F827FB /* MapViewController.swift */,
 				4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */,
 			);
@@ -611,6 +614,7 @@
 				4A18A7F021B8B90D00D1042F /* GetOffAlertSettingsViewController.swift in Sources */,
 				4A0E564121BC293A0019F6B0 /* CustomStopsBusesTableViewController.swift in Sources */,
 				4A7B2968219A37B600B465B6 /* RouteStepViewController.swift in Sources */,
+				4A85DA9D21BF4CB000F84F85 /* RootViewController.swift in Sources */,
 				4AC8478621851118001E8698 /* BusStatusTableViewCell.swift in Sources */,
 				4A0E564521BC86C90019F6B0 /* CoreLocationExtensions.swift in Sources */,
 				4A113B0C217A986E00B7640E /* MasterViewController.swift in Sources */,

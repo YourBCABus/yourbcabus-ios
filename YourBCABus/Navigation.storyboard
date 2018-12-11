@@ -277,7 +277,7 @@
         <!--Modal Navigation View Controller-->
         <scene sceneID="l5v-Np-OkR">
             <objects>
-                <viewController restorationIdentifier="YBBNavigationModalViewController" id="rcD-Kz-JtF" customClass="ModalNavigationViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="YBBNavigationModalViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rcD-Kz-JtF" customClass="ModalNavigationViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="T6D-EX-V0o">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -705,7 +705,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="374" height="500"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SummaryCell" rowHeight="185" id="LNI-Uf-Knf" customClass="RidingStepSummaryTableViewCell" customModule="YourBCABus" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SummaryCell" rowHeight="185" id="LNI-Uf-Knf" customClass="RidingStepSummaryTableViewCell" customModule="YourBCABus" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="374" height="185"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LNI-Uf-Knf" id="V8s-rF-ptL">
@@ -713,13 +713,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Ride to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1um-qA-k2q">
-                                                    <rect key="frame" x="20" y="10.999999999999998" width="338" height="31.333333333333329"/>
+                                                    <rect key="frame" x="20" y="10.999999999999998" width="298" height="31.333333333333329"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Name of a super-long bus stop" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sa4-6J-YWy">
-                                                    <rect key="frame" x="20" y="42.333333333333336" width="338" height="76.666666666666657"/>
+                                                    <rect key="frame" x="20" y="42.333333333333336" width="298" height="76.666666666666657"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" priority="750" constant="77.670000000000002" id="8QP-4j-naX"/>
                                                     </constraints>
@@ -728,7 +728,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Arrives at stop 4:30PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sWd-0r-W5Q">
-                                                    <rect key="frame" x="20" y="126.66666666666667" width="334" height="21.666666666666671"/>
+                                                    <rect key="frame" x="20" y="126.66666666666667" width="294" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
