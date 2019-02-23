@@ -200,10 +200,6 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
                     mapPoints = nil
                 }
                 
-                let encoder = PropertyListEncoder()
-                let data = try! encoder.encode(route)
-                UserDefaults.standard.set(data, forKey: AppDelegate.currentRouteDefaultKey)
-                
                 reloadStops()
             } else {
                 viewControllers = []
