@@ -21,7 +21,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     var detailViewController: DetailViewController? = nil
     
-    var sections: [MasterTableViewSection] = [.maps, .buses]
+    var sections: [MasterTableViewSection] = [.destination, .maps, .buses]
     
     var resultsViewController: SearchResultsViewController!
     var searchController: UISearchController!
