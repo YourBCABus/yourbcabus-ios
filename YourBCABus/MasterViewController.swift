@@ -10,7 +10,6 @@ import UIKit
 
 enum MasterTableViewSection {
     case notificationsAlert
-    case navigation
     case maps
     case starred
     case buses
@@ -22,7 +21,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     var detailViewController: DetailViewController? = nil
     
-    var sections: [MasterTableViewSection] = [.navigation, .maps, .buses]
+    var sections: [MasterTableViewSection] = [.maps, .buses]
     
     var resultsViewController: SearchResultsViewController!
     var searchController: UISearchController!
@@ -200,7 +199,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
-        case .notificationsAlert, .navigation:
+        case .notificationsAlert:
             return 1
         case .maps:
             return 1
@@ -217,11 +216,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
             
             cell.textLabel?.text = "Notifications not working?"
-            return cell
-        case .navigation:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
-            
-            cell.textLabel?.text = "Navigation & Get Off Alerts"
             return cell
         case .maps:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
@@ -246,7 +240,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             return 60
         } else {
             switch sections[indexPath.section] {
-            case .notificationsAlert, .navigation, .maps:
+            case .notificationsAlert, .maps:
                 return 44
             case .starred, .buses:
                 return 60
@@ -261,8 +255,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             switch sections[indexPath.section] {
             case .notificationsAlert:
                 showNotificationsAlert()
-            case .navigation:
-                performSegue(withIdentifier: "showNavigation", sender: tableView)
             case .maps:
                 performSegue(withIdentifier: "showMap", sender: tableView)
             case .starred, .buses:

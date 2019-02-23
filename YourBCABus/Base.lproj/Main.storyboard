@@ -192,14 +192,6 @@
             </objects>
             <point key="canvasLocation" x="708" y="129"/>
         </scene>
-        <!--Navigation-->
-        <scene sceneID="CHv-BM-Qb7">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Navigation" id="wvN-cH-ViQ" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YGz-xZ-pcA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1356" y="-997"/>
-        </scene>
         <!--Root View Controller-->
         <scene sceneID="Nki-YV-4Qg">
             <objects>
@@ -330,7 +322,6 @@
                     <connections>
                         <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="2N6-Jf-NID"/>
                         <segue destination="pCP-jQ-Jm4" kind="showDetail" identifier="showMap" id="bNr-5q-qI0"/>
-                        <segue destination="wvN-cH-ViQ" kind="showDetail" identifier="showNavigation" id="i98-gj-Cat"/>
                         <segue destination="AhB-3p-kzf" kind="presentation" identifier="askToSetUpNotifications" modalPresentationStyle="formSheet" id="fuN-SC-VsL"/>
                     </connections>
                 </tableViewController>
@@ -803,7 +794,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5dX-Dw-aYI"/>
+        <segue reference="bNr-5q-qI0"/>
         <segue reference="GKi-kA-LjT"/>
     </inferredMetricsTieBreakers>
 </document>
