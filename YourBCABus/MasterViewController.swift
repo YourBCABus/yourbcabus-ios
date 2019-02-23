@@ -9,7 +9,7 @@
 import UIKit
 
 enum MasterTableViewSection {
-    case notificationsAlert
+    case destination
     case maps
     case starred
     case buses
@@ -186,6 +186,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch sections[section] {
+        case .destination:
+            return "Your Route"
         case .maps:
             return "Maps"
         case .starred:
@@ -199,7 +201,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
-        case .notificationsAlert:
+        case .destination:
             return 1
         case .maps:
             return 1
@@ -212,15 +214,17 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
-        case .notificationsAlert:
+        case .destination:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
             
-            cell.textLabel?.text = "Notifications not working?"
+            cell.textLabel?.text = "Add a destination..."
+            cell.accessoryType = .disclosureIndicator
             return cell
         case .maps:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
             
             cell.textLabel?.text = "BCA Parking Lot Map"
+            cell.accessoryType = .disclosureIndicator
             return cell
         case .starred:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BusCell", for: indexPath) as! BusTableViewCell
@@ -240,7 +244,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             return 60
         } else {
             switch sections[indexPath.section] {
-            case .notificationsAlert, .maps:
+            case .destination, .maps:
                 return 44
             case .starred, .buses:
                 return 60
@@ -253,8 +257,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             performSegue(withIdentifier: "showDetail", sender: tableView)
         } else {
             switch sections[indexPath.section] {
-            case .notificationsAlert:
-                showNotificationsAlert()
             case .maps:
                 performSegue(withIdentifier: "showMap", sender: tableView)
             case .starred, .buses:
@@ -279,18 +281,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     func updateSearchResults(for searchController: UISearchController) {
         BusManager.shared.updateFilteredBuses(term: searchController.searchBar.text!.trimmingCharacters(in: CharacterSet.whitespaces))
         (searchController.searchResultsController as? UITableViewController)?.tableView.reloadData()
-    }
-    
-    func showNotificationsAlert() {
-        let alert = UIAlertController(title: "Notifications not working?", message: "Try unstarring your buses, then starring them again.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Got it", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-        
-        UserDefaults.standard.set(true, forKey: MasterViewController.didOpenNotificationsAlertDefaultsKey)
-        if let index = sections.firstIndex(of: .notificationsAlert) {
-            sections.remove(at: index)
-            tableView.deleteSections(IndexSet(arrayLiteral: index), with: .automatic)
-        }
     }
     
     deinit {
