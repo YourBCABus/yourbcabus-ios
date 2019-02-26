@@ -12,6 +12,16 @@ class RootViewController: UISplitViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if let data = UserDefaults.standard.data(forKey: AppDelegate.currentRouteDefaultKey) {
+            let decoder = PropertyListDecoder()
+            let route = try! decoder.decode(Route.self, from: data)
+            
+            let controller = UIStoryboard(name: "Navigation", bundle: nil).instantiateViewController(withIdentifier: "YBBNavigationModalViewController") as! ModalNavigationViewController
+            controller.route = route
+            controller.modalPresentationStyle = .fullScreen
+            present(controller, animated: false, completion: nil)
+        }
     }
     
 

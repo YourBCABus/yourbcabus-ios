@@ -79,11 +79,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "572650258.219622"
+            timestampString = "566185493.843374"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "application(_:didFinishLaunchingWithOptions:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -95,11 +95,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "572650258.2196831"
+            timestampString = "566185493.843418"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "application(_:didFinishLaunchingWithOptions:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -111,23 +111,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "572650258.219728"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "572650258.219763"
+            timestampString = "566185493.84346"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
@@ -143,11 +127,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "572650258.219795"
+            timestampString = "566185493.8435"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YourBCABus/AppDelegate.swift"
+            timestampString = "566185493.84354"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "userNotificationCenter(_:openSettingsFor:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -159,11 +159,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus/AppDelegate.swift"
-            timestampString = "572650258.219825"
+            timestampString = "566185493.84358"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "application(_:didFinishLaunchingWithOptions:)"
             landmarkType = "7">
             <Locations>
