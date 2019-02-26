@@ -70,11 +70,9 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
         case available = "available"
         case name = "name"
         case locations = "locations"
-        case boarding_time = "boarding_time"
-        case departure_time = "departure_time"
+        case boarding = "boarding"
+        case departing = "departing"
         case invalidate_time = "invalidate_time"
-        case boards = "boards"
-        case departs = "departs"
         case invalidates = "invalidates"
     }
     
@@ -85,28 +83,8 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
         available = try container.decode(Bool.self, forKey: .available)
         name = container.contains(.name) ? try container.decode(String.self, forKey: .name) : nil
         locations = try container.decode([String].self, forKey: .locations)
-        
-        if container.contains(.boards) {
-            boards = try container.decode(Date.self, forKey: .boards)
-        } else {
-            let boarding_time = container.contains(.boarding_time) ? try container.decode(String?.self, forKey: .boarding_time) : nil
-            if let time = boarding_time {
-                boards = Bus.formatDate(from: time)
-            } else {
-                boards = nil
-            }
-        }
-        
-        if container.contains(.departs) {
-            departs = try container.decode(Date.self, forKey: .departs)
-        } else {
-            let departure_time = container.contains(.departure_time) ? try container.decode(String?.self, forKey: .departure_time) : nil
-            if let time = departure_time {
-                departs = Bus.formatDate(from: time)
-            } else {
-                departs = nil
-            }
-        }
+        boarding = container.contains(.boarding) ? try container.decode(Int.self, forKey: .boarding) : nil
+        departing = container.contains(.departing) ? try container.decode(Int.self, forKey: .departing) : nil
         
         if container.contains(.invalidates) {
             invalidates = try container.decode(Date.self, forKey: .invalidates)
@@ -125,24 +103,9 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
     let available: Bool
     let name: String?
     let locations: [String]
-    var boarding_time: String? {
-        get {
-            guard let date = boards else {
-                return nil
-            }
-            
-            return Bus.formatter.string(from: date)
-        }
-    }
-    var departure_time: String? {
-        get {
-            guard let date = departs else {
-                return nil
-            }
-            
-            return Bus.formatter.string(from: date)
-        }
-    }
+    let boarding: Int?
+    let departing: Int?
+    
     var invalidate_time: String? {
         get {
             guard let date = invalidates else {
@@ -152,9 +115,6 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
             return Bus.formatter.string(from: date)
         }
     }
-    
-    let boards: Date?
-    let departs: Date?
     let invalidates: Date?
     
     func isValidated(asOf date: Date = Date()) -> Bool {
@@ -164,6 +124,7 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
         
         return date < invalidate
     }
+    var validated: Bool { return isValidated() }
     
     var description: String {
         return name == nil ? "" : name!
@@ -329,16 +290,40 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
 }
 
 extension Bus {
-    func getStatus() -> String {
+    var status: String {
         guard self.available else {
             return "Not running"
         }
         
         if self.location == nil {
+            if validated {
+                if let boarding = self.boarding {
+                    let group: String
+                    
+                    if boarding <= 150 {
+                        group = "Early"
+                    } else if boarding <= 600 {
+                        group = "On Time"
+                    } else if boarding <= 900 {
+                        group = "Slightly Late"
+                    } else if boarding < 1200 {
+                        group = "Late"
+                    } else {
+                        group = "Very Late"
+                    }
+                    
+                    return "Expected \(group) (\(boarding))"
+                }
+            }
+            
             return "Not at BCA"
         }
         
         return "Arrived at BCA"
+    }
+    
+    @available(*, deprecated, message: "Use status instead") func getStatus() -> String {
+        return status
     }
 }
 

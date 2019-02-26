@@ -128,7 +128,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "StatusCell") as! BusStatusTableViewCell
-            cell.statusLabel.text = detailItem?.getStatus()
+            cell.statusLabel.text = detailItem?.status
             cell.secondaryLabel.text = detailItem == nil ? nil : (stops.count < 1 ? "Stops unavailable" : "\(stops.count) stop\(stops.count == 1 ? "" : "s")")
             cell.locationView.location = detailItem?.location
             cell.locationView.available = detailItem?.available == true
