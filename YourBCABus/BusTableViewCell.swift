@@ -27,6 +27,7 @@ class BusTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var locationView: BusLocationView!
     @IBOutlet weak var starButton: UIButton?
+    @IBOutlet weak var dotView: DotView?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,10 +37,11 @@ class BusTableViewCell: UITableViewCell {
     func configureView() {
         if let bus = bus {
             nameLabel.text = bus.name == nil ? "(no name)" : bus.name!
-            descriptionLabel.text = bus.status
+            descriptionLabel.text = bus.status.description
             locationView.available = bus.available
             locationView.location = bus.location
             configureStarButton(starred: BusManager.shared.isStarred(bus: bus._id))
+            dotView?.color = bus.status.color
         }
     }
 

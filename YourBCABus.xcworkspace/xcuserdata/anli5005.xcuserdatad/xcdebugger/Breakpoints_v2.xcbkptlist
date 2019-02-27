@@ -11,11 +11,11 @@
             condition = "UserDefaults.standard.bool(forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)"
             continueAfterRunningActions = "Yes"
             filePath = "YourBCABus/BusTableViewCell.swift"
-            timestampString = "572845117.046796"
+            timestampString = "572926879.817937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "toggleStar(sender:)"
             landmarkType = "7">
             <Actions>
@@ -148,7 +148,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
             endingLineNumber = "105"
-            landmarkName = "userNotificationCenter(_:openSettingsFor:)"
+            landmarkName = "applicationDidBecomeActive(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

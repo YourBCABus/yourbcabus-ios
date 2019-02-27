@@ -289,41 +289,58 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
     }
 }
 
-extension Bus {
-    var status: String {
-        guard self.available else {
+enum BusStatus: CustomStringConvertible {
+    case unavailable
+    case notArrived(boarding: Int?)
+    case arrived
+    
+    var description: String {
+        switch self {
+        case .unavailable:
             return "Not running"
-        }
-        
-        if self.location == nil {
-            if validated {
-                if let boarding = self.boarding {
-                    let group: String
-                    
-                    if boarding <= 150 {
-                        group = "Early"
-                    } else if boarding <= 600 {
-                        group = "On Time"
-                    } else if boarding <= 900 {
-                        group = "Slightly Late"
-                    } else if boarding < 1200 {
-                        group = "Late"
-                    } else {
-                        group = "Very Late"
-                    }
-                    
-                    return "Expected \(group) (\(boarding))"
+        case .notArrived(let boarding):
+            if let time = boarding {
+                let group: String
+                
+                if time < 150 {
+                    group = "Early"
+                } else if time <= 600 {
+                    group = "On Time"
+                } else if time <= 900 {
+                    group = "Slightly Late"
+                } else if time < 1200 {
+                    group = "Late"
+                } else {
+                    group = "Very Late"
                 }
+                
+                return "Expected \(group)"
+            } else {
+                return "Not at BCA"
             }
-            
-            return "Not at BCA"
+        case .arrived:
+            return "Arrived at BCA"
+        default:
+            return "Unknown"
+        }
+    }
+}
+
+extension Bus {
+    var status: BusStatus {
+        guard available else {
+            return .unavailable
         }
         
-        return "Arrived at BCA"
+        if location == nil {
+            return .notArrived(boarding: validated ? boarding : nil)
+        } else {
+            return .arrived
+        }
     }
     
     @available(*, deprecated, message: "Use status instead") func getStatus() -> String {
-        return status
+        return status.description
     }
 }
 

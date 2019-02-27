@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import SafariServices
 
 class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -128,7 +129,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "StatusCell") as! BusStatusTableViewCell
-            cell.statusLabel.text = detailItem?.status
+            cell.statusLabel.text = detailItem?.status.description
             cell.secondaryLabel.text = detailItem == nil ? nil : (stops.count < 1 ? "Stops unavailable" : "\(stops.count) stop\(stops.count == 1 ? "" : "s")")
             cell.locationView.location = detailItem?.location
             cell.locationView.available = detailItem?.available == true
@@ -178,6 +179,13 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                 detailItem = try PropertyListDecoder().decode(Bus.self, from: data as Data)
             } catch {}
         }
+    }
+    
+    @IBAction func openAboutBusStatus(sender: Any?) {
+        let safariViewController = SFSafariViewController(url: URL(string: "https://support.yourbcabus.com/status")!)
+        safariViewController.preferredBarTintColor = UIColor(named: "Primary Dark")!
+        safariViewController.preferredControlTintColor = .white
+        present(safariViewController, animated: true, completion: nil)
     }
     
 }
