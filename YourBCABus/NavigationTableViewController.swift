@@ -54,19 +54,19 @@ class NavigationTableViewController: UITableViewController, UITextFieldDelegate 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return UserDefaults.standard.object(forKey: MasterViewController.currentDestinationDefaultsKey) == nil ? 2 : 3
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return nil
-        } else {
+        if section == 1 {
             return isSearching ? "Search Results" : "Recent Places"
+        } else {
+            return nil
         }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : places.count
+        return section == 1 ? places.count : 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,11 +75,16 @@ class NavigationTableViewController: UITableViewController, UITextFieldDelegate 
             cell.textField?.delegate = self
             searchField = cell.textField
             return cell
-        } else {
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DestinationCell", for: indexPath)
             let place = places[indexPath.row]
             cell.textLabel?.text = place.name
             cell.detailTextLabel?.text = [place.placemark.locality, place.placemark.administrativeArea].filter({$0 != nil}).map({$0!}).joined(separator: ", ")
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
+            cell.textLabel!.text = "Remove Destination"
+            cell.textLabel!.textColor = .red
             return cell
         }
     }
@@ -148,6 +153,14 @@ class NavigationTableViewController: UITableViewController, UITextFieldDelegate 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             performSegue(withIdentifier: "showRoutes", sender: tableView)
+        } else if indexPath.section == 2 {
+            UserDefaults.standard.removeObject(forKey: MasterViewController.currentDestinationDefaultsKey)
+            if let split = presentingViewController as? UISplitViewController {
+                if let navigation = split.viewControllers.first as? UINavigationController {
+                    (navigation.topViewController as? MasterViewController)?.route = nil
+                }
+            }
+            dismiss(animated: true, completion: nil)
         }
     }
     
@@ -184,6 +197,10 @@ class NavigationTableViewController: UITableViewController, UITextFieldDelegate 
                 }), forKey: defaultsKey)
             } catch {}
         }
+    }
+    
+    @IBAction func exit(sender: Any?) {
+        dismiss(animated: true, completion: nil)
     }
     
 }

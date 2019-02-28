@@ -368,7 +368,7 @@
                     <connections>
                         <segue destination="vC3-pB-5Vb" kind="showDetail" identifier="showDetail" id="2N6-Jf-NID"/>
                         <segue destination="pCP-jQ-Jm4" kind="showDetail" identifier="showMap" id="bNr-5q-qI0"/>
-                        <segue destination="wvN-cH-ViQ" kind="showDetail" identifier="showNavigation" id="i98-gj-Cat"/>
+                        <segue destination="wvN-cH-ViQ" kind="presentation" identifier="showChangeDestination" modalPresentationStyle="formSheet" id="i98-gj-Cat"/>
                         <segue destination="AhB-3p-kzf" kind="presentation" identifier="askToSetUpNotifications" modalPresentationStyle="formSheet" id="fuN-SC-VsL"/>
                     </connections>
                 </tableViewController>

@@ -9,8 +9,7 @@
 import UIKit
 
 enum MasterTableViewSection {
-    case notificationsAlert
-    case navigation
+    case destination
     case maps
     case starred
     case buses
@@ -22,7 +21,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     var detailViewController: DetailViewController? = nil
     
-    var sections: [MasterTableViewSection] = [.navigation, .maps, .buses]
+    var sections: [MasterTableViewSection] = [.destination, .maps, .buses]
     
     var resultsViewController: SearchResultsViewController!
     var searchController: UISearchController!
@@ -34,6 +33,15 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     
     static let didAskToSetUpNotificationsDefaultsKey = "didAskToSetUpBusArrivalNotifications"
     static let didOpenNotificationsAlertDefaultsKey = "didOpenNotificationsAlert"
+    static let currentDestinationDefaultsKey = "currentDestination"
+    
+    var route: Route? {
+        didSet {
+            if isViewLoaded {
+                routeDidChange()
+            }
+        }
+    }
     
     func reloadBuses(cachingMode: APICachingMode, completion: ((Bool) -> Void)? = nil) {
         APIService.shared.getBuses(schoolId: schoolId, cachingMode: cachingMode) { result in
@@ -111,6 +119,22 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
                 self?.reloadBuses(cachingMode: .forceFetch)
             // }
         })
+        
+        if let data = UserDefaults.standard.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
+            do {
+                let decoder = PropertyListDecoder()
+                route = try decoder.decode(Route.self, from: data)
+            } catch {
+                route = nil
+                print("Error decoding current destination: \(error)")
+            }
+        } else {
+            route = nil
+        }
+    }
+    
+    func routeDidChange() {
+        tableView.reloadSections([sections.firstIndex(of: .destination)!], with: .none)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -127,12 +151,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     // MARK: - Segues
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showNavigation" {
-            let navigationItem = (segue.destination as! UINavigationController).topViewController!.navigationItem
-            navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-            navigationItem.leftItemsSupplementBackButton = true
-            navigationItem.largeTitleDisplayMode = .never
-        } else if segue.identifier == "showDetail" {
+        if segue.identifier == "showDetail" {
             let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
@@ -163,6 +182,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
             controller.navigationItem.largeTitleDisplayMode = .never
+        } else if segue.identifier == "showChangeDestination" {
+            (segue.destination as! UINavigationController).topViewController!.navigationItem.largeTitleDisplayMode = .never
         }
     }
 
@@ -200,7 +221,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
-        case .notificationsAlert, .navigation:
+        case .destination:
             return 1
         case .maps:
             return 1
@@ -213,15 +234,10 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
-        case .notificationsAlert:
+        case .destination:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
             
-            cell.textLabel?.text = "Notifications not working?"
-            return cell
-        case .navigation:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
-            
-            cell.textLabel?.text = "Navigation & Get Off Alerts"
+            cell.textLabel?.text = route == nil ? "Add Destination" : "Change Destination"
             return cell
         case .maps:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
@@ -246,7 +262,9 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             return 60
         } else {
             switch sections[indexPath.section] {
-            case .notificationsAlert, .navigation, .maps:
+            case .destination:
+                return 44
+            case .maps:
                 return 44
             case .starred, .buses:
                 return 60
@@ -259,10 +277,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             performSegue(withIdentifier: "showDetail", sender: tableView)
         } else {
             switch sections[indexPath.section] {
-            case .notificationsAlert:
-                showNotificationsAlert()
-            case .navigation:
-                performSegue(withIdentifier: "showNavigation", sender: tableView)
+            case .destination:
+                performSegue(withIdentifier: "showChangeDestination", sender: tableView)
             case .maps:
                 performSegue(withIdentifier: "showMap", sender: tableView)
             case .starred, .buses:
@@ -287,18 +303,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     func updateSearchResults(for searchController: UISearchController) {
         BusManager.shared.updateFilteredBuses(term: searchController.searchBar.text!.trimmingCharacters(in: CharacterSet.whitespaces))
         (searchController.searchResultsController as? UITableViewController)?.tableView.reloadData()
-    }
-    
-    func showNotificationsAlert() {
-        let alert = UIAlertController(title: "Notifications not working?", message: "Try unstarring your buses, then starring them again.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Got it", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-        
-        UserDefaults.standard.set(true, forKey: MasterViewController.didOpenNotificationsAlertDefaultsKey)
-        if let index = sections.firstIndex(of: .notificationsAlert) {
-            sections.remove(at: index)
-            tableView.deleteSections(IndexSet(arrayLiteral: index), with: .automatic)
-        }
     }
     
     deinit {

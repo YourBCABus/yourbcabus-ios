@@ -313,7 +313,17 @@ class RoutesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let route = getRoute(for: indexPath)!
         if route.fetchStatus == .fetched {
-            performSegue(withIdentifier: "startNavigation", sender: tableView)
+            let encoder = PropertyListEncoder()
+            let data = try! encoder.encode(route)
+            UserDefaults.standard.set(data, forKey: MasterViewController.currentDestinationDefaultsKey)
+           
+            if let split = presentingViewController as? UISplitViewController {
+                if let navigation = split.viewControllers.first as? UINavigationController {
+                    (navigation.topViewController as? MasterViewController)?.route = route
+                }
+            }
+            
+            dismiss(animated: true, completion: nil)
         }
     }
     
@@ -334,29 +344,6 @@ class RoutesTableViewController: UITableViewController {
         } else {
             return 0
         }
-    }
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        if segue.identifier == "startNavigation" {
-            let route = getRoute(for: tableView.indexPathForSelectedRow!)!
-            let controller = (segue.destination as? UINavigationController)?.topViewController as? ModalNavigationViewController
-            controller?.route = route
-        }
-    }
-    
-    override func encodeRestorableState(with coder: NSCoder) {
-        super.encodeRestorableState(with: coder)
-        coder.encode(destination, forKey: "destination")
-    }
-    
-    override func decodeRestorableState(with coder: NSCoder) {
-        super.decodeRestorableState(with: coder)
-        destination = coder.decodeObject(forKey: "destination") as? MKMapItem
     }
     
 }

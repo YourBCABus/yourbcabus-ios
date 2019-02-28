@@ -112,22 +112,22 @@ class Route: CustomStringConvertible, Codable {
             eta = nil
         }
         if container.contains(.stop) {
-            stop = try container.decode(Stop.self, forKey: .stop)
+            stop = try container.decode(Stop?.self, forKey: .stop)
         } else {
             stop = nil
         }
         if container.contains(.bus) {
-            bus = try container.decode(Bus.self, forKey: .bus)
+            bus = try container.decode(Bus?.self, forKey: .bus)
         } else {
             bus = nil
         }
         if container.contains(.stops) {
-            stops = try container.decode([Stop].self, forKey: .stops)
+            stops = try container.decode([Stop]?.self, forKey: .stops)
         } else {
             stops = nil
         }
         if container.contains(.school) {
-            school = try container.decode(School.self, forKey: .school)
+            school = try container.decode(School?.self, forKey: .school)
         } else {
             school = nil
         }
