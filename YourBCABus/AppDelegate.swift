@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var schoolId = "5bca51e785aa2627e14db459"
     
     static let busArrivalNotificationsDefaultKey = "busArrivalNotifications"
-    static let currentRouteDefaultKey = "currentYBBRoute"
     static let didChangeBusArrivalNotifications = NSNotification.Name("YBBDidChangeBusArrivalNotifications")
     
     private var shouldShowNotificationsAlert = false
