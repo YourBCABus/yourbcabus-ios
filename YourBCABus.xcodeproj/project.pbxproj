@@ -35,6 +35,7 @@
 		4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */; };
 		4A39FB0A217FF18B008032DE /* BusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB09217FF18B008032DE /* BusManager.swift */; };
 		4A39FB0C217FFAF7008032DE /* BusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */; };
+		4A61540D222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61540C222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift */; };
 		4A7B2968219A37B600B465B6 /* RouteStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */; };
 		4A85DA9D21BF4CB000F84F85 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */; };
 		4A8C032C22261A37004FA580 /* BusStatusColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C032B22261A37004FA580 /* BusStatusColors.swift */; };
@@ -42,6 +43,8 @@
 		4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */; };
 		4A97EC13217EAEDA003C7C60 /* BusLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */; };
 		4AA37BFE21932AD300E02266 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA37BFD21932AD300E02266 /* Routes.swift */; };
+		4AB5ED71222B49C9009D7028 /* RouteOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB5ED70222B49C9009D7028 /* RouteOverviewView.swift */; };
+		4AB5ED73222B49D5009D7028 /* RouteOverviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AB5ED72222B49D5009D7028 /* RouteOverviewView.xib */; };
 		4ABB8C7E2180C05A00158FD6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4ABB8C7D2180C05A00158FD6 /* GoogleService-Info.plist */; };
 		4AC2A9C3219C82DB00A4869A /* NotificationsPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC2A9C2219C82DB00A4869A /* NotificationsPromptViewController.swift */; };
 		4AC8478621851118001E8698 /* BusStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8478521851117001E8698 /* BusStatusTableViewCell.swift */; };
@@ -111,6 +114,7 @@
 		4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		4A39FB09217FF18B008032DE /* BusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusManager.swift; sourceTree = "<group>"; };
 		4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BusTableViewCell.xib; sourceTree = "<group>"; };
+		4A61540C222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusArrivalNotificationsTableViewController.swift; sourceTree = "<group>"; };
 		4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStepViewController.swift; sourceTree = "<group>"; };
 		4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		4A8C032B22261A37004FA580 /* BusStatusColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStatusColors.swift; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 		4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusTableViewCell.swift; sourceTree = "<group>"; };
 		4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLocationView.swift; sourceTree = "<group>"; };
 		4AA37BFD21932AD300E02266 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
+		4AB5ED70222B49C9009D7028 /* RouteOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteOverviewView.swift; sourceTree = "<group>"; };
+		4AB5ED72222B49D5009D7028 /* RouteOverviewView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteOverviewView.xib; sourceTree = "<group>"; };
 		4ABB8C7D2180C05A00158FD6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4AC2A9C2219C82DB00A4869A /* NotificationsPromptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPromptViewController.swift; sourceTree = "<group>"; };
 		4AC8478521851117001E8698 /* BusStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStatusTableViewCell.swift; sourceTree = "<group>"; };
@@ -261,16 +267,35 @@
 			name = "Get Off Alerts";
 			sourceTree = "<group>";
 		};
+		4A61540E222DDC4000AEDBC8 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */,
+				4A61540C222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		4AB5ED78222B577A009D7028 /* Route Overview */ = {
+			isa = PBXGroup;
+			children = (
+				4AB5ED70222B49C9009D7028 /* RouteOverviewView.swift */,
+				4AB5ED72222B49D5009D7028 /* RouteOverviewView.xib */,
+			);
+			name = "Route Overview";
+			sourceTree = "<group>";
+		};
 		4AC8477D2185070B001E8698 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				4AE70670218FE82100A95AC0 /* Master */,
 				4AE70671218FE83400A95AC0 /* Navigation */,
 				4A0E563F21BC29200019F6B0 /* Custom Stops */,
+				4AB5ED78222B577A009D7028 /* Route Overview */,
+				4A61540E222DDC4000AEDBC8 /* Settings */,
 				4A113B0D217A986E00B7640E /* DetailViewController.swift */,
 				4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */,
 				4ADEE49C2180CF5200F827FB /* MapViewController.swift */,
-				4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -483,6 +508,7 @@
 				4A0E563E21BC225F0019F6B0 /* CustomStops.storyboard in Resources */,
 				4A39FB0C217FFAF7008032DE /* BusTableViewCell.xib in Resources */,
 				4A113B11217A986E00B7640E /* Main.storyboard in Resources */,
+				4AB5ED73222B49D5009D7028 /* RouteOverviewView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +635,7 @@
 				4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */,
 				4AE70673218FED2200A95AC0 /* RoutesTableViewController.swift in Sources */,
 				4A113B0E217A986E00B7640E /* DetailViewController.swift in Sources */,
+				4A61540D222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift in Sources */,
 				4A1778DF219347E800D72001 /* RouteTableViewCell.swift in Sources */,
 				4A0E564321BC2E300019F6B0 /* CustomStopsMapViewController.swift in Sources */,
 				4A39FB0A217FF18B008032DE /* BusManager.swift in Sources */,
@@ -637,6 +664,7 @@
 				4ADB65A5219118D300C29F34 /* TextFieldTableViewCell.swift in Sources */,
 				4AE70675218FED3A00A95AC0 /* ModalNavigationViewController.swift in Sources */,
 				4A0E564721BC890B0019F6B0 /* CustomStopsTimeViewController.swift in Sources */,
+				4AB5ED71222B49C9009D7028 /* RouteOverviewView.swift in Sources */,
 				4A113B3E217AA94A00B7640E /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -26,6 +26,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     var resultsViewController: SearchResultsViewController!
     var searchController: UISearchController!
     
+    var routeOverviewViewController: RouteOverviewViewController!
+    
     var refreshInterval: TimeInterval = 15
     private var refreshTimer: Timer?
     
@@ -34,6 +36,9 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     static let didAskToSetUpNotificationsDefaultsKey = "didAskToSetUpBusArrivalNotifications"
     static let didOpenNotificationsAlertDefaultsKey = "didOpenNotificationsAlert"
     static let currentDestinationDefaultsKey = "currentDestination"
+    static let currentDestinationDidChange = Notification.Name("YBBCurrentDestinationDidChange")
+    static let currentDestinationDidChangeOldRouteKey = "oldRoute"
+    static let currentDestinationDidChangeNewRouteKey = "newRoute"
     
     var route: Route? {
         didSet {
@@ -62,6 +67,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
                 }
             }
         }
+        
+        reloadRoute()
     }
     
     func askToSetUpNotifications() {
@@ -120,6 +127,9 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             // }
         })
         
+        routeOverviewViewController = RouteOverviewViewController(nibName: "RouteOverviewView", bundle: nil)
+        addChild(routeOverviewViewController)
+        
         if let data = UserDefaults.standard.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
             do {
                 let decoder = PropertyListDecoder()
@@ -133,8 +143,19 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         }
     }
     
+    func reloadRoute() {
+        route?.fetchData { [weak self] (ok, _, _) in
+            if ok {
+                DispatchQueue.main.async {
+                    self?.routeOverviewViewController.configureView()
+                }
+            }
+        }
+    }
+    
     func routeDidChange() {
         tableView.reloadSections([sections.firstIndex(of: .destination)!], with: .none)
+        routeOverviewViewController.route = route
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -222,7 +243,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
         case .destination:
-            return 1
+            return route == nil ? 1 : 2
         case .maps:
             return 1
         case .starred:
@@ -235,10 +256,26 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
         case .destination:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
-            
-            cell.textLabel?.text = route == nil ? "Add Destination" : "Change Destination"
-            return cell
+            if route == nil || indexPath.row == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
+                
+                cell.textLabel?.text = route == nil ? "Add Destination" : "Change Destination"
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DestinationCell", for: indexPath)
+                
+                if cell.contentView.subviews.isEmpty {
+                    routeOverviewViewController.view.frame = cell.bounds
+                    cell.addSubview(routeOverviewViewController.view)
+                    let views = ["view": routeOverviewViewController.view!]
+                    var constraints = [NSLayoutConstraint]()
+                    constraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", options: [], metrics: nil, views: views))
+                    constraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: [], metrics: nil, views: views))
+                    cell.addConstraints(constraints)
+                }
+                
+                return cell
+            }
         case .maps:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
             
@@ -263,7 +300,11 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         } else {
             switch sections[indexPath.section] {
             case .destination:
-                return 44
+                if route == nil || indexPath.row == 1 {
+                    return 44
+                } else {
+                    return 220
+                }
             case .maps:
                 return 44
             case .starred, .buses:
@@ -278,7 +319,9 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         } else {
             switch sections[indexPath.section] {
             case .destination:
-                performSegue(withIdentifier: "showChangeDestination", sender: tableView)
+                if route == nil || indexPath.row == 1 {
+                    performSegue(withIdentifier: "showChangeDestination", sender: tableView)
+                }
             case .maps:
                 performSegue(withIdentifier: "showMap", sender: tableView)
             case .starred, .buses:

@@ -19,7 +19,7 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     @IBOutlet weak var etaLabel: UILabel!
     @IBOutlet weak var destinationText: UILabel!
-    @IBOutlet weak var exitButton: UIButton!
+    @IBOutlet weak var exitButton: UIButton?
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var statusBarVisualEffectView: UIVisualEffectView!
@@ -249,7 +249,7 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
         
         view?.layer.insertSublayer(shadowLayer, below: visualEffectView.layer)
         
-        exitButton.layer.cornerRadius = 16
+        exitButton?.layer.cornerRadius = 16
         
         let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: [:])
         addChild(pageViewController)

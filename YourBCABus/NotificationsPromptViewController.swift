@@ -23,6 +23,7 @@ class NotificationsPromptViewController: UIViewController {
     
     func enableNotifications() {
         UserDefaults.standard.set(true, forKey: AppDelegate.busArrivalNotificationsDefaultKey)
+        UserDefaults.standard.set(true, forKey: AppDelegate.routeBusArrivalNotificationsDefaultKey)
         NotificationCenter.default.post(name: AppDelegate.didChangeBusArrivalNotifications, object: self)
         self.exit()
     }

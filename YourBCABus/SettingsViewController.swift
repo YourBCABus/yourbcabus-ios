@@ -10,13 +10,12 @@ import UIKit
 import UserNotifications
 
 class SettingsViewController: UITableViewController {
-    @IBOutlet weak var busArrivalNotificationsSwitch: UISwitch!
     @IBOutlet weak var useFlyoverMapSwitch: UISwitch!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        busArrivalNotificationsSwitch.setOn(UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey), animated: false)
+        // busArrivalNotificationsSwitch.setOn(UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey), animated: false)
         useFlyoverMapSwitch.setOn(UserDefaults.standard.bool(forKey: MapViewController.useFlyoverMapDefaultsKey), animated: false)
 
         // Uncomment the following line to preserve selection between presentations
@@ -26,7 +25,7 @@ class SettingsViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    func enableNotifications() {
+    /* func enableNotifications() {
         UserDefaults.standard.set(true, forKey: AppDelegate.busArrivalNotificationsDefaultKey)
         UserDefaults.standard.set(true, forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)
         NotificationCenter.default.post(name: AppDelegate.didChangeBusArrivalNotifications, object: self)
@@ -72,7 +71,7 @@ class SettingsViewController: UITableViewController {
                 NotificationCenter.default.post(name: AppDelegate.didChangeBusArrivalNotifications, object: self)
             }
         }
-    }
+    } */
     
     @IBAction func done(sender: UIBarButtonItem?) {
         dismiss(animated: true, completion: nil)

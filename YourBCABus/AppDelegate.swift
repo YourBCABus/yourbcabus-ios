@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var schoolId = "5bca51e785aa2627e14db459"
     
     static let busArrivalNotificationsDefaultKey = "busArrivalNotifications"
+    static let routeBusArrivalNotificationsDefaultKey = "routeBusArrivalNotifications"
     static let didChangeBusArrivalNotifications = NSNotification.Name("YBBDidChangeBusArrivalNotifications")
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -49,27 +50,80 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                     if BusManager.shared.starredBuses.contains(where: {$0._id == busID}) {
                         Messaging.messaging().subscribe(toTopic: topic)
                     } else {
-                        Messaging.messaging().unsubscribe(fromTopic: topic)
+                        var routeBusId: String?
+                    
+                        if let data = UserDefaults.standard.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
+                            let route = try? PropertyListDecoder().decode(Route.self, from: data)
+                            routeBusId = route?.bus?._id
+                        }
+
+                        if busID != routeBusId {
+                            Messaging.messaging().unsubscribe(fromTopic: topic)
+                        }
                     }
                 }
             }
         }))
         
-        notificationTokens.append(NotificationCenter.default.observe(name: AppDelegate.didChangeBusArrivalNotifications, object: nil, queue: nil, using: { [unowned self] notification in
-            if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) {
-                BusManager.shared.starredBuses.forEach { bus in
-                    Messaging.messaging().subscribe(toTopic: "school.\(self.schoolId).bus.\(bus._id)")
+        notificationTokens.append(NotificationCenter.default.observe(name: MasterViewController.currentDestinationDidChange, object: nil, queue: nil, using: { [unowned self] notification in
+            if UserDefaults.standard.bool(forKey: AppDelegate.routeBusArrivalNotificationsDefaultKey) {
+                if let oldID = (notification.userInfo?[MasterViewController.currentDestinationDidChangeOldRouteKey] as? Route)?.bus?._id {
+                    if !BusManager.shared.starredBuses.contains(where: {$0._id == oldID}) {
+                        Messaging.messaging().unsubscribe(fromTopic: "school.\(self.schoolId).bus.\(oldID)")
+                    }
                 }
-            } else {
-                BusManager.shared.starredBuses.forEach { bus in
-                    Messaging.messaging().unsubscribe(fromTopic: "school.\(self.schoolId).bus.\(bus._id)")
+                
+                if let id = (notification.userInfo?[MasterViewController.currentDestinationDidChangeNewRouteKey] as? Route)?.bus?._id {
+                    Messaging.messaging().subscribe(toTopic: "school.\(self.schoolId).bus.\(id)")
                 }
             }
+        }))
+        
+        notificationTokens.append(NotificationCenter.default.observe(name: AppDelegate.didChangeBusArrivalNotifications, object: nil, queue: nil, using: { [unowned self] notification in
+            var allBuses = Set<String>()
+            var toStar = Set<String>()
+            
+            if let data = UserDefaults.standard.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
+                let route = try? PropertyListDecoder().decode(Route.self, from: data)
+                if let id = route?.bus?._id {
+                    allBuses.insert(id)
+                    if UserDefaults.standard.bool(forKey: AppDelegate.routeBusArrivalNotificationsDefaultKey) {
+                        toStar.insert(id)
+                    }
+                }
+            }
+
+            BusManager.shared.starredBuses.forEach { bus in
+                allBuses.insert(bus._id)
+            }
+            
+            if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) {
+                BusManager.shared.starredBuses.forEach { bus in
+                    toStar.insert(bus._id)
+                }
+            }
+
+            assert(allBuses.isSuperset(of: toStar))
+            
+            toStar.forEach { bus in
+                Messaging.messaging().subscribe(toTopic: "school.\(self.schoolId).bus.\(bus)")
+            }
+            
+            allBuses.subtracting(toStar).forEach { bus in
+                Messaging.messaging().unsubscribe(fromTopic: "school.\(self.schoolId).bus.\(bus)")
+            }
+            
+            UserDefaults.standard.set(true, forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)
         }))
         
         UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: requests.filter({ $0.identifier.starts(with: ModalNavigationViewController.getOffAlertNotificationIdPrefix) }).map({ $0.identifier }))
         })
+        
+        if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) && UserDefaults.standard.object(forKey: AppDelegate.routeBusArrivalNotificationsDefaultKey) == nil {
+            UserDefaults.standard.set(true, forKey: AppDelegate.routeBusArrivalNotificationsDefaultKey)
+            NotificationCenter.default.post(name: AppDelegate.didChangeBusArrivalNotifications, object: nil)
+        }
         
         return true
     }

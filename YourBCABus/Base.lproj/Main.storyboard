@@ -259,8 +259,16 @@
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DestinationCell" rowHeight="220" id="f0q-EM-wWP">
+                                <rect key="frame" x="0.0" y="99.5" width="414" height="220"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f0q-EM-wWP" id="bjM-Ua-zFL">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="219.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BusCell" rowHeight="60" id="WCw-Qf-5nD" customClass="BusTableViewCell" customModule="YourBCABus" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="99.5" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="319.5" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
                                     <rect key="frame" x="0.0" y="0.0" width="376" height="59.5"/>
@@ -425,45 +433,36 @@
                         <sections>
                             <tableViewSection headerTitle="Notifications" id="2Jv-Tb-e54">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="jpu-JO-I2d">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="oxD-Ph-rqM" style="IBUITableViewCellStyleDefault" id="jpu-JO-I2d">
                                         <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jpu-JO-I2d" id="TK0-MS-R5N">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starred Bus Arrival" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5m-wt-bE3">
-                                                    <rect key="frame" x="20" y="11.5" width="319" height="21"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Bus Arrival Alerts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oxD-Ph-rqM">
+                                                    <rect key="frame" x="20" y="0.0" width="356" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jib-8t-gHz">
-                                                    <rect key="frame" x="347" y="6.5" width="51" height="31"/>
-                                                    <connections>
-                                                        <action selector="didChangeBusArrivalNotificationsWithSender:" destination="iVQ-ew-cfH" eventType="valueChanged" id="ftJ-Ft-ire"/>
-                                                    </connections>
-                                                </switch>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="Jib-8t-gHz" secondAttribute="trailing" constant="18" id="4MK-VS-Gzu"/>
-                                                <constraint firstItem="Jib-8t-gHz" firstAttribute="centerY" secondItem="TK0-MS-R5N" secondAttribute="centerY" id="Dmv-bj-5Jo"/>
-                                                <constraint firstItem="Jib-8t-gHz" firstAttribute="leading" secondItem="C5m-wt-bE3" secondAttribute="trailing" constant="8" id="JH7-eU-0Bo"/>
-                                                <constraint firstItem="C5m-wt-bE3" firstAttribute="centerY" secondItem="TK0-MS-R5N" secondAttribute="centerY" id="unP-01-Cqh"/>
-                                                <constraint firstItem="C5m-wt-bE3" firstAttribute="leading" secondItem="N2W-L2-vUa" secondAttribute="leading" constant="20" id="vcZ-Yy-guM"/>
-                                            </constraints>
                                             <viewLayoutGuide key="safeArea" id="N2W-L2-vUa"/>
                                         </tableViewCellContentView>
                                         <viewLayoutGuide key="safeArea" id="Qfl-B5-bru"/>
+                                        <connections>
+                                            <segue destination="B1r-9M-ceO" kind="show" id="ySG-17-Vxz"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="vCh-6D-alY" style="IBUITableViewCellStyleDefault" id="0zq-6W-j5c">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="vCh-6D-alY" style="IBUITableViewCellStyleDefault" id="0zq-6W-j5c">
                                         <rect key="frame" x="0.0" y="99.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0zq-6W-j5c" id="Fnc-hq-C6o">
                                             <rect key="frame" x="0.0" y="0.0" width="376" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="&quot;Get Off&quot; Alert Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vCh-6D-alY">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="&quot;Get Off&quot; Alerts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vCh-6D-alY">
                                                     <rect key="frame" x="20" y="0.0" width="356" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -592,13 +591,51 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="busArrivalNotificationsSwitch" destination="Jib-8t-gHz" id="1co-EN-IUV"/>
                         <outlet property="useFlyoverMapSwitch" destination="poG-oH-BVO" id="xT7-dj-7X8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcV-hd-zac" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2359.4202898550725" y="-1339.9553571428571"/>
+        </scene>
+        <!--Bus Arrival Alerts-->
+        <scene sceneID="g10-FN-dKl">
+            <objects>
+                <tableViewController id="B1r-9M-ceO" customClass="BusArrivalNotificationsTableViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="bSH-3a-1u8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="Background"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextCell" textLabel="xEz-iZ-sSD" style="IBUITableViewCellStyleDefault" id="NuY-5l-4bT">
+                                <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NuY-5l-4bT" id="8iY-PR-o2m">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xEz-iZ-sSD">
+                                            <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="B1r-9M-ceO" id="EL2-EC-Kt0"/>
+                            <outlet property="delegate" destination="B1r-9M-ceO" id="3cc-sl-skN"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Bus Arrival Alerts" id="6rF-fD-gLg"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7G8-Rp-PVJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3205.7971014492755" y="-2122.0982142857142"/>
         </scene>
         <!--Custom Stops-->
         <scene sceneID="6Qg-nG-ABe">
@@ -820,6 +857,20 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDR-eL-33F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1578" y="129"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="cph-WD-bQ6">
+            <objects>
+                <viewController id="y4n-0C-cgh" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lQX-YW-amr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="fyq-us-EPf"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p6z-WA-iXD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>

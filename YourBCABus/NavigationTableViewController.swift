@@ -154,7 +154,14 @@ class NavigationTableViewController: UITableViewController, UITextFieldDelegate 
         if indexPath.section == 1 {
             performSegue(withIdentifier: "showRoutes", sender: tableView)
         } else if indexPath.section == 2 {
+            var userInfo = [String: Any]()
+            if let data = UserDefaults.standard.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
+                userInfo[MasterViewController.currentDestinationDidChangeOldRouteKey] = try? PropertyListDecoder().decode(Route.self, from: data)
+            }
+            userInfo[MasterViewController.currentDestinationDidChangeNewRouteKey] = nil
+            
             UserDefaults.standard.removeObject(forKey: MasterViewController.currentDestinationDefaultsKey)
+            NotificationCenter.default.post(name: MasterViewController.currentDestinationDidChange, object: nil, userInfo: userInfo)
             if let split = presentingViewController as? UISplitViewController {
                 if let navigation = split.viewControllers.first as? UINavigationController {
                     (navigation.topViewController as? MasterViewController)?.route = nil
@@ -177,6 +184,10 @@ class NavigationTableViewController: UITableViewController, UITextFieldDelegate 
         }
         
         if selected.section == 1 {
+            guard selected.row < places.count else {
+                return
+            }
+            
             let place = places[selected.row]
             routes.destination = place
             
