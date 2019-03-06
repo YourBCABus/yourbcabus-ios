@@ -8,35 +8,35 @@
 
 import Foundation
 
-enum APIResultSource {
+public enum APIResultSource {
     case cached
     case fetched
 }
 
-struct APIResult<R> {
-    let ok: Bool
-    let error: Error!
-    let result: R!
-    let source: APIResultSource
+public struct APIResult<R> {
+    public let ok: Bool
+    public let error: Error!
+    public let result: R!
+    public let source: APIResultSource
 }
 
-enum APICachingMode {
+public enum APICachingMode {
     case forceFetch
     case forceCache
     case preferCache
     case both
 }
 
-enum APIError: Error {
+public enum APIError: Error {
     case noData
     case noCacheIdentifier
     case noAuthToken
 }
 
-class APIService {
-    static var shared = APIService(url: URL(string: "https://db.yourbcabus.com")!, cacheURL: URL(fileURLWithPath:  NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!), authToken: "NjSnf2C/ewoFUaLe5ibvVKMatTP51o1GW5zZB7+BJxY=")
+public class APIService {
+    public static var shared = APIService(url: URL(string: "https://db.yourbcabus.com")!, cacheURL: URL(fileURLWithPath:  NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!), authToken: "NjSnf2C/ewoFUaLe5ibvVKMatTP51o1GW5zZB7+BJxY=")
     
-    init(url: URL, cacheURL: URL, authToken: String? = nil) {
+    public init(url: URL, cacheURL: URL, authToken: String? = nil) {
         self.url = url
         self.cacheURL = cacheURL
         self.authToken = authToken
@@ -55,18 +55,18 @@ class APIService {
         return cacheURL.appendingPathComponent(identifier).appendingPathExtension("json")
     }
     
-    func readCache<T>(identifier: String) throws -> T where T: Decodable {
+    private func readCache<T>(identifier: String) throws -> T where T: Decodable {
         let data = try Data(contentsOf: getURLForCache(identifier: identifier))
         return try decoder.decode(T.self, from: data)
     }
     
-    func writeCache<T>(_ object: T, identifier: String) where T: Encodable {
+    private func writeCache<T>(_ object: T, identifier: String) where T: Encodable {
         if let data = try? encoder.encode(object) {
             try? data.write(to: getURLForCache(identifier: identifier))
         }
     }
     
-    func fetchFromAPI(path: String, query: [URLQueryItem]?, _ completion: @escaping (Data?, Error?) -> Void) {
+    private func fetchFromAPI(path: String, query: [URLQueryItem]?, _ completion: @escaping (Data?, Error?) -> Void) {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
         components.path = path
         components.queryItems = query
@@ -134,23 +134,23 @@ class APIService {
         }
     }
     
-    func getSchool(schoolId: String, cachingMode: APICachingMode = .preferCache, _ completion: @escaping (APIResult<School>) -> Void) {
+    public func getSchool(schoolId: String, cachingMode: APICachingMode = .preferCache, _ completion: @escaping (APIResult<School>) -> Void) {
         getResource(apiPath: "/schools/\(schoolId)", cachedAs: "\(schoolId)", cachingMode: cachingMode, completion)
     }
     
-    func getBuses(schoolId: String, cachingMode: APICachingMode = .preferCache, _ completion: @escaping (APIResult<[Bus]>) -> Void) {
+    public func getBuses(schoolId: String, cachingMode: APICachingMode = .preferCache, _ completion: @escaping (APIResult<[Bus]>) -> Void) {
         getResource(apiPath: "/schools/\(schoolId)/buses", cachedAs: "\(schoolId).buses", cachingMode: cachingMode, completion)
     }
     
-    func getBus(schoolId: String, busId: String, _ completion: @escaping (APIResult<Bus>) -> Void) {
+    public func getBus(schoolId: String, busId: String, _ completion: @escaping (APIResult<Bus>) -> Void) {
         getResource(apiPath: "/schools/\(schoolId)/buses/\(busId)", cachedAs: nil, cachingMode: .forceFetch, completion)
     }
     
-    func getStops(schoolId: String, busId: String, cachingMode: APICachingMode = .preferCache, _ completion: @escaping (APIResult<[Stop]>) -> Void) {
+    public func getStops(schoolId: String, busId: String, cachingMode: APICachingMode = .preferCache, _ completion: @escaping (APIResult<[Stop]>) -> Void) {
         getResource(apiPath: "/schools/\(schoolId)/buses/\(busId)/stops", cachedAs: "\(schoolId).buses.\(busId).stops", cachingMode: cachingMode, completion)
     }
     
-    func getStops(schoolId: String, near coord: Coordinate, distance: Int?, _ completion: @escaping (APIResult<[Stop]>) -> Void) {
+    public func getStops(schoolId: String, near coord: Coordinate, distance: Int?, _ completion: @escaping (APIResult<[Stop]>) -> Void) {
         var query = [URLQueryItem(name: "latitude", value: String(coord.latitude)), URLQueryItem(name: "longitude", value: String(coord.longitude))]
         if let dist = distance {
             query.append(URLQueryItem(name: "distance", value: String(dist)))
@@ -190,7 +190,7 @@ class APIService {
         let time: Int?
     }
     
-    func suggestStop(schoolId: String, stop: Stop, _ completion: ((APIResult<Void>) -> Void)?) throws {
+    public func suggestStop(schoolId: String, stop: Stop, _ completion: ((APIResult<Void>) -> Void)?) throws {
         let data = StopSuggestionData(location: stop.location, time: stop.arrives == nil ? nil : Int(stop.arrives!.timeIntervalSince1970 * 1000))
         
         try postResource(data, toPath: "/schools/\(schoolId)/buses/\(stop.bus_id)/stopsuggest", withAuthToken: true, completion)

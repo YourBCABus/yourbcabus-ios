@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import UserNotifications
+import YourBCABus_Embedded
 
 private class DestinationAnnotation: MKPointAnnotation {}
 private class WalkOverlay: MKPolyline {}

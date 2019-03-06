@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import YourBCABus_Embedded
 
 class BusManager {
     static var shared = BusManager(defaultsKey: "starredBuses")

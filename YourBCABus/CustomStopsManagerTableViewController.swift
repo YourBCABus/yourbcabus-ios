@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import YourBCABus_Embedded
 
 class CustomStopsManagerTableViewController: UITableViewController {
     

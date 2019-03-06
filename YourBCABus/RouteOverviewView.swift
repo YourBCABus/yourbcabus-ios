@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YourBCABus_Embedded
 
 class RouteOverviewViewController: UIViewController {
     @IBOutlet weak var destinationLabel: UILabel?

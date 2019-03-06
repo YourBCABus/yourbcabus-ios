@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YourBCABus_Embedded
 
 class BusTableViewCell: UITableViewCell {
     private var starListener: NotificationToken?

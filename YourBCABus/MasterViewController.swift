@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YourBCABus_Embedded
 
 enum MasterTableViewSection {
     case destination
@@ -83,7 +84,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
         
-        reloadBuses(cachingMode: .both)
         refreshControl?.tintColor = UIColor.white
         
         notificationTokens.append(NotificationCenter.default.observe(name: Notification.Name(BusManager.NotificationName.starredBusesChange.rawValue), object: nil, queue: nil, using: { [weak self] notification in
@@ -141,13 +141,21 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         } else {
             route = nil
         }
+        
+        reloadBuses(cachingMode: .both)
     }
     
     func reloadRoute() {
-        route?.fetchData { [weak self] (ok, _, _) in
+        route?.fetchData { [weak self, route] (ok, _, _) in
             if ok {
-                DispatchQueue.main.async {
-                    self?.routeOverviewViewController.configureView()
+                if let data = try? PropertyListEncoder().encode(route!) {
+                    UserDefaults.standard.set(data, forKey: MasterViewController.currentDestinationDefaultsKey)
+                }
+                
+                if let self = self {
+                    DispatchQueue.main.async {
+                        self.routeOverviewViewController.configureView()
+                    }
                 }
             }
         }

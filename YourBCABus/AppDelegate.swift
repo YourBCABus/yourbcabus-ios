@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import UserNotifications
-
+import YourBCABus_Embedded
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
@@ -151,7 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        DirectionsCache.shared.cache = [:]
+        DirectionsCache.shared.clearCache()
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {

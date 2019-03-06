@@ -8,10 +8,10 @@
 
 import Foundation
 
-extension Stop {
-    static let customStopsDefaultsKey = "YBBCustomStops"
+public extension Stop {
+    public static let customStopsDefaultsKey = "YBBCustomStops"
     
-    static func getCustomStops(withUserDefaults userDefaults: UserDefaults = UserDefaults.standard) throws -> [Stop] {
+    public static func getCustomStops(withUserDefaults userDefaults: UserDefaults = UserDefaults.standard) throws -> [Stop] {
         if let data = userDefaults.data(forKey: Stop.customStopsDefaultsKey) {
             let decoder = PropertyListDecoder()
             return try decoder.decode([Stop].self, from: data)
@@ -20,7 +20,7 @@ extension Stop {
         }
     }
     
-    static func saveCustomStops(_ stops: [Stop], withUserDefaults userDefaults: UserDefaults = UserDefaults.standard) throws {
+    public static func saveCustomStops(_ stops: [Stop], withUserDefaults userDefaults: UserDefaults = UserDefaults.standard) throws {
         let encoder = PropertyListEncoder()
         userDefaults.set(try encoder.encode(stops), forKey: Stop.customStopsDefaultsKey)
     }

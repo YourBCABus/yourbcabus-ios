@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import SafariServices
+import YourBCABus_Embedded
 
 class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     

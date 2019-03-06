@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import YourBCABus_Embedded
 
 class CustomStopsTimeViewController: UIViewController {
     

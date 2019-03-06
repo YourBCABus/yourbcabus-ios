@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import YourBCABus_Embedded
 
 class CustomStopsMapViewController: UIViewController, MKMapViewDelegate {
     

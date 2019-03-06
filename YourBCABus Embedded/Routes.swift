@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-class Route: CustomStringConvertible, Codable {
+public class Route: CustomStringConvertible, Codable {
     enum CodingKeys: String, CodingKey {
         case mapKitData = "mapKitData"
         case walkingPolyline
@@ -25,37 +25,37 @@ class Route: CustomStringConvertible, Codable {
         case fetchStatus
     }
     
-    enum Step: Int, Codable {
+    public enum Step: Int, Codable {
         case boarding
         case riding
         case walking
         case andItsFamilyAfterGenus
     }
     
-    enum FetchStatus: Int, Codable {
+    public enum FetchStatus: Int, Codable {
         case notFetched
         case fetching
         case errored
         case fetched
     }
     
-    enum RouteError: Error {
+    public enum RouteError: Error {
         case busNotFound
     }
     
-    var steps = [Step]()
-    var eta: Date?
+    public var steps = [Step]()
+    public var eta: Date?
     
-    let destination: MKMapItem
-    var stop: Stop?
-    let schoolId: String
-    var bus: Bus?
-    var stops: [Stop]?
-    var school: School?
+    public let destination: MKMapItem
+    public var stop: Stop?
+    public let schoolId: String
+    public var bus: Bus?
+    public var stops: [Stop]?
+    public var school: School?
     
-    var walkingPolyline: MKPolyline?
-    var walkingETA: TimeInterval?
-    var walkingDistance: CLLocationDistance?
+    public var walkingPolyline: MKPolyline?
+    public var walkingETA: TimeInterval?
+    public var walkingDistance: CLLocationDistance?
     
     private var walkingRoute: MKRoute? {
         get {
@@ -68,7 +68,7 @@ class Route: CustomStringConvertible, Codable {
         }
     }
     
-    var fetchStatus: FetchStatus {
+    public var fetchStatus: FetchStatus {
         return _fetchStatus
     }
     
@@ -79,7 +79,7 @@ class Route: CustomStringConvertible, Codable {
         let y: Double
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         try container.encode(NSKeyedArchiver.archivedData(withRootObject: destination, requiringSecureCoding: true), forKey: .mapKitData)
@@ -102,7 +102,7 @@ class Route: CustomStringConvertible, Codable {
         }
     }
     
-    required init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         steps = try container.decode([Step].self, forKey: .steps)
@@ -147,7 +147,7 @@ class Route: CustomStringConvertible, Codable {
         }
     }
     
-    init(destination: MKMapItem, stop: Stop?, schoolId: String) {
+    public init(destination: MKMapItem, stop: Stop?, schoolId: String) {
         self.destination = destination
         self.stop = stop
         self.schoolId = schoolId
@@ -162,7 +162,7 @@ class Route: CustomStringConvertible, Codable {
         }
     }
     
-    func fetchData(_ update: @escaping (Bool, Error?, Route) -> Void) {
+    public func fetchData(_ update: @escaping (Bool, Error?, Route) -> Void) {
         _fetchStatus = .fetching
         if var stop = stop {
             APIService.shared.getBuses(schoolId: schoolId, cachingMode: .preferCache) { result in
@@ -279,7 +279,7 @@ class Route: CustomStringConvertible, Codable {
         }
     }
     
-    var description: String {
+    public var description: String {
         if let name = stop?.name {
             return name
         } else {
@@ -288,12 +288,12 @@ class Route: CustomStringConvertible, Codable {
     }
 }
 
-class DirectionsCache {
-    static var shared = DirectionsCache()
+public class DirectionsCache {
+    public static var shared = DirectionsCache()
     
     var cache = [CoordinatePair: MKDirections.Response]()
     
-    func getDirections(origin: MKMapItem, destination: MKMapItem, departure: Date, _ handler: @escaping MKDirections.DirectionsHandler) {
+    public func getDirections(origin: MKMapItem, destination: MKMapItem, departure: Date, _ handler: @escaping MKDirections.DirectionsHandler) {
         let key = CoordinatePair(origin: Coordinate(from: origin.placemark.coordinate), destination: Coordinate(from: destination.placemark.coordinate))
         if let cached = cache[key] {
             handler(cached, nil)
@@ -314,10 +314,14 @@ class DirectionsCache {
             })
         }
     }
+
+    public func clearCache() {
+        cache = [:]
+    }
 }
 
-extension MKMapRect {
-    init(a: MKMapPoint, b: MKMapPoint) {
+public extension MKMapRect {
+    public init(a: MKMapPoint, b: MKMapPoint) {
         self.init(x: min(a.x, b.x), y: min(a.y, b.y), width: abs(a.x - b.x), height: abs(a.y - b.y))
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import YourBCABus_Embedded
 
 struct MapViewControllerPoints {
     static var standard = MapViewControllerPoints()

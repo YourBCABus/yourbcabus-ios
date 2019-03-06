@@ -9,24 +9,24 @@
 import Foundation
 import CoreLocation
 
-struct Coordinate: Codable, Equatable, Hashable {
-    let latitude: Double
-    let longitude: Double
+public struct Coordinate: Codable, Equatable, Hashable {
+    public let latitude: Double
+    public let longitude: Double
     
-    init(latitude: Double, longitude: Double) {
+    public init(latitude: Double, longitude: Double) {
         self.latitude = latitude
         self.longitude = longitude
     }
     
-    init(from coordinate: CLLocationCoordinate2D) {
+    public init(from coordinate: CLLocationCoordinate2D) {
         self.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
     }
     
-    static func == (a: Coordinate, b: Coordinate) -> Bool {
+    public static func == (a: Coordinate, b: Coordinate) -> Bool {
         return a.latitude == b.latitude && a.longitude == b.longitude
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(latitude)
         hasher.combine(longitude)
     }
@@ -46,13 +46,13 @@ struct CoordinatePair: Equatable, Hashable {
     }
 }
 
-struct School: Codable {
-    let _id: String
-    let name: String
-    let location: Coordinate
+public struct School: Codable {
+    public let _id: String
+    public let name: String
+    public let location: Coordinate
 }
 
-struct Bus: Codable, Comparable, CustomStringConvertible {
+public struct Bus: Codable, Comparable, CustomStringConvertible {
     static private let formatter = ISO8601DateFormatter()
     static private func formatDate(from: String) -> Date? {
         var temp = from
@@ -62,7 +62,7 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
         return Bus.formatter.date(from: temp)
     }
     
-    static let locationKey = "location"
+    public static let locationKey = "location"
     
     enum BusKeys: String, CodingKey {
         case _id = "_id"
@@ -76,7 +76,7 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
         case invalidates = "invalidates"
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: BusKeys.self)
         _id = try container.decode(String.self, forKey: ._id)
         school_id = try container.decode(String.self, forKey: .school_id)
@@ -98,13 +98,13 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
         }
     }
     
-    let _id: String
-    let school_id: String
-    let available: Bool
-    let name: String?
-    let locations: [String]
-    let boarding: Int?
-    let departing: Int?
+    public let _id: String
+    public let school_id: String
+    public let available: Bool
+    public let name: String?
+    public let locations: [String]
+    public let boarding: Int?
+    public let departing: Int?
     
     var invalidate_time: String? {
         get {
@@ -115,30 +115,30 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
             return Bus.formatter.string(from: date)
         }
     }
-    let invalidates: Date?
+    public let invalidates: Date?
     
-    func isValidated(asOf date: Date = Date()) -> Bool {
+    public func isValidated(asOf date: Date = Date()) -> Bool {
         guard let invalidate = invalidates else {
             return true
         }
         
         return date < invalidate
     }
-    var validated: Bool { return isValidated() }
+    public var validated: Bool { return isValidated() }
     
-    var description: String {
+    public var description: String {
         return name == nil ? "" : name!
     }
     
-    var location: String? {
+    public var location: String? {
         return isValidated() ? locations.first : nil
     }
     
-    static func == (a: Bus, b: Bus) -> Bool {
+    public static func == (a: Bus, b: Bus) -> Bool {
         return (a.available == b.available) && (a.name == b.name)
     }
     
-    static func > (a: Bus, b: Bus) -> Bool {
+    public static func > (a: Bus, b: Bus) -> Bool {
         if a.available && !b.available {
             return false
         } else if !a.available && b.available {
@@ -154,7 +154,7 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
         }
     }
     
-    static func < (a: Bus, b: Bus) -> Bool {
+    public static func < (a: Bus, b: Bus) -> Bool {
         if a.available && !b.available {
             return true
         } else if !a.available && b.available {
@@ -171,7 +171,7 @@ struct Bus: Codable, Comparable, CustomStringConvertible {
     }
 }
 
-struct Stop: Codable, Comparable, CustomStringConvertible {
+public struct Stop: Codable, Comparable, CustomStringConvertible {
     static private let formatter = ISO8601DateFormatter()
     static private func formatDate(from: String) -> Date? {
         var temp = from
@@ -181,7 +181,7 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
         return Stop.formatter.date(from: temp)
     }
     
-    static func getArrivalTimeForCustomStop(date: Date, now: Date = Date()) -> Date? {
+    public static func getArrivalTimeForCustomStop(date: Date, now: Date = Date()) -> Date? {
         let calendar = Calendar(identifier: .gregorian)
         var components = calendar.dateComponents([.calendar, .timeZone, .era, .year, .month, .day], from: now)
         components.hour = calendar.component(.hour, from: date)
@@ -205,9 +205,9 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
         case is_custom = "is_custom"
     }
     
-    static let customStopIdPrefix = "YBBCustomStopIOS"
+    public static let customStopIdPrefix = "YBBCustomStopIOS"
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Keys.self)
         _id = try container.decode(String.self, forKey: ._id)
         bus_id = try container.decode(String.self, forKey: .bus_id)
@@ -241,7 +241,7 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
         }
     }
     
-    init(customStopAt location: Coordinate, bus bus_id: String, arrivesAt arrives: Date? = nil, name: String? = nil, order: Double = 0, id _id: String = "\(Stop.customStopIdPrefix).\(UUID().uuidString)") {
+    public init(customStopAt location: Coordinate, bus bus_id: String, arrivesAt arrives: Date? = nil, name: String? = nil, order: Double = 0, id _id: String = "\(Stop.customStopIdPrefix).\(UUID().uuidString)") {
         self._id = _id
         self.bus_id = bus_id
         self.name = name
@@ -258,29 +258,29 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
         }
     }
     
-    let _id: String
-    let bus_id: String
-    let name: String?
-    let location: Coordinate
-    let order: Double
-    var arrives: Date?
-    let invalidates: Date?
-    let available: Bool
-    let is_custom: Bool
+    public let _id: String
+    public let bus_id: String
+    public let name: String?
+    public let location: Coordinate
+    public let order: Double
+    public var arrives: Date?
+    public let invalidates: Date?
+    public let available: Bool
+    public let is_custom: Bool
     
-    static func < (a: Stop, b: Stop) -> Bool {
+    public static func < (a: Stop, b: Stop) -> Bool {
         return a.order < b.order
     }
     
-    static func == (a: Stop, b: Stop) -> Bool {
+    public static func == (a: Stop, b: Stop) -> Bool {
         return a.order == b.order
     }
     
-    static func > (a: Stop, b: Stop) -> Bool {
+    public static func > (a: Stop, b: Stop) -> Bool {
         return a.order > b.order
     }
     
-    var description: String {
+    public var description: String {
         if let name = name {
             return name
         } else {
@@ -289,12 +289,12 @@ struct Stop: Codable, Comparable, CustomStringConvertible {
     }
 }
 
-enum BusStatus: CustomStringConvertible {
+public enum BusStatus: CustomStringConvertible {
     case unavailable
     case notArrived(boarding: Int?)
     case arrived
     
-    var description: String {
+    public var description: String {
         switch self {
         case .unavailable:
             return "Not running"
@@ -326,8 +326,8 @@ enum BusStatus: CustomStringConvertible {
     }
 }
 
-extension Bus {
-    var status: BusStatus {
+public extension Bus {
+    public var status: BusStatus {
         guard available else {
             return .unavailable
         }
@@ -344,8 +344,8 @@ extension Bus {
     }
 }
 
-extension CLLocationCoordinate2D {
-    init(from: Coordinate) {
+public extension CLLocationCoordinate2D {
+    public init(from: Coordinate) {
         self.init(latitude: CLLocationDegrees(from.latitude), longitude: CLLocationDegrees(from.longitude))
     }
 }

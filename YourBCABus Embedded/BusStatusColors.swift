@@ -8,14 +8,14 @@
 
 import UIKit
 
-typealias Color = UIColor
+public typealias Color = UIColor
 
-protocol CustomColorConvertible {
+public protocol CustomColorConvertible {
     var color: Color { get }
 }
 
 extension BusStatus: CustomColorConvertible {
-    var color: Color {
+    public var color: Color {
         switch self {
         case .unavailable:
             return Color.darkGray

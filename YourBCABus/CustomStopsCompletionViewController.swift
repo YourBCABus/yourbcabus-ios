@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import YourBCABus_Embedded
 
 class CustomStopsCompletionViewController: UIViewController {
     
