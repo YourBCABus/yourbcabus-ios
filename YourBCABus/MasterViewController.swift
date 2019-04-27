@@ -127,7 +127,13 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             // }
         })
         
-        routeOverviewViewController = RouteOverviewViewController(nibName: "RouteOverviewView", bundle: nil)
+        routeOverviewViewController = RouteOverviewViewController(nibName: "RouteOverviewView", bundle: Bundle(for: RouteOverviewViewController.self))
+        routeOverviewViewController.onMoreDetailsPressed = { [unowned self] in
+            let modalViewController = UIStoryboard(name: "Navigation", bundle: nil).instantiateViewController(withIdentifier: "YBBNavigationModalViewController") as! ModalNavigationViewController
+            modalViewController.route = self.route
+            modalViewController.modalPresentationStyle = .fullScreen
+            self.present(modalViewController, animated: true, completion: nil)
+        }
         addChild(routeOverviewViewController)
         
         if let data = UserDefaults.standard.data(forKey: MasterViewController.currentDestinationDefaultsKey) {

@@ -17,6 +17,7 @@
                 <outlet property="destinationLabel" destination="kte-2C-fNd" id="5lc-WX-6cC"/>
                 <outlet property="etaLabel" destination="gbE-S5-vuw" id="L3a-jS-S6k"/>
                 <outlet property="locationView" destination="G0i-wz-qTi" id="brB-eM-oBn"/>
+                <outlet property="moreDetailsButton" destination="O4O-uV-67g" id="Ou8-Zf-oGU"/>
                 <outlet property="statusLabel" destination="fwe-k7-Jgb" id="jpz-hG-rHO"/>
                 <outlet property="stopLabel" destination="JXZ-v1-6u4" id="2Rj-s5-BA3"/>
                 <outlet property="view" destination="iN0-l3-epB" id="yeC-M4-rCl"/>

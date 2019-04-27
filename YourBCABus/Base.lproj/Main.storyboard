@@ -111,7 +111,7 @@
                                                     <color key="textColor" name="Primary"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QbR-vX-igB" customClass="BusLocationView" customModule="YourBCABus" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QbR-vX-igB" customClass="BusLocationView" customModule="YourBCABus_Embedded">
                                                     <rect key="frame" x="322.5" y="8" width="75.5" height="75.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -280,7 +280,7 @@
                                             <color key="textColor" name="Secondary Text"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d2g-Le-r8S" customClass="BusLocationView" customModule="YourBCABus" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d2g-Le-r8S" customClass="BusLocationView" customModule="YourBCABus_Embedded">
                                             <rect key="frame" x="328" y="6" width="48" height="48"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -857,20 +857,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDR-eL-33F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1578" y="129"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="cph-WD-bQ6">
-            <objects>
-                <viewController id="y4n-0C-cgh" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="lQX-YW-amr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="fyq-us-EPf"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="p6z-WA-iXD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>

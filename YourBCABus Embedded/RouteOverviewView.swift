@@ -7,21 +7,27 @@
 //
 
 import UIKit
-import YourBCABus_Embedded
 
-class RouteOverviewViewController: UIViewController {
+public class RouteOverviewViewController: UIViewController {
     @IBOutlet weak var destinationLabel: UILabel?
     @IBOutlet weak var busLabel: UILabel?
     @IBOutlet weak var stopLabel: UILabel?
     @IBOutlet weak var statusLabel: UILabel?
     @IBOutlet weak var etaLabel: UILabel?
     @IBOutlet weak var locationView: BusLocationView?
+    @IBOutlet weak var moreDetailsButton: UIButton?
     
     @IBOutlet var detailsButtons: [UIButton]?
     
+    public var onMoreDetailsPressed: (() -> Void)? {
+        didSet {
+            moreDetailsButton?.isHidden = onMoreDetailsPressed == nil
+        }
+    }
+    
     var etaFormatter = DateFormatter()
     
-    var route: Route? {
+    public var route: Route? {
         didSet {
             if isViewLoaded {
                 configureView()
@@ -29,7 +35,7 @@ class RouteOverviewViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         etaFormatter.dateStyle = .none
@@ -51,11 +57,13 @@ class RouteOverviewViewController: UIViewController {
         
         locationView?.noLocationCircleColor = UIColor(named: "Accent Light")!.withAlphaComponent(0.6)
         locationView?.noLocationTextColor = UIColor.black.withAlphaComponent(0.6)
+        
+        moreDetailsButton?.isHidden = onMoreDetailsPressed == nil
                 
         configureView()
     }
     
-    func configureView() {
+    public func configureView() {
         guard let route = route else {
             return
         }
@@ -100,9 +108,6 @@ class RouteOverviewViewController: UIViewController {
     }
     
     @IBAction func moreDetails(sender: Any?) {
-        let modalViewController = UIStoryboard(name: "Navigation", bundle: nil).instantiateViewController(withIdentifier: "YBBNavigationModalViewController") as! ModalNavigationViewController
-        modalViewController.route = route
-        modalViewController.modalPresentationStyle = .fullScreen
-        (parent ?? self).present(modalViewController, animated: true, completion: nil)
+        onMoreDetailsPressed?()
     }
 }

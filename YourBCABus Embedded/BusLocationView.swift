@@ -8,28 +8,28 @@
 
 import UIKit
 
-class BusLocationView: UIView {
+public class BusLocationView: UIView {
     
-    var location: String? {
+    public var location: String? {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    var available = true
+    public var available = true
     
-    var circleColor = UIColor(named: "Primary")!
-    var textColor = UIColor.white
+    public var circleColor = UIColor(named: "Primary")!
+    public var textColor = UIColor.white
     
-    var noLocationCircleColor = UIColor(named: "Background")!
-    var noLocationTextColor = UIColor(named: "Primary")!
+    public var noLocationCircleColor = UIColor(named: "Background")!
+    public var noLocationTextColor = UIColor(named: "Primary")!
     
-    var unavailableCircleColor = UIColor.lightGray
-    var unavailableTextColor = UIColor.darkGray
+    public var unavailableCircleColor = UIColor.lightGray
+    public var unavailableTextColor = UIColor.darkGray
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
         // Drawing code
         let fontSize: CGFloat = 24
         

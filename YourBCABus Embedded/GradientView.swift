@@ -28,7 +28,7 @@ class GradientView: UIView {
 
 }
 
-@IBDesignable class AccentGradientView: GradientView {
+class AccentGradientView: GradientView {
     lazy var accentGradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = frame
