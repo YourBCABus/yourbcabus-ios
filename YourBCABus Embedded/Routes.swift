@@ -178,6 +178,7 @@ public class Route: CustomStringConvertible, Codable {
                                 let stops = result.result.sorted()
                                 if let index = stops.firstIndex(where: {$0._id == stop._id}) {
                                     self.stops = Array(stops[0..<index])
+                                    stop.arrives = stops[index].arrives
                                 } else {
                                     let coordinate = CLLocationCoordinate2D(from: stop.location)
                                     if let index = stops.firstIndex(where: { stop in
