@@ -16,6 +16,7 @@ public class RouteOverviewViewController: UIViewController {
     @IBOutlet weak var etaLabel: UILabel?
     @IBOutlet weak var locationView: BusLocationView?
     @IBOutlet weak var moreDetailsButton: UIButton?
+    @IBOutlet var auxViews: [UIView]?
     
     @IBOutlet var detailsButtons: [UIButton]?
     
@@ -28,6 +29,14 @@ public class RouteOverviewViewController: UIViewController {
     var etaFormatter = DateFormatter()
     
     public var route: Route? {
+        didSet {
+            if isViewLoaded {
+                configureView()
+            }
+        }
+    }
+    
+    public var isCompact: Bool = false {
         didSet {
             if isViewLoaded {
                 configureView()
@@ -70,7 +79,7 @@ public class RouteOverviewViewController: UIViewController {
         
         if let statusLabel = statusLabel {
             if let status = route.bus?.status {
-                statusLabel.isHidden = false
+                statusLabel.isHidden = isCompact
                 statusLabel.backgroundColor = status.color
                 
                 var grayscale: CGFloat = 1.0
@@ -99,12 +108,14 @@ public class RouteOverviewViewController: UIViewController {
             locationView?.isHidden = true
         }
         if let stop = route.stop {
-            stopLabel?.isHidden = false
+            stopLabel?.isHidden = isCompact
             stopLabel?.text = stop.name
         } else {
             stopLabel?.isHidden = true
         }
         etaLabel?.text = route.eta == nil ? "Unknown" : etaFormatter.string(from: route.eta!)
+        
+        auxViews?.forEach { $0.isHidden = isCompact }
     }
     
     @IBAction func moreDetails(sender: Any?) {

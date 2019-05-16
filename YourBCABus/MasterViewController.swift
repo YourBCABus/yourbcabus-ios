@@ -36,7 +36,10 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     
     static let didAskToSetUpNotificationsDefaultsKey = "didAskToSetUpBusArrivalNotifications"
     static let didOpenNotificationsAlertDefaultsKey = "didOpenNotificationsAlert"
-    static let currentDestinationDefaultsKey = "currentDestination"
+    
+    @available(*, deprecated)
+    static let currentDestinationDefaultsKey = Constants.currentDestinationDefaultsKey
+    
     static let currentDestinationDidChange = Notification.Name("YBBCurrentDestinationDidChange")
     static let currentDestinationDidChangeOldRouteKey = "oldRoute"
     static let currentDestinationDidChangeNewRouteKey = "newRoute"
@@ -136,7 +139,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         }
         addChild(routeOverviewViewController)
         
-        if let data = UserDefaults.standard.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
+        if let data = UserDefaults(suiteName: Constants.groupId)!.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
             do {
                 let decoder = PropertyListDecoder()
                 route = try decoder.decode(Route.self, from: data)

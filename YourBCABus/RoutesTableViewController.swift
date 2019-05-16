@@ -315,14 +315,15 @@ class RoutesTableViewController: UITableViewController {
         let route = getRoute(for: indexPath)!
         if route.fetchStatus == .fetched {
             var userInfo = [String: Any]()
-            if let data = UserDefaults.standard.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
+            let defaults = UserDefaults(suiteName: Constants.groupId)!
+            if let data = defaults.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
                 userInfo[MasterViewController.currentDestinationDidChangeOldRouteKey] = try? PropertyListDecoder().decode(Route.self, from: data)
             }
             userInfo[MasterViewController.currentDestinationDidChangeNewRouteKey] = route
             
             let encoder = PropertyListEncoder()
             let data = try! encoder.encode(route)
-            UserDefaults.standard.set(data, forKey: MasterViewController.currentDestinationDefaultsKey)
+            defaults.set(data, forKey: MasterViewController.currentDestinationDefaultsKey)
             NotificationCenter.default.post(name: MasterViewController.currentDestinationDidChange, object: nil, userInfo: userInfo)
            
             if let split = presentingViewController as? UISplitViewController {
