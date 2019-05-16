@@ -156,12 +156,13 @@ class NavigationTableViewController: UITableViewController, UITextFieldDelegate 
             performSegue(withIdentifier: "showRoutes", sender: tableView)
         } else if indexPath.section == 2 {
             var userInfo = [String: Any]()
-            if let data = UserDefaults.standard.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
+            let defaults = UserDefaults(suiteName: Constants.groupId)!
+            if let data = defaults.data(forKey: Constants.currentDestinationDefaultsKey) {
                 userInfo[MasterViewController.currentDestinationDidChangeOldRouteKey] = try? PropertyListDecoder().decode(Route.self, from: data)
             }
             userInfo[MasterViewController.currentDestinationDidChangeNewRouteKey] = nil
             
-            UserDefaults.standard.removeObject(forKey: MasterViewController.currentDestinationDefaultsKey)
+            defaults.removeObject(forKey: Constants.currentDestinationDefaultsKey)
             NotificationCenter.default.post(name: MasterViewController.currentDestinationDidChange, object: nil, userInfo: userInfo)
             if let split = presentingViewController as? UISplitViewController {
                 if let navigation = split.viewControllers.first as? UINavigationController {
