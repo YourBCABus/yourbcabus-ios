@@ -62,7 +62,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                 routeOverviewViewController?.route = route
                 routeOverviewViewController?.view.isHidden = false
                 route.fetchData { (_, _, _) in
-                    self.routeOverviewViewController?.configureView()
+                    DispatchQueue.main.async {
+                        self.routeOverviewViewController?.configureView()
+                    }
                     if route.fetchStatus == .fetched || route.fetchStatus == .errored {
                         completionHandler(NCUpdateResult.newData)
                     }
