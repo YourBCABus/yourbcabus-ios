@@ -10,6 +10,7 @@ import UIKit
 import YourBCABus_Embedded
 
 enum MasterTableViewSection {
+    case alerts
     case destination
     case maps
     case starred
@@ -52,6 +53,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         }
     }
     
+    var alerts = [Alert]()
+    
     func reloadBuses(cachingMode: APICachingMode, completion: ((Bool) -> Void)? = nil) {
         APIService.shared.getBuses(schoolId: schoolId, cachingMode: cachingMode) { result in
             if result.ok {
@@ -69,6 +72,17 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
                 DispatchQueue.main.async {
                     completion?(false)
                 }
+            }
+        }
+        
+        APIService.shared.getAlerts(schoolId: schoolId) { result in
+            if result.ok {
+                self.alerts = result.result
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } else {
+                print(result.error!)
             }
         }
         
@@ -139,7 +153,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         }
         addChild(routeOverviewViewController)
         
-        if let data = UserDefaults(suiteName: Constants.groupId)!.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
+        if let data = UserDefaults(suiteName: Constants.groupId)!.data(forKey: Constants.currentDestinationDefaultsKey) {
             do {
                 let decoder = PropertyListDecoder()
                 route = try decoder.decode(Route.self, from: data)
@@ -158,7 +172,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         route?.fetchData { [weak self, route] (ok, _, _) in
             if ok {
                 if let data = try? PropertyListEncoder().encode(route!) {
-                    UserDefaults.standard.set(data, forKey: MasterViewController.currentDestinationDefaultsKey)
+                    UserDefaults(suiteName: Constants.groupId)!.set(data, forKey: Constants.currentDestinationDefaultsKey)
                 }
                 
                 if let self = self {
@@ -222,12 +236,32 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             controller.navigationItem.largeTitleDisplayMode = .never
         } else if segue.identifier == "showChangeDestination" {
             (segue.destination as! UINavigationController).topViewController!.navigationItem.largeTitleDisplayMode = .never
+        } else if segue.identifier == "showAlert" {
+            let alert = alerts[(sender as! UITableView).indexPathForSelectedRow!.row]
+            
+            let controller = (segue.destination as! UINavigationController).topViewController as! AlertViewController
+            controller.htmlString = alert.content
+            
+            controller.navigationItem.title = alert.title
+            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.navigationItem.largeTitleDisplayMode = .never
         }
     }
 
     // MARK: - Table View
     
     func refreshSections() {
+        if alerts.count > 0 {
+            if !sections.contains(.alerts) {
+                sections.insert(.alerts, at: 0)
+            }
+        } else {
+            if let index = sections.firstIndex(of: .alerts) {
+                sections.remove(at: index)
+            }
+        }
+        
         if BusManager.shared.starredBuses.count > 0 {
             if !sections.contains(.starred) {
                 sections.insert(.starred, at: sections.firstIndex(of: .buses)!)
@@ -259,6 +293,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections[section] {
+        case .alerts:
+            return alerts.count
         case .destination:
             return route == nil ? 1 : 2
         case .maps:
@@ -272,6 +308,22 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections[indexPath.section] {
+        case .alerts:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
+            let alert = alerts[indexPath.row]
+            
+            let attributedString = NSMutableAttributedString()
+            if !alert.type.name.isEmpty {
+                attributedString.append(NSAttributedString(string: "\(alert.type.name): ", attributes: [
+                    .font: UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: .bold),
+                    .foregroundColor: alert.type.color.color
+                ]))
+            }
+            
+            attributedString.append(NSAttributedString(string: alert.title))
+            
+            cell.textLabel?.attributedText = attributedString
+            return cell
         case .destination:
             if route == nil || indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
@@ -322,7 +374,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
                 } else {
                     return 220
                 }
-            case .maps:
+            case .alerts, .maps:
                 return 44
             case .starred, .buses:
                 return 60
@@ -335,6 +387,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             performSegue(withIdentifier: "showDetail", sender: tableView)
         } else {
             switch sections[indexPath.section] {
+            case .alerts:
+                performSegue(withIdentifier: "showAlert", sender: tableView)
             case .destination:
                 if route == nil || indexPath.row == 1 {
                     performSegue(withIdentifier: "showChangeDestination", sender: tableView)
@@ -343,8 +397,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
                 performSegue(withIdentifier: "showMap", sender: tableView)
             case .starred, .buses:
                 performSegue(withIdentifier: "showDetail", sender: tableView)
-            default:
-                break
             }
         }
     }

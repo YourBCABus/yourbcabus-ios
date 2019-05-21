@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1p-Uh-vWS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="H1p-Uh-vWS">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -378,6 +378,7 @@
                         <segue destination="pCP-jQ-Jm4" kind="showDetail" identifier="showMap" id="bNr-5q-qI0"/>
                         <segue destination="wvN-cH-ViQ" kind="presentation" identifier="showChangeDestination" modalPresentationStyle="formSheet" id="i98-gj-Cat"/>
                         <segue destination="AhB-3p-kzf" kind="presentation" identifier="askToSetUpNotifications" modalPresentationStyle="formSheet" id="fuN-SC-VsL"/>
+                        <segue destination="GxE-Xf-Jns" kind="showDetail" identifier="showAlert" id="7rW-6b-IVl"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
@@ -857,6 +858,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDR-eL-33F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1578" y="129"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Qcg-gy-3IJ">
+            <objects>
+                <navigationController id="GxE-Xf-Jns" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="yEl-di-aXC" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="986-uF-aJr" kind="relationship" relationship="rootViewController" id="t3Z-N3-7U2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OxF-4t-uyh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2359" y="129"/>
+        </scene>
+        <!--Travel Advisory-->
+        <scene sceneID="nd6-bt-9xh">
+            <objects>
+                <viewController id="986-uF-aJr" customClass="AlertViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ihE-bv-8Gx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQf-eU-ZI9">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO" allowsPictureInPictureMediaPlayback="NO">
+                                    <dataDetectorTypes key="dataDetectorTypes"/>
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="eQf-eU-ZI9" firstAttribute="top" secondItem="ihE-bv-8Gx" secondAttribute="top" id="10g-Xp-uZd"/>
+                            <constraint firstAttribute="bottom" secondItem="eQf-eU-ZI9" secondAttribute="bottom" id="LJ7-rg-h7E"/>
+                            <constraint firstItem="eQf-eU-ZI9" firstAttribute="trailing" secondItem="6TF-w6-8qh" secondAttribute="trailing" id="n6z-u4-aCi"/>
+                            <constraint firstItem="eQf-eU-ZI9" firstAttribute="leading" secondItem="6TF-w6-8qh" secondAttribute="leading" id="oxc-JL-yKx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6TF-w6-8qh"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Travel Advisory" largeTitleDisplayMode="never" id="Zcu-4I-m9e"/>
+                    <connections>
+                        <outlet property="webView" destination="eQf-eU-ZI9" id="aXH-ko-vqz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="smu-EY-lCn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3179.7101449275365" y="128.57142857142856"/>
         </scene>
     </scenes>
     <resources>

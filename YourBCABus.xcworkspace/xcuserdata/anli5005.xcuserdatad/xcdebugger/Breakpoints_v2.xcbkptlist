@@ -127,23 +127,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YourBCABus Today/TodayViewController.swift"
-            timestampString = "579668593.779788"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "widgetPerformUpdate(completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "YourBCABus Today/TodayViewController.swift"
-            timestampString = "579668593.780647"
+            timestampString = "580094985.899702"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"

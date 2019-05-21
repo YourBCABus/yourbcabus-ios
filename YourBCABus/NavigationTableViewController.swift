@@ -55,7 +55,7 @@ class NavigationTableViewController: UITableViewController, UITextFieldDelegate 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return UserDefaults.standard.object(forKey: MasterViewController.currentDestinationDefaultsKey) == nil ? 2 : 3
+        return UserDefaults(suiteName: Constants.groupId)!.object(forKey: Constants.currentDestinationDefaultsKey) == nil ? 2 : 3
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

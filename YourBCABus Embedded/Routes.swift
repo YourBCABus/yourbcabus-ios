@@ -165,7 +165,7 @@ public class Route: CustomStringConvertible, Codable {
     public func fetchData(_ update: @escaping (Bool, Error?, Route) -> Void) {
         _fetchStatus = .fetching
         if var stop = stop {
-            APIService.shared.getBuses(schoolId: schoolId, cachingMode: .preferCache) { result in
+            APIService.shared.getBuses(schoolId: schoolId, cachingMode: .forceFetch) { result in
                 if result.ok {
                     if let bus = result.result.first(where: { bus in
                         return bus._id == stop.bus_id

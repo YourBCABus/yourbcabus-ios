@@ -159,6 +159,10 @@ public class APIService {
         getResource(apiPath: "/schools/\(schoolId)/stops/nearby", query: query, cachedAs: nil, cachingMode: .forceFetch, completion)
     }
     
+    public func getAlerts(schoolId: String, cachingMode: APICachingMode = .forceFetch, _ completion: @escaping (APIResult<[Alert]>) -> Void) {
+        getResource(apiPath: "/schools/\(schoolId)/alerts", cachedAs: "\(schoolId).alerts", cachingMode: .forceFetch, completion)
+    }
+    
     private func postResource<Resource: Encodable>(_ data: Resource, toPath path: String, query: [URLQueryItem]? = nil, withAuthToken useAuthToken: Bool = false, _ completion: ((APIResult<Void>) -> Void)?) throws {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
         components.path = path
