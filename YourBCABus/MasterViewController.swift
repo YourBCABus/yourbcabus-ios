@@ -45,6 +45,9 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     static let currentDestinationDidChangeOldRouteKey = "oldRoute"
     static let currentDestinationDidChangeNewRouteKey = "newRoute"
     
+    static let dismissedAlertsDefaultsKey = "dismissedAlerts"
+    static let dismissedAlertsDidChange = Notification.Name("YBBDismissedAlertsDidChange")
+    
     var route: Route? {
         didSet {
             if isViewLoaded {
@@ -54,6 +57,17 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     }
     
     var alerts = [Alert]()
+    
+    func updateAlerts(_ theAlerts: [Alert]) {
+        let oldLength = alerts.count
+        let dismissedAlerts = UserDefaults.standard.dictionary(forKey: MasterViewController.dismissedAlertsDefaultsKey) ?? [:]
+        alerts = theAlerts.filter { dismissedAlerts[$0._id] == nil }
+        if oldLength > 0 && alerts.count > 0 {
+            tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        } else {
+            tableView.reloadData()
+        }
+    }
     
     func reloadBuses(cachingMode: APICachingMode, completion: ((Bool) -> Void)? = nil) {
         APIService.shared.getBuses(schoolId: schoolId, cachingMode: cachingMode) { result in
@@ -77,9 +91,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         
         APIService.shared.getAlerts(schoolId: schoolId) { result in
             if result.ok {
-                self.alerts = result.result
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    self.updateAlerts(result.result)
                 }
             } else {
                 print(result.error!)
@@ -115,6 +128,12 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
                 if self?.view.window != nil && (BusManager.shared.starredBuses.contains(where: {$0._id == busId}) && !UserDefaults.standard.bool(forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)) {
                     self?.askToSetUpNotifications()
                 }
+            }
+        }))
+        
+        notificationTokens.append(NotificationCenter.default.observe(name: MasterViewController.dismissedAlertsDidChange, object: nil, queue: nil, using: { [weak self] notification in
+            if let self = self {
+                self.updateAlerts(self.alerts)
             }
         }))
         
@@ -240,9 +259,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             let alert = alerts[(sender as! UITableView).indexPathForSelectedRow!.row]
             
             let controller = (segue.destination as! UINavigationController).topViewController as! AlertViewController
-            controller.htmlString = alert.content
+            controller.alert = alert
             
-            controller.navigationItem.title = alert.title
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
             controller.navigationItem.largeTitleDisplayMode = .never

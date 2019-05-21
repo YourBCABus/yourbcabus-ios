@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import YourBCABus_Embedded
 
 class AlertViewController: UIViewController, WKNavigationDelegate {
     
@@ -28,8 +29,9 @@ class AlertViewController: UIViewController, WKNavigationDelegate {
     }
     
     func configureView() {
+        navigationItem.title = alert?.title ?? "Travel Advisory"
         webView?.isHidden = true
-        webView?.loadHTMLString(htmlString, baseURL: nil)
+        webView?.loadHTMLString(alert?.content ?? "", baseURL: nil)
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -40,10 +42,22 @@ class AlertViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
-    var htmlString = "" {
+    var alert: Alert? {
         didSet {
             if isViewLoaded {
                 configureView()
+            }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let alert = alert {
+            if alert.can_dismiss {
+                var dismissedAlerts = UserDefaults.standard.dictionary(forKey: MasterViewController.dismissedAlertsDefaultsKey) ?? [:]
+                dismissedAlerts[alert._id] = true
+                UserDefaults.standard.set(dismissedAlerts, forKey: MasterViewController.dismissedAlertsDefaultsKey)
+                NotificationCenter.default.post(name: MasterViewController.dismissedAlertsDidChange, object: nil)
             }
         }
     }
