@@ -68,6 +68,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                     if route.fetchStatus == .fetched || route.fetchStatus == .errored {
                         completionHandler(NCUpdateResult.newData)
                     }
+                    if let data = try? PropertyListEncoder().encode(route) {
+                        UserDefaults(suiteName: Constants.groupId)?.set(data, forKey: Constants.currentDestinationDefaultsKey)
+                    }
                 }
             } catch {
                 openAppButton?.isHidden = false
