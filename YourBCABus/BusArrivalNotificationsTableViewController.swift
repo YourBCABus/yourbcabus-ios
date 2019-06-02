@@ -10,36 +10,6 @@ import UIKit
 
 class BusArrivalNotificationsTableViewController: UITableViewController {
     
-    class NotificationSetting {
-        let defaultsKey: String
-        let readableName: String
-        let notificationName: Notification.Name?
-        let defaultValue: Bool
-        
-        init(defaultsKey: String, readableName: String, notificationName: Notification.Name? = nil, defaultValue: Bool = false) {
-            self.defaultsKey = defaultsKey
-            self.readableName = readableName
-            self.notificationName = notificationName
-            self.defaultValue = defaultValue
-        }
-        
-        var value: Bool {
-            return UserDefaults.standard.object(forKey: defaultsKey) == nil ? defaultValue : UserDefaults.standard.bool(forKey: defaultsKey)
-        }
-        
-        func changeValue(to value: Bool) {
-            UserDefaults.standard.set(value, forKey: defaultsKey)
-            
-            if let name = notificationName {
-                NotificationCenter.default.post(name: name, object: self)
-            }
-        }
-        
-        @objc func switchDidChange(sender: UISwitch) {
-            changeValue(to: sender.isOn)
-        }
-    }
-    
     let settings = [
         NotificationSetting(defaultsKey: AppDelegate.busArrivalNotificationsDefaultKey, readableName: "For Starred Buses", notificationName: AppDelegate.didChangeBusArrivalNotifications),
         NotificationSetting(defaultsKey: AppDelegate.routeBusArrivalNotificationsDefaultKey, readableName: "For Current Route", notificationName: AppDelegate.didChangeBusArrivalNotifications)

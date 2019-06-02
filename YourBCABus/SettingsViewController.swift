@@ -9,20 +9,45 @@
 import UIKit
 import UserNotifications
 
+class NotificationSetting {
+    let defaultsKey: String
+    let readableName: String
+    let notificationName: Notification.Name?
+    let defaultValue: Bool
+    
+    init(defaultsKey: String, readableName: String, notificationName: Notification.Name? = nil, defaultValue: Bool = false) {
+        self.defaultsKey = defaultsKey
+        self.readableName = readableName
+        self.notificationName = notificationName
+        self.defaultValue = defaultValue
+    }
+    
+    var value: Bool {
+        return UserDefaults.standard.object(forKey: defaultsKey) == nil ? defaultValue : UserDefaults.standard.bool(forKey: defaultsKey)
+    }
+    
+    func changeValue(to value: Bool) {
+        UserDefaults.standard.set(value, forKey: defaultsKey)
+        
+        if let name = notificationName {
+            NotificationCenter.default.post(name: name, object: self)
+        }
+    }
+    
+    @objc func switchDidChange(sender: UISwitch) {
+        changeValue(to: sender.isOn)
+    }
+}
+
 class SettingsViewController: UITableViewController {
+    @IBOutlet weak var routeSummarySwitch: UISwitch!
     @IBOutlet weak var useFlyoverMapSwitch: UISwitch!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // busArrivalNotificationsSwitch.setOn(UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey), animated: false)
+        routeSummarySwitch.setOn(UserDefaults.standard.bool(forKey: AppDelegate.routeSummaryNotificationsDefaultKey), animated: false)
         useFlyoverMapSwitch.setOn(UserDefaults.standard.bool(forKey: MapViewController.useFlyoverMapDefaultsKey), animated: false)
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     /* func enableNotifications() {

@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     static let busArrivalNotificationsDefaultKey = "busArrivalNotifications"
     static let routeBusArrivalNotificationsDefaultKey = "routeBusArrivalNotifications"
+    static let routeSummaryNotificationsDefaultKey = "routeSummaryNotifications"
     static let didChangeBusArrivalNotifications = NSNotification.Name("YBBDidChangeBusArrivalNotifications")
         
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
