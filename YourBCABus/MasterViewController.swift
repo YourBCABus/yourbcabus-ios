@@ -19,7 +19,7 @@ enum MasterTableViewSection {
 
 class MasterViewController: UITableViewController, UISearchControllerDelegate, UISearchResultsUpdating {
     
-    var schoolId = "5bca51e785aa2627e14db459"
+    var schoolId = Constants.schoolId
 
     var detailViewController: DetailViewController? = nil
     

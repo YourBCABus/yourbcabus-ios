@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var window: UIWindow?
     private var notificationTokens = [NotificationToken]()
     
-    var schoolId = "5bca51e785aa2627e14db459"
+    var schoolId = Constants.schoolId
     
     static let busArrivalNotificationsDefaultKey = "busArrivalNotifications"
     static let routeBusArrivalNotificationsDefaultKey = "routeBusArrivalNotifications"

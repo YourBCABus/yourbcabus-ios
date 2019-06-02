@@ -19,7 +19,7 @@ class CustomStopsCompletionViewController: UIViewController {
     @IBOutlet weak var finishButton: UIButton?
     @IBOutlet weak var submitButton: UIButton?
     
-    var schoolId = "5bca51e785aa2627e14db459"
+    var schoolId = Constants.schoolId
 
     override func viewDidLoad() {
         super.viewDidLoad()

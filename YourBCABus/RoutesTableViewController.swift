@@ -31,7 +31,7 @@ class RoutesTableViewController: UITableViewController {
         }
     }
     
-    var schoolId = "5bca51e785aa2627e14db459"
+    var schoolId = Constants.schoolId
     
     var routes = [Route]()
     var nearestStopRoutes: [Route] {

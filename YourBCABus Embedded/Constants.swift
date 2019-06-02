@@ -11,4 +11,5 @@ public struct Constants {
     
     public static let groupId = "group.com.yourbcabus.yourbcabus"
     public static let currentDestinationDefaultsKey = "currentDestination"
+    public static let schoolId = "5bca51e785aa2627e14db459"
 }
