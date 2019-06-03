@@ -22,7 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     static let busArrivalNotificationsDefaultKey = "busArrivalNotifications"
     static let routeBusArrivalNotificationsDefaultKey = "routeBusArrivalNotifications"
     static let routeSummaryNotificationsDefaultKey = "routeSummaryNotifications"
+    
     static let didChangeBusArrivalNotifications = NSNotification.Name("YBBDidChangeBusArrivalNotifications")
+    static let didChangeRouteSummaryNotifications = NSNotification.Name("YBBDidChangeRouteSummaryNotifications")
         
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -53,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                     } else {
                         var routeBusId: String?
                     
-                        if let data = UserDefaults.standard.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
+                        if let data = UserDefaults(suiteName: Constants.groupId)?.data(forKey: Constants.currentDestinationDefaultsKey) {
                             let route = try? PropertyListDecoder().decode(Route.self, from: data)
                             routeBusId = route?.bus?._id
                         }
@@ -84,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             var allBuses = Set<String>()
             var toStar = Set<String>()
             
-            if let data = UserDefaults.standard.data(forKey: MasterViewController.currentDestinationDefaultsKey) {
+            if let data = UserDefaults(suiteName: Constants.groupId)?.data(forKey: Constants.currentDestinationDefaultsKey) {
                 let route = try? PropertyListDecoder().decode(Route.self, from: data)
                 if let id = route?.bus?._id {
                     allBuses.insert(id)
@@ -115,6 +117,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
             
             UserDefaults.standard.set(true, forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)
+        }))
+        
+        notificationTokens.append(NotificationCenter.default.observe(name: AppDelegate.didChangeRouteSummaryNotifications, object: nil, queue: nil, using: { _ in
+            if UserDefaults.standard.bool(forKey: AppDelegate.routeBusArrivalNotificationsDefaultKey) {
+                Messaging.messaging().subscribe(toTopic: "school.\(self.schoolId).dismissal.banner")
+            } else {
+                Messaging.messaging().unsubscribe(fromTopic: "school.\(self.schoolId).dismissal.banner")
+            }
         }))
         
         UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in

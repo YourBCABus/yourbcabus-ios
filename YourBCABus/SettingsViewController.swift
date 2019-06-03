@@ -14,12 +14,14 @@ class NotificationSetting {
     let readableName: String
     let notificationName: Notification.Name?
     let defaultValue: Bool
+    weak var viewController: UIViewController?
     
-    init(defaultsKey: String, readableName: String, notificationName: Notification.Name? = nil, defaultValue: Bool = false) {
+    init(defaultsKey: String, readableName: String, notificationName: Notification.Name? = nil, defaultValue: Bool = false, viewController: UIViewController? = nil) {
         self.defaultsKey = defaultsKey
         self.readableName = readableName
         self.notificationName = notificationName
         self.defaultValue = defaultValue
+        self.viewController = viewController
     }
     
     var value: Bool {
@@ -28,75 +30,69 @@ class NotificationSetting {
     
     func changeValue(to value: Bool) {
         UserDefaults.standard.set(value, forKey: defaultsKey)
+        UserDefaults.standard.set(true, forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)
         
         if let name = notificationName {
             NotificationCenter.default.post(name: name, object: self)
         }
     }
     
+    private func displayAlert(switch theSwitch: UISwitch) {
+        if let vc = viewController {
+            let alert = UIAlertController(title: "Enable Push Notifications", message: "Please enable Push Notifications to receive bus alerts.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: { action in
+                theSwitch.setOn(false, animated: true)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { action in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+                theSwitch.setOn(false, animated: true)
+            }))
+            
+            vc.present(alert, animated: true)
+        }
+    }
+    
     @objc func switchDidChange(sender: UISwitch) {
-        changeValue(to: sender.isOn)
+        if sender.isOn {
+            UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
+                switch settings.authorizationStatus {
+                case .denied:
+                    self.displayAlert(switch: sender)
+                case .notDetermined:
+                    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { authorized, error in
+                        if authorized {
+                            self.changeValue(to: true)
+                        } else {
+                            self.displayAlert(switch: sender)
+                        }
+                    })
+                default:
+                    self.changeValue(to: true)
+                }
+            })
+        } else {
+            self.changeValue(to: false)
+        }
     }
 }
 
 class SettingsViewController: UITableViewController {
     @IBOutlet weak var routeSummarySwitch: UISwitch!
     @IBOutlet weak var useFlyoverMapSwitch: UISwitch!
+    
+    let routeSummarySetting = NotificationSetting(defaultsKey: AppDelegate.routeSummaryNotificationsDefaultKey, readableName: "", notificationName: AppDelegate.didChangeRouteSummaryNotifications)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        routeSummarySwitch.setOn(UserDefaults.standard.bool(forKey: AppDelegate.routeSummaryNotificationsDefaultKey), animated: false)
+        routeSummarySetting.viewController = self
+        
+        routeSummarySwitch.setOn(routeSummarySetting.value, animated: false)
+        routeSummarySwitch.addTarget(routeSummarySetting, action: #selector(NotificationSetting.switchDidChange(sender:)), for: .valueChanged)
         useFlyoverMapSwitch.setOn(UserDefaults.standard.bool(forKey: MapViewController.useFlyoverMapDefaultsKey), animated: false)
     }
-    
-    /* func enableNotifications() {
-        UserDefaults.standard.set(true, forKey: AppDelegate.busArrivalNotificationsDefaultKey)
-        UserDefaults.standard.set(true, forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)
-        NotificationCenter.default.post(name: AppDelegate.didChangeBusArrivalNotifications, object: self)
-    }
-    
-    func displayAlert(switch theSwitch: UISwitch) {
-        let alert = UIAlertController(title: "Enable Push Notifications", message: "Please enable Push Notifications to receive bus alerts.", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: { action in
-            theSwitch.setOn(false, animated: true)
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { action in
-            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
-            theSwitch.setOn(false, animated: true)
-        }))
-        
-        present(alert, animated: true)
-    }
-    
-    @IBAction func didChangeBusArrivalNotifications(sender: UISwitch?) {
-        if let value = sender?.isOn {
-            if value {
-                UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
-                    switch settings.authorizationStatus {
-                    case .denied:
-                        self.displayAlert(switch: sender!)
-                    case .notDetermined:
-                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { authorized, error in
-                            if authorized {
-                                self.enableNotifications()
-                            } else {
-                                self.displayAlert(switch: sender!)
-                            }
-                        })
-                    default:
-                        self.enableNotifications()
-                    }
-                })
-            } else {
-                UserDefaults.standard.set(false, forKey: AppDelegate.busArrivalNotificationsDefaultKey)
-                UserDefaults.standard.set(true, forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)
-                NotificationCenter.default.post(name: AppDelegate.didChangeBusArrivalNotifications, object: self)
-            }
-        }
-    } */
     
     @IBAction func done(sender: UIBarButtonItem?) {
         dismiss(animated: true, completion: nil)
