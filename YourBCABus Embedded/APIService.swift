@@ -163,6 +163,11 @@ public class APIService {
         getResource(apiPath: "/schools/\(schoolId)/alerts", cachedAs: "\(schoolId).alerts", cachingMode: .forceFetch, completion)
     }
     
+    public func getDismissal(schoolId: String, date: Date = Date(), cachingMode: APICachingMode = .preferCache, _ completion: @escaping (APIResult<DismissalResult>) -> Void) {
+        let time = Int(date.timeIntervalSince1970)
+        getResource(apiPath: "/schools/\(schoolId)/dismissal", query: [URLQueryItem(name: "date", value: String(time))], cachedAs: "\(schoolId).dismissal.\(time)", cachingMode: cachingMode, completion)
+    }
+    
     private func postResource<Resource: Encodable>(_ data: Resource, toPath path: String, query: [URLQueryItem]? = nil, withAuthToken useAuthToken: Bool = false, _ completion: ((APIResult<Void>) -> Void)?) throws {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
         components.path = path

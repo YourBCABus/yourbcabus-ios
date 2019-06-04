@@ -9,10 +9,11 @@
 import UIKit
 import Firebase
 import UserNotifications
+import CoreLocation
 import YourBCABus_Embedded
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, UNUserNotificationCenterDelegate, CLLocationManagerDelegate, MessagingDelegate {
 
     var window: UIWindow?
     private var notificationTokens = [NotificationToken]()
@@ -25,8 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     static let didChangeBusArrivalNotifications = NSNotification.Name("YBBDidChangeBusArrivalNotifications")
     static let didChangeRouteSummaryNotifications = NSNotification.Name("YBBDidChangeRouteSummaryNotifications")
+    
+    let locationManager = CLLocationManager()
         
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        locationManager.delegate = self
+        
         // Override point for customization after application launch.
         let splitViewController = window!.rootViewController as! UISplitViewController
         
@@ -136,7 +141,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             NotificationCenter.default.post(name: AppDelegate.didChangeBusArrivalNotifications, object: nil)
         }
         
+        notificationTokens.append(NotificationCenter.default.observe(name: Constants.didChangeGetOffAlertsNotificationName, object: nil, queue: nil, using: { [weak self] _ in
+            self?.configureGetOffAlerts()
+        }))
+        
         return true
+    }
+    
+    func configureGetOffAlerts() {
+        locationManager.monitoredRegions.forEach(locationManager.stopMonitoring)
+        if UserDefaults.standard.bool(forKey: Constants.getOffAlertsDefaultsKey) {
+            if let data = UserDefaults(suiteName: Constants.groupId)?.data(forKey: Constants.currentDestinationDefaultsKey) {
+                if let route = try? PropertyListDecoder().decode(Route.self, from: data) {
+                    if let stop = route.stop {
+                        let radius = CLLocationDistance(UserDefaults.standard.integer(forKey: Constants.getOffAlertRadiusDefaultKey))
+                        locationManager.startMonitoring(for: CLCircularRegion(center: CLLocationCoordinate2D(from: stop.location), radius: radius == 0 ? Constants.getOffAlertDefaultRadius : radius, identifier: stop._id))
+                    }
+                }
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        APIService.shared.getSchool(schoolId: Constants.schoolId, cachingMode: .forceFetch, { schoolResult in
+            if let zoneName = schoolResult.result?.timezone, let zone = TimeZone(identifier: zoneName) {
+                let date = Date()
+                APIService.shared.getDismissal(schoolId: Constants.schoolId, date: date, { dismissalResult in
+                    if let start = dismissalResult.result?.start_time, let end = dismissalResult.result?.end_time {
+                        let calendar = Calendar(identifier: .gregorian)
+                        let components = calendar.dateComponents(in: zone, from: date)
+                        let time = components.hour! * 3600 + components.minute! * 60 + components.second!
+                        if (start...end).contains(time) {
+                            let content = UNMutableNotificationContent()
+                            content.title = "Get off soon"
+                            content.body = "You've arrived at your stop."
+                            content.sound = .default
+                            UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "com.yourbcabus.yourbcabus-ios.alert.get-off", content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)), withCompletionHandler: nil)
+                        }
+                    }
+                })
+            }
+        })
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

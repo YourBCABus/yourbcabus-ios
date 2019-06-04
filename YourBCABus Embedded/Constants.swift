@@ -6,10 +6,17 @@
 //  Copyright © 2019 YourBCABus. All rights reserved.
 //
 
+import CoreLocation
+
 public struct Constants {
     private init() {}
     
     public static let groupId = "group.com.yourbcabus.yourbcabus"
     public static let currentDestinationDefaultsKey = "currentDestination"
     public static let schoolId = "5bca51e785aa2627e14db459"
+    
+    public static let getOffAlertsDefaultsKey = "stopArrivalNotificationsEnabled"
+    public static let getOffAlertRadiusDefaultKey = "stopArrivalNotificationsRadius"
+    public static let getOffAlertDefaultRadius: CLLocationDistance = 270
+    public static let didChangeGetOffAlertsNotificationName = Notification.Name("YBBDidChangeGetOffAlerts")
 }

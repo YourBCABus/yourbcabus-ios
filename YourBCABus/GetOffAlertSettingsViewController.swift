@@ -134,7 +134,7 @@ class GetOffAlertSettingsViewController: UITableViewController, CLLocationManage
             case .enableNotifications:
                 cell.textLabel!.text = "Allow Notifications"
             case .enableLocationServices:
-                cell.textLabel!.text = "Enable Location Services for YourBCABus"
+                cell.textLabel!.text = "Enable Location Services for YourBCABus (Always)"
             default:
                 break
             }
@@ -165,8 +165,8 @@ class GetOffAlertSettingsViewController: UITableViewController, CLLocationManage
             switch requiredSteps[indexPath.row] {
             case .enableLocationServices:
                 switch CLLocationManager.authorizationStatus() {
-                case .notDetermined:
-                    locationManager.requestWhenInUseAuthorization()
+                case .notDetermined, .authorizedWhenInUse:
+                    locationManager.requestAlwaysAuthorization()
                 default:
                     UIApplication.shared.openSettings()
                 }

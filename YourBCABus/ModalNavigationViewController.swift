@@ -64,11 +64,11 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     var locationManager = CLLocationManager()
     var stopRegion: CLCircularRegion?
     
-    static let getOffAlertsDefaultsKey = "stopArrivalNotificationsEnabled"
-    static let getOffAlertRadiusDefaultKey = "stopArrivalNotificationsRadius"
-    static let getOffAlertDefaultRadius: CLLocationDistance = 270
+    static let getOffAlertsDefaultsKey = Constants.getOffAlertsDefaultsKey
+    static let getOffAlertRadiusDefaultKey = Constants.getOffAlertRadiusDefaultKey
+    static let getOffAlertDefaultRadius = Constants.getOffAlertDefaultRadius
     static let didAskToSetUpGetOffAlertsDefaultsKey = "didAskToSetUpStopArrivalNotifications"
-    static let didChangeGetOffAlertsNotificationName = Notification.Name("YBBDidChangeGetOffAlerts")
+    static let didChangeGetOffAlertsNotificationName = Constants.didChangeGetOffAlertsNotificationName
     static let getOffAlertNotificationIdPrefix = "YBBGetOffAlert"
     
     private var formatter = DateFormatter()
@@ -84,35 +84,6 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
         
     var pageViewController: UIPageViewController! {
         return children.first(where: {$0 is UIPageViewController}) as? UIPageViewController
-    }
-    
-    func configureGetOffAlert() {
-        guard let region = stopRegion else { return }
-        
-        disableGetOffAlert()
-            
-        let content = UNMutableNotificationContent()
-        content.title = "Get off now"
-        if let name = route?.stop?.name {
-            content.body = "You've arrived at \(name)."
-        } else {
-            content.body = "You've arrived at your stop."
-        }
-        content.sound = UNNotificationSound.default
-        
-        let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
-        
-        getOffAlertNotificationId = "\(ModalNavigationViewController.getOffAlertNotificationIdPrefix).\(UUID().uuidString)"
-        let request = UNNotificationRequest(identifier: getOffAlertNotificationId!, content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-    }
-    
-    func disableGetOffAlert() {
-        if let id = getOffAlertNotificationId {
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
-            getOffAlertNotificationId = nil
-        }
     }
     
     func configureView() {
@@ -164,9 +135,9 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
                         stopRegion!.notifyOnEntry = true
                         stopRegion!.notifyOnExit = false
                         
-                        if !UserDefaults.standard.bool(forKey: ModalNavigationViewController.didAskToSetUpGetOffAlertsDefaultsKey) {
+                        /* if !UserDefaults.standard.bool(forKey: ModalNavigationViewController.didAskToSetUpGetOffAlertsDefaultsKey) {
                             performSegue(withIdentifier: "askToSetUpGetOffAlerts", sender: nil)
-                        }
+                        } */
                         
                         if CLLocationManager.authorizationStatus() == .authorizedAlways || CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
                             UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
@@ -186,10 +157,8 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
                             guard let self = self else { return }
                             
                             if UserDefaults.standard.bool(forKey: ModalNavigationViewController.getOffAlertsDefaultsKey) {
-                                self.configureGetOffAlert()
                                 self.getOffAlertState = .enabled
                             } else {
-                                self.disableGetOffAlert()
                                 self.getOffAlertState = .disabled
                             }
                         })
@@ -273,22 +242,10 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if route?.stop != nil {
-            if UserDefaults.standard.bool(forKey: ModalNavigationViewController.getOffAlertsDefaultsKey) {
-                if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways {
-                    UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
-                        if settings.authorizationStatus != .denied && settings.authorizationStatus != .notDetermined {
-                            self.configureGetOffAlert()
-                        }
-                    })
-                }
-            }
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        disableGetOffAlert()
     }
     
     override func reloadStops() {

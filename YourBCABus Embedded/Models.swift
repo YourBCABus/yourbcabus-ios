@@ -50,6 +50,7 @@ public struct School: Codable {
     public let _id: String
     public let name: String
     public let location: Coordinate
+    public let timezone: String?
 }
 
 public struct Bus: Codable, Comparable, CustomStringConvertible {
@@ -348,4 +349,13 @@ public extension CLLocationCoordinate2D {
     public init(from: Coordinate) {
         self.init(latitude: CLLocationDegrees(from.latitude), longitude: CLLocationDegrees(from.longitude))
     }
+}
+
+public struct DismissalResult: Codable {
+    public let ok: Bool
+    public let found: Bool?
+    public let dismissal_time: Int?
+    public let departure_time: Int?
+    public let start_time: Int?
+    public let end_time: Int?
 }

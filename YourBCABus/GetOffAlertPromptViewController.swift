@@ -49,7 +49,7 @@ class GetOffAlertPromptViewController: UIViewController, GetOffAlertEventReceive
             message = "Please enable Push Notifications to receive \"Get Off\" alerts."
         } else if permissionsRequired == [.locationServices] {
             title = "Enable Location Services"
-            message = "Please ensure that YourBCABus is allowed to use your location."
+            message = "Please ensure that YourBCABus is Always allowed to use your location."
         } else {
             title = "Check Permissions"
             message = "Please enable Push Notifications and Location Services for YourBCABus."
@@ -113,11 +113,11 @@ class GetOffAlertPromptViewController: UIViewController, GetOffAlertEventReceive
     
     @IBAction func tryToEnableGetOffAlerts(sender: UIButton?) {
         switch CLLocationManager.authorizationStatus() {
-        case .authorizedAlways, .authorizedWhenInUse:
+        case .authorizedAlways:
             self.locationEnabled()
-        case .notDetermined:
+        case .notDetermined, .authorizedWhenInUse:
             requestingAuthorization = true
-            locationManager?.requestWhenInUseAuthorization()
+            locationManager?.requestAlwaysAuthorization()
         default:
             UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
                 switch settings.authorizationStatus {
