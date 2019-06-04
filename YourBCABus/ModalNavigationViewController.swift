@@ -346,18 +346,7 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     }
     
     @IBAction func exit(sender: UIButton?) {
-        if getOffAlertState == .enabled {
-            let alert = UIAlertController(title: "Exit navigation and disable Get Off alert?", message: "Exiting navigation will disable your Get Off alert until you restart navigation. Are you sure you want to exit?", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "Exit", style: .default, handler: { action in
-                self.finalExit()
-            }))
-            
-            present(alert, animated: true, completion: nil)
-        } else {
-            finalExit()
-        }
+        finalExit()
     }
     
     lazy var midpointImage: UIImage? = {
@@ -489,16 +478,16 @@ class ModalNavigationViewController: MapViewController, UIPageViewControllerData
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    /* override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? GetOffAlertEventReceiver {
             controller.setLocationManager(locationManager)
         }
-    }
+    } */
     
     // MARK: - Location Manager Delegate
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    /* func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         (presentedViewController as? GetOffAlertEventReceiver)?.locationAuthorizationDidChange?(to: status)
-    }
+    } */
 
 }

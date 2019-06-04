@@ -36,6 +36,7 @@
 		4A4E4837229385F800B3F90C /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E4836229385F800B3F90C /* AlertViewController.swift */; };
 		4A4E48392293875500B3F90C /* alerts-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E48382293875500B3F90C /* alerts-script.js */; };
 		4A61540D222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61540C222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift */; };
+		4A7105A422A6D272001B12B0 /* YourBCABus_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3AB0C2230411100FD58C2 /* YourBCABus_Embedded.framework */; };
 		4A7B2968219A37B600B465B6 /* RouteStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */; };
 		4A83526922333CE0008B3EF3 /* RouteOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB5ED70222B49C9009D7028 /* RouteOverviewView.swift */; };
 		4A83527022333D8C008B3EF3 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A83526F22333D8C008B3EF3 /* NotificationCenter.framework */; };
@@ -269,6 +270,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A7105A422A6D272001B12B0 /* YourBCABus_Embedded.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
