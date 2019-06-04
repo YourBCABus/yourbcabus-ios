@@ -17,6 +17,6 @@ public struct Constants {
     
     public static let getOffAlertsDefaultsKey = "stopArrivalNotificationsEnabled"
     public static let getOffAlertRadiusDefaultKey = "stopArrivalNotificationsRadius"
-    public static let getOffAlertDefaultRadius: CLLocationDistance = 270
+    public static let getOffAlertDefaultRadius: CLLocationDistance = 500
     public static let didChangeGetOffAlertsNotificationName = Notification.Name("YBBDidChangeGetOffAlerts")
 }
