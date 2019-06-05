@@ -210,7 +210,7 @@
 		4AC8478521851117001E8698 /* BusStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStatusTableViewCell.swift; sourceTree = "<group>"; };
 		4AD3AB0C2230411100FD58C2 /* YourBCABus_Embedded.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YourBCABus_Embedded.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AD3AB0E2230411100FD58C2 /* YourBCABus_Embedded.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YourBCABus_Embedded.h; sourceTree = "<group>"; };
-		4AD3AB0F2230411100FD58C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AD3AB0F2230411100FD58C2 /* lnfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = lnfo.plist; sourceTree = "<group>"; };
 		4AD958322180AEEA00AC7EA9 /* YourBCABus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YourBCABus.entitlements; sourceTree = "<group>"; };
 		4AD958342180AEF800AC7EA9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4ADB65A4219118D300C29F34 /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
@@ -486,7 +486,7 @@
 				4AA37BFD21932AD300E02266 /* Routes.swift */,
 				4A8C032B22261A37004FA580 /* BusStatusColors.swift */,
 				4AD3AB0E2230411100FD58C2 /* YourBCABus_Embedded.h */,
-				4AD3AB0F2230411100FD58C2 /* Info.plist */,
+				4AD3AB0F2230411100FD58C2 /* lnfo.plist */,
 				4A0096152235931F00DDC754 /* Embedded Assets.xcassets */,
 			);
 			path = "YourBCABus Embedded";

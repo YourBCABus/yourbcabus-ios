@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import YourBCABus_Embedded
 
-func createGradient() -> UIColor {
+func createGradient() -> UIImage {
     let gradientLayer = CAGradientLayer()
     let size = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
     gradientLayer.frame = CGRect(x: 0, y: 0, width: size, height: size)
@@ -21,16 +22,30 @@ func createGradient() -> UIColor {
     let image = UIGraphicsGetImageFromCurrentImageContext()!
     UIGraphicsEndImageContext()
     
-    return UIColor(patternImage: image)
+    return image
 }
 
 class GradientNavigationBar: UINavigationBar {
     
-    private static var gradient: UIColor! = createGradient()
+    private static var gradient: UIColor! = UIColor(patternImage: createGradient())
+    private static var gradientImage: UIImage = createGradient()
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.barTintColor = GradientNavigationBar.gradient
+        updateBarTint()
+    }
+    
+    func updateBarTint() {
+        if #available(iOS 13.0, UIKitForMac 13.0, *) {
+            if traitCollection.userInterfaceStyle == .dark {
+                // standardAppearance.backgroundColor = nil
+            } else {
+                // standardAppearance.backgroundImage = GradientNavigationBar.gradientImage
+            }
+        } else {
+            barTintColor = GradientNavigationBar.gradient
+            barStyle = .black
+        }
     }
     
     override func didMoveToWindow() {

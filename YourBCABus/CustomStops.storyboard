@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Li-33-qBc">
-    <device id="retina4_0" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14810.11" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Li-33-qBc">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14766.13"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,7 +12,6 @@
         <!--Add Custom Stop-->
         <scene sceneID="woo-Nd-Esm">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xzO-hJ-HAh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="fIS-St-AlK" customClass="CustomStopsBusesTableViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="LF2-hn-jkg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -24,12 +21,12 @@
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderCell" rowHeight="150" id="QYy-4X-Ktt">
                                 <rect key="frame" x="0.0" y="28" width="320" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QYy-4X-Ktt" id="obt-hn-tHn">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="149.5"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QYy-4X-Ktt" id="obt-hn-tHn">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which bus do you take?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iuX-H2-2y7">
-                                            <rect key="frame" x="23" y="0.0" width="274" height="150.5"/>
+                                            <rect key="frame" x="23" y="0.0" width="274" height="150"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="150" id="q79-CD-nLu"/>
                                             </constraints>
@@ -47,14 +44,14 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BusCell" textLabel="cjb-ju-Fdn" style="IBUITableViewCellStyleDefault" id="ez4-bl-A8a">
-                                <rect key="frame" x="0.0" y="178" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="178" width="320" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ez4-bl-A8a" id="8gl-rR-AeF">
-                                    <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="292.5" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cjb-ju-Fdn">
-                                            <rect key="frame" x="16" y="0.0" width="269" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="268.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -81,6 +78,7 @@
                         <segue destination="RCz-Vc-c6g" kind="show" identifier="showMapStep" id="tPo-xU-CXh"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xzO-hJ-HAh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="109.59999999999999" y="-10.344827586206897"/>
         </scene>
@@ -93,7 +91,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where is the stop?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="py5-3b-QiT">
-                                <rect key="frame" x="23" y="64" width="274" height="150"/>
+                                <rect key="frame" x="23" y="44" width="274" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="aA1-Es-XbC"/>
                                     <constraint firstAttribute="height" constant="60" id="yvm-yD-pnq"/>
@@ -114,7 +112,7 @@
                                 </variation>
                             </label>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Pp-f1-TKl">
-                                <rect key="frame" x="0.0" y="214" width="320" height="354"/>
+                                <rect key="frame" x="0.0" y="194" width="320" height="374"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="978-j4-CPW" appends="YES" id="Xfk-jx-kOT"/>
@@ -208,7 +206,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When do you usually get there?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68p-oM-dLE">
-                                <rect key="frame" x="23" y="64" width="274" height="150"/>
+                                <rect key="frame" x="23" y="44" width="274" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Yv3-ri-IPW"/>
                                     <constraint firstAttribute="height" constant="150" id="qno-0x-OXR"/>
@@ -229,7 +227,7 @@
                                 </variation>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="5" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKB-UC-mcA">
-                                <rect key="frame" x="0.0" y="256" width="72" height="216"/>
+                                <rect key="frame" x="0.0" y="256" width="320" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="568071000.91532803">
                                     <!--2019-01-01 21:30:00 +0000-->
                                 </date>
@@ -299,7 +297,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Submit your stop to the YourBCABus team?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGV-2q-r5W">
-                                <rect key="frame" x="23" y="72" width="274" height="200"/>
+                                <rect key="frame" x="23" y="52" width="274" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="lAk-Bh-NMs"/>
                                 </constraints>
@@ -313,7 +311,7 @@
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can still use this stop even if you decline." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXL-1K-7Ia">
-                                <rect key="frame" x="23" y="280" width="274" height="49"/>
+                                <rect key="frame" x="23" y="260" width="274" height="49"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="49" id="B67-lH-IUB"/>
                                 </constraints>
@@ -322,14 +320,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHu-Cg-z8F">
-                                <rect key="frame" x="23" y="337" width="274" height="46.5"/>
+                                <rect key="frame" x="23" y="317" width="274" height="46.5"/>
                                 <string key="text">Submitting this stop will help us expand our stop data. Any data that you submit will be treated according to our Privacy Policy.</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4D6-ct-5bA">
-                                <rect key="frame" x="23" y="391.5" width="274" height="27"/>
+                                <rect key="frame" x="23" y="371.5" width="274" height="27"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <state key="normal" title="Open Privacy Policy..."/>
                                 <connections>
@@ -407,8 +405,8 @@
         <scene sceneID="whD-ji-thw">
             <objects>
                 <navigationController storyboardIdentifier="YBBAddCustomStopViewController" id="4Li-33-qBc" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="TYY-6I-D91" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TYY-6I-D91" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>

@@ -497,7 +497,7 @@
         <scene sceneID="Ba7-0g-C8H">
             <objects>
                 <navigationController id="8Qv-rA-Qfg" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="6y7-bN-8VF" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6y7-bN-8VF" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -638,7 +638,7 @@
         <scene sceneID="jp0-Ls-6IU">
             <objects>
                 <navigationController id="D9d-8k-e7F" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="E9A-cz-AD9" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="E9A-cz-AD9" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
