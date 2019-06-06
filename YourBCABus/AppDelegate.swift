@@ -42,6 +42,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         splitViewController.presentsWithGesture = false
         // splitViewController.preferredDisplayMode = .allVisible
         
+        if #available(iOS 13.0, UIKitForMac 13.0, *) {
+            splitViewController.primaryBackgroundStyle = .sidebar
+        }
+        
         Messaging.messaging().delegate = self
         
         UNUserNotificationCenter.current().delegate = self

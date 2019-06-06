@@ -320,7 +320,6 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="to Destination" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xru-wd-hxB">
                                             <rect key="frame" x="8" y="351" width="253" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAQ-lT-EZd">
@@ -343,7 +342,7 @@
                                         </containerView>
                                         <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="qIx-cc-6gQ">
                                             <rect key="frame" x="167.66666666666666" y="278" width="39" height="37"/>
-                                            <color key="pageIndicatorTintColor" white="0.0" alpha="0.36556448063380281" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="pageIndicatorTintColor" cocoaTouchSystemColor="quaternaryLabelColor"/>
                                             <color key="currentPageIndicatorTintColor" name="Primary"/>
                                         </pageControl>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K8b-41-yMY">
@@ -378,7 +377,7 @@
                                     <constraint firstAttribute="width" priority="750" constant="360" id="qwd-3N-lkh"/>
                                     <constraint firstAttribute="height" priority="750" constant="400" id="vMw-xl-mtW"/>
                                 </constraints>
-                                <blurEffect style="extraLight"/>
+                                <blurEffect style="regular"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="qwd-3N-lkh"/>

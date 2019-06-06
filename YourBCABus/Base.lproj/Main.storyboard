@@ -106,7 +106,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUm-uR-cwK">
                                                     <rect key="frame" x="15" y="46" width="298.5" height="29.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                    <color key="textColor" name="Primary"/>
+                                                    <color key="textColor" name="Primary Dark"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QbR-vX-igB" customClass="BusLocationView" customModule="YourBCABus_Embedded">
@@ -274,13 +274,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ipc-df-nDS">
-                                            <rect key="frame" x="35" y="31.5" width="244.5" height="18"/>
+                                            <rect key="frame" x="35" y="31.5" width="236.5" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" name="Secondary Text"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d2g-Le-r8S" customClass="BusLocationView" customModule="YourBCABus_Embedded">
-                                            <rect key="frame" x="334.5" y="6" width="48" height="48"/>
+                                            <rect key="frame" x="326.5" y="6" width="48" height="48"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="48" id="VGp-4h-8Eg"/>
@@ -288,13 +288,13 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jB4-do-dyo">
-                                            <rect key="frame" x="16" y="11" width="263.5" height="21"/>
+                                            <rect key="frame" x="16" y="11" width="255.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lh7-pa-IIG">
-                                            <rect key="frame" x="276.5" y="5" width="50" height="50"/>
+                                            <rect key="frame" x="268.5" y="5" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="9z1-Cv-xqz"/>
                                                 <constraint firstAttribute="height" constant="50" id="S7R-qR-ZIV"/>
@@ -326,7 +326,7 @@
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="d2g-Le-r8S" secondAttribute="trailing" id="4Dn-Bk-dFk"/>
+                                        <constraint firstAttribute="trailing" secondItem="d2g-Le-r8S" secondAttribute="trailing" constant="8" id="4Dn-Bk-dFk"/>
                                         <constraint firstItem="jB4-do-dyo" firstAttribute="top" secondItem="37f-cq-3Eg" secondAttribute="top" constant="11" id="BHK-Zj-RnX"/>
                                         <constraint firstItem="aOU-5T-qs4" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leading" constant="16" id="CKF-QA-9Ld"/>
                                         <constraint firstItem="d2g-Le-r8S" firstAttribute="centerY" secondItem="37f-cq-3Eg" secondAttribute="centerY" id="Ksd-xy-Z4s"/>
@@ -340,7 +340,6 @@
                                         <constraint firstItem="jB4-do-dyo" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leading" constant="16" id="rf1-nf-lCy"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="Ipc-df-nDS" id="ZGF-BD-jCM"/>

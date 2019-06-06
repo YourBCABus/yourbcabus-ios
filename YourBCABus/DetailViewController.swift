@@ -184,7 +184,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBAction func openAboutBusStatus(sender: Any?) {
         let safariViewController = SFSafariViewController(url: URL(string: "https://support.yourbcabus.com/status")!)
-        safariViewController.preferredBarTintColor = UIColor(named: "Primary Dark")!
+        safariViewController.preferredBarTintColor = UIColor(named: "Primary")!
         safariViewController.preferredControlTintColor = .white
         present(safariViewController, animated: true, completion: nil)
     }

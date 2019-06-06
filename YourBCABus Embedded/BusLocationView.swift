@@ -21,19 +21,19 @@ public class BusLocationView: UIView {
     public var circleColor = UIColor(named: "Primary")!
     public var textColor = UIColor.white
     
-    public var noLocationCircleColor = UIColor(named: "Background")!
-    public var noLocationTextColor = UIColor(named: "Primary")!
+    public var noLocationCircleColor = UIColor(named: "No Location")!
+    public var noLocationTextColor = UIColor(named: "Primary Dark")!
     
     public var unavailableCircleColor = { () -> UIColor in
         if #available(iOS 13.0, UIKitForMac 13.0, *) {
-            return UIColor.tertiarySystemFill
+            return UIColor.quaternarySystemFill
         } else {
             return UIColor.lightGray
         }
     }()
     public var unavailableTextColor = { () -> UIColor in
         if #available(iOS 13.0, UIKitForMac 13.0, *) {
-            return UIColor.tertiaryLabel
+            return UIColor.quaternaryLabel
         } else {
             return UIColor.darkGray
         }

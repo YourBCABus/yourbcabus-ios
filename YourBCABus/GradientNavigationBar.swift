@@ -35,16 +35,34 @@ class GradientNavigationBar: UINavigationBar {
         updateBarTint()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, UIKitForMac 13.0, *) {
+            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                updateBarTint()
+            }
+        }
+    }
+    
     func updateBarTint() {
         if #available(iOS 13.0, UIKitForMac 13.0, *) {
             if traitCollection.userInterfaceStyle == .dark {
-                // standardAppearance.backgroundColor = nil
-            } else {
-                // standardAppearance.backgroundImage = GradientNavigationBar.gradientImage
+                standardAppearance = UINavigationBarAppearance()
+                scrollEdgeAppearance = nil
+                return
             }
+            
+            scrollEdgeAppearance = UINavigationBarAppearance()
+            scrollEdgeAppearance!.backgroundColor = GradientNavigationBar.gradient
+            standardAppearance.backgroundColor = GradientNavigationBar.gradient
+            standardAppearance.titleTextAttributes[.foregroundColor] = UIColor.white
+            standardAppearance.largeTitleTextAttributes[.foregroundColor] = UIColor.white
+            let size = UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
+            standardAppearance.largeTitleTextAttributes[.font] = UIFont.systemFont(ofSize: size, weight: .bold)
         } else {
-            barTintColor = GradientNavigationBar.gradient
             barStyle = .black
+            barTintColor = GradientNavigationBar.gradient
         }
     }
     
