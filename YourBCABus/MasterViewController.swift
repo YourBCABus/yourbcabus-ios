@@ -218,6 +218,14 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             sender?.endRefreshing()
         }
     }
+    
+    @IBAction func openSettings(sender: UIBarButtonItem?) {
+        if #available(iOS 13.0, UIKitForMac 13.0, *) {
+            if view.window?.windowScene? {
+                
+            }
+        }
+    }
 
     // MARK: - Segues
 
@@ -371,10 +379,18 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         case .starred:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BusCell", for: indexPath) as! BusTableViewCell
             
+            #if targetEnvironment(UIKitForMac)
+            cell.backgroundColor = .clear
+            #endif
+            
             cell.bus = BusManager.shared.starredBuses[indexPath.row]
             return cell
         case .buses:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BusCell", for: indexPath) as! BusTableViewCell
+            
+            #if targetEnvironment(UIKitForMac)
+            cell.backgroundColor = .clear
+            #endif
             
             cell.bus = BusManager.shared.buses[indexPath.row]
             return cell

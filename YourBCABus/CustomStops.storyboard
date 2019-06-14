@@ -16,7 +16,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="LF2-hn-jkg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderCell" rowHeight="150" id="QYy-4X-Ktt">
                                 <rect key="frame" x="0.0" y="28" width="320" height="150"/>
@@ -161,7 +161,7 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="0Pp-f1-TKl" firstAttribute="leading" secondItem="CuE-Vp-3kp" secondAttribute="leading" id="0vc-ev-JUy"/>
@@ -250,7 +250,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="jDF-yN-u1u" firstAttribute="bottom" secondItem="ZtA-51-0mz" secondAttribute="bottom" constant="16" id="2m4-3Y-9VX"/>
                             <constraint firstItem="68p-oM-dLE" firstAttribute="leading" secondItem="jDF-yN-u1u" secondAttribute="leading" constant="23" id="38U-oi-0UR"/>
@@ -369,7 +369,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="pqm-qX-4Hn" firstAttribute="trailing" secondItem="239-St-B9W" secondAttribute="trailing" constant="8" id="2kN-G7-iI4"/>
                             <constraint firstItem="pqm-qX-4Hn" firstAttribute="trailing" secondItem="qGV-2q-r5W" secondAttribute="trailing" constant="23" id="51S-3O-jKe"/>

@@ -340,6 +340,7 @@
                                         <constraint firstItem="jB4-do-dyo" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leading" constant="16" id="rf1-nf-lCy"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="Ipc-df-nDS" id="ZGF-BD-jCM"/>
@@ -840,7 +841,7 @@
         <!--Navigation Controller-->
         <scene sceneID="33D-1h-y8h">
             <objects>
-                <navigationController id="bZv-Tc-Ktj" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="settings" id="bZv-Tc-Ktj" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bVq-J6-IQR" customClass="GradientNavigationBar" customModule="YourBCABus" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

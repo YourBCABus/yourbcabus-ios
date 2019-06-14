@@ -6,3 +6,5 @@ document.head.appendChild(meta);
 document.body.style.fontFamily = "system-ui, -apple-system, sans-serif";
 document.body.style.fontSize = "18px";
 document.body.style.margin = "0.5em";
+
+document.querySelector(":root").style.colorScheme = "light dark";

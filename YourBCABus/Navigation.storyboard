@@ -217,7 +217,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't see your stop?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hpn-SL-5PF">
-                                <rect key="frame" x="11" y="68" width="392" height="27"/>
+                                <rect key="frame" x="110" y="68" width="194" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="BiO-Fa-BZ7"/>
                                 </constraints>
@@ -235,9 +235,7 @@
                             <constraint firstItem="tfk-mA-8pk" firstAttribute="bottom" secondItem="Hpn-SL-5PF" secondAttribute="bottom" constant="105" id="6Fw-Eg-hcr"/>
                             <constraint firstItem="Xsb-rh-lTf" firstAttribute="top" secondItem="tfk-mA-8pk" secondAttribute="top" constant="103" id="70X-Sp-2dQ"/>
                             <constraint firstItem="Hpn-SL-5PF" firstAttribute="centerX" secondItem="tfk-mA-8pk" secondAttribute="centerX" id="7Je-Mq-Qsp"/>
-                            <constraint firstItem="tfk-mA-8pk" firstAttribute="trailing" secondItem="Hpn-SL-5PF" secondAttribute="trailing" constant="11" id="JQi-PC-44Z"/>
                             <constraint firstItem="Xsb-rh-lTf" firstAttribute="centerX" secondItem="tfk-mA-8pk" secondAttribute="centerX" id="TZ6-ZE-JTC"/>
-                            <constraint firstItem="Hpn-SL-5PF" firstAttribute="leading" secondItem="tfk-mA-8pk" secondAttribute="leading" constant="11" id="sXp-8F-1yA"/>
                             <constraint firstItem="tfk-mA-8pk" firstAttribute="bottom" secondItem="Xsb-rh-lTf" secondAttribute="bottom" constant="67" id="udF-zF-v2x"/>
                             <constraint firstItem="Hpn-SL-5PF" firstAttribute="top" secondItem="tfk-mA-8pk" secondAttribute="top" constant="68" id="xTV-rr-CFR"/>
                         </constraints>
@@ -269,7 +267,7 @@
                                 <rect key="frame" x="197" y="76.666666666666671" width="20" height="20"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Routes..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B8q-LE-cSA">
-                                <rect key="frame" x="13" y="104.66666666666667" width="388" height="20.333333333333329"/>
+                                <rect key="frame" x="140.66666666666669" y="104.66666666666667" width="132.66666666666669" height="20.333333333333329"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.329999999999998" id="NwT-KN-Zk1"/>
                                 </constraints>
@@ -281,11 +279,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4wU-gI-zGX" firstAttribute="centerX" secondItem="hxA-kq-dUO" secondAttribute="centerX" id="1Yv-t3-0AG"/>
+                            <constraint firstItem="B8q-LE-cSA" firstAttribute="centerX" secondItem="hxA-kq-dUO" secondAttribute="centerX" id="7VI-Zf-pn6"/>
                             <constraint firstItem="hxA-kq-dUO" firstAttribute="bottom" secondItem="B8q-LE-cSA" secondAttribute="bottom" constant="75" id="MwP-Yx-75h"/>
-                            <constraint firstItem="B8q-LE-cSA" firstAttribute="leading" secondItem="hxA-kq-dUO" secondAttribute="leading" constant="13" id="UEx-ye-BOs"/>
                             <constraint firstAttribute="bottomMargin" secondItem="4wU-gI-zGX" secondAttribute="bottom" constant="103.33" id="WtR-4r-3Vx"/>
                             <constraint firstItem="4wU-gI-zGX" firstAttribute="top" secondItem="hxA-kq-dUO" secondAttribute="top" constant="76.666666666666671" id="ppz-FF-auk"/>
-                            <constraint firstItem="hxA-kq-dUO" firstAttribute="trailing" secondItem="B8q-LE-cSA" secondAttribute="trailing" constant="13" id="uf4-7e-uCz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hxA-kq-dUO"/>
                     </view>

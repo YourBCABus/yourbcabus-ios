@@ -32,6 +32,7 @@
 		4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */; };
 		4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */; };
 		4A39FB0C217FFAF7008032DE /* BusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */; };
+		4A4AEA9A22AB6A8400E30642 /* SettingsSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4AEA9922AB6A8400E30642 /* SettingsSceneDelegate.swift */; };
 		4A4E4835229355B500B3F90C /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E4834229355B500B3F90C /* Alerts.swift */; };
 		4A4E4837229385F800B3F90C /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E4836229385F800B3F90C /* AlertViewController.swift */; };
 		4A4E48392293875500B3F90C /* alerts-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E48382293875500B3F90C /* alerts-script.js */; };
@@ -75,6 +76,7 @@
 		4AE7066E218FE80E00A95AC0 /* NavigationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7066D218FE80E00A95AC0 /* NavigationTableViewController.swift */; };
 		4AE70673218FED2200A95AC0 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE70672218FED2200A95AC0 /* RoutesTableViewController.swift */; };
 		4AE70675218FED3A00A95AC0 /* ModalNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE70674218FED3A00A95AC0 /* ModalNavigationViewController.swift */; };
+		4AF4319B22AADD4300D65D5A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4319A22AADD4300D65D5A /* SceneDelegate.swift */; };
 		7C738D456BF364DD8B3E1793 /* Pods_YourBCABusUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */; };
 		BDEF7596E79AB6338CCFAF6F /* Pods_YourBCABusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56128607A369641345A3EA52 /* Pods_YourBCABusTests.framework */; };
 		E4310F9683A7319F8290BE04 /* Pods_YourBCABus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A35AB7A4B47B8135C0288F /* Pods_YourBCABus.framework */; };
@@ -181,6 +183,7 @@
 		4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		4A39FB09217FF18B008032DE /* BusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusManager.swift; sourceTree = "<group>"; };
 		4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BusTableViewCell.xib; sourceTree = "<group>"; };
+		4A4AEA9922AB6A8400E30642 /* SettingsSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSceneDelegate.swift; sourceTree = "<group>"; };
 		4A4E4834229355B500B3F90C /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		4A4E4836229385F800B3F90C /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		4A4E48382293875500B3F90C /* alerts-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "alerts-script.js"; sourceTree = "<group>"; };
@@ -221,6 +224,7 @@
 		4AE7066D218FE80E00A95AC0 /* NavigationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTableViewController.swift; sourceTree = "<group>"; };
 		4AE70672218FED2200A95AC0 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
 		4AE70674218FED3A00A95AC0 /* ModalNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationViewController.swift; sourceTree = "<group>"; };
+		4AF4319A22AADD4300D65D5A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4CFBF44AFBEE9A224C81F575 /* Pods-YourBCABusUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABusUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABusUITests/Pods-YourBCABusUITests.release.xcconfig"; sourceTree = "<group>"; };
 		56128607A369641345A3EA52 /* Pods_YourBCABusTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABusTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABusUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -345,6 +349,8 @@
 				4AC8478221850778001E8698 /* Views */,
 				4AC8478321850792001E8698 /* Utilities */,
 				4A113B09217A986E00B7640E /* AppDelegate.swift */,
+				4AF4319A22AADD4300D65D5A /* SceneDelegate.swift */,
+				4A4AEA9922AB6A8400E30642 /* SettingsSceneDelegate.swift */,
 				4A39FB09217FF18B008032DE /* BusManager.swift */,
 				4A113B0F217A986E00B7640E /* Main.storyboard */,
 				4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */,
@@ -905,11 +911,13 @@
 				4A7B2968219A37B600B465B6 /* RouteStepViewController.swift in Sources */,
 				4A85DA9D21BF4CB000F84F85 /* RootViewController.swift in Sources */,
 				4AC8478621851118001E8698 /* BusStatusTableViewCell.swift in Sources */,
+				4A4AEA9A22AB6A8400E30642 /* SettingsSceneDelegate.swift in Sources */,
 				4A0E564521BC86C90019F6B0 /* CoreLocationExtensions.swift in Sources */,
 				4A113B0C217A986E00B7640E /* MasterViewController.swift in Sources */,
 				4A0E564921BC8B9C0019F6B0 /* CustomStopsCompletionViewController.swift in Sources */,
 				4A0E564D21BC9CC10019F6B0 /* CustomStopsManagerTableViewController.swift in Sources */,
 				4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */,
+				4AF4319B22AADD4300D65D5A /* SceneDelegate.swift in Sources */,
 				4A1E96E221B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift in Sources */,
 				4AD3AB1E2230417300FD58C2 /* BusManager.swift in Sources */,
 				4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */,
