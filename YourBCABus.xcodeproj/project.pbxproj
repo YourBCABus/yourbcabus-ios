@@ -29,6 +29,7 @@
 		4A18A7F021B8B90D00D1042F /* GetOffAlertSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */; };
 		4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */; };
 		4A1E96E221B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */; };
+		4A1F22A622B4654500B8633E /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A1F22A522B4654500B8633E /* Onboarding.storyboard */; };
 		4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */; };
 		4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */; };
 		4A39FB0C217FFAF7008032DE /* BusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */; };
@@ -175,6 +176,7 @@
 		4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertSettingsViewController.swift; sourceTree = "<group>"; };
 		4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertPromptViewController.swift; sourceTree = "<group>"; };
 		4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertEventReceiver.swift; sourceTree = "<group>"; };
+		4A1F22A522B4654500B8633E /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4A37C1EA219CF2FB0088D3CF /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				4A113B0F217A986E00B7640E /* Main.storyboard */,
 				4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */,
 				4A0E563D21BC225F0019F6B0 /* CustomStops.storyboard */,
+				4A1F22A522B4654500B8633E /* Onboarding.storyboard */,
 				4A113B12217A987100B7640E /* Assets.xcassets */,
 				4AC84784218507A4001E8698 /* Resources */,
 			);
@@ -742,6 +745,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AE7066C218FE4C100A95AC0 /* Navigation.storyboard in Resources */,
+				4A1F22A622B4654500B8633E /* Onboarding.storyboard in Resources */,
 				4AC07B46228D03B9002F2537 /* Embedded Assets.xcassets in Resources */,
 				4A113B16217A987100B7640E /* LaunchScreen.storyboard in Resources */,
 				4A113B13217A987100B7640E /* Assets.xcassets in Resources */,
