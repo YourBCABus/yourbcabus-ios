@@ -12,6 +12,13 @@ class RootViewController: UISplitViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if UserDefaults.standard.integer(forKey: AppDelegate.lastSetupDoneDefaultsKey) < AppDelegate.setupNumber {
+            if let controller = UIStoryboard(name: "Onboarding", bundle: nil).instantiateInitialViewController() {
+                controller.modalPresentationStyle = .fullScreen
+                present(controller, animated: false, completion: nil)
+            }
+        }
     }
     
 

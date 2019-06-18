@@ -31,6 +31,9 @@
 		4A1E96E221B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */; };
 		4A1F22A622B4654500B8633E /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A1F22A522B4654500B8633E /* Onboarding.storyboard */; };
 		4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */; };
+		4A390DDB22B58C71007714B7 /* InitialSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A390DDA22B58C71007714B7 /* InitialSetupViewController.swift */; };
+		4A390DDD22B58C9B007714B7 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A390DDC22B58C9B007714B7 /* RoundedButton.swift */; };
+		4A390DDF22B590DC007714B7 /* BusesSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A390DDE22B590DC007714B7 /* BusesSetupViewController.swift */; };
 		4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */; };
 		4A39FB0C217FFAF7008032DE /* BusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */; };
 		4A4E4835229355B500B3F90C /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E4834229355B500B3F90C /* Alerts.swift */; };
@@ -179,6 +182,9 @@
 		4A1F22A522B4654500B8633E /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4A37C1EA219CF2FB0088D3CF /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		4A390DDA22B58C71007714B7 /* InitialSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSetupViewController.swift; sourceTree = "<group>"; };
+		4A390DDC22B58C9B007714B7 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		4A390DDE22B590DC007714B7 /* BusesSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusesSetupViewController.swift; sourceTree = "<group>"; };
 		4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		4A39FB09217FF18B008032DE /* BusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusManager.swift; sourceTree = "<group>"; };
 		4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BusTableViewCell.xib; sourceTree = "<group>"; };
@@ -385,6 +391,15 @@
 			name = "Get Off Alerts";
 			sourceTree = "<group>";
 		};
+		4A390DD922B58BC1007714B7 /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				4A390DDA22B58C71007714B7 /* InitialSetupViewController.swift */,
+				4A390DDE22B590DC007714B7 /* BusesSetupViewController.swift */,
+			);
+			name = Setup;
+			sourceTree = "<group>";
+		};
 		4A61540E222DDC4000AEDBC8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,6 +446,7 @@
 				4A0E563F21BC29200019F6B0 /* Custom Stops */,
 				4AB5ED78222B577A009D7028 /* Route Overview */,
 				4A61540E222DDC4000AEDBC8 /* Settings */,
+				4A390DD922B58BC1007714B7 /* Setup */,
 				4A113B0D217A986E00B7640E /* DetailViewController.swift */,
 				4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */,
 				4ADEE49C2180CF5200F827FB /* MapViewController.swift */,
@@ -449,6 +465,7 @@
 				4ADB65A4219118D300C29F34 /* TextFieldTableViewCell.swift */,
 				4A1778DE219347E800D72001 /* RouteTableViewCell.swift */,
 				4A8C032D22261C92004FA580 /* DotView.swift */,
+				4A390DDC22B58C9B007714B7 /* RoundedButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -903,11 +920,13 @@
 				4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */,
 				4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */,
 				4AE70673218FED2200A95AC0 /* RoutesTableViewController.swift in Sources */,
+				4A390DDF22B590DC007714B7 /* BusesSetupViewController.swift in Sources */,
 				4A113B0E217A986E00B7640E /* DetailViewController.swift in Sources */,
 				4A61540D222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift in Sources */,
 				4A1778DF219347E800D72001 /* RouteTableViewCell.swift in Sources */,
 				4A0E564321BC2E300019F6B0 /* CustomStopsMapViewController.swift in Sources */,
 				4AC2A9C3219C82DB00A4869A /* NotificationsPromptViewController.swift in Sources */,
+				4A390DDB22B58C71007714B7 /* InitialSetupViewController.swift in Sources */,
 				4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */,
 				4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */,
 				4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */,
@@ -925,6 +944,7 @@
 				4AD3AB1E2230417300FD58C2 /* BusManager.swift in Sources */,
 				4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */,
 				4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */,
+				4A390DDD22B58C9B007714B7 /* RoundedButton.swift in Sources */,
 				4ADB65A5219118D300C29F34 /* TextFieldTableViewCell.swift in Sources */,
 				4AE70675218FED3A00A95AC0 /* ModalNavigationViewController.swift in Sources */,
 				4A0E564721BC890B0019F6B0 /* CustomStopsTimeViewController.swift in Sources */,

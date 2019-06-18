@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     static let busArrivalNotificationsDefaultKey = "busArrivalNotifications"
     static let routeBusArrivalNotificationsDefaultKey = "routeBusArrivalNotifications"
     static let routeSummaryNotificationsDefaultKey = "routeSummaryNotifications"
+    static let lastSetupDoneDefaultsKey = "lastSetupDone"
+    static let setupNumber = 1
     
     static let didChangeBusArrivalNotifications = NSNotification.Name("YBBDidChangeBusArrivalNotifications")
     static let didChangeRouteSummaryNotifications = NSNotification.Name("YBBDidChangeRouteSummaryNotifications")
@@ -40,7 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         navigationController.topViewController!.navigationItem.leftItemsSupplementBackButton = true
         splitViewController.delegate = self
         splitViewController.presentsWithGesture = false
-        // splitViewController.preferredDisplayMode = .allVisible
         
         Messaging.messaging().delegate = self
         
@@ -144,6 +145,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         notificationTokens.append(NotificationCenter.default.observe(name: Constants.didChangeGetOffAlertsNotificationName, object: nil, queue: nil, using: { [weak self] _ in
             self?.configureGetOffAlerts()
         }))
+        
+        UITextField.appearance(whenContainedInInstancesOf: [SearchBarInstallationPoint.self]).defaultTextAttributes = [.foregroundColor: UIColor.white]
         
         return true
     }
