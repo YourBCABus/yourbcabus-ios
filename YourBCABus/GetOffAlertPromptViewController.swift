@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import UserNotifications
 
-class GetOffAlertPromptViewController: UIViewController, GetOffAlertEventReceiver {
+class GetOffAlertPromptViewController: UIViewController, CLLocationManagerDelegate {
     
     struct PermissionsRequired: OptionSet {
         let rawValue: Int
@@ -20,18 +20,16 @@ class GetOffAlertPromptViewController: UIViewController, GetOffAlertEventReceive
     }
 
     @IBOutlet weak var enableButton: UIButton!
-    weak var locationManager: CLLocationManager?
+    var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         enableButton?.layer.cornerRadius = 16
         
+        locationManager.delegate = self
+        
         // Do any additional setup after loading the view.
-    }
-    
-    func setLocationManager(_ manager: CLLocationManager) {
-        locationManager = manager
     }
     
     func enableGetOffAlerts() {
@@ -95,6 +93,10 @@ class GetOffAlertPromptViewController: UIViewController, GetOffAlertEventReceive
         })
     }
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        locationAuthorizationDidChange(to: status)
+    }
+    
     func locationAuthorizationDidChange(to status: CLAuthorizationStatus) {
         DispatchQueue.main.async {
             if self.requestingAuthorization {
@@ -117,7 +119,7 @@ class GetOffAlertPromptViewController: UIViewController, GetOffAlertEventReceive
             self.locationEnabled()
         case .notDetermined, .authorizedWhenInUse:
             requestingAuthorization = true
-            locationManager?.requestAlwaysAuthorization()
+            locationManager.requestAlwaysAuthorization()
         default:
             UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
                 switch settings.authorizationStatus {
