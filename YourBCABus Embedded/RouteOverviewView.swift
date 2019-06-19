@@ -17,6 +17,8 @@ public class RouteOverviewViewController: UIViewController {
     @IBOutlet weak var locationView: BusLocationView?
     @IBOutlet weak var moreDetailsButton: UIButton?
     @IBOutlet var auxViews: [UIView]?
+    @IBOutlet weak var gradientView: GradientView?
+    @IBOutlet var labels: [UILabel]?
     
     @IBOutlet var detailsButtons: [UIButton]?
     
@@ -37,6 +39,14 @@ public class RouteOverviewViewController: UIViewController {
     }
     
     public var isCompact: Bool = false {
+        didSet {
+            if isViewLoaded {
+                configureView()
+            }
+        }
+    }
+    
+    public var isTransparent: Bool = false {
         didSet {
             if isViewLoaded {
                 configureView()
@@ -116,6 +126,16 @@ public class RouteOverviewViewController: UIViewController {
         etaLabel?.text = route.eta == nil ? "Unknown" : etaFormatter.string(from: route.eta!)
         
         auxViews?.forEach { $0.isHidden = isCompact }
+        
+        if isTransparent {
+            labels?.forEach { $0.textColor = .black }
+            moreDetailsButton?.setTitleColor(.black, for: .normal)
+            gradientView?.isHidden = true
+        } else {
+            moreDetailsButton?.setTitleColor(.white, for: .normal)
+            labels?.forEach { $0.textColor = .white }
+            gradientView?.isHidden = false
+        }
     }
     
     @IBAction func moreDetails(sender: Any?) {

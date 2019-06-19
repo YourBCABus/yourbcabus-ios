@@ -82,6 +82,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             routeOverviewViewController?.view.isHidden = true
             completionHandler(NCUpdateResult.newData)
         }
+        
+        routeOverviewViewController?.isTransparent = true
     }
     
     @IBAction func openApp(sender: UIButton?) {
