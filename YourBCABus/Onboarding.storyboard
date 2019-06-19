@@ -104,31 +104,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M4h-jY-Lqw">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="276"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="232.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8S3-Yu-CVt" customClass="SearchBarInstallationPoint" customModule="YourBCABus" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="198" width="320" height="56"/>
+                                        <rect key="frame" x="0.0" y="172.5" width="320" height="56"/>
+                                        <subviews>
+                                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Address" translatesAutoresizingMaskIntoConstraints="NO" id="frl-89-H5c">
+                                                <rect key="frame" x="16" y="0.0" width="288" height="56"/>
+                                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </searchBar>
+                                        </subviews>
                                         <color key="backgroundColor" name="Primary"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="UUc-hm-xnY"/>
+                                            <constraint firstItem="frl-89-H5c" firstAttribute="centerY" secondItem="8S3-Yu-CVt" secondAttribute="centerY" id="huz-Ka-Lum"/>
+                                            <constraint firstItem="frl-89-H5c" firstAttribute="centerX" secondItem="8S3-Yu-CVt" secondAttribute="centerX" id="sra-bs-boY"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" name="Primary"/>
                                 <constraints>
                                     <constraint firstItem="8S3-Yu-CVt" firstAttribute="leading" secondItem="M4h-jY-Lqw" secondAttribute="leading" id="INo-Np-Gpf"/>
-                                    <constraint firstAttribute="bottom" secondItem="8S3-Yu-CVt" secondAttribute="bottom" constant="22" id="LzP-nU-ZRp"/>
+                                    <constraint firstAttribute="bottom" secondItem="8S3-Yu-CVt" secondAttribute="bottom" constant="4" id="LzP-nU-ZRp"/>
                                     <constraint firstAttribute="trailing" secondItem="8S3-Yu-CVt" secondAttribute="trailing" id="emD-wh-zxW"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Express Setup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLk-xj-oM1">
-                                <rect key="frame" x="16" y="80" width="288" height="28"/>
+                                <rect key="frame" x="16" y="72" width="288" height="28"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get started by typing your address. We'll automatically find your bus and your stop." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X2g-r6-als">
-                                <rect key="frame" x="16" y="116" width="288" height="64.5"/>
+                                <rect key="frame" x="16" y="108" width="288" height="64.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="750" constant="384" id="ADD-k0-tuf"/>
                                 </constraints>
@@ -150,15 +159,21 @@
                                     <action selector="setUpManuallyWithSender:" destination="OmP-Yx-pYT" eventType="touchUpInside" id="8YI-mN-OCi"/>
                                 </connections>
                             </button>
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n1k-0Q-qyy">
+                                <rect key="frame" x="0.0" y="232.5" width="320" height="335.5"/>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="X2g-r6-als" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BTQ-gN-qfa" secondAttribute="leading" constant="16" id="6rn-WJ-VZz"/>
                             <constraint firstItem="eLk-xj-oM1" firstAttribute="centerX" secondItem="BTQ-gN-qfa" secondAttribute="centerX" id="7Tf-a1-VnO"/>
-                            <constraint firstItem="8S3-Yu-CVt" firstAttribute="top" secondItem="X2g-r6-als" secondAttribute="bottom" constant="17.5" id="BGi-xx-8zs"/>
+                            <constraint firstItem="8S3-Yu-CVt" firstAttribute="top" secondItem="X2g-r6-als" secondAttribute="bottom" id="BGi-xx-8zs"/>
                             <constraint firstItem="X2g-r6-als" firstAttribute="top" secondItem="eLk-xj-oM1" secondAttribute="bottom" constant="8" id="BTl-lr-eKn"/>
-                            <constraint firstItem="eLk-xj-oM1" firstAttribute="top" secondItem="BTQ-gN-qfa" secondAttribute="top" constant="16" id="Bvk-0v-s6Y"/>
+                            <constraint firstAttribute="bottom" secondItem="n1k-0Q-qyy" secondAttribute="bottom" id="BvK-y9-pFy"/>
+                            <constraint firstItem="eLk-xj-oM1" firstAttribute="top" secondItem="BTQ-gN-qfa" secondAttribute="top" constant="8" id="Bvk-0v-s6Y"/>
                             <constraint firstItem="sRJ-88-eZX" firstAttribute="centerX" secondItem="BTQ-gN-qfa" secondAttribute="centerX" id="CB7-FI-lQH"/>
+                            <constraint firstAttribute="trailing" secondItem="n1k-0Q-qyy" secondAttribute="trailing" id="OPy-bd-3Tn"/>
+                            <constraint firstItem="n1k-0Q-qyy" firstAttribute="top" secondItem="M4h-jY-Lqw" secondAttribute="bottom" id="YlO-Kn-0vo"/>
                             <constraint firstItem="X2g-r6-als" firstAttribute="width" secondItem="eLk-xj-oM1" secondAttribute="width" id="bEe-QI-Oab"/>
                             <constraint firstItem="M4h-jY-Lqw" firstAttribute="leading" secondItem="QhA-Yq-vod" secondAttribute="leading" id="bOc-XH-bfP"/>
                             <constraint firstItem="X2g-r6-als" firstAttribute="centerX" secondItem="eLk-xj-oM1" secondAttribute="centerX" id="dKj-oo-lcU"/>
@@ -167,7 +182,9 @@
                             <constraint firstItem="M4h-jY-Lqw" firstAttribute="top" secondItem="QhA-Yq-vod" secondAttribute="top" id="j7Q-c1-vZa"/>
                             <constraint firstAttribute="trailing" secondItem="M4h-jY-Lqw" secondAttribute="trailing" id="kBC-DX-SRj"/>
                             <constraint firstItem="BTQ-gN-qfa" firstAttribute="bottom" secondItem="sRJ-88-eZX" secondAttribute="bottom" constant="16" id="qIE-rM-SzE"/>
+                            <constraint firstItem="frl-89-H5c" firstAttribute="width" secondItem="X2g-r6-als" secondAttribute="width" id="uuj-uk-Op0"/>
                             <constraint firstItem="sRJ-88-eZX" firstAttribute="width" secondItem="X2g-r6-als" secondAttribute="width" id="vX9-QW-B3J"/>
+                            <constraint firstItem="n1k-0Q-qyy" firstAttribute="leading" secondItem="QhA-Yq-vod" secondAttribute="leading" id="xIE-HN-pVe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BTQ-gN-qfa"/>
                     </view>
@@ -175,7 +192,8 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="VNT-VH-bWL"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchBarInstallationPoint" destination="8S3-Yu-CVt" id="1KD-cu-K8D"/>
+                        <outlet property="containerView" destination="n1k-0Q-qyy" id="l66-Nt-c5E"/>
+                        <outlet property="searchBar" destination="frl-89-H5c" id="Yjj-hK-Xaz"/>
                         <outlet property="searchDisplayController" destination="rbG-cW-5bV" id="UHE-sg-lD2"/>
                         <segue destination="GJQ-6B-PRH" kind="show" identifier="showNearbyStops" id="7M9-n7-LVZ"/>
                         <segue destination="aFX-w7-zv2" kind="show" identifier="showBuses" id="TPd-Z6-uVm"/>
@@ -192,7 +210,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-210.1449275362319" y="160.71428571428569"/>
+            <point key="canvasLocation" x="-211.875" y="160.56338028169014"/>
         </scene>
         <!--Buses-->
         <scene sceneID="Duk-1f-efy">
