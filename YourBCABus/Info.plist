@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>21</string>
+	<string>23</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<true/>
 	<key>FirebaseDataCollectionDefaultEnabled</key>
@@ -39,8 +39,10 @@
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>We use your location to alert you when you arrive at your stop and display where you are on our maps.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSLocationAlwaysUsageDescription</key>
 	<string>We use your location to alert you when you arrive at your stop and display where you are on our maps.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to display where you are on our maps.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

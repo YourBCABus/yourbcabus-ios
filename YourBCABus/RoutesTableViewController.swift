@@ -333,6 +333,11 @@ class RoutesTableViewController: UITableViewController {
             }
             
             dismiss(animated: true, completion: nil)
+            if !UserDefaults.standard.bool(forKey: ModalNavigationViewController.didAskToSetUpGetOffAlertsDefaultsKey) {
+                let vc = UIStoryboard(name: "Navigation", bundle: nil).instantiateViewController(withIdentifier: "getOffAlertPrompt")
+                vc.modalPresentationStyle = .currentContext
+                presentingViewController?.present(vc, animated: true)
+            }
         }
     }
     

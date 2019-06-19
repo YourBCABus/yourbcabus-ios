@@ -442,7 +442,6 @@
                         <outlet property="pageControl" destination="qIx-cc-6gQ" id="lYf-hm-l6u"/>
                         <outlet property="statusBarVisualEffectView" destination="h51-ap-yvn" id="aiB-ga-RIN"/>
                         <outlet property="visualEffectView" destination="vY1-Z7-Vll" id="MEs-oI-kE6"/>
-                        <segue destination="DvH-Xn-Gob" kind="presentation" identifier="askToSetUpGetOffAlerts" modalPresentationStyle="formSheet" id="unT-Gu-PwZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wig-fB-Vfz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -944,10 +943,10 @@
             </objects>
             <point key="canvasLocation" x="3456.521739130435" y="51.358695652173914"/>
         </scene>
-        <!--Get Off Alert Prompt View Controller-->
+        <!--getOffAlertPrompt-->
         <scene sceneID="kZr-xX-6Ve">
             <objects>
-                <viewController id="DvH-Xn-Gob" customClass="GetOffAlertPromptViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="getOffAlertPrompt" title="getOffAlertPrompt" id="DvH-Xn-Gob" customClass="GetOffAlertPromptViewController" customModule="YourBCABus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0em-uN-PPW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1013,7 +1012,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sfD-j7-CVK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2143" y="800"/>
+            <point key="canvasLocation" x="1364" y="802"/>
         </scene>
     </scenes>
     <resources>

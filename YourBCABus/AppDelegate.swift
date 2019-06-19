@@ -139,11 +139,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) && UserDefaults.standard.object(forKey: AppDelegate.routeBusArrivalNotificationsDefaultKey) == nil {
             UserDefaults.standard.set(true, forKey: AppDelegate.routeBusArrivalNotificationsDefaultKey)
             NotificationCenter.default.post(name: AppDelegate.didChangeBusArrivalNotifications, object: nil)
+            NotificationCenter.default.post(name: AppDelegate.didChangeRouteSummaryNotifications, object: nil)
         }
         
         notificationTokens.append(NotificationCenter.default.observe(name: Constants.didChangeGetOffAlertsNotificationName, object: nil, queue: nil, using: { [weak self] _ in
             self?.configureGetOffAlerts()
         }))
+        
+        Messaging.messaging().subscribe(toTopic: "global")
+        Messaging.messaging().subscribe(toTopic: "global.ios")
+        Messaging.messaging().subscribe(toTopic: "school.\(self.schoolId).generic")
+        Messaging.messaging().subscribe(toTopic: "school.\(self.schoolId).alerts.important")
         
         return true
     }
