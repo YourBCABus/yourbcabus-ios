@@ -32,7 +32,6 @@ class GradientNavigationBar: UINavigationBar {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        updateBarTint()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -54,12 +53,11 @@ class GradientNavigationBar: UINavigationBar {
             }
             
             scrollEdgeAppearance = UINavigationBarAppearance()
-            scrollEdgeAppearance!.backgroundColor = GradientNavigationBar.gradient
+            scrollEdgeAppearance?.backgroundColor = GradientNavigationBar.gradient
+            scrollEdgeAppearance?.largeTitleTextAttributes[.foregroundColor] = UIColor.white
             standardAppearance.backgroundColor = GradientNavigationBar.gradient
             standardAppearance.titleTextAttributes[.foregroundColor] = UIColor.white
             standardAppearance.largeTitleTextAttributes[.foregroundColor] = UIColor.white
-            let size = UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
-            standardAppearance.largeTitleTextAttributes[.font] = UIFont.systemFont(ofSize: size, weight: .bold)
         } else {
             barStyle = .black
             barTintColor = GradientNavigationBar.gradient
@@ -67,6 +65,7 @@ class GradientNavigationBar: UINavigationBar {
     }
     
     override func didMoveToWindow() {
+        updateBarTint()
         super.didMoveToWindow()
         self.tintColor = UIColor.white
     }
