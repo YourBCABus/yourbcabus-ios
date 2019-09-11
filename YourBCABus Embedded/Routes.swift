@@ -322,7 +322,7 @@ public class DirectionsCache {
 }
 
 public extension MKMapRect {
-    public init(a: MKMapPoint, b: MKMapPoint) {
+    init(a: MKMapPoint, b: MKMapPoint) {
         self.init(x: min(a.x, b.x), y: min(a.y, b.y), width: abs(a.x - b.x), height: abs(a.y - b.y))
     }
 }

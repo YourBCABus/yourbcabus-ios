@@ -346,7 +346,7 @@ public extension Bus {
 }
 
 public extension CLLocationCoordinate2D {
-    public init(from: Coordinate) {
+    init(from: Coordinate) {
         self.init(latitude: CLLocationDegrees(from.latitude), longitude: CLLocationDegrees(from.longitude))
     }
 }

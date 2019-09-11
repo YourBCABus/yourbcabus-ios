@@ -37,7 +37,7 @@ class GradientNavigationBar: UINavigationBar {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if #available(iOS 13.0, UIKitForMac 13.0, *) {
+        if #available(iOS 13.0, macCatalyst 13.0, *) {
             if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
                 updateBarTint()
             }
@@ -45,7 +45,7 @@ class GradientNavigationBar: UINavigationBar {
     }
     
     func updateBarTint() {
-        if #available(iOS 13.0, UIKitForMac 13.0, *) {
+        if #available(iOS 13.0, macCatalyst 13.0, *) {
             if traitCollection.userInterfaceStyle == .dark {
                 standardAppearance = UINavigationBarAppearance()
                 scrollEdgeAppearance = nil

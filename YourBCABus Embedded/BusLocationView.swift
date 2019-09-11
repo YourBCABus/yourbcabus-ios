@@ -25,14 +25,14 @@ public class BusLocationView: UIView {
     public var noLocationTextColor = UIColor(named: "Primary Dark")!
     
     public var unavailableCircleColor = { () -> UIColor in
-        if #available(iOS 13.0, UIKitForMac 13.0, *) {
+        if #available(iOS 13.0, macCatalyst 13.0, *) {
             return UIColor.quaternarySystemFill
         } else {
             return UIColor.lightGray
         }
     }()
     public var unavailableTextColor = { () -> UIColor in
-        if #available(iOS 13.0, UIKitForMac 13.0, *) {
+        if #available(iOS 13.0, macCatalyst 13.0, *) {
             return UIColor.quaternaryLabel
         } else {
             return UIColor.darkGray
