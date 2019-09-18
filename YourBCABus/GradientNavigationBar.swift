@@ -54,6 +54,7 @@ class GradientNavigationBar: UINavigationBar {
             
             scrollEdgeAppearance = UINavigationBarAppearance()
             scrollEdgeAppearance?.backgroundColor = GradientNavigationBar.gradient
+            scrollEdgeAppearance?.titleTextAttributes[.foregroundColor] = UIColor.white
             scrollEdgeAppearance?.largeTitleTextAttributes[.foregroundColor] = UIColor.white
             standardAppearance.backgroundColor = GradientNavigationBar.gradient
             standardAppearance.titleTextAttributes[.foregroundColor] = UIColor.white
