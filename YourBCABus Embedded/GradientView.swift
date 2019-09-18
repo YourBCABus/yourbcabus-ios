@@ -29,16 +29,23 @@ class GradientView: UIView {
 }
 
 class AccentGradientView: GradientView {
-    lazy var accentGradientLayer: CAGradientLayer = {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = frame
-        gradientLayer.colors = [UIColor(named: "Accent")!.cgColor, UIColor(named: "Accent 2")!.cgColor]
-        gradientLayer.startPoint = CGPoint(x: 1, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
-        return gradientLayer
-    }()
+    private var currentAccentGradientLayer: CAGradientLayer?
+    private var currentTraitCollection: UITraitCollection?
+    
+    var accentGradientLayer: CAGradientLayer {
+        return gradientLayer()
+    }
     
     override func gradientLayer() -> CAGradientLayer {
-        return accentGradientLayer
+        if currentAccentGradientLayer == nil || currentTraitCollection != traitCollection {
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.frame = frame
+            gradientLayer.colors = [UIColor(named: "Accent")!.cgColor, UIColor(named: "Accent 2")!.cgColor]
+            gradientLayer.startPoint = CGPoint(x: 1, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+            currentAccentGradientLayer = gradientLayer
+        }
+        
+        return currentAccentGradientLayer!
     }
 }

@@ -31,7 +31,7 @@ class CustomStopsCompletionViewController: UIViewController {
     
     @IBAction func openPrivacyPolicy(sender: Any?) {
         let safariViewController = SFSafariViewController(url: URL(string: "https://support.yourbcabus.com/privacy-policy")!)
-        safariViewController.preferredBarTintColor = UIColor(named: "Primary Dark")!
+        safariViewController.preferredBarTintColor = UIColor(named: "Primary")!
         safariViewController.preferredControlTintColor = .white
         present(safariViewController, animated: true, completion: nil)
     }

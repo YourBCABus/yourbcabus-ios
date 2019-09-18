@@ -21,11 +21,23 @@ public class BusLocationView: UIView {
     public var circleColor = UIColor(named: "Primary")!
     public var textColor = UIColor.white
     
-    public var noLocationCircleColor = UIColor(named: "Background")!
-    public var noLocationTextColor = UIColor(named: "Primary")!
+    public var noLocationCircleColor = UIColor(named: "No Location")!
+    public var noLocationTextColor = UIColor(named: "Primary Dark")!
     
-    public var unavailableCircleColor = UIColor.lightGray
-    public var unavailableTextColor = UIColor.darkGray
+    public var unavailableCircleColor = { () -> UIColor in
+        if #available(iOS 13.0, macCatalyst 13.0, *) {
+            return UIColor.quaternarySystemFill
+        } else {
+            return UIColor.lightGray
+        }
+    }()
+    public var unavailableTextColor = { () -> UIColor in
+        if #available(iOS 13.0, macCatalyst 13.0, *) {
+            return UIColor.quaternaryLabel
+        } else {
+            return UIColor.darkGray
+        }
+    }()
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

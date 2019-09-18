@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import YourBCABus_Embedded
 
-func createGradient() -> UIColor {
+func createGradient() -> UIImage {
     let gradientLayer = CAGradientLayer()
     let size = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
     gradientLayer.frame = CGRect(x: 0, y: 0, width: size, height: size)
@@ -21,19 +22,51 @@ func createGradient() -> UIColor {
     let image = UIGraphicsGetImageFromCurrentImageContext()!
     UIGraphicsEndImageContext()
     
-    return UIColor(patternImage: image)
+    return image
 }
 
 class GradientNavigationBar: UINavigationBar {
     
-    private static var gradient: UIColor! = createGradient()
+    private static var gradient: UIColor! = UIColor(patternImage: createGradient())
+    private static var gradientImage: UIImage = createGradient()
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.barTintColor = GradientNavigationBar.gradient
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if #available(iOS 13.0, macCatalyst 13.0, *) {
+            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                updateBarTint()
+            }
+        }
+    }
+    
+    func updateBarTint() {
+        if #available(iOS 13.0, macCatalyst 13.0, *) {
+            if traitCollection.userInterfaceStyle == .dark {
+                standardAppearance = UINavigationBarAppearance()
+                scrollEdgeAppearance = nil
+                return
+            }
+            
+            scrollEdgeAppearance = UINavigationBarAppearance()
+            scrollEdgeAppearance?.backgroundColor = GradientNavigationBar.gradient
+            scrollEdgeAppearance?.titleTextAttributes[.foregroundColor] = UIColor.white
+            scrollEdgeAppearance?.largeTitleTextAttributes[.foregroundColor] = UIColor.white
+            standardAppearance.backgroundColor = GradientNavigationBar.gradient
+            standardAppearance.titleTextAttributes[.foregroundColor] = UIColor.white
+            standardAppearance.largeTitleTextAttributes[.foregroundColor] = UIColor.white
+        } else {
+            barStyle = .black
+            barTintColor = GradientNavigationBar.gradient
+        }
     }
     
     override func didMoveToWindow() {
+        updateBarTint()
         super.didMoveToWindow()
         self.tintColor = UIColor.white
     }

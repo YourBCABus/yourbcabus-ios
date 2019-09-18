@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -42,11 +42,12 @@
 		4A83527022333D8C008B3EF3 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A83526F22333D8C008B3EF3 /* NotificationCenter.framework */; };
 		4A83527322333D8C008B3EF3 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A83527222333D8C008B3EF3 /* TodayViewController.swift */; };
 		4A83527622333D8C008B3EF3 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A83527422333D8C008B3EF3 /* MainInterface.storyboard */; };
-		4A83527A22333D8C008B3EF3 /* YourBCABus Today.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4A83526E22333D8C008B3EF3 /* YourBCABus Today.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4A83527A22333D8C008B3EF3 /* YourBCABus Today.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4A83526E22333D8C008B3EF3 /* YourBCABus Today.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4A83527F22333DBC008B3EF3 /* BusLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */; };
 		4A83528122340C76008B3EF3 /* RouteOverviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AB5ED72222B49D5009D7028 /* RouteOverviewView.xib */; };
 		4A85DA9D21BF4CB000F84F85 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */; };
 		4A8C032E22261C92004FA580 /* DotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C032D22261C92004FA580 /* DotView.swift */; };
+		4A8C590622A8848E00DC5223 /* Embedded Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A0096152235931F00DDC754 /* Embedded Assets.xcassets */; };
 		4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */; };
 		4AB0327A22A2FDEC00143805 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB0327922A2FDEC00143805 /* NotificationService.swift */; };
 		4AB0327E22A2FDEC00143805 /* YourBCABus Notification Service.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AB0327722A2FDEC00143805 /* YourBCABus Notification Service.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -210,7 +211,7 @@
 		4AC8478521851117001E8698 /* BusStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStatusTableViewCell.swift; sourceTree = "<group>"; };
 		4AD3AB0C2230411100FD58C2 /* YourBCABus_Embedded.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YourBCABus_Embedded.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AD3AB0E2230411100FD58C2 /* YourBCABus_Embedded.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YourBCABus_Embedded.h; sourceTree = "<group>"; };
-		4AD3AB0F2230411100FD58C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AD3AB0F2230411100FD58C2 /* lnfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = lnfo.plist; sourceTree = "<group>"; };
 		4AD958322180AEEA00AC7EA9 /* YourBCABus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YourBCABus.entitlements; sourceTree = "<group>"; };
 		4AD958342180AEF800AC7EA9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4ADB65A4219118D300C29F34 /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
@@ -486,7 +487,7 @@
 				4AA37BFD21932AD300E02266 /* Routes.swift */,
 				4A8C032B22261A37004FA580 /* BusStatusColors.swift */,
 				4AD3AB0E2230411100FD58C2 /* YourBCABus_Embedded.h */,
-				4AD3AB0F2230411100FD58C2 /* Info.plist */,
+				4AD3AB0F2230411100FD58C2 /* lnfo.plist */,
 				4A0096152235931F00DDC754 /* Embedded Assets.xcassets */,
 			);
 			path = "YourBCABus Embedded";
@@ -771,6 +772,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A8C590622A8848E00DC5223 /* Embedded Assets.xcassets in Resources */,
 				4AC07B49228D0452002F2537 /* Assets.xcassets in Resources */,
 				4A83527622333D8C008B3EF3 /* MainInterface.storyboard in Resources */,
 			);
@@ -823,20 +825,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-YourBCABus/Pods-YourBCABus-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-YourBCABus/Pods-YourBCABus-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-YourBCABus/Pods-YourBCABus-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -992,6 +985,7 @@
 		};
 		4A83527922333D8C008B3EF3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 4A83526D22333D8C008B3EF3 /* YourBCABus Today */;
 			targetProxy = 4A83527822333D8C008B3EF3 /* PBXContainerItemProxy */;
 		};
@@ -1159,6 +1153,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = YourBCABus/YourBCABus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = YourBCABus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1168,6 +1163,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_UIKITFORMAC = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1181,6 +1177,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = YourBCABus/YourBCABus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = YourBCABus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1190,6 +1187,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_UIKITFORMAC = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1293,6 +1291,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios.YourBCABus-Today";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_UIKITFORMAC = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1314,6 +1313,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios.YourBCABus-Today";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_UIKITFORMAC = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1324,6 +1324,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "YourBCABus Notification Service/YourBCABus Notification Service.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = "YourBCABus Notification Service/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1335,6 +1336,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios.YourBCABus-Notification-Service";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_UIKITFORMAC = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1345,6 +1347,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "YourBCABus Notification Service/YourBCABus Notification Service.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = "YourBCABus Notification Service/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1356,6 +1359,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios.YourBCABus-Notification-Service";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_UIKITFORMAC = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
