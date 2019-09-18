@@ -128,8 +128,13 @@ public class RouteOverviewViewController: UIViewController {
         auxViews?.forEach { $0.isHidden = isCompact }
         
         if isTransparent {
-            labels?.forEach { $0.textColor = .black }
-            moreDetailsButton?.setTitleColor(.black, for: .normal)
+            if #available(iOS 13.0, macCatalyst 13.0, *) {
+                labels?.forEach { $0.textColor = .label }
+                moreDetailsButton?.setTitleColor(.label, for: .normal)
+            } else {
+                labels?.forEach { $0.textColor = .black }
+                moreDetailsButton?.setTitleColor(.black, for: .normal)
+            }
             gradientView?.isHidden = true
         } else {
             moreDetailsButton?.setTitleColor(.white, for: .normal)
