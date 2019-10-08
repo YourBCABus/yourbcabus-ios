@@ -1,43 +1,60 @@
 PODS:
-  - Firebase/CoreOnly (6.0.0):
-    - FirebaseCore (= 6.0.0)
-  - Firebase/Messaging (6.0.0):
+  - Firebase/CoreOnly (6.9.0):
+    - FirebaseCore (= 6.3.0)
+  - Firebase/Messaging (6.9.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 4.0.0)
-  - FirebaseAnalyticsInterop (1.2.0)
-  - FirebaseCore (6.0.0):
-    - GoogleUtilities/Environment (~> 6.0)
-    - GoogleUtilities/Logger (~> 6.0)
-  - FirebaseInstanceID (4.0.0):
+    - FirebaseMessaging (~> 4.1.4)
+  - FirebaseAnalyticsInterop (1.4.0)
+  - FirebaseCore (6.3.0):
+    - FirebaseCoreDiagnostics (~> 1.0)
+    - FirebaseCoreDiagnosticsInterop (~> 1.0)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Logger (~> 6.2)
+  - FirebaseCoreDiagnostics (1.1.0):
+    - FirebaseCoreDiagnosticsInterop (~> 1.0)
+    - GoogleDataTransportCCTSupport (~> 1.0)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Logger (~> 6.2)
+  - FirebaseCoreDiagnosticsInterop (1.0.0)
+  - FirebaseInstanceID (4.2.5):
     - FirebaseCore (~> 6.0)
     - GoogleUtilities/Environment (~> 6.0)
     - GoogleUtilities/UserDefaults (~> 6.0)
-  - FirebaseMessaging (4.0.0):
-    - FirebaseAnalyticsInterop (~> 1.1)
-    - FirebaseCore (~> 6.0)
-    - FirebaseInstanceID (~> 4.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
-    - GoogleUtilities/Environment (~> 6.0)
-    - GoogleUtilities/Reachability (~> 6.0)
-    - GoogleUtilities/UserDefaults (~> 6.0)
+  - FirebaseMessaging (4.1.5):
+    - FirebaseAnalyticsInterop (~> 1.3)
+    - FirebaseCore (~> 6.2)
+    - FirebaseInstanceID (~> 4.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.2)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Reachability (~> 6.2)
+    - GoogleUtilities/UserDefaults (~> 6.2)
     - Protobuf (~> 3.1)
-  - GoogleUtilities/AppDelegateSwizzler (6.1.0):
+  - GoogleDataTransport (2.0.0)
+  - GoogleDataTransportCCTSupport (1.1.0):
+    - GoogleDataTransport (~> 2.0)
+    - nanopb
+  - GoogleUtilities/AppDelegateSwizzler (6.3.1):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.1.0)
-  - GoogleUtilities/Logger (6.1.0):
+  - GoogleUtilities/Environment (6.3.1)
+  - GoogleUtilities/Logger (6.3.1):
     - GoogleUtilities/Environment
-  - GoogleUtilities/Network (6.1.0):
+  - GoogleUtilities/Network (6.3.1):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.1.0)"
-  - GoogleUtilities/Reachability (6.1.0):
+  - "GoogleUtilities/NSData+zlib (6.3.1)"
+  - GoogleUtilities/Reachability (6.3.1):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (6.1.0):
+  - GoogleUtilities/UserDefaults (6.3.1):
     - GoogleUtilities/Logger
-  - Protobuf (3.7.0)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
+  - Protobuf (3.10.0)
 
 DEPENDENCIES:
   - Firebase/Messaging
@@ -47,19 +64,29 @@ SPEC REPOS:
     - Firebase
     - FirebaseAnalyticsInterop
     - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCoreDiagnosticsInterop
     - FirebaseInstanceID
     - FirebaseMessaging
+    - GoogleDataTransport
+    - GoogleDataTransportCCTSupport
     - GoogleUtilities
+    - nanopb
     - Protobuf
 
 SPEC CHECKSUMS:
-  Firebase: fa80b9d987ca014a1ba9357496ef2a0178b28b12
-  FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
-  FirebaseCore: e38f025287b413255a53acc1945d048a112047f7
-  FirebaseInstanceID: 0e0348a3c00a734fa376a070f5ad4533ad975cb5
-  FirebaseMessaging: c796d50864dc822a3c06c9c1c1444b37732b795b
-  GoogleUtilities: 84df567c76ca84f67b7bb40e769fdd4acc746a10
-  Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
+  Firebase: 2d750c54cda57d5a6ae31212cfe5cc813c6be7e4
+  FirebaseAnalyticsInterop: d48b6ab67bcf016a05e55b71fc39c61c0cb6b7f3
+  FirebaseCore: 8b2765c445d40db7137989b7146a3aa3f91b5529
+  FirebaseCoreDiagnostics: be4f7a09d02ab305f18de59a470412caddb64c2a
+  FirebaseCoreDiagnosticsInterop: 6829da2b8d1fc795ff1bd99df751d3788035d2cb
+  FirebaseInstanceID: 550df9be1f99f751d8fcde3ac342a1e21a0e6c42
+  FirebaseMessaging: b22b949cc45c14da01e60404dd7bffc78956380c
+  GoogleDataTransport: c8617c00e4f3eb9418e42ac0e8ac5241a9d555dd
+  GoogleDataTransportCCTSupport: 9f352523e8785a71f6754f51eeff09f49ec19268
+  GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
 
 PODFILE CHECKSUM: dd41a8d6dcc93534a2bcddfa00a23c84112f8c57
 

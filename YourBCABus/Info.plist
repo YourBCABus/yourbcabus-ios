@@ -35,6 +35,8 @@
 	<true/>
 	<key>FirebaseDataCollectionDefaultEnabled</key>
 	<false/>
+	<key>FirebaseMessagingAutoInitEnabled</key>
+	<true/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
