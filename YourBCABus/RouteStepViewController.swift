@@ -62,11 +62,11 @@ class BoardingStepViewController: RouteStepViewController {
 
 class RidingStepScrimView: UIView {
     override func draw(_ rect: CGRect) {
-        let clear = UIColor(named: "Background")!.withAlphaComponent(0)
+        let clear = UIColor(named: "Background - Route Scroll")!.withAlphaComponent(0)
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = rect
-        gradientLayer.colors = [UIColor(named: "Background")!.cgColor, clear.cgColor]
+        gradientLayer.colors = [UIColor(named: "Background - Route Scroll")!.cgColor, clear.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.6)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.render(in: UIGraphicsGetCurrentContext()!)

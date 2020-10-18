@@ -145,15 +145,19 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         searchController.searchBar.autocapitalizationType = .none
         searchController.delegate = self
         searchController.searchBar.tintColor = UIColor.white
+        searchController.searchBar.barStyle = .black
         
-        if #available(iOS 11.0, *) {
-            // For iOS 11 and later, place the search bar in the navigation bar.
-            navigationItem.searchController = searchController
-            navigationItem.hidesSearchBarWhenScrolling = false
-        } else {
-            // For iOS 10 and earlier, place the search controller's search bar in the table view's header.
-            tableView.tableHeaderView = searchController.searchBar
+        // TODO: better
+        UILabel.appearance(whenContainedInInstancesOf: [UISearchBar.self]).textColor = UIColor.white.withAlphaComponent(0.5)
+        
+        if #available(iOS 13.0, *) {
+            searchController.searchBar.searchTextField.leftView?.tintColor = .white
+            searchController.searchBar.barTintColor = .white
+            searchController.searchBar.searchTextField.tintColor = .white
         }
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         
         definesPresentationContext = true
         

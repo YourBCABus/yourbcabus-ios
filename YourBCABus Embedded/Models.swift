@@ -72,7 +72,7 @@ public struct Bus: Codable, Comparable, CustomStringConvertible {
         case name = "name"
         case locations = "locations"
         case boarding = "boarding"
-        case departing = "departing"
+        case departure = "departure"
         case invalidate_time = "invalidate_time"
         case invalidates = "invalidates"
     }
@@ -85,7 +85,7 @@ public struct Bus: Codable, Comparable, CustomStringConvertible {
         name = container.contains(.name) ? try container.decode(String.self, forKey: .name) : nil
         locations = try container.decode([String].self, forKey: .locations)
         boarding = container.contains(.boarding) ? try container.decode(Int.self, forKey: .boarding) : nil
-        departing = container.contains(.departing) ? try container.decode(Int.self, forKey: .departing) : nil
+        departure = container.contains(.departure) ? try container.decode(Int.self, forKey: .departure) : nil
         
         if container.contains(.invalidates) {
             invalidates = try container.decode(Date.self, forKey: .invalidates)
@@ -105,7 +105,7 @@ public struct Bus: Codable, Comparable, CustomStringConvertible {
     public let name: String?
     public let locations: [String]
     public let boarding: Int?
-    public let departing: Int?
+    public let departure: Int?
     
     var invalidate_time: String? {
         get {
@@ -290,16 +290,44 @@ public struct Stop: Codable, Comparable, CustomStringConvertible {
     }
 }
 
+let departureDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .none
+    formatter.timeStyle = .short
+    return formatter
+}()
+
+func departureToString(_ departure: Int) -> String? {
+    // TODO: Proper time zone support - see DetailView.swift as well
+    var calendar = Calendar(identifier: .gregorian)
+    calendar.timeZone = TimeZone(identifier: "America/New_York")!
+    
+    let now = Date()
+    let date = calendar.date(bySettingHour: departure / 60, minute: departure % 60, second: 0, of: now)
+    
+    return date.map { date in "Departs at \(departureDateFormatter.string(from: date))" }
+}
+
 public enum BusStatus: CustomStringConvertible {
-    case unavailable
-    case notArrived(boarding: Int?)
-    case arrived
+    case unavailable(departure: Int?)
+    case notArrived(boarding: Int?, departure: Int?)
+    case arrived(departure: Int?)
     
     public var description: String {
         switch self {
-        case .unavailable:
+        case .unavailable(let departure):
+            if let departure = departure {
+                if let str = departureToString(departure) {
+                    return str
+                }
+            }
             return "Not running"
-        case .notArrived(let boarding):
+        case .notArrived(let boarding, let departure):
+            if let departure = departure {
+                if let str = departureToString(departure) {
+                    return str
+                }
+            }
             if let time = boarding {
                 let group: String
                 
@@ -319,7 +347,12 @@ public enum BusStatus: CustomStringConvertible {
             } else {
                 return "Not at BCA"
             }
-        case .arrived:
+        case .arrived(let departure):
+            if let departure = departure {
+                if let str = departureToString(departure) {
+                    return str
+                }
+            }
             return "Arrived at BCA"
         default:
             return "Unknown"
@@ -328,15 +361,15 @@ public enum BusStatus: CustomStringConvertible {
 }
 
 public extension Bus {
-    public var status: BusStatus {
+    var status: BusStatus {
         guard available else {
-            return .unavailable
+            return .unavailable(departure: departure)
         }
         
         if location == nil {
-            return .notArrived(boarding: validated ? boarding : nil)
+            return .notArrived(boarding: validated ? boarding : nil, departure: departure)
         } else {
-            return .arrived
+            return .arrived(departure: departure)
         }
     }
     

@@ -19,7 +19,7 @@ extension BusStatus: CustomColorConvertible {
         switch self {
         case .unavailable:
             return Color.darkGray
-        case .notArrived(let boarding):
+        case .notArrived(let boarding, _):
             if let time = boarding {
                 if time < 150 {
                     return Color(named: "Bucket 0")!

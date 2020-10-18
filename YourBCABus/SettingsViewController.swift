@@ -92,6 +92,9 @@ class SettingsViewController: UITableViewController {
         routeSummarySwitch.setOn(routeSummarySetting.value, animated: false)
         routeSummarySwitch.addTarget(routeSummarySetting, action: #selector(NotificationSetting.switchDidChange(sender:)), for: .valueChanged)
         useFlyoverMapSwitch.setOn(UserDefaults.standard.bool(forKey: MapViewController.useFlyoverMapDefaultsKey), animated: false)
+        
+        // TODO: Better
+        UISwitch.appearance().onTintColor = UIColor(named: "Primary")!
     }
     
     @IBAction func done(sender: UIBarButtonItem?) {
