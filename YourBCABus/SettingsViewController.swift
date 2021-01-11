@@ -57,19 +57,21 @@ class NotificationSetting {
     @objc func switchDidChange(sender: UISwitch) {
         if sender.isOn {
             UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
-                switch settings.authorizationStatus {
-                case .denied:
-                    self.displayAlert(switch: sender)
-                case .notDetermined:
-                    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { authorized, error in
-                        if authorized {
-                            self.changeValue(to: true)
-                        } else {
-                            self.displayAlert(switch: sender)
-                        }
-                    })
-                default:
-                    self.changeValue(to: true)
+                DispatchQueue.main.async {
+                    switch settings.authorizationStatus {
+                    case .denied:
+                        self.displayAlert(switch: sender)
+                    case .notDetermined:
+                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { authorized, error in
+                            if authorized {
+                                self.changeValue(to: true)
+                            } else {
+                                self.displayAlert(switch: sender)
+                            }
+                        })
+                    default:
+                        self.changeValue(to: true)
+                    }
                 }
             })
         } else {

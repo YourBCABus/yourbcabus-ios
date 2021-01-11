@@ -1153,8 +1153,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = YourBCABus/YourBCABus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
-				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				CURRENT_PROJECT_VERSION = 33;
+				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = YourBCABus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1162,7 +1162,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -1180,8 +1180,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = YourBCABus/YourBCABus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
-				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				CURRENT_PROJECT_VERSION = 33;
+				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = YourBCABus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1189,7 +1189,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -1286,7 +1286,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "YourBCABus Today/YourBCABus Today.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = "YourBCABus Today/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1295,7 +1295,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios.YourBCABus-Today";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1311,7 +1311,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "YourBCABus Today/YourBCABus Today.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = "YourBCABus Today/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1320,7 +1320,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios.YourBCABus-Today";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1336,8 +1336,8 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "YourBCABus Notification Service/YourBCABus Notification Service.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
-				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				CURRENT_PROJECT_VERSION = 33;
+				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = "YourBCABus Notification Service/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1346,7 +1346,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios.YourBCABus-Notification-Service";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1362,8 +1362,8 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "YourBCABus Notification Service/YourBCABus Notification Service.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
-				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = YES;
+				CURRENT_PROJECT_VERSION = 33;
+				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = "YourBCABus Notification Service/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1372,7 +1372,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios.YourBCABus-Notification-Service";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
