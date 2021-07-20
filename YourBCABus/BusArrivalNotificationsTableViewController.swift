@@ -11,8 +11,7 @@ import UIKit
 class BusArrivalNotificationsTableViewController: UITableViewController {
     
     let settings = [
-        NotificationSetting(defaultsKey: AppDelegate.busArrivalNotificationsDefaultKey, readableName: "For Starred Buses", notificationName: AppDelegate.didChangeBusArrivalNotifications),
-        NotificationSetting(defaultsKey: AppDelegate.routeBusArrivalNotificationsDefaultKey, readableName: "For Current Route", notificationName: AppDelegate.didChangeBusArrivalNotifications)
+        NotificationSetting(defaultsKey: AppDelegate.busArrivalNotificationsDefaultKey, readableName: "For Starred Buses", notificationName: AppDelegate.didChangeBusArrivalNotifications)
     ]
 
     override func viewDidLoad() {

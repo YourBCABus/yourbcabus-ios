@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4A009614223592ED00DDC754 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A37C1EA219CF2FB0088D3CF /* GradientView.swift */; };
 		4A0096162235931F00DDC754 /* Embedded Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A0096152235931F00DDC754 /* Embedded Assets.xcassets */; };
-		4A0E563E21BC225F0019F6B0 /* CustomStops.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A0E563D21BC225F0019F6B0 /* CustomStops.storyboard */; };
 		4A0E564121BC293A0019F6B0 /* CustomStopsBusesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564021BC293A0019F6B0 /* CustomStopsBusesTableViewController.swift */; };
 		4A0E564321BC2E300019F6B0 /* CustomStopsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564221BC2E300019F6B0 /* CustomStopsMapViewController.swift */; };
 		4A0E564521BC86C90019F6B0 /* CoreLocationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564421BC86C90019F6B0 /* CoreLocationExtensions.swift */; };
@@ -147,7 +146,6 @@
 /* Begin PBXFileReference section */
 		44ED9BE1A0D8DC87FB08C455 /* Pods-YourBCABusTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABusTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABusTests/Pods-YourBCABusTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4A0096152235931F00DDC754 /* Embedded Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Embedded Assets.xcassets"; sourceTree = "<group>"; };
-		4A0E563D21BC225F0019F6B0 /* CustomStops.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CustomStops.storyboard; sourceTree = "<group>"; };
 		4A0E564021BC293A0019F6B0 /* CustomStopsBusesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStopsBusesTableViewController.swift; sourceTree = "<group>"; };
 		4A0E564221BC2E300019F6B0 /* CustomStopsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStopsMapViewController.swift; sourceTree = "<group>"; };
 		4A0E564421BC86C90019F6B0 /* CoreLocationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationExtensions.swift; sourceTree = "<group>"; };
@@ -348,7 +346,6 @@
 				4A39FB09217FF18B008032DE /* BusManager.swift */,
 				4A113B0F217A986E00B7640E /* Main.storyboard */,
 				4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */,
-				4A0E563D21BC225F0019F6B0 /* CustomStops.storyboard */,
 				4A113B12217A987100B7640E /* Assets.xcassets */,
 				4AC84784218507A4001E8698 /* Resources */,
 			);
@@ -748,7 +745,6 @@
 				4A113B13217A987100B7640E /* Assets.xcassets in Resources */,
 				4ABB8C7E2180C05A00158FD6 /* GoogleService-Info.plist in Resources */,
 				4A4E48392293875500B3F90C /* alerts-script.js in Resources */,
-				4A0E563E21BC225F0019F6B0 /* CustomStops.storyboard in Resources */,
 				4A39FB0C217FFAF7008032DE /* BusTableViewCell.xib in Resources */,
 				4A113B11217A986E00B7640E /* Main.storyboard in Resources */,
 			);

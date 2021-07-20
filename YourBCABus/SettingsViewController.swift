@@ -81,18 +81,10 @@ class NotificationSetting {
 }
 
 class SettingsViewController: UITableViewController {
-    @IBOutlet weak var routeSummarySwitch: UISwitch!
     @IBOutlet weak var useFlyoverMapSwitch: UISwitch!
-    
-    let routeSummarySetting = NotificationSetting(defaultsKey: AppDelegate.routeSummaryNotificationsDefaultKey, readableName: "", notificationName: AppDelegate.didChangeRouteSummaryNotifications)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        routeSummarySetting.viewController = self
-        
-        routeSummarySwitch.setOn(routeSummarySetting.value, animated: false)
-        routeSummarySwitch.addTarget(routeSummarySetting, action: #selector(NotificationSetting.switchDidChange(sender:)), for: .valueChanged)
         useFlyoverMapSwitch.setOn(UserDefaults.standard.bool(forKey: MapViewController.useFlyoverMapDefaultsKey), animated: false)
         
         // TODO: Better
