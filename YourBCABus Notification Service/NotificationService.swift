@@ -7,7 +7,6 @@
 //
 
 import UserNotifications
-import YourBCABus_Embedded
 
 class NotificationService: UNNotificationServiceExtension {
 

@@ -30,7 +30,6 @@
 		4A4E48392293875500B3F90C /* alerts-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E48382293875500B3F90C /* alerts-script.js */; };
 		4A5E8A0026A730E300A612AF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E89FF26A730E300A612AF /* Routes.swift */; };
 		4A61540D222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61540C222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift */; };
-		4A7105A422A6D272001B12B0 /* YourBCABus_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3AB0C2230411100FD58C2 /* YourBCABus_Embedded.framework */; };
 		4A83527F22333DBC008B3EF3 /* BusLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */; };
 		4A85DA9D21BF4CB000F84F85 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */; };
 		4A8C032E22261C92004FA580 /* DotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C032D22261C92004FA580 /* DotView.swift */; };
@@ -215,7 +214,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A7105A422A6D272001B12B0 /* YourBCABus_Embedded.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
