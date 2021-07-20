@@ -9,12 +9,7 @@
 /* Begin PBXBuildFile section */
 		4A009614223592ED00DDC754 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A37C1EA219CF2FB0088D3CF /* GradientView.swift */; };
 		4A0096162235931F00DDC754 /* Embedded Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A0096152235931F00DDC754 /* Embedded Assets.xcassets */; };
-		4A0E564121BC293A0019F6B0 /* CustomStopsBusesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564021BC293A0019F6B0 /* CustomStopsBusesTableViewController.swift */; };
-		4A0E564321BC2E300019F6B0 /* CustomStopsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564221BC2E300019F6B0 /* CustomStopsMapViewController.swift */; };
 		4A0E564521BC86C90019F6B0 /* CoreLocationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564421BC86C90019F6B0 /* CoreLocationExtensions.swift */; };
-		4A0E564721BC890B0019F6B0 /* CustomStopsTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564621BC890B0019F6B0 /* CustomStopsTimeViewController.swift */; };
-		4A0E564921BC8B9C0019F6B0 /* CustomStopsCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564821BC8B9C0019F6B0 /* CustomStopsCompletionViewController.swift */; };
-		4A0E564D21BC9CC10019F6B0 /* CustomStopsManagerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564C21BC9CC10019F6B0 /* CustomStopsManagerTableViewController.swift */; };
 		4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B09217A986E00B7640E /* AppDelegate.swift */; };
 		4A113B0C217A986E00B7640E /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B0B217A986E00B7640E /* MasterViewController.swift */; };
 		4A113B0E217A986E00B7640E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B0D217A986E00B7640E /* DetailViewController.swift */; };
@@ -24,7 +19,6 @@
 		4A113B21217A987100B7640E /* YourBCABusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B20217A987100B7640E /* YourBCABusTests.swift */; };
 		4A113B2C217A987100B7640E /* YourBCABusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B2B217A987100B7640E /* YourBCABusUITests.swift */; };
 		4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3B217A9D2300B7640E /* GradientNavigationBar.swift */; };
-		4A1778DF219347E800D72001 /* RouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1778DE219347E800D72001 /* RouteTableViewCell.swift */; };
 		4A18A7F021B8B90D00D1042F /* GetOffAlertSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */; };
 		4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */; };
 		4A1E96E221B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */; };
@@ -34,12 +28,10 @@
 		4A4E4835229355B500B3F90C /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E4834229355B500B3F90C /* Alerts.swift */; };
 		4A4E4837229385F800B3F90C /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E4836229385F800B3F90C /* AlertViewController.swift */; };
 		4A4E48392293875500B3F90C /* alerts-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E48382293875500B3F90C /* alerts-script.js */; };
+		4A5E8A0026A730E300A612AF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E89FF26A730E300A612AF /* Routes.swift */; };
 		4A61540D222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61540C222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift */; };
 		4A7105A422A6D272001B12B0 /* YourBCABus_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3AB0C2230411100FD58C2 /* YourBCABus_Embedded.framework */; };
-		4A7B2968219A37B600B465B6 /* RouteStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */; };
-		4A83526922333CE0008B3EF3 /* RouteOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB5ED70222B49C9009D7028 /* RouteOverviewView.swift */; };
 		4A83527F22333DBC008B3EF3 /* BusLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */; };
-		4A83528122340C76008B3EF3 /* RouteOverviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AB5ED72222B49D5009D7028 /* RouteOverviewView.xib */; };
 		4A85DA9D21BF4CB000F84F85 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */; };
 		4A8C032E22261C92004FA580 /* DotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C032D22261C92004FA580 /* DotView.swift */; };
 		4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */; };
@@ -53,7 +45,6 @@
 		4AD3AB102230411100FD58C2 /* YourBCABus_Embedded.h in Headers */ = {isa = PBXBuildFile; fileRef = 4AD3AB0E2230411100FD58C2 /* YourBCABus_Embedded.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4AD3AB132230411100FD58C2 /* YourBCABus_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3AB0C2230411100FD58C2 /* YourBCABus_Embedded.framework */; };
 		4AD3AB142230411100FD58C2 /* YourBCABus_Embedded.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3AB0C2230411100FD58C2 /* YourBCABus_Embedded.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4AD3AB192230414600FD58C2 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA37BFD21932AD300E02266 /* Routes.swift */; };
 		4AD3AB1A2230414600FD58C2 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3D217AA94A00B7640E /* Models.swift */; };
 		4AD3AB1C2230414600FD58C2 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3F217AAC5B00B7640E /* APIService.swift */; };
 		4AD3AB1D2230414600FD58C2 /* CustomStops.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564A21BC9A110019F6B0 /* CustomStops.swift */; };
@@ -64,9 +55,6 @@
 		4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEE49C2180CF5200F827FB /* MapViewController.swift */; };
 		4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */; };
 		4AE7066C218FE4C100A95AC0 /* Navigation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */; };
-		4AE7066E218FE80E00A95AC0 /* NavigationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7066D218FE80E00A95AC0 /* NavigationTableViewController.swift */; };
-		4AE70673218FED2200A95AC0 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE70672218FED2200A95AC0 /* RoutesTableViewController.swift */; };
-		4AE70675218FED3A00A95AC0 /* ModalNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE70674218FED3A00A95AC0 /* ModalNavigationViewController.swift */; };
 		7C738D456BF364DD8B3E1793 /* Pods_YourBCABusUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */; };
 		BDEF7596E79AB6338CCFAF6F /* Pods_YourBCABusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56128607A369641345A3EA52 /* Pods_YourBCABusTests.framework */; };
 		E4310F9683A7319F8290BE04 /* Pods_YourBCABus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A35AB7A4B47B8135C0288F /* Pods_YourBCABus.framework */; };
@@ -131,13 +119,8 @@
 /* Begin PBXFileReference section */
 		44ED9BE1A0D8DC87FB08C455 /* Pods-YourBCABusTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABusTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABusTests/Pods-YourBCABusTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4A0096152235931F00DDC754 /* Embedded Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Embedded Assets.xcassets"; sourceTree = "<group>"; };
-		4A0E564021BC293A0019F6B0 /* CustomStopsBusesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStopsBusesTableViewController.swift; sourceTree = "<group>"; };
-		4A0E564221BC2E300019F6B0 /* CustomStopsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStopsMapViewController.swift; sourceTree = "<group>"; };
 		4A0E564421BC86C90019F6B0 /* CoreLocationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationExtensions.swift; sourceTree = "<group>"; };
-		4A0E564621BC890B0019F6B0 /* CustomStopsTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStopsTimeViewController.swift; sourceTree = "<group>"; };
-		4A0E564821BC8B9C0019F6B0 /* CustomStopsCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStopsCompletionViewController.swift; sourceTree = "<group>"; };
 		4A0E564A21BC9A110019F6B0 /* CustomStops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStops.swift; sourceTree = "<group>"; };
-		4A0E564C21BC9CC10019F6B0 /* CustomStopsManagerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStopsManagerTableViewController.swift; sourceTree = "<group>"; };
 		4A113B06217A986E00B7640E /* YourBCABus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YourBCABus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A113B09217A986E00B7640E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A113B0B217A986E00B7640E /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -155,7 +138,6 @@
 		4A113B3B217A9D2300B7640E /* GradientNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientNavigationBar.swift; sourceTree = "<group>"; };
 		4A113B3D217AA94A00B7640E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		4A113B3F217AAC5B00B7640E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		4A1778DE219347E800D72001 /* RouteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTableViewCell.swift; sourceTree = "<group>"; };
 		4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertSettingsViewController.swift; sourceTree = "<group>"; };
 		4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertPromptViewController.swift; sourceTree = "<group>"; };
 		4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertEventReceiver.swift; sourceTree = "<group>"; };
@@ -167,21 +149,18 @@
 		4A4E4834229355B500B3F90C /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		4A4E4836229385F800B3F90C /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		4A4E48382293875500B3F90C /* alerts-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "alerts-script.js"; sourceTree = "<group>"; };
+		4A5E89FF26A730E300A612AF /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		4A61540C222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusArrivalNotificationsTableViewController.swift; sourceTree = "<group>"; };
-		4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStepViewController.swift; sourceTree = "<group>"; };
 		4A83526F22333D8C008B3EF3 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		4A8C032B22261A37004FA580 /* BusStatusColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStatusColors.swift; sourceTree = "<group>"; };
 		4A8C032D22261C92004FA580 /* DotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotView.swift; sourceTree = "<group>"; };
 		4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusTableViewCell.swift; sourceTree = "<group>"; };
 		4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLocationView.swift; sourceTree = "<group>"; };
-		4AA37BFD21932AD300E02266 /* Routes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		4AB0327722A2FDEC00143805 /* YourBCABus Notification Service.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "YourBCABus Notification Service.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AB0327922A2FDEC00143805 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		4AB0327B22A2FDEC00143805 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AB0328222A351CD00143805 /* YourBCABus Notification Service.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "YourBCABus Notification Service.entitlements"; sourceTree = "<group>"; };
-		4AB5ED70222B49C9009D7028 /* RouteOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteOverviewView.swift; sourceTree = "<group>"; };
-		4AB5ED72222B49D5009D7028 /* RouteOverviewView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteOverviewView.xib; sourceTree = "<group>"; };
 		4ABB8C7D2180C05A00158FD6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4AC07B43228CFB25002F2537 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4AC2A9C2219C82DB00A4869A /* NotificationsPromptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPromptViewController.swift; sourceTree = "<group>"; };
@@ -195,9 +174,6 @@
 		4ADEE49C2180CF5200F827FB /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterHelpers.swift; sourceTree = "<group>"; };
 		4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Navigation.storyboard; sourceTree = "<group>"; };
-		4AE7066D218FE80E00A95AC0 /* NavigationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTableViewController.swift; sourceTree = "<group>"; };
-		4AE70672218FED2200A95AC0 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
-		4AE70674218FED3A00A95AC0 /* ModalNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationViewController.swift; sourceTree = "<group>"; };
 		4CFBF44AFBEE9A224C81F575 /* Pods-YourBCABusUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABusUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABusUITests/Pods-YourBCABusUITests.release.xcconfig"; sourceTree = "<group>"; };
 		56128607A369641345A3EA52 /* Pods_YourBCABusTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABusTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABusUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,18 +240,6 @@
 				4CFBF44AFBEE9A224C81F575 /* Pods-YourBCABusUITests.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		4A0E563F21BC29200019F6B0 /* Custom Stops */ = {
-			isa = PBXGroup;
-			children = (
-				4A0E564021BC293A0019F6B0 /* CustomStopsBusesTableViewController.swift */,
-				4A0E564621BC890B0019F6B0 /* CustomStopsTimeViewController.swift */,
-				4A0E564221BC2E300019F6B0 /* CustomStopsMapViewController.swift */,
-				4A0E564821BC8B9C0019F6B0 /* CustomStopsCompletionViewController.swift */,
-				4A0E564C21BC9CC10019F6B0 /* CustomStopsManagerTableViewController.swift */,
-			);
-			name = "Custom Stops";
 			sourceTree = "<group>";
 		};
 		4A113AFD217A986E00B7640E = {
@@ -367,20 +331,11 @@
 			path = "YourBCABus Notification Service";
 			sourceTree = "<group>";
 		};
-		4AB5ED78222B577A009D7028 /* Route Overview */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Route Overview";
-			sourceTree = "<group>";
-		};
 		4AC8477D2185070B001E8698 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				4AE70670218FE82100A95AC0 /* Master */,
 				4AE70671218FE83400A95AC0 /* Navigation */,
-				4A0E563F21BC29200019F6B0 /* Custom Stops */,
-				4AB5ED78222B577A009D7028 /* Route Overview */,
 				4A61540E222DDC4000AEDBC8 /* Settings */,
 				4A113B0D217A986E00B7640E /* DetailViewController.swift */,
 				4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */,
@@ -398,7 +353,6 @@
 				4AC8478521851117001E8698 /* BusStatusTableViewCell.swift */,
 				4A113B3B217A9D2300B7640E /* GradientNavigationBar.swift */,
 				4ADB65A4219118D300C29F34 /* TextFieldTableViewCell.swift */,
-				4A1778DE219347E800D72001 /* RouteTableViewCell.swift */,
 				4A8C032D22261C92004FA580 /* DotView.swift */,
 			);
 			name = Views;
@@ -430,14 +384,12 @@
 			children = (
 				4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */,
 				4A37C1EA219CF2FB0088D3CF /* GradientView.swift */,
-				4AB5ED70222B49C9009D7028 /* RouteOverviewView.swift */,
-				4AB5ED72222B49D5009D7028 /* RouteOverviewView.xib */,
 				4A113B3D217AA94A00B7640E /* Models.swift */,
 				4A0E564A21BC9A110019F6B0 /* CustomStops.swift */,
 				4A4E4834229355B500B3F90C /* Alerts.swift */,
 				4AC07B43228CFB25002F2537 /* Constants.swift */,
+				4A5E89FF26A730E300A612AF /* Routes.swift */,
 				4A113B3F217AAC5B00B7640E /* APIService.swift */,
-				4AA37BFD21932AD300E02266 /* Routes.swift */,
 				4A8C032B22261A37004FA580 /* BusStatusColors.swift */,
 				4AD3AB0E2230411100FD58C2 /* YourBCABus_Embedded.h */,
 				4AD3AB0F2230411100FD58C2 /* lnfo.plist */,
@@ -471,10 +423,6 @@
 		4AE70671218FE83400A95AC0 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				4AE7066D218FE80E00A95AC0 /* NavigationTableViewController.swift */,
-				4AE70672218FED2200A95AC0 /* RoutesTableViewController.swift */,
-				4AE70674218FED3A00A95AC0 /* ModalNavigationViewController.swift */,
-				4A7B2966219A37B600B465B6 /* RouteStepViewController.swift */,
 				4A1E96DE21B2F62600FB4038 /* Get Off Alerts */,
 			);
 			name = Navigation;
@@ -703,7 +651,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A83528122340C76008B3EF3 /* RouteOverviewView.xib in Resources */,
 				4A0096162235931F00DDC754 /* Embedded Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -801,36 +748,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AE7066E218FE80E00A95AC0 /* NavigationTableViewController.swift in Sources */,
 				4A8C032E22261C92004FA580 /* DotView.swift in Sources */,
 				4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */,
 				4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */,
-				4AE70673218FED2200A95AC0 /* RoutesTableViewController.swift in Sources */,
 				4A113B0E217A986E00B7640E /* DetailViewController.swift in Sources */,
 				4A61540D222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift in Sources */,
-				4A1778DF219347E800D72001 /* RouteTableViewCell.swift in Sources */,
-				4A0E564321BC2E300019F6B0 /* CustomStopsMapViewController.swift in Sources */,
 				4AC2A9C3219C82DB00A4869A /* NotificationsPromptViewController.swift in Sources */,
 				4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */,
 				4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */,
 				4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */,
 				4A18A7F021B8B90D00D1042F /* GetOffAlertSettingsViewController.swift in Sources */,
-				4A0E564121BC293A0019F6B0 /* CustomStopsBusesTableViewController.swift in Sources */,
-				4A7B2968219A37B600B465B6 /* RouteStepViewController.swift in Sources */,
 				4A85DA9D21BF4CB000F84F85 /* RootViewController.swift in Sources */,
 				4AC8478621851118001E8698 /* BusStatusTableViewCell.swift in Sources */,
 				4A0E564521BC86C90019F6B0 /* CoreLocationExtensions.swift in Sources */,
 				4A113B0C217A986E00B7640E /* MasterViewController.swift in Sources */,
-				4A0E564921BC8B9C0019F6B0 /* CustomStopsCompletionViewController.swift in Sources */,
-				4A0E564D21BC9CC10019F6B0 /* CustomStopsManagerTableViewController.swift in Sources */,
 				4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */,
 				4A1E96E221B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift in Sources */,
 				4AD3AB1E2230417300FD58C2 /* BusManager.swift in Sources */,
 				4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */,
 				4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */,
 				4ADB65A5219118D300C29F34 /* TextFieldTableViewCell.swift in Sources */,
-				4AE70675218FED3A00A95AC0 /* ModalNavigationViewController.swift in Sources */,
-				4A0E564721BC890B0019F6B0 /* CustomStopsTimeViewController.swift in Sources */,
 				4A4E4837229385F800B3F90C /* AlertViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -865,13 +802,12 @@
 			files = (
 				4AD3AB1F223045B900FD58C2 /* BusStatusColors.swift in Sources */,
 				4A83527F22333DBC008B3EF3 /* BusLocationView.swift in Sources */,
-				4AD3AB192230414600FD58C2 /* Routes.swift in Sources */,
 				4AD3AB1A2230414600FD58C2 /* Models.swift in Sources */,
 				4AD3AB1C2230414600FD58C2 /* APIService.swift in Sources */,
+				4A5E8A0026A730E300A612AF /* Routes.swift in Sources */,
 				4A4E4835229355B500B3F90C /* Alerts.swift in Sources */,
 				4AD3AB1D2230414600FD58C2 /* CustomStops.swift in Sources */,
 				4A009614223592ED00DDC754 /* GradientView.swift in Sources */,
-				4A83526922333CE0008B3EF3 /* RouteOverviewView.swift in Sources */,
 				4AC07B44228CFB25002F2537 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

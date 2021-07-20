@@ -26,9 +26,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     
     var resultsViewController: SearchResultsViewController!
     var searchController: UISearchController!
-    
-    var routeOverviewViewController: RouteOverviewViewController!
-    
+        
     var refreshInterval: TimeInterval = 15
     private var refreshTimer: Timer?
     
@@ -40,20 +38,8 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     @available(*, deprecated)
     static let currentDestinationDefaultsKey = Constants.currentDestinationDefaultsKey
     
-    static let currentDestinationDidChange = Notification.Name("YBBCurrentDestinationDidChange")
-    static let currentDestinationDidChangeOldRouteKey = "oldRoute"
-    static let currentDestinationDidChangeNewRouteKey = "newRoute"
-    
     static let dismissedAlertsDefaultsKey = "dismissedAlerts"
     static let dismissedAlertsDidChange = Notification.Name("YBBDismissedAlertsDidChange")
-    
-    var route: Route? {
-        didSet {
-            if isViewLoaded {
-                routeDidChange()
-            }
-        }
-    }
     
     var alerts = [Alert]()
     
@@ -97,8 +83,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
                 print(result.error!)
             }
         }
-        
-        reloadRoute()
     }
     
     func askToSetUpNotifications() {
@@ -166,48 +150,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             // }
         })
         
-        routeOverviewViewController = RouteOverviewViewController(nibName: "RouteOverviewView", bundle: Bundle(for: RouteOverviewViewController.self))
-        routeOverviewViewController.onMoreDetailsPressed = { [unowned self] in
-            let modalViewController = UIStoryboard(name: "Navigation", bundle: nil).instantiateViewController(withIdentifier: "YBBNavigationModalViewController") as! ModalNavigationViewController
-            modalViewController.route = self.route
-            modalViewController.modalPresentationStyle = .fullScreen
-            self.present(modalViewController, animated: true, completion: nil)
-        }
-        addChild(routeOverviewViewController)
-        
-        if let data = UserDefaults(suiteName: Constants.groupId)!.data(forKey: Constants.currentDestinationDefaultsKey) {
-            do {
-                let decoder = PropertyListDecoder()
-                route = try decoder.decode(Route.self, from: data)
-            } catch {
-                route = nil
-                print("Error decoding current destination: \(error)")
-            }
-        } else {
-            route = nil
-        }
-        
         reloadBuses(cachingMode: .both)
-    }
-    
-    func reloadRoute() {
-        route?.fetchData { [weak self, route] (ok, _, _) in
-            if ok {
-                if let data = try? PropertyListEncoder().encode(route!) {
-                    UserDefaults(suiteName: Constants.groupId)!.set(data, forKey: Constants.currentDestinationDefaultsKey)
-                }
-                
-                if let self = self {
-                    DispatchQueue.main.async {
-                        self.routeOverviewViewController.configureView()
-                    }
-                }
-            }
-        }
-    }
-    
-    func routeDidChange() {
-        routeOverviewViewController.route = route
     }
 
     override func viewWillAppear(_ animated: Bool) {
