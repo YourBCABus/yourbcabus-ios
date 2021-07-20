@@ -11,7 +11,6 @@ import YourBCABus_Embedded
 
 enum MasterTableViewSection {
     case alerts
-    case destination
     case maps
     case starred
     case buses
@@ -23,7 +22,7 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
 
     var detailViewController: DetailViewController? = nil
     
-    var sections: [MasterTableViewSection] = [.destination, .maps, .buses]
+    var sections: [MasterTableViewSection] = [.maps, .buses]
     
     var resultsViewController: SearchResultsViewController!
     var searchController: UISearchController!
@@ -208,7 +207,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
     }
     
     func routeDidChange() {
-        tableView.reloadSections([sections.firstIndex(of: .destination)!], with: .none)
         routeOverviewViewController.route = route
     }
 
@@ -317,8 +315,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
         switch sections[section] {
         case .alerts:
             return alerts.count
-        case .destination:
-            return route == nil ? 1 : 2
         case .maps:
             return 1
         case .starred:
@@ -346,27 +342,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             
             cell.textLabel?.attributedText = attributedString
             return cell
-        case .destination:
-            if route == nil || indexPath.row == 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
-                
-                cell.textLabel?.text = route == nil ? "Add Destination" : "Change Destination"
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "DestinationCell", for: indexPath)
-                
-                if cell.contentView.subviews.isEmpty {
-                    routeOverviewViewController.view.frame = cell.bounds
-                    cell.addSubview(routeOverviewViewController.view)
-                    let views = ["view": routeOverviewViewController.view!]
-                    var constraints = [NSLayoutConstraint]()
-                    constraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", options: [], metrics: nil, views: views))
-                    constraints.append(contentsOf: NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: [], metrics: nil, views: views))
-                    cell.addConstraints(constraints)
-                }
-                
-                return cell
-            }
         case .maps:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
             
@@ -390,12 +365,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             return 60
         } else {
             switch sections[indexPath.section] {
-            case .destination:
-                if route == nil || indexPath.row == 1 {
-                    return 44
-                } else {
-                    return 220
-                }
             case .alerts, .maps:
                 return 44
             case .starred, .buses:
@@ -411,10 +380,6 @@ class MasterViewController: UITableViewController, UISearchControllerDelegate, U
             switch sections[indexPath.section] {
             case .alerts:
                 performSegue(withIdentifier: "showAlert", sender: tableView)
-            case .destination:
-                if route == nil || indexPath.row == 1 {
-                    performSegue(withIdentifier: "showChangeDestination", sender: tableView)
-                }
             case .maps:
                 performSegue(withIdentifier: "showMap", sender: tableView)
             case .starred, .buses:
