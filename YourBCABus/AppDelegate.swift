@@ -62,31 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                     if BusManager.shared.starredBuses.contains(where: {$0._id == busID}) {
                         Messaging.messaging().subscribe(toTopic: topic)
                     } else {
-                        var routeBusId: String?
-                    
-                        if let data = UserDefaults(suiteName: Constants.groupId)?.data(forKey: Constants.currentDestinationDefaultsKey) {
-                            let route = try? PropertyListDecoder().decode(Route.self, from: data)
-                            routeBusId = route?.bus?._id
-                        }
-
-                        if busID != routeBusId {
-                            Messaging.messaging().unsubscribe(fromTopic: topic)
-                        }
+                        Messaging.messaging().unsubscribe(fromTopic: topic)
                     }
-                }
-            }
-        }))
-        
-        notificationTokens.append(NotificationCenter.default.observe(name: MasterViewController.currentDestinationDidChange, object: nil, queue: nil, using: { [unowned self] notification in
-            if UserDefaults.standard.bool(forKey: AppDelegate.routeBusArrivalNotificationsDefaultKey) {
-                if let oldID = (notification.userInfo?[MasterViewController.currentDestinationDidChangeOldRouteKey] as? Route)?.bus?._id {
-                    if !BusManager.shared.starredBuses.contains(where: {$0._id == oldID}) {
-                        Messaging.messaging().unsubscribe(fromTopic: "school.\(self.schoolId).bus.\(oldID)")
-                    }
-                }
-                
-                if let id = (notification.userInfo?[MasterViewController.currentDestinationDidChangeNewRouteKey] as? Route)?.bus?._id {
-                    Messaging.messaging().subscribe(toTopic: "school.\(self.schoolId).bus.\(id)")
                 }
             }
         }))
@@ -137,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }))
         
         UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: { requests in
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: requests.filter({ $0.identifier.starts(with: ModalNavigationViewController.getOffAlertNotificationIdPrefix) }).map({ $0.identifier }))
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: requests.filter({ $0.identifier.starts(with: Constants.getOffAlertNotificationIdPrefix) }).map({ $0.identifier }))
         })
         
         if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) && UserDefaults.standard.object(forKey: AppDelegate.routeBusArrivalNotificationsDefaultKey) == nil {
@@ -161,14 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func configureGetOffAlerts() {
         locationManager.monitoredRegions.forEach(locationManager.stopMonitoring)
         if UserDefaults.standard.bool(forKey: Constants.getOffAlertsDefaultsKey) {
-            if let data = UserDefaults(suiteName: Constants.groupId)?.data(forKey: Constants.currentDestinationDefaultsKey) {
-                if let route = try? PropertyListDecoder().decode(Route.self, from: data) {
-                    if let stop = route.stop {
-                        let radius = CLLocationDistance(UserDefaults.standard.integer(forKey: Constants.getOffAlertRadiusDefaultKey))
-                        locationManager.startMonitoring(for: CLCircularRegion(center: CLLocationCoordinate2D(from: stop.location), radius: radius == 0 ? Constants.getOffAlertDefaultRadius : radius, identifier: stop._id))
-                    }
-                }
-            }
+            
         }
     }
     
@@ -217,7 +187,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
-        DirectionsCache.shared.clearCache()
+        
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {

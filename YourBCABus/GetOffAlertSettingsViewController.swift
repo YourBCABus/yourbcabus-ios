@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import UserNotifications
+import YourBCABus_Embedded
 
 class GetOffAlertSettingsViewController: UITableViewController, CLLocationManagerDelegate {
     
@@ -25,7 +26,7 @@ class GetOffAlertSettingsViewController: UITableViewController, CLLocationManage
     var requiredSteps = [RequiredStep]() {
         willSet {
             if newValue.count == 0 && requiredSteps.count > 0 {
-                NotificationCenter.default.post(name: ModalNavigationViewController.didChangeGetOffAlertsNotificationName, object: self)
+                NotificationCenter.default.post(name: Constants.didChangeGetOffAlertsNotificationName, object: self)
             }
         }
     }
@@ -150,7 +151,7 @@ class GetOffAlertSettingsViewController: UITableViewController, CLLocationManage
             
             let switchView = cell.accessoryView as! UISwitch
             switchView.isEnabled = getOffAlertsAvailable && requiredSteps.count < 1
-            switchView.setOn(UserDefaults.standard.bool(forKey: ModalNavigationViewController.getOffAlertsDefaultsKey), animated: false)
+            switchView.setOn(UserDefaults.standard.bool(forKey: Constants.getOffAlertsDefaultsKey), animated: false)
             
             return cell
         default:
@@ -217,12 +218,12 @@ class GetOffAlertSettingsViewController: UITableViewController, CLLocationManage
     }
     
     @objc func getOffAlertSwitchChanged(sender: UISwitch?) {
-        UserDefaults.standard.set(true, forKey: ModalNavigationViewController.didAskToSetUpGetOffAlertsDefaultsKey)
+        UserDefaults.standard.set(true, forKey: Constants.didAskToSetUpGetOffAlertsDefaultsKey)
         
         guard let theSwitch = sender else { return }
         
-        UserDefaults.standard.set(theSwitch.isOn, forKey: ModalNavigationViewController.getOffAlertsDefaultsKey)
-        NotificationCenter.default.post(name: ModalNavigationViewController.didChangeGetOffAlertsNotificationName, object: self)
+        UserDefaults.standard.set(theSwitch.isOn, forKey: Constants.getOffAlertsDefaultsKey)
+        NotificationCenter.default.post(name: Constants.didChangeGetOffAlertsNotificationName, object: self)
     }
 
     /*

@@ -19,7 +19,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     var detailItem: Bus? {
         didSet {
             stops = []
-            customStops = []
             if let bus = detailItem {
                 APIService.shared.getStops(schoolId: bus.school_id, busId: bus._id, cachingMode: .both) { result in
                     if result.ok {
@@ -49,8 +48,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                         print(result.error!)
                     }
                 }
-                
-                customStops = try! Stop.getCustomStops().filter({$0.bus_id == bus._id}).sorted(by: {$0.arrives! < $1.arrives!})
             }
             
             configureView()
@@ -58,7 +55,6 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     var stops = [Stop]()
-    var customStops = [Stop]()
 
     func configureView() {
         // Update the user interface for the detail item.
@@ -69,9 +65,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             }) as? MapViewController
             mapController?.detailBus = bus._id
             mapController?.mapPoints = [[]]
-            mapController?.standalonePoints = customStops.map({ stop in
-                return BusMapPoint(coordinate: CLLocationCoordinate2D(from: stop.location), title: stop.description, bus: nil, stopId: stop._id)
-            })
+            mapController?.standalonePoints = []
             mapController?.reloadsMapTypeOnRegionChange = true
             mapController?.reloadStops()
         }
@@ -100,30 +94,22 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             sections += 1
         }
         
-        if customStops.count > 0 {
-            sections += 1
-        }
-        
         return sections
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return nil
-        } else if section == 1 && stops.count > 0 {
-            return "Stops"
         } else {
-            return "Custom Stops"
+            return "Stops"
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
-        } else if section == 1 && stops.count > 0 {
-            return stops.count
         } else {
-            return customStops.count
+            return stops.count
         }
     }
     
@@ -137,7 +123,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "StopCell")!
-            let stop = indexPath.section == 1 && stops.count > 0 ? stops[indexPath.row] : customStops[indexPath.row]
+            let stop = stops[indexPath.row]
             cell.textLabel?.text = stop.description
             cell.detailTextLabel?.text = stop.arrives == nil ? nil : formatter.string(from: stop.arrives!)
             return cell
@@ -148,7 +134,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section > 0 {
-            let stop = indexPath.section == 1 && stops.count > 0 ? stops[indexPath.row] : customStops[indexPath.row]
+            let stop = stops[indexPath.row]
             (children.first(where: { controller in
                 return controller is MapViewController
             }) as? MapViewController)?.mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(from: stop.location), latitudinalMeters: focusRegionRadius, longitudinalMeters: focusRegionRadius), animated: true)

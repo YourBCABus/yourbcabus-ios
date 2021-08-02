@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import UserNotifications
+import YourBCABus_Embedded
 
 class GetOffAlertPromptViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -33,8 +34,8 @@ class GetOffAlertPromptViewController: UIViewController, CLLocationManagerDelega
     }
     
     func enableGetOffAlerts() {
-        UserDefaults.standard.set(true, forKey: ModalNavigationViewController.getOffAlertsDefaultsKey)
-        NotificationCenter.default.post(name: ModalNavigationViewController.didChangeGetOffAlertsNotificationName, object: self)
+        UserDefaults.standard.set(true, forKey: Constants.getOffAlertsDefaultsKey)
+        NotificationCenter.default.post(name: Constants.didChangeGetOffAlertsNotificationName, object: self)
         self.exit()
     }
     
@@ -137,7 +138,7 @@ class GetOffAlertPromptViewController: UIViewController, CLLocationManagerDelega
     }
     
     @IBAction func exit(sender: UIButton? = nil) {
-        UserDefaults.standard.set(true, forKey: ModalNavigationViewController.didAskToSetUpGetOffAlertsDefaultsKey)
+        UserDefaults.standard.set(true, forKey: Constants.didAskToSetUpGetOffAlertsDefaultsKey)
         dismiss(animated: true, completion: nil)
     }
 
