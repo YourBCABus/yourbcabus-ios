@@ -12,7 +12,6 @@ import UserNotifications
 import CoreLocation
 import YourBCABus_Embedded
 
-@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, UNUserNotificationCenterDelegate, CLLocationManagerDelegate, MessagingDelegate {
 
     var window: UIWindow?

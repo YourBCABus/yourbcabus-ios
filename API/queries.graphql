@@ -1,0 +1,16 @@
+query GetSchools {
+    schools {
+        id
+        name
+        readable
+    }
+}
+
+query GetBuses($schoolID: ID!) {
+    school(id: $schoolID) {
+        buses {
+            id
+            name
+        }
+    }
+}
