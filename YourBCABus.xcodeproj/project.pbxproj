@@ -35,11 +35,12 @@
 		4A8C032E22261C92004FA580 /* DotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C032D22261C92004FA580 /* DotView.swift */; };
 		4A8C4B3926B87F76006A93A7 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B3826B87F76006A93A7 /* App.swift */; };
 		4A8C4B3D26B88305006A93A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B3C26B88305006A93A7 /* ContentView.swift */; };
-		4A8C4B3F26B89633006A93A7 /* SchoolsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B3E26B89633006A93A7 /* SchoolsListView.swift */; };
+		4A8C4B3F26B89633006A93A7 /* SchoolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B3E26B89633006A93A7 /* SchoolsView.swift */; };
 		4A8C4B4226B89B63006A93A7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 4A8C4B4126B89B63006A93A7 /* Apollo */; };
 		4A8C4B4726B89C9A006A93A7 /* queries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4A8C4B4626B89C9A006A93A7 /* queries.graphql */; };
 		4A8C4B4926B89D80006A93A7 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B4826B89D80006A93A7 /* API.swift */; };
 		4A8C4B4B26B8A07E006A93A7 /* ApolloClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B4A26B8A07E006A93A7 /* ApolloClient.swift */; };
+		4A9526D226BC9338007C58CA /* SchoolsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A9526D126BC9338007C58CA /* SchoolsView.storyboard */; };
 		4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */; };
 		4AB0327A22A2FDEC00143805 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB0327922A2FDEC00143805 /* NotificationService.swift */; };
 		4AB0327E22A2FDEC00143805 /* YourBCABus Notification Service.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AB0327722A2FDEC00143805 /* YourBCABus Notification Service.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -163,11 +164,12 @@
 		4A8C032D22261C92004FA580 /* DotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotView.swift; sourceTree = "<group>"; };
 		4A8C4B3826B87F76006A93A7 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		4A8C4B3C26B88305006A93A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		4A8C4B3E26B89633006A93A7 /* SchoolsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolsListView.swift; sourceTree = "<group>"; };
+		4A8C4B3E26B89633006A93A7 /* SchoolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolsView.swift; sourceTree = "<group>"; };
 		4A8C4B4326B89BB2006A93A7 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		4A8C4B4626B89C9A006A93A7 /* queries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = queries.graphql; sourceTree = "<group>"; };
 		4A8C4B4826B89D80006A93A7 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		4A8C4B4A26B8A07E006A93A7 /* ApolloClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClient.swift; sourceTree = "<group>"; };
+		4A9526D126BC9338007C58CA /* SchoolsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SchoolsView.storyboard; sourceTree = "<group>"; };
 		4A97EC10217EAE96003C7C60 /* BusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusTableViewCell.swift; sourceTree = "<group>"; };
 		4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLocationView.swift; sourceTree = "<group>"; };
 		4AB0327722A2FDEC00143805 /* YourBCABus Notification Service.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "YourBCABus Notification Service.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -342,7 +344,8 @@
 			isa = PBXGroup;
 			children = (
 				4A8C4B3C26B88305006A93A7 /* ContentView.swift */,
-				4A8C4B3E26B89633006A93A7 /* SchoolsListView.swift */,
+				4A8C4B3E26B89633006A93A7 /* SchoolsView.swift */,
+				4A9526D126BC9338007C58CA /* SchoolsView.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AE7066C218FE4C100A95AC0 /* Navigation.storyboard in Resources */,
+				4A9526D226BC9338007C58CA /* SchoolsView.storyboard in Resources */,
 				4AC07B46228D03B9002F2537 /* Embedded Assets.xcassets in Resources */,
 				4A113B16217A987100B7640E /* LaunchScreen.storyboard in Resources */,
 				4A113B13217A987100B7640E /* Assets.xcassets in Resources */,
@@ -830,7 +834,7 @@
 				4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */,
 				4A1E96E221B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift in Sources */,
 				4A8C4B3D26B88305006A93A7 /* ContentView.swift in Sources */,
-				4A8C4B3F26B89633006A93A7 /* SchoolsListView.swift in Sources */,
+				4A8C4B3F26B89633006A93A7 /* SchoolsView.swift in Sources */,
 				4A8C4B4926B89D80006A93A7 /* API.swift in Sources */,
 				4AD3AB1E2230417300FD58C2 /* BusManager.swift in Sources */,
 				4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */,
