@@ -37,18 +37,56 @@ private struct SchoolsInternalView: UIViewControllerRepresentable {
     }
 }
 
-class SchoolsViewController: UITableViewController, UISearchControllerDelegate {
+class SchoolsViewController: UITableViewController, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let resultsController = searchController.searchResultsController as! SchoolsSearchResultsViewController
+        if let text = searchController.searchBar.text {
+            switch result {
+            case .none, .some(.failure(_)):
+                resultsController.schools = []
+            case .some(.success(let result)):
+                if let data = result.data {
+                    var predicates = [NSPredicate]()
+                    let stringExpression = NSExpression(forConstantValue: text)
+                    
+                    let nameExpression = NSExpression(block: { (school, _, _) in
+                        return (school as! GetSchoolsQuery.Data.School).name ?? "(unnamed school)"
+                    }, arguments: nil)
+                    let namePredicate = NSComparisonPredicate(leftExpression: nameExpression, rightExpression: stringExpression, modifier: .direct, type: .contains, options: [.caseInsensitive, .diacriticInsensitive])
+                    predicates.append(namePredicate)
+                    
+                    let idExpression = NSExpression(block: { (school, _, _) in
+                        return (school as! GetSchoolsQuery.Data.School).id
+                    }, arguments: nil)
+                    let idPredicate = NSComparisonPredicate(leftExpression: idExpression, rightExpression: stringExpression, modifier: .direct, type: .equalTo, options: [.caseInsensitive, .diacriticInsensitive])
+                    predicates.append(idPredicate)
+                    
+                    let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicates)
+                    resultsController.schools = data.schools.filter { predicate.evaluate(with: $0) }
+                } else {
+                    resultsController.schools = []
+                }
+            }
+        } else {
+            resultsController.schools = []
+        }
+        resultsController.tableView.reloadData()
+    }
+    
     var searchController: UISearchController?
     var result: Result<GraphQLResult<GetSchoolsQuery.Data>, Error>?
     
     override func viewDidLoad() {
-        
+        searchController = UISearchController(searchResultsController: SchoolsInternalView.storyboard.instantiateViewController(withIdentifier: "searchResultsController"))
+        searchController!.searchResultsUpdater = self
     }
     
     override func didMove(toParent parent: UIViewController?) {
         // Painfully hacky, but hey, it's SwiftUI!
         if let parent = parent {
             parent.navigationItem.largeTitleDisplayMode = .never
+            parent.navigationItem.searchController = searchController
+            parent.navigationItem.hidesSearchBarWhenScrolling = false
         }
     }
     
@@ -85,6 +123,24 @@ class SchoolsViewController: UITableViewController, UISearchControllerDelegate {
         case .some(.failure(_)):
             cell.textLabel!.text = "An error occurred. Please try again."
         }
+        return cell
+    }
+}
+
+class SchoolsSearchResultsViewController: UITableViewController {
+    var schools = [GetSchoolsQuery.Data.School]()
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return schools.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SchoolCell")!
+        cell.textLabel!.text = schools[indexPath.row].name ?? "(unnamed school)"
         return cell
     }
 }
