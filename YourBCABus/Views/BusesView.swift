@@ -14,10 +14,12 @@ struct BusesView: View {
     var body: some View {
         SearchView {
             ScrollView {
-                LazyVStack {
+                LazyVStack(spacing: 0) {
+                    #if !targetEnvironment(macCatalyst)
                     ReloadControl { end in
                         end()
                     }.frame(height: 0)
+                    #endif
                     ZStack(alignment: .bottom) {
                         Text("[pretend this is a map]").foregroundColor(.white).frame(height: 250)
                         HStack {
@@ -27,7 +29,7 @@ struct BusesView: View {
                             Image(systemName: "chevron.right")
                         }.padding().frame(maxWidth: .infinity).background(Color.black.opacity(0.5)).foregroundColor(.white)
                     }.frame(maxWidth: .infinity).background(Color.blue).cornerRadius(16).padding().accessibility(label: Text("Map"))
-                    ForEach(1..<6) { i in
+                    ForEach(1..<100) { i in
                         HStack {
                             Text("Bus \(i)")
                             Spacer()
@@ -35,7 +37,7 @@ struct BusesView: View {
                                 Circle().fill(Color.blue)
                                 Text("\(i)").foregroundColor(.white).fontWeight(.bold)
                             }.aspectRatio(1, contentMode: .fit).frame(height: 48)
-                        }.padding(.horizontal)
+                        }.padding(.horizontal).padding(.vertical, 4)
                     }
                     FooterView().padding()
                 }.listStyle(PlainListStyle())
