@@ -10,9 +10,22 @@ import SwiftUI
 
 @main
 struct YourBCABus: App {
+    static private let schoolDefaultsKey = "YBBSchoolID"
+    
+    @State var schoolID: String? = {
+        if let id = UserDefaults.standard.string(forKey: schoolDefaultsKey) {
+            return id
+        } else {
+            // TODO: Default to BCA under certain conditions to facilitate updates
+            return nil
+        }
+    }()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(schoolID: $schoolID)
+        }.onChange(of: schoolID) { id in
+            UserDefaults.standard.set(id, forKey: Self.schoolDefaultsKey)
         }
     }
 }

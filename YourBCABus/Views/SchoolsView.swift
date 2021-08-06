@@ -10,10 +10,14 @@ import SwiftUI
 import Apollo
 
 struct SchoolsView: View {
+    @Binding var schoolID: String?
     @State var result: Result<GraphQLResult<GetSchoolsQuery.Data>, Error>?
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     var body: some View {
-        SchoolsInternalView(result: result).onAppear {
+        SchoolsInternalView(result: result, onSelect: { id in
+            schoolID = id
+        }, selectedID: schoolID).onAppear {
             Network.shared.apollo.fetch(query: GetSchoolsQuery()) { result in
                 self.result = result
             }
@@ -24,6 +28,8 @@ struct SchoolsView: View {
 private struct SchoolsInternalView: UIViewControllerRepresentable {
     static let storyboard = UIStoryboard(name: "SchoolsView", bundle: nil)
     var result: Result<GraphQLResult<GetSchoolsQuery.Data>, Error>?
+    var onSelect: (String) -> Void
+    var selectedID: String?
     
     func makeUIViewController(context: Context) -> SchoolsViewController {
         let controller = Self.storyboard.instantiateInitialViewController() as! SchoolsViewController
@@ -33,11 +39,22 @@ private struct SchoolsInternalView: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: SchoolsViewController, context: Context) {
         uiViewController.result = result
+        uiViewController.onSelect = onSelect
+        uiViewController.selectedID = selectedID
         uiViewController.tableView.reloadData()
     }
 }
 
 class SchoolsViewController: UITableViewController, UISearchResultsUpdating {
+    var selectedID: String? {
+        didSet {
+            if let resultsController = searchController?.searchResultsController as? SchoolsSearchResultsViewController {
+                resultsController.selectedID = selectedID
+                resultsController.tableView.reloadData()
+            }
+        }
+    }
+    
     func updateSearchResults(for searchController: UISearchController) {
         let resultsController = searchController.searchResultsController as! SchoolsSearchResultsViewController
         if let text = searchController.searchBar.text {
@@ -70,14 +87,20 @@ class SchoolsViewController: UITableViewController, UISearchResultsUpdating {
         } else {
             resultsController.schools = []
         }
+        resultsController.selectedID = selectedID
         resultsController.tableView.reloadData()
     }
     
     var searchController: UISearchController?
     var result: Result<GraphQLResult<GetSchoolsQuery.Data>, Error>?
+    var onSelect: ((String) -> Void)?
     
     override func viewDidLoad() {
-        searchController = UISearchController(searchResultsController: SchoolsInternalView.storyboard.instantiateViewController(withIdentifier: "searchResultsController"))
+        let resultsController = SchoolsInternalView.storyboard.instantiateViewController(withIdentifier: "searchResultsController") as! SchoolsSearchResultsViewController
+        resultsController.onSelect = { [weak self] id in
+            self?.onSelect?(id)
+        }
+        searchController = UISearchController(searchResultsController: resultsController)
         searchController!.searchResultsUpdater = self
     }
     
@@ -111,12 +134,16 @@ class SchoolsViewController: UITableViewController, UISearchResultsUpdating {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SchoolCell")!
+        cell.accessoryType = .none
         switch result {
         case .none:
             cell.textLabel!.text = "Loading..."
         case .some(.success(let result)):
             if let data = result.data {
                 cell.textLabel!.text = data.schools[indexPath.row].name ?? "(unnamed school)"
+                if data.schools[indexPath.row].id == selectedID {
+                    cell.accessoryType = .checkmark
+                }
             } else {
                 cell.textLabel!.text = "An error occurred. Please try again."
             }
@@ -125,10 +152,32 @@ class SchoolsViewController: UITableViewController, UISearchResultsUpdating {
         }
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        switch result {
+        case .none, .some(.failure(_)):
+            return nil
+        case .some(.success(let result)):
+            if result.data != nil {
+                return indexPath
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if case .some(.success(let result)) = result, let data = result.data {
+            onSelect?(data.schools[indexPath.row].id)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
 }
 
 class SchoolsSearchResultsViewController: UITableViewController {
     var schools = [GetSchoolsQuery.Data.School]()
+    var selectedID: String?
+    var onSelect: ((String) -> Void)?
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -141,6 +190,12 @@ class SchoolsSearchResultsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SchoolCell")!
         cell.textLabel!.text = schools[indexPath.row].name ?? "(unnamed school)"
+        cell.accessoryType = schools[indexPath.row].id == selectedID ? .checkmark : .none
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        onSelect?(schools[indexPath.row].id)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -30,6 +30,13 @@
 		4A4E48392293875500B3F90C /* alerts-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E48382293875500B3F90C /* alerts-script.js */; };
 		4A5E8A0026A730E300A612AF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E89FF26A730E300A612AF /* Routes.swift */; };
 		4A61540D222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61540C222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift */; };
+		4A642DC026BD9BCC00C0D3BC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DBF26BD9BCC00C0D3BC /* OnboardingView.swift */; };
+		4A642DC226BD9EE400C0D3BC /* UndismissableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC126BD9EE400C0D3BC /* UndismissableView.swift */; };
+		4A642DC426BDAD1900C0D3BC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC326BDAD1900C0D3BC /* SearchView.swift */; };
+		4A642DC626BDB09B00C0D3BC /* BusesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC526BDB09B00C0D3BC /* BusesView.swift */; };
+		4A642DC826BDB16000C0D3BC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC726BDB16000C0D3BC /* SettingsView.swift */; };
+		4A642DCA26BDC1D900C0D3BC /* ReloadControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC926BDC1D900C0D3BC /* ReloadControl.swift */; };
+		4A642DCC26BDC68D00C0D3BC /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DCB26BDC68D00C0D3BC /* FooterView.swift */; };
 		4A83527F22333DBC008B3EF3 /* BusLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */; };
 		4A85DA9D21BF4CB000F84F85 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */; };
 		4A8C032E22261C92004FA580 /* DotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C032D22261C92004FA580 /* DotView.swift */; };
@@ -158,6 +165,13 @@
 		4A4E48382293875500B3F90C /* alerts-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "alerts-script.js"; sourceTree = "<group>"; };
 		4A5E89FF26A730E300A612AF /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		4A61540C222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusArrivalNotificationsTableViewController.swift; sourceTree = "<group>"; };
+		4A642DBF26BD9BCC00C0D3BC /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		4A642DC126BD9EE400C0D3BC /* UndismissableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndismissableView.swift; sourceTree = "<group>"; };
+		4A642DC326BDAD1900C0D3BC /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		4A642DC526BDB09B00C0D3BC /* BusesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusesView.swift; sourceTree = "<group>"; };
+		4A642DC726BDB16000C0D3BC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		4A642DC926BDC1D900C0D3BC /* ReloadControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadControl.swift; sourceTree = "<group>"; };
+		4A642DCB26BDC68D00C0D3BC /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		4A83526F22333D8C008B3EF3 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		4A85DA9C21BF4CB000F84F85 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		4A8C032B22261A37004FA580 /* BusStatusColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStatusColors.swift; sourceTree = "<group>"; };
@@ -344,8 +358,15 @@
 			isa = PBXGroup;
 			children = (
 				4A8C4B3C26B88305006A93A7 /* ContentView.swift */,
+				4A642DC126BD9EE400C0D3BC /* UndismissableView.swift */,
+				4A642DC326BDAD1900C0D3BC /* SearchView.swift */,
+				4A642DBF26BD9BCC00C0D3BC /* OnboardingView.swift */,
 				4A8C4B3E26B89633006A93A7 /* SchoolsView.swift */,
 				4A9526D126BC9338007C58CA /* SchoolsView.storyboard */,
+				4A642DC526BDB09B00C0D3BC /* BusesView.swift */,
+				4A642DCB26BDC68D00C0D3BC /* FooterView.swift */,
+				4A642DC926BDC1D900C0D3BC /* ReloadControl.swift */,
+				4A642DC726BDB16000C0D3BC /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -818,15 +839,20 @@
 				4A8C032E22261C92004FA580 /* DotView.swift in Sources */,
 				4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */,
 				4A97EC11217EAE96003C7C60 /* BusTableViewCell.swift in Sources */,
+				4A642DC426BDAD1900C0D3BC /* SearchView.swift in Sources */,
 				4A113B0E217A986E00B7640E /* DetailViewController.swift in Sources */,
 				4A61540D222DD28200AEDBC8 /* BusArrivalNotificationsTableViewController.swift in Sources */,
+				4A642DCC26BDC68D00C0D3BC /* FooterView.swift in Sources */,
+				4A642DCA26BDC1D900C0D3BC /* ReloadControl.swift in Sources */,
 				4AC2A9C3219C82DB00A4869A /* NotificationsPromptViewController.swift in Sources */,
 				4A113B3C217A9D2300B7640E /* GradientNavigationBar.swift in Sources */,
 				4A8C4B4B26B8A07E006A93A7 /* ApolloClient.swift in Sources */,
+				4A642DC226BD9EE400C0D3BC /* UndismissableView.swift in Sources */,
 				4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */,
 				4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */,
 				4A18A7F021B8B90D00D1042F /* GetOffAlertSettingsViewController.swift in Sources */,
 				4A85DA9D21BF4CB000F84F85 /* RootViewController.swift in Sources */,
+				4A642DC026BD9BCC00C0D3BC /* OnboardingView.swift in Sources */,
 				4AC8478621851118001E8698 /* BusStatusTableViewCell.swift in Sources */,
 				4A0E564521BC86C90019F6B0 /* CoreLocationExtensions.swift in Sources */,
 				4A8C4B3926B87F76006A93A7 /* App.swift in Sources */,
@@ -837,9 +863,11 @@
 				4A8C4B3F26B89633006A93A7 /* SchoolsView.swift in Sources */,
 				4A8C4B4926B89D80006A93A7 /* API.swift in Sources */,
 				4AD3AB1E2230417300FD58C2 /* BusManager.swift in Sources */,
+				4A642DC626BDB09B00C0D3BC /* BusesView.swift in Sources */,
 				4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */,
 				4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */,
 				4ADB65A5219118D300C29F34 /* TextFieldTableViewCell.swift in Sources */,
+				4A642DC826BDB16000C0D3BC /* SettingsView.swift in Sources */,
 				4A4E4837229385F800B3F90C /* AlertViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
