@@ -18,7 +18,7 @@ struct BusesView: View {
                     #if !targetEnvironment(macCatalyst)
                     ReloadControl { end in
                         end()
-                    }.frame(height: 0)
+                    }.frame(height: 1) // It's a hack but it works for iOS 14
                     #endif
                     ZStack(alignment: .bottom) {
                         Text("[pretend this is a map]").foregroundColor(.white).frame(height: 250)
@@ -28,7 +28,7 @@ struct BusesView: View {
                             Spacer()
                             Image(systemName: "chevron.right")
                         }.padding().frame(maxWidth: .infinity).background(Color.black.opacity(0.5)).foregroundColor(.white)
-                    }.frame(maxWidth: .infinity).background(Color.blue).cornerRadius(16).padding().accessibility(label: Text("Map"))
+                    }.frame(maxWidth: .infinity).background(Color.blue).cornerRadius(16).padding([.horizontal, .bottom]).accessibility(label: Text("Map"))
                     ForEach(1..<100) { i in
                         HStack {
                             Text("Bus \(i)")

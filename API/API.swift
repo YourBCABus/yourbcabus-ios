@@ -119,6 +119,7 @@ public final class GetBusesQuery: GraphQLQuery {
     query GetBuses($schoolID: ID!) {
       school(id: $schoolID) {
         __typename
+        name
         buses {
           __typename
           id
@@ -174,6 +175,7 @@ public final class GetBusesQuery: GraphQLQuery {
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("name", type: .scalar(String.self)),
           GraphQLField("buses", type: .nonNull(.list(.nonNull(.object(Bus.selections))))),
         ]
       }
@@ -184,8 +186,8 @@ public final class GetBusesQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(buses: [Bus]) {
-        self.init(unsafeResultMap: ["__typename": "School", "buses": buses.map { (value: Bus) -> ResultMap in value.resultMap }])
+      public init(name: String? = nil, buses: [Bus]) {
+        self.init(unsafeResultMap: ["__typename": "School", "name": name, "buses": buses.map { (value: Bus) -> ResultMap in value.resultMap }])
       }
 
       public var __typename: String {
@@ -194,6 +196,15 @@ public final class GetBusesQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var name: String? {
+        get {
+          return resultMap["name"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "name")
         }
       }
 

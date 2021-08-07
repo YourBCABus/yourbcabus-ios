@@ -45,7 +45,7 @@ struct ReloadControl: UIViewRepresentable {
             while current.superview != nil && !(current is UIScrollView) {
                 current = current.superview!
             }
-            if let scrollView = current as? UIScrollView {
+            if let scrollView = current as? UIScrollView, scrollView.refreshControl !== refreshControl {
                 scrollView.refreshControl = refreshControl
             }
         }

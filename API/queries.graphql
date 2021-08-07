@@ -8,6 +8,7 @@ query GetSchools {
 
 query GetBuses($schoolID: ID!) {
     school(id: $schoolID) {
+        name
         buses {
             id
             name
