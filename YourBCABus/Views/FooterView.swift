@@ -14,7 +14,7 @@ struct FooterView: View {
             VStack {
                 Text("The YourBCABus Team").font(.headline)
                 Text("Anthony Li, Edward Feng, Skyler Calaman").font(.caption)
-            }.multilineTextAlignment(.center).foregroundColor(.gray)
+            }.multilineTextAlignment(.center).foregroundColor(.secondary)
         }
     }
 }

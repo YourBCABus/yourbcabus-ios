@@ -12,6 +12,7 @@ query GetBuses($schoolID: ID!) {
         buses {
             id
             name
+            available
         }
     }
 }

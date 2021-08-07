@@ -124,6 +124,7 @@ public final class GetBusesQuery: GraphQLQuery {
           __typename
           id
           name
+          available
         }
       }
     }
@@ -225,6 +226,7 @@ public final class GetBusesQuery: GraphQLQuery {
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("name", type: .scalar(String.self)),
+            GraphQLField("available", type: .nonNull(.scalar(Bool.self))),
           ]
         }
 
@@ -234,8 +236,8 @@ public final class GetBusesQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: GraphQLID, name: String? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Bus", "id": id, "name": name])
+        public init(id: GraphQLID, name: String? = nil, available: Bool) {
+          self.init(unsafeResultMap: ["__typename": "Bus", "id": id, "name": name, "available": available])
         }
 
         public var __typename: String {
@@ -262,6 +264,15 @@ public final class GetBusesQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+
+        public var available: Bool {
+          get {
+            return resultMap["available"]! as! Bool
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "available")
           }
         }
       }
