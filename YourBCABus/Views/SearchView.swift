@@ -52,10 +52,8 @@ class SearchViewController<Content: View, SearchResultsContent: View>: UIHosting
         if let parent = parent {
             parent.navigationItem.searchController = searchController
             
-            // TODO: Find a better place to put these cosmetic changes
+            // TODO: Find a better place to put this
             parent.navigationItem.hidesSearchBarWhenScrolling = false
-            parent.navigationItem.largeTitleDisplayMode = .never
-            
         }
     }
     

@@ -14,5 +14,20 @@ query GetBuses($schoolID: ID!) {
             name
             available
         }
+        alerts {
+            id
+            start
+            end
+            title
+            type {
+                name
+                color {
+                    r
+                    g
+                    b
+                }
+            }
+            dismissable
+        }
     }
 }

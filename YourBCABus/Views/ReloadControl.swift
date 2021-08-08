@@ -7,9 +7,11 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ReloadControl: UIViewRepresentable {
-    var refresh: (() -> Void) -> Void
+    var endRefreshSubject: PassthroughSubject<Void, Never>
+    var refresh: () -> Void
     
     func makeUIView(context: Context) -> ReloadControlUIView {
         let view = ReloadControlUIView()
@@ -27,17 +29,28 @@ struct ReloadControl: UIViewRepresentable {
     }
     
     class Coordinator {
-        var parent: ReloadControl
+        var cancellables = Set<AnyCancellable>()
+        var parent: ReloadControl {
+            didSet {
+                subscribe()
+            }
+        }
         let refreshControl = UIRefreshControl()
         init(_ parent: ReloadControl) {
             self.parent = parent
             refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+            subscribe()
+        }
+        
+        func subscribe() {
+            cancellables.removeAll()
+            parent.endRefreshSubject.sink { [weak self] in
+                self?.refreshControl.endRefreshing()
+            }.store(in: &cancellables)
         }
         
         @objc func handleRefresh() {
-            parent.refresh {
-                refreshControl.endRefreshing()
-            }
+            parent.refresh()
         }
         
         func viewMoved(view: UIView) {
