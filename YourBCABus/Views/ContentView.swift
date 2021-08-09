@@ -25,7 +25,7 @@ struct ContentView: View {
                             }
                         }
                     }
-                    Text("Detail view")
+                    Text("Select a bus to get started.").navigationBarTitle("No Bus Selected", displayMode: .inline).font(.largeTitle).foregroundColor(.secondary)
                 }
             } else {
                 EmptyView()

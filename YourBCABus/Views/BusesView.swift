@@ -10,6 +10,11 @@ import SwiftUI
 import Apollo
 import Combine
 
+func isoStringToDate(_ str: String) -> Date? {
+    let formatter = ISO8601DateFormatter()
+    return formatter.date(from: str)
+}
+
 struct BusRowView: View {
     var uiID: String
     var bus: GetBusesQuery.Data.School.Bus
@@ -32,7 +37,7 @@ struct BusRowView: View {
                     Image(systemName: isStarred ? "star.fill" : "star").foregroundColor(isStarred ? .blue : .secondary)
                 }.accessibility(label: Text(isStarred ? "Unstar" : "Star"))
                 ZStack {
-                    Circle().fill(Color.blue)
+                    Circle().fill(Color.accentColor)
                     Text("?").foregroundColor(.white).fontWeight(.bold)
                 }.aspectRatio(1, contentMode: .fit).frame(height: 48)
             }.padding(.horizontal)
@@ -42,7 +47,7 @@ struct BusRowView: View {
     }
     
     var destination: some View {
-        Text(bus.name ?? "(unnamed bus)").navigationTitle(bus.name ?? "(unnamed bus)")
+        Text(bus.name ?? "(unnamed bus)").navigationBarTitle(bus.name ?? "(unnamed bus)", displayMode: .inline)
     }
     
     var body: some View {
@@ -75,7 +80,8 @@ struct BusesView: View {
     let endRefreshSubject = PassthroughSubject<Void, Never>()
     @State var result: Result<GraphQLResult<GetBusesQuery.Data>, Error>?
     @State var loadCancellable: Apollo.Cancellable?
-    @State var isStarred = [String: Bool]()
+    @State var isStarred = Set<String>()
+    @State var dismissedAlerts = Set<String>()
     @State var selectedID: String?
     
     func reloadData(schoolID: String) {
@@ -87,7 +93,8 @@ struct BusesView: View {
     }
     
     var body: some View {
-        SearchView {
+        let now = Date()
+        return SearchView {
             ScrollView {
                 LazyVStack(spacing: 0) {
                     #if !targetEnvironment(macCatalyst)
@@ -115,7 +122,29 @@ struct BusesView: View {
                             } else {
                                 return a.id < b.id
                             }
-                        }), let starredBuses = buses.filter { isStarred[$0.id] ?? false } {
+                        }), let starredBuses = buses.filter { isStarred.contains($0.id) }, let alerts = school.alerts.filter { alert in
+                            if dismissedAlerts.contains(alert.id) {
+                                return false
+                            }
+                            if let end = isoStringToDate(alert.end) {
+                                if end >= now {
+                                    if let start = isoStringToDate(alert.start) {
+                                        return start <= now
+                                    } else {
+                                        return true
+                                    }
+                                } else {
+                                    return false
+                                }
+                            } else {
+                                return true
+                            }
+                        } {
+                            ForEach(alerts, id: \.id) { alert in
+                                AlertView(alert: alert) {
+                                    dismissedAlerts.insert(alert.id)
+                                }.padding(.horizontal).padding(.bottom, 8)
+                            }
                             ZStack(alignment: .bottom) {
                                 Text("[pretend this is a map]").foregroundColor(.white).frame(height: 250)
                                 HStack {
@@ -131,9 +160,13 @@ struct BusesView: View {
                             ForEach(starredBuses.map { ($0, "starred.\($0.id)") }, id: \.1) { tuple in
                                 let (bus, uiID) = tuple
                                 BusRowView(uiID: uiID, bus: bus, isStarred: Binding {
-                                    isStarred[bus.id] ?? false
+                                    isStarred.contains(bus.id)
                                 } set: { starred in
-                                    isStarred[bus.id] = starred ? true : nil
+                                    if starred {
+                                        isStarred.remove(bus.id)
+                                    } else {
+                                        isStarred.insert(bus.id)
+                                    }
                                 }, selectedID: $selectedID)
                             }
                             if !starredBuses.isEmpty {
@@ -142,9 +175,13 @@ struct BusesView: View {
                             ForEach(buses.map { ($0, "all.\($0.id)") }, id: \.1) { tuple in
                                 let (bus, uiID) = tuple
                                 BusRowView(uiID: uiID, bus: bus, isStarred: Binding {
-                                    isStarred[bus.id] ?? false
+                                    isStarred.contains(bus.id)
                                 } set: { starred in
-                                    isStarred[bus.id] = starred ? true : nil
+                                    if starred {
+                                        isStarred.remove(bus.id)
+                                    } else {
+                                        isStarred.insert(bus.id)
+                                    }
                                 }, selectedID: $selectedID)
                             }
                         } else {
@@ -166,7 +203,7 @@ struct BusesView: View {
             reloadData(schoolID: schoolID)
         }.onChange(of: schoolID) { id in
             result = nil
-            isStarred = [:]
+            isStarred = []
             selectedID = nil
             reloadData(schoolID: id)
         }
