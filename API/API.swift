@@ -125,6 +125,8 @@ public final class GetBusesQuery: GraphQLQuery {
           id
           name
           available
+          boardingArea
+          invalidateTime
         }
         alerts {
           __typename
@@ -255,6 +257,8 @@ public final class GetBusesQuery: GraphQLQuery {
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("name", type: .scalar(String.self)),
             GraphQLField("available", type: .nonNull(.scalar(Bool.self))),
+            GraphQLField("boardingArea", type: .scalar(String.self)),
+            GraphQLField("invalidateTime", type: .scalar(String.self)),
           ]
         }
 
@@ -264,8 +268,8 @@ public final class GetBusesQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: GraphQLID, name: String? = nil, available: Bool) {
-          self.init(unsafeResultMap: ["__typename": "Bus", "id": id, "name": name, "available": available])
+        public init(id: GraphQLID, name: String? = nil, available: Bool, boardingArea: String? = nil, invalidateTime: String? = nil) {
+          self.init(unsafeResultMap: ["__typename": "Bus", "id": id, "name": name, "available": available, "boardingArea": boardingArea, "invalidateTime": invalidateTime])
         }
 
         public var __typename: String {
@@ -301,6 +305,24 @@ public final class GetBusesQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "available")
+          }
+        }
+
+        public var boardingArea: String? {
+          get {
+            return resultMap["boardingArea"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "boardingArea")
+          }
+        }
+
+        public var invalidateTime: String? {
+          get {
+            return resultMap["invalidateTime"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "invalidateTime")
           }
         }
       }

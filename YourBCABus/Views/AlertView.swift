@@ -15,7 +15,7 @@ struct AlertView: View {
     var body: some View {
         VStack(alignment: .leading) {
             if let type = alert.type, let name = type.name {
-                Text(name).font(.caption).fontWeight(.bold).textCase(.uppercase).padding(.vertical, 4).padding(.horizontal, 8).multilineTextAlignment(.leading).frame(maxWidth: .infinity, alignment: .leading).background(Color.accentColor)
+                Text(name).font(.caption).fontWeight(.bold).textCase(.uppercase).padding(.vertical, 4).padding(.horizontal, 8).multilineTextAlignment(.leading).frame(maxWidth: .infinity, alignment: .leading).background(Color.accentColor).foregroundColor(.white)
             }
             HStack {
                 Text(alert.title).multilineTextAlignment(.leading)
@@ -26,8 +26,9 @@ struct AlertView: View {
                     } label: {
                         Image(systemName: "xmark.circle.fill").foregroundColor(.secondary)
                     }.accessibility(label: Text("Dismiss"))
+                    Image(systemName: "chevron.right").foregroundColor(.secondary)
                 }
-            }.padding([.horizontal, .bottom], 8).padding(.top, 2)
+            }.padding([.horizontal, .bottom], 8)
         }.frame(maxWidth: .infinity, alignment: .leading).background(Color.primary.opacity(0.1)).cornerRadius(8)
     }
 }

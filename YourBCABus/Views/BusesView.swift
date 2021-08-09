@@ -24,9 +24,10 @@ struct BusRowView: View {
     var linkContent: some View {
         ZStack(alignment: .trailing) {
             HStack {
+                let boardingArea = bus.getBoardingArea()
                 VStack(alignment: .leading) {
                     Text(bus.name ?? "(unnamed bus)").fontWeight(.bold).lineLimit(1).foregroundColor(.primary)
-                    Text(bus.available ? "Not at BCA" : "Not running").foregroundColor(.secondary)
+                    Text(boardingArea != nil ? "Arrived at BCA" : (bus.available ? "Not at BCA" : "Not running")).foregroundColor(.secondary)
                 }
                 Spacer()
                 Button {
@@ -38,7 +39,7 @@ struct BusRowView: View {
                 }.accessibility(label: Text(isStarred ? "Unstar" : "Star"))
                 ZStack {
                     Circle().fill(Color.accentColor)
-                    Text("?").foregroundColor(.white).fontWeight(.bold)
+                    Text(boardingArea ?? "?").foregroundColor(.white).fontWeight(.bold)
                 }.aspectRatio(1, contentMode: .fit).frame(height: 48)
             }.padding(.horizontal)
             // TODO: Does this work with RTL?
@@ -163,9 +164,9 @@ struct BusesView: View {
                                     isStarred.contains(bus.id)
                                 } set: { starred in
                                     if starred {
-                                        isStarred.remove(bus.id)
-                                    } else {
                                         isStarred.insert(bus.id)
+                                    } else {
+                                        isStarred.remove(bus.id)
                                     }
                                 }, selectedID: $selectedID)
                             }
@@ -178,9 +179,9 @@ struct BusesView: View {
                                     isStarred.contains(bus.id)
                                 } set: { starred in
                                     if starred {
-                                        isStarred.remove(bus.id)
-                                    } else {
                                         isStarred.insert(bus.id)
+                                    } else {
+                                        isStarred.remove(bus.id)
                                     }
                                 }, selectedID: $selectedID)
                             }
@@ -203,7 +204,6 @@ struct BusesView: View {
             reloadData(schoolID: schoolID)
         }.onChange(of: schoolID) { id in
             result = nil
-            isStarred = []
             selectedID = nil
             reloadData(schoolID: id)
         }

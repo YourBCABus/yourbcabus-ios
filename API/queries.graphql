@@ -13,6 +13,8 @@ query GetBuses($schoolID: ID!) {
             id
             name
             available
+            boardingArea
+            invalidateTime
         }
         alerts {
             id
