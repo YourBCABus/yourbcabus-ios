@@ -38,8 +38,13 @@ struct BusRowView: View {
                     Image(systemName: isStarred ? "star.fill" : "star").foregroundColor(isStarred ? .blue : .secondary)
                 }.accessibility(label: Text(isStarred ? "Unstar" : "Star"))
                 ZStack {
-                    Circle().fill(Color.accentColor)
-                    Text(boardingArea ?? "?").foregroundColor(.white).fontWeight(.bold)
+                    if let area = boardingArea {
+                        Circle().fill(Color.accentColor)
+                        Text(area).foregroundColor(.white).fontWeight(.bold)
+                    } else {
+                        Circle().stroke(Color.accentColor)
+                        Text("?").foregroundColor(.primary).fontWeight(.bold)
+                    }
                 }.aspectRatio(1, contentMode: .fit).frame(height: 48)
             }.padding(.horizontal)
             // TODO: Does this work with RTL?
