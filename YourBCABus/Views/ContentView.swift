@@ -22,7 +22,7 @@ struct ContentView: View {
     
     func reloadData(schoolID: String) {
         loadCancellable?.cancel()
-        loadCancellable = Network.shared.apollo.fetch(query: GetBusesQuery(schoolID: schoolID)) { result in
+        loadCancellable = Network.shared.apollo.fetch(query: GetBusesQuery(schoolID: schoolID), cachePolicy: .fetchIgnoringCacheData) { result in
             self.result = result
             endRefreshSubject.send()
         }
