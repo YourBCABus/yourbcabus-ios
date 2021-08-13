@@ -40,6 +40,13 @@ query GetBuses($schoolID: ID!) {
                 lat
                 long
             }
+            boardingAreas {
+                name
+                location {
+                    lat
+                    long
+                }
+            }
         }
     }
 }

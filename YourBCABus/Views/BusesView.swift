@@ -83,20 +83,12 @@ struct BusesSectionHeader: View {
 
 struct BusesView: View {
     var schoolID: String
-    let endRefreshSubject = PassthroughSubject<Void, Never>()
-    @State var result: Result<GraphQLResult<GetBusesQuery.Data>, Error>?
-    @State var loadCancellable: Apollo.Cancellable?
-    @State var isStarred = Set<String>()
-    @State var dismissedAlerts = Set<String>()
-    @State var selectedID: String?
-    
-    func reloadData(schoolID: String) {
-        loadCancellable?.cancel()
-        loadCancellable = Network.shared.apollo.fetch(query: GetBusesQuery(schoolID: schoolID)) { result in
-            self.result = result
-            endRefreshSubject.send()
-        }
-    }
+    var onRefresh: () -> Void
+    var endRefreshSubject: PassthroughSubject<Void, Never>
+    @Binding var result: Result<GraphQLResult<GetBusesQuery.Data>, Error>?
+    @Binding var isStarred: Set<String>
+    @Binding var dismissedAlerts: Set<String>
+    @Binding var selectedID: String?
     
     var body: some View {
         let now = Date()
@@ -105,7 +97,7 @@ struct BusesView: View {
                 LazyVStack(spacing: 0) {
                     #if !targetEnvironment(macCatalyst)
                     ReloadControl(endRefreshSubject: endRefreshSubject) {
-                        reloadData(schoolID: schoolID)
+                        onRefresh()
                     }.frame(height: 1) // It's a hack but it works for iOS 14
                     #endif
                     switch result {
@@ -153,8 +145,8 @@ struct BusesView: View {
                             }
                             if let mappingData = school.mappingData {
                                 ZStack(alignment: .bottom) {
-                                    MapView(mappingData: mappingData).frame(height: 250)
-                                    NavigationLink(destination: fullScreenMap(mappingData: mappingData), tag: "map", selection: $selectedID) {
+                                    MapView(mappingData: mappingData, buses: buses).frame(height: 250)
+                                    NavigationLink(destination: fullScreenMap(mappingData: mappingData, buses: buses), tag: "map", selection: $selectedID) {
                                         HStack {
                                             Image(systemName: "map")
                                             Text(school.name ?? "Map").lineLimit(1)
@@ -209,12 +201,6 @@ struct BusesView: View {
             } else {
                 return AnyView(Text("Coming soon"))
             }
-        }.edgesIgnoringSafeArea(.all).onAppear {
-            reloadData(schoolID: schoolID)
-        }.onChange(of: schoolID) { id in
-            result = nil
-            selectedID = nil
-            reloadData(schoolID: id)
-        }
+        }.edgesIgnoringSafeArea(.all)
     }
 }

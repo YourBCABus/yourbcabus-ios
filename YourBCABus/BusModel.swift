@@ -9,6 +9,7 @@
 import Foundation
 
 protocol BusModel {
+    var id: String { get }
     var boardingArea: String? { get }
     var invalidateTime: String? { get }
 }
