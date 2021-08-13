@@ -19,15 +19,15 @@ struct AlertView: View {
             }
             HStack {
                 Text(alert.title).multilineTextAlignment(.leading)
+                Spacer()
                 if alert.dismissable {
-                    Spacer()
                     Button {
                         onDismiss()
                     } label: {
                         Image(systemName: "xmark.circle.fill").foregroundColor(.secondary)
                     }.accessibility(label: Text("Dismiss"))
-                    Image(systemName: "chevron.right").foregroundColor(.secondary)
                 }
+                Image(systemName: "chevron.right").foregroundColor(.secondary)
             }.padding([.horizontal, .bottom], 8)
         }.frame(maxWidth: .infinity, alignment: .leading).background(Color.primary.opacity(0.1)).cornerRadius(8)
     }

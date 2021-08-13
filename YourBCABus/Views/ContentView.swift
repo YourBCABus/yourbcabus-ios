@@ -45,7 +45,7 @@ struct ContentView: View {
                 Group {
                     if case let .success(result) = result {
                         if let mappingData = result.data?.school?.mappingData {
-                            fullScreenMap(mappingData: mappingData, buses: result.data!.school!.buses)
+                            fullScreenMap(mappingData: mappingData, buses: result.data!.school!.buses, starredIDs: isStarred)
                         } else {
                             Text("No Bus Selected").foregroundColor(.secondary)
                         }

@@ -50,14 +50,16 @@ extension CLLocationCoordinate2D {
 struct MapView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
-    init(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], showScrim: Bool = false) {
+    init(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], starredIDs: Set<String> = [], showScrim: Bool = false) {
         self.mappingData = mappingData
         self.buses = buses
+        self.starredIDs = starredIDs
         self.showScrim = showScrim
     }
     
     var mappingData: GetBusesQuery.Data.School.MappingDatum
     var buses: [GetBusesQuery.Data.School.Bus]
+    var starredIDs: Set<String>
     var showScrim: Bool
     
     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
@@ -80,7 +82,7 @@ struct MapView: View {
             }
             Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: annotations) { bus in
                 MapAnnotation(coordinate: boardingAreas[bus.boardingArea!]!) {
-                    Image("Annotation - Bus").accessibility(label: Text(bus.name ?? "Bus"))
+                    Image(starredIDs.contains(bus.id) ? "Annotation - Bus Starred" : "Annotation - Bus").accessibility(label: Text(bus.name ?? "Bus"))
                 }
             }.edgesIgnoringSafeArea(.all)
             if showScrim {
@@ -95,6 +97,6 @@ struct MapView: View {
     }
 }
 
-func fullScreenMap(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = []) -> some View {
-    MapView(mappingData: mappingData, buses: buses, showScrim: true).navigationBarTitle("Map", displayMode: .inline)
+func fullScreenMap(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], starredIDs: Set<String> = []) -> some View {
+    MapView(mappingData: mappingData, buses: buses, starredIDs: starredIDs, showScrim: true).navigationBarTitle("Map", displayMode: .inline)
 }
