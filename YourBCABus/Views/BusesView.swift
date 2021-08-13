@@ -151,15 +151,19 @@ struct BusesView: View {
                                     dismissedAlerts.insert(alert.id)
                                 }.padding(.horizontal).padding(.bottom, 8)
                             }
-                            ZStack(alignment: .bottom) {
-                                Text("[pretend this is a map]").foregroundColor(.white).frame(height: 250)
-                                HStack {
-                                    Image(systemName: "map")
-                                    Text(school.name ?? "Map").lineLimit(1)
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                }.padding().frame(maxWidth: .infinity).background(Color.black.opacity(0.5)).foregroundColor(.white)
-                            }.frame(maxWidth: .infinity).background(Color.blue).cornerRadius(16).padding([.horizontal, .bottom]).accessibility(label: Text("Map"))
+                            if let mappingData = school.mappingData {
+                                ZStack(alignment: .bottom) {
+                                    MapView(mappingData: mappingData).frame(height: 250)
+                                    NavigationLink(destination: fullScreenMap(mappingData: mappingData), tag: "map", selection: $selectedID) {
+                                        HStack {
+                                            Image(systemName: "map")
+                                            Text(school.name ?? "Map").lineLimit(1)
+                                            Spacer()
+                                            Image(systemName: "chevron.right")
+                                        }.padding().frame(maxWidth: .infinity).background(Color.black.opacity(0.6)).foregroundColor(.white)
+                                    }
+                                }.frame(maxWidth: .infinity).background(Color.blue).cornerRadius(16).padding([.horizontal, .bottom]).accessibility(label: Text("Map"))
+                            }
                             if !starredBuses.isEmpty {
                                 BusesSectionHeader(text: "Starred")
                             }

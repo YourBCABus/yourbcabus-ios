@@ -146,6 +146,19 @@ public final class GetBusesQuery: GraphQLQuery {
           }
           dismissable
         }
+        mappingData {
+          __typename
+          boundingBoxA {
+            __typename
+            lat
+            long
+          }
+          boundingBoxB {
+            __typename
+            lat
+            long
+          }
+        }
       }
     }
     """
@@ -199,6 +212,7 @@ public final class GetBusesQuery: GraphQLQuery {
           GraphQLField("name", type: .scalar(String.self)),
           GraphQLField("buses", type: .nonNull(.list(.nonNull(.object(Bus.selections))))),
           GraphQLField("alerts", type: .nonNull(.list(.nonNull(.object(Alert.selections))))),
+          GraphQLField("mappingData", type: .object(MappingDatum.selections)),
         ]
       }
 
@@ -208,8 +222,8 @@ public final class GetBusesQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String? = nil, buses: [Bus], alerts: [Alert]) {
-        self.init(unsafeResultMap: ["__typename": "School", "name": name, "buses": buses.map { (value: Bus) -> ResultMap in value.resultMap }, "alerts": alerts.map { (value: Alert) -> ResultMap in value.resultMap }])
+      public init(name: String? = nil, buses: [Bus], alerts: [Alert], mappingData: MappingDatum? = nil) {
+        self.init(unsafeResultMap: ["__typename": "School", "name": name, "buses": buses.map { (value: Bus) -> ResultMap in value.resultMap }, "alerts": alerts.map { (value: Alert) -> ResultMap in value.resultMap }, "mappingData": mappingData.flatMap { (value: MappingDatum) -> ResultMap in value.resultMap }])
       }
 
       public var __typename: String {
@@ -245,6 +259,15 @@ public final class GetBusesQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue.map { (value: Alert) -> ResultMap in value.resultMap }, forKey: "alerts")
+        }
+      }
+
+      public var mappingData: MappingDatum? {
+        get {
+          return (resultMap["mappingData"] as? ResultMap).flatMap { MappingDatum(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "mappingData")
         }
       }
 
@@ -519,6 +542,153 @@ public final class GetBusesQuery: GraphQLQuery {
               set {
                 resultMap.updateValue(newValue, forKey: "b")
               }
+            }
+          }
+        }
+      }
+
+      public struct MappingDatum: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["MappingData"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("boundingBoxA", type: .nonNull(.object(BoundingBoxA.selections))),
+            GraphQLField("boundingBoxB", type: .nonNull(.object(BoundingBoxB.selections))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(boundingBoxA: BoundingBoxA, boundingBoxB: BoundingBoxB) {
+          self.init(unsafeResultMap: ["__typename": "MappingData", "boundingBoxA": boundingBoxA.resultMap, "boundingBoxB": boundingBoxB.resultMap])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var boundingBoxA: BoundingBoxA {
+          get {
+            return BoundingBoxA(unsafeResultMap: resultMap["boundingBoxA"]! as! ResultMap)
+          }
+          set {
+            resultMap.updateValue(newValue.resultMap, forKey: "boundingBoxA")
+          }
+        }
+
+        public var boundingBoxB: BoundingBoxB {
+          get {
+            return BoundingBoxB(unsafeResultMap: resultMap["boundingBoxB"]! as! ResultMap)
+          }
+          set {
+            resultMap.updateValue(newValue.resultMap, forKey: "boundingBoxB")
+          }
+        }
+
+        public struct BoundingBoxA: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["Location"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("lat", type: .nonNull(.scalar(Double.self))),
+              GraphQLField("long", type: .nonNull(.scalar(Double.self))),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(lat: Double, long: Double) {
+            self.init(unsafeResultMap: ["__typename": "Location", "lat": lat, "long": long])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var lat: Double {
+            get {
+              return resultMap["lat"]! as! Double
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "lat")
+            }
+          }
+
+          public var long: Double {
+            get {
+              return resultMap["long"]! as! Double
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "long")
+            }
+          }
+        }
+
+        public struct BoundingBoxB: GraphQLSelectionSet {
+          public static let possibleTypes: [String] = ["Location"]
+
+          public static var selections: [GraphQLSelection] {
+            return [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("lat", type: .nonNull(.scalar(Double.self))),
+              GraphQLField("long", type: .nonNull(.scalar(Double.self))),
+            ]
+          }
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(lat: Double, long: Double) {
+            self.init(unsafeResultMap: ["__typename": "Location", "lat": lat, "long": long])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var lat: Double {
+            get {
+              return resultMap["lat"]! as! Double
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "lat")
+            }
+          }
+
+          public var long: Double {
+            get {
+              return resultMap["long"]! as! Double
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "long")
             }
           }
         }

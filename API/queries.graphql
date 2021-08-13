@@ -31,5 +31,15 @@ query GetBuses($schoolID: ID!) {
             }
             dismissable
         }
+        mappingData {
+            boundingBoxA {
+                lat
+                long
+            }
+            boundingBoxB {
+                lat
+                long
+            }
+        }
     }
 }
