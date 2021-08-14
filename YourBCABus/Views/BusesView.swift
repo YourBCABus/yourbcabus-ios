@@ -145,8 +145,8 @@ struct BusesView: View {
                             }
                             if let mappingData = school.mappingData {
                                 ZStack(alignment: .bottom) {
-                                    MapView(mappingData: mappingData, buses: buses, starredIDs: isStarred).frame(height: 250)
-                                    NavigationLink(destination: fullScreenMap(mappingData: mappingData, buses: buses, starredIDs: isStarred), tag: "map", selection: $selectedID) {
+                                    MapView(mappingData: mappingData, buses: buses, starredIDs: isStarred, selectedID: $selectedID).frame(height: 250)
+                                    NavigationLink(destination: fullScreenMap(mappingData: mappingData, buses: buses, starredIDs: isStarred, selectedID: $selectedID), tag: "map", selection: $selectedID) {
                                         HStack {
                                             Image(systemName: "map")
                                             Text(school.name ?? "Map").lineLimit(1)

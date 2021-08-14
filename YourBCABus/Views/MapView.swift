@@ -50,19 +50,22 @@ extension CLLocationCoordinate2D {
 struct MapView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
-    init(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], starredIDs: Set<String> = [], showScrim: Bool = false) {
+    init(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], starredIDs: Set<String> = [], showScrim: Bool = false, selectedID: Binding<String?>? = nil) {
         self.mappingData = mappingData
         self.buses = buses
         self.starredIDs = starredIDs
         self.showScrim = showScrim
+        self.selectedID = selectedID
     }
     
     var mappingData: GetBusesQuery.Data.School.MappingDatum
     var buses: [GetBusesQuery.Data.School.Bus]
     var starredIDs: Set<String>
     var showScrim: Bool
+    var selectedID: Binding<String?>?
     
     @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
+    @State var highlightedID: String?
     
     func recomputeRegion(mappingData: GetBusesQuery.Data.School.MappingDatum) {
         region = MKCoordinateRegion(MKMapRect(a: MKMapPoint(CLLocationCoordinate2D(mappingData.boundingBoxA)), b: MKMapPoint(CLLocationCoordinate2D(mappingData.boundingBoxB))))
@@ -80,13 +83,36 @@ struct MapView: View {
                 }
                 return false
             }
+            let baseColor = colorScheme == .dark ? Color.black : Color.white
             Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: annotations) { bus in
                 MapAnnotation(coordinate: boardingAreas[bus.boardingArea!]!) {
-                    Image(starredIDs.contains(bus.id) ? "Annotation - Bus Starred" : "Annotation - Bus").accessibility(label: Text(bus.name ?? "Bus"))
+                    ZStack {
+                        Image(starredIDs.contains(bus.id) ? "Annotation - Bus Starred" : "Annotation - Bus").accessibility(label: Text(bus.name ?? "Bus")).frame(width: 44, height: 44).onTapGesture {
+                            if highlightedID == bus.id {
+                                highlightedID = nil
+                            } else {
+                                highlightedID = bus.id
+                            }
+                        }
+                        if highlightedID == bus.id {
+                            HStack {
+                                Text(bus.name ?? "(unnamed bus)").foregroundColor(.primary)
+                                if let area = bus.boardingArea {
+                                    Text(area).fontWeight(.bold).foregroundColor(.primary)
+                                }
+                                if selectedID != nil {
+                                    Button {
+                                        selectedID?.wrappedValue = starredIDs.contains(bus.id) ? "starred.\(bus.id)" : "all.\(bus.id)"
+                                    } label: {
+                                        Image(systemName: "chevron.right.circle.fill").accessibility(label: Text("Details"))
+                                    }
+                                }
+                            }.fixedSize(horizontal: true, vertical: false).padding(.horizontal).padding(.vertical, 8).background(baseColor.opacity(0.75)).cornerRadius(10).shadow(radius: 10).frame(height: 105, alignment: .top)
+                        }
+                    }.frame(width: 300, height: 200)
                 }
             }.edgesIgnoringSafeArea(.all)
             if showScrim {
-                let baseColor = colorScheme == .dark ? Color.black : Color.white
                 Rectangle().fill(LinearGradient(colors: [baseColor.opacity(0.9), baseColor.opacity(0.6), baseColor.opacity(0)], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 0, y: 1))).frame(maxWidth: .infinity).frame(height: 100).allowsHitTesting(false)
             }
         }.edgesIgnoringSafeArea(.all).onAppear {
@@ -97,6 +123,6 @@ struct MapView: View {
     }
 }
 
-func fullScreenMap(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], starredIDs: Set<String> = []) -> some View {
-    MapView(mappingData: mappingData, buses: buses, starredIDs: starredIDs, showScrim: true).navigationBarTitle("Map", displayMode: .inline)
+func fullScreenMap(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], starredIDs: Set<String> = [], selectedID: Binding<String?>? = nil) -> some View {
+    MapView(mappingData: mappingData, buses: buses, starredIDs: starredIDs, showScrim: true, selectedID: selectedID).navigationBarTitle("Map", displayMode: .inline)
 }
