@@ -10,6 +10,7 @@ import Foundation
 
 protocol BusModel {
     var id: String { get }
+    var name: String? { get }
     var boardingArea: String? { get }
     var invalidateTime: String? { get }
 }
@@ -35,3 +36,29 @@ extension BusModel {
 }
 
 extension GetBusesQuery.Data.School.Bus: BusModel {}
+
+func busPredicate(for search: String) -> NSPredicate {
+    var predicates = [NSPredicate]()
+    let stringExpression = NSExpression(forConstantValue: search)
+    
+    let nameExpression = NSExpression(block: { (bus, _, _) in
+        return (bus as! BusModel).name ?? "(unnamed bus)"
+    }, arguments: nil)
+    let namePredicate = NSComparisonPredicate(leftExpression: nameExpression, rightExpression: stringExpression, modifier: .direct, type: .contains, options: [.caseInsensitive, .diacriticInsensitive])
+    predicates.append(namePredicate)
+    
+    let idExpression = NSExpression(block: { (bus, _, _) in
+        return (bus as! BusModel).id
+    }, arguments: nil)
+    let idPredicate = NSComparisonPredicate(leftExpression: idExpression, rightExpression: stringExpression, modifier: .direct, type: .equalTo, options: [.caseInsensitive, .diacriticInsensitive])
+    predicates.append(idPredicate)
+    
+    let now = Date()
+    let boardingAreaExpression = NSExpression(block: { (bus, _, _) in
+        return (bus as! BusModel).getBoardingArea(at: now) ?? "?"
+    }, arguments: nil)
+    let boardingAreaPredicate = NSComparisonPredicate(leftExpression: boardingAreaExpression, rightExpression: stringExpression, modifier: .direct, type: .equalTo, options: [.caseInsensitive, .diacriticInsensitive])
+    predicates.append(boardingAreaPredicate)
+    
+    return NSCompoundPredicate(orPredicateWithSubpredicates: predicates)
+}

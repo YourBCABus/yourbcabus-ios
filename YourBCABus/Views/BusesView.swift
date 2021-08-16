@@ -18,6 +18,7 @@ func isoStringToDate(_ str: String) -> Date? {
 struct BusRowView: View {
     var uiID: String
     var bus: GetBusesQuery.Data.School.Bus
+    var useButton: Bool = false
     @Binding var isStarred: Bool
     @Binding var selectedID: String?
     
@@ -57,9 +58,17 @@ struct BusRowView: View {
     }
     
     var body: some View {
-        // Technically this is deprecated on iOS 15 but the new one causes a crash, so we're kinda stuck here
-        NavigationLink(destination: destination, tag: uiID, selection: $selectedID) {
-            linkContent
+        if useButton {
+            return AnyView(Button {
+                selectedID = uiID
+            } label: {
+                linkContent
+            })
+        } else {
+            // Technically this is deprecated on iOS 15 but the new one causes a crash, so we're kinda stuck here
+            return AnyView(NavigationLink(destination: destination, tag: uiID, selection: $selectedID) {
+                linkContent
+            })
         }
     }
 }
@@ -199,7 +208,48 @@ struct BusesView: View {
             if text.isEmpty {
                 return AnyView(EmptyView())
             } else {
-                return AnyView(Text("Coming soon"))
+                switch result {
+                case .some(.success(let result)):
+                    let predicate = busPredicate(for: text)
+                    if let buses = result.data?.school?.buses.filter({ predicate.evaluate(with: $0) }).sorted(by: { a, b in
+                        if a.available && !b.available {
+                            return true
+                        } else if !a.available && b.available {
+                            return false
+                        }
+                        
+                        if let aName = a.name, let bName = b.name {
+                            return aName < bName
+                        } else if a.name != nil && b.name == nil {
+                            return true
+                        } else if a.name == nil && b.name != nil {
+                            return false
+                        } else {
+                            return a.id < b.id
+                        }
+                    }) {
+                        return AnyView(ScrollView {
+                            LazyVStack {
+                                ForEach(buses.map { ($0, isStarred.contains($0.id) ? "starred.\($0.id)" : "all.\($0.id)") }, id: \.1) { tuple in
+                                    let (bus, uiID) = tuple
+                                    BusRowView(uiID: uiID, bus: bus, useButton: true, isStarred: Binding {
+                                        isStarred.contains(bus.id)
+                                    } set: { starred in
+                                        if starred {
+                                            isStarred.insert(bus.id)
+                                        } else {
+                                            isStarred.remove(bus.id)
+                                        }
+                                    }, selectedID: $selectedID)
+                                }
+                            }
+                        }.accentColor(Color("Primary")))
+                    } else {
+                        return AnyView(EmptyView())
+                    }
+                default:
+                    return AnyView(EmptyView())
+                }
             }
         }.edgesIgnoringSafeArea(.all)
     }
