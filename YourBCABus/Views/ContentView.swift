@@ -148,8 +148,6 @@ struct ContentView: View {
             UserDefaults.standard.writeSet(starred, to: "YBBStarredBusesSet")
         }.onChange(of: dismissedAlerts) { dismissedAlerts in
             UserDefaults.standard.writeSet(dismissedAlerts, to: "YBBDismissedAlertsSet")
-        }.onChange(of: selectedID) { id in
-            print("ID changing to \(id ?? "none")")
         }
     }
 }
