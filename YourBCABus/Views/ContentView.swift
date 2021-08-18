@@ -12,14 +12,28 @@ import Combine
 
 let refreshInterval: TimeInterval = 15
 
+extension UserDefaults {
+    func readSet(_ key: String) -> Set<String> {
+        if let array = array(forKey: key) as? [String] {
+            return Set(array)
+        } else {
+            return []
+        }
+    }
+    
+    func writeSet(_ set: Set<String>, to key: String) {
+        setValue([String](set), forKey: key)
+    }
+}
+
 struct ContentView: View {
     @Binding var schoolID: String?
     let endRefreshSubject = PassthroughSubject<Void, Never>()
     @State var settingsVisible = false
     @State var result: Result<GraphQLResult<GetBusesQuery.Data>, Error>?
     @State var loadCancellable: Apollo.Cancellable?
-    @State var isStarred = Set<String>()
-    @State var dismissedAlerts = Set<String>()
+    @State var isStarred = UserDefaults.standard.readSet("YBBStarredBusesSet")
+    @State var dismissedAlerts = UserDefaults.standard.readSet("YBBDismissedAlertsSet")
     @State var selectedID: String?
     
     let refreshTimer = Timer.publish(every: refreshInterval, on: .main, in: .common).autoconnect()
@@ -86,6 +100,10 @@ struct ContentView: View {
             if let id = schoolID {
                 reloadData(schoolID: id)
             }
+        }.onChange(of: isStarred) { starred in
+            UserDefaults.standard.writeSet(starred, to: "YBBStarredBusesSet")
+        }.onChange(of: dismissedAlerts) { dismissedAlerts in
+            UserDefaults.standard.writeSet(dismissedAlerts, to: "YBBDismissedAlertsSet")
         }
     }
 }
