@@ -56,7 +56,6 @@
 		4AD3AB1A2230414600FD58C2 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3D217AA94A00B7640E /* Models.swift */; };
 		4AD3AB1C2230414600FD58C2 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3F217AAC5B00B7640E /* APIService.swift */; };
 		4AD3AB1D2230414600FD58C2 /* CustomStops.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564A21BC9A110019F6B0 /* CustomStops.swift */; };
-		4AD3AB1E2230417300FD58C2 /* BusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB09217FF18B008032DE /* BusManager.swift */; };
 		4AD3AB1F223045B900FD58C2 /* BusStatusColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C032B22261A37004FA580 /* BusStatusColors.swift */; };
 		4AD958352180AEF800AC7EA9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD958342180AEF800AC7EA9 /* MapKit.framework */; };
 		4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEE49C2180CF5200F827FB /* MapViewController.swift */; };
@@ -147,7 +146,6 @@
 		4A1FD73F26C1E50B001D5D06 /* BusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusModel.swift; sourceTree = "<group>"; };
 		4A216F2026C5B3F90077E208 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4A37C1EA219CF2FB0088D3CF /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		4A39FB09217FF18B008032DE /* BusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusManager.swift; sourceTree = "<group>"; };
 		4A4A933526CCB113006A4DFD /* AlertDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDetailView.swift; sourceTree = "<group>"; };
 		4A4E4834229355B500B3F90C /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		4A4E48382293875500B3F90C /* alerts-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "alerts-script.js"; sourceTree = "<group>"; };
@@ -293,7 +291,6 @@
 				4A933F5426CDA0270033BE70 /* View Controllers */,
 				4A3E7F7226CCC8600043658C /* Utilities */,
 				4A113B09217A986E00B7640E /* AppDelegate.swift */,
-				4A39FB09217FF18B008032DE /* BusManager.swift */,
 				4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */,
 				4A113B12217A987100B7640E /* Assets.xcassets */,
 				4A113B17217A987100B7640E /* Info.plist */,
@@ -795,7 +792,6 @@
 				4A8C4B3F26B89633006A93A7 /* SchoolsView.swift in Sources */,
 				4A216F2126C5B3FA0077E208 /* MapView.swift in Sources */,
 				4A8C4B4926B89D80006A93A7 /* API.swift in Sources */,
-				4AD3AB1E2230417300FD58C2 /* BusManager.swift in Sources */,
 				4A933F4D26CD86F60033BE70 /* BusDetailView.swift in Sources */,
 				4A642DC626BDB09B00C0D3BC /* BusesView.swift in Sources */,
 				4A642DC826BDB16000C0D3BC /* SettingsView.swift in Sources */,

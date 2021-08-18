@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         print("YourBCABus FCM registration token length: \(String(describing: Messaging.messaging().fcmToken?.count))") // HACK: Ensures that this app receives an FCM registration token
         
-        notificationTokens.append(NotificationCenter.default.observe(name: NSNotification.Name(rawValue: BusManager.NotificationName.starredBusesChange.rawValue), object: nil, queue: nil, using: { [unowned self] notification in
+        /* notificationTokens.append(NotificationCenter.default.observe(name: NSNotification.Name(rawValue: BusManager.NotificationName.starredBusesChange.rawValue), object: nil, queue: nil, using: { [unowned self] notification in
             if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) {
                 if let busID = notification.userInfo?[BusManager.NotificationUserInfoKey.busID] as? String {
                     let topic = "school.\(self.schoolId).bus.\(busID)"
@@ -102,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
             
             // UserDefaults.standard.set(true, forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)
-        }))
+        })) */
         
         notificationTokens.append(NotificationCenter.default.observe(name: AppDelegate.didChangeRouteSummaryNotifications, object: nil, queue: nil, using: { _ in
             if UserDefaults.standard.bool(forKey: AppDelegate.routeBusArrivalNotificationsDefaultKey) {
