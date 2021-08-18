@@ -18,7 +18,6 @@ func isoStringToDate(_ str: String) -> Date? {
 struct BusRowView: View {
     var uiID: String
     var bus: GetBusesQuery.Data.School.Bus
-    var useButton: Bool = false
     @Binding var isStarred: Bool
     @Binding var selectedID: String?
     
@@ -53,23 +52,12 @@ struct BusRowView: View {
         }.padding(.vertical, 4)
     }
     
-    var destination: some View {
-        Text(bus.name ?? "(unnamed bus)").navigationBarTitle(bus.name ?? "(unnamed bus)", displayMode: .inline)
-    }
-    
     var body: some View {
-        if useButton {
-            return AnyView(Button {
-                selectedID = uiID
-            } label: {
-                linkContent
-            })
-        } else {
-            // Technically this is deprecated on iOS 15 but the new one causes a crash, so we're kinda stuck here
-            return AnyView(NavigationLink(destination: destination, tag: uiID, selection: $selectedID) {
-                linkContent
-            })
-        }
+        return AnyView(Button {
+            selectedID = uiID
+        } label: {
+            linkContent
+        })
     }
 }
 
@@ -99,9 +87,49 @@ struct BusesView: View {
     @Binding var dismissedAlerts: Set<String>
     @Binding var selectedID: String?
     
+    var links: some View {
+        Group {
+            switch result {
+            case .some(.success(let result)):
+                if let school = result.data?.school {
+                    let buses = school.buses
+                    let alerts = school.alerts
+                    let starredBuses = buses.filter { isStarred.contains($0.id) }
+                    ForEach(alerts, id: \.id) { alert in
+                        NavigationLink(destination: AlertDetailView(alertID: alert.id), tag: alert.id, selection: $selectedID) {
+                            EmptyView()
+                        }
+                    }
+                    if let mappingData = school.mappingData {
+                        NavigationLink(destination: fullScreenMap(mappingData: mappingData, buses: buses, starredIDs: isStarred, selectedID: $selectedID), tag: "map", selection: $selectedID) {
+                            EmptyView()
+                        }
+                    }
+                    ForEach(starredBuses.map { ($0, "starred.\($0.id)") }, id: \.1) { tuple in
+                        let (bus, uiID) = tuple
+                        NavigationLink(destination: Text(bus.name ?? "(unnamed bus)").navigationBarTitle(bus.name ?? "(unnamed bus)", displayMode: .inline), tag: uiID, selection: $selectedID) {
+                            EmptyView()
+                        }
+                    }
+                    ForEach(buses.map { ($0, "all.\($0.id)") }, id: \.1) { tuple in
+                        let (bus, uiID) = tuple
+                        NavigationLink(destination: Text(bus.name ?? "(unnamed bus)").navigationBarTitle(bus.name ?? "(unnamed bus)", displayMode: .inline), tag: uiID, selection: $selectedID) {
+                            EmptyView()
+                        }
+                    }
+                } else {
+                    EmptyView()
+                }
+            default:
+                EmptyView()
+            }
+        }
+    }
+    
     var body: some View {
         let now = Date()
         return SearchView {
+            links
             ScrollView {
                 LazyVStack(spacing: 0) {
                     #if !targetEnvironment(macCatalyst)
@@ -148,7 +176,9 @@ struct BusesView: View {
                             }
                         } {
                             ForEach(alerts, id: \.id) { alert in
-                                NavigationLink(destination: AlertDetailView(alertID: alert.id), tag: alert.id, selection: $selectedID) {
+                                Button {
+                                    selectedID = alert.id
+                                } label: {
                                     AlertView(alert: alert) {
                                         dismissedAlerts.insert(alert.id)
                                     }
@@ -157,7 +187,9 @@ struct BusesView: View {
                             if let mappingData = school.mappingData {
                                 ZStack(alignment: .bottom) {
                                     MapView(mappingData: mappingData, buses: buses, starredIDs: isStarred, selectedID: $selectedID).frame(height: 250)
-                                    NavigationLink(destination: fullScreenMap(mappingData: mappingData, buses: buses, starredIDs: isStarred, selectedID: $selectedID), tag: "map", selection: $selectedID) {
+                                    Button {
+                                        selectedID = "map"
+                                    } label: {
                                         HStack {
                                             Image(systemName: "map")
                                             Text(school.name ?? "Map").lineLimit(1)
@@ -234,7 +266,7 @@ struct BusesView: View {
                             LazyVStack {
                                 ForEach(buses.map { ($0, isStarred.contains($0.id) ? "starred.\($0.id)" : "all.\($0.id)") }, id: \.1) { tuple in
                                     let (bus, uiID) = tuple
-                                    BusRowView(uiID: uiID, bus: bus, useButton: true, isStarred: Binding {
+                                    BusRowView(uiID: uiID, bus: bus, isStarred: Binding {
                                         isStarred.contains(bus.id)
                                     } set: { starred in
                                         if starred {

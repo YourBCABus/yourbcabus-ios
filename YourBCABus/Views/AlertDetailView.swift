@@ -33,14 +33,14 @@ struct AlertDetailView: View {
                 ProgressView("Loading")
             case .some(.success(let result)):
                 if let alert = result.data?.alert {
-                    AlertContentView(alert: alert).frame(maxWidth: .infinity, maxHeight: .infinity).navigationTitle(alert.title).navigationBarTitleDisplayMode(.inline)
+                    AlertContentView(alert: alert).frame(maxWidth: .infinity, maxHeight: .infinity).navigationTitle(alert.title)
                 } else {
                     Text("Alert not found")
                 }
             default:
                 Text("Error").foregroundColor(.red)
             }
-        }.onAppear {
+        }.navigationBarTitleDisplayMode(.inline).onAppear {
             loadAlert()
         }.onChange(of: alertID) { id in
             loadAlert(id: id)

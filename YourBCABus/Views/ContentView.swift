@@ -97,13 +97,15 @@ struct ContentView: View {
                 reloadData(schoolID: id)
             }
         }.onReceive(refreshTimer) { _ in
-            if let id = schoolID {
+            if let id = schoolID, UIApplication.shared.applicationState == .active {
                 reloadData(schoolID: id)
             }
         }.onChange(of: isStarred) { starred in
             UserDefaults.standard.writeSet(starred, to: "YBBStarredBusesSet")
         }.onChange(of: dismissedAlerts) { dismissedAlerts in
             UserDefaults.standard.writeSet(dismissedAlerts, to: "YBBDismissedAlertsSet")
+        }.onChange(of: selectedID) { id in
+            print("ID changing to \(id ?? "none")")
         }
     }
 }
