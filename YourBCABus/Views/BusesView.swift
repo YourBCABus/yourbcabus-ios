@@ -148,8 +148,10 @@ struct BusesView: View {
                             }
                         } {
                             ForEach(alerts, id: \.id) { alert in
-                                AlertView(alert: alert) {
-                                    dismissedAlerts.insert(alert.id)
+                                NavigationLink(destination: AlertDetailView(alertID: alert.id), tag: alert.id, selection: $selectedID) {
+                                    AlertView(alert: alert) {
+                                        dismissedAlerts.insert(alert.id)
+                                    }
                                 }.padding(.horizontal).padding(.bottom, 8)
                             }
                             if let mappingData = school.mappingData {

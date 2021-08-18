@@ -50,3 +50,13 @@ query GetBuses($schoolID: ID!) {
         }
     }
 }
+
+query GetAlert($alertID: ID!) {
+    alert(id: $alertID) {
+        title
+        content
+        type {
+            name
+        }
+    }
+}

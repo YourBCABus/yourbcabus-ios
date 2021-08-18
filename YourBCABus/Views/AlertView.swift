@@ -18,7 +18,7 @@ struct AlertView: View {
                 Text(name).font(.caption).fontWeight(.bold).textCase(.uppercase).padding(.vertical, 4).padding(.horizontal, 8).multilineTextAlignment(.leading).frame(maxWidth: .infinity, alignment: .leading).background(Color.accentColor).foregroundColor(.white)
             }
             HStack {
-                Text(alert.title).multilineTextAlignment(.leading)
+                Text(alert.title).multilineTextAlignment(.leading).foregroundColor(.primary)
                 Spacer()
                 if alert.dismissable {
                     Button {

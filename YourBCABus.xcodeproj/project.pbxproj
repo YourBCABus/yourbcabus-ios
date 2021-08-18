@@ -27,6 +27,7 @@
 		4A2679DF2183B2B1004FC17E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2679DE2183B2B1004FC17E /* SettingsViewController.swift */; };
 		4A39FB06217FEFF0008032DE /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */; };
 		4A39FB0C217FFAF7008032DE /* BusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */; };
+		4A4A933626CCB113006A4DFD /* AlertDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A933526CCB113006A4DFD /* AlertDetailView.swift */; };
 		4A4E4835229355B500B3F90C /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E4834229355B500B3F90C /* Alerts.swift */; };
 		4A4E4837229385F800B3F90C /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E4836229385F800B3F90C /* AlertViewController.swift */; };
 		4A4E48392293875500B3F90C /* alerts-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E48382293875500B3F90C /* alerts-script.js */; };
@@ -165,6 +166,7 @@
 		4A39FB05217FEFF0008032DE /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		4A39FB09217FF18B008032DE /* BusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusManager.swift; sourceTree = "<group>"; };
 		4A39FB0B217FFAF7008032DE /* BusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BusTableViewCell.xib; sourceTree = "<group>"; };
+		4A4A933526CCB113006A4DFD /* AlertDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDetailView.swift; sourceTree = "<group>"; };
 		4A4E4834229355B500B3F90C /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		4A4E4836229385F800B3F90C /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		4A4E48382293875500B3F90C /* alerts-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "alerts-script.js"; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 				4A9526D126BC9338007C58CA /* SchoolsView.storyboard */,
 				4A642DC526BDB09B00C0D3BC /* BusesView.swift */,
 				4A9D8B4126C0B4CD0075DC13 /* AlertView.swift */,
+				4A4A933526CCB113006A4DFD /* AlertDetailView.swift */,
 				4A216F2026C5B3F90077E208 /* MapView.swift */,
 				4A642DCB26BDC68D00C0D3BC /* FooterView.swift */,
 				4A642DC926BDC1D900C0D3BC /* ReloadControl.swift */,
@@ -858,6 +861,7 @@
 				4A8C4B4B26B8A07E006A93A7 /* ApolloClient.swift in Sources */,
 				4A642DC226BD9EE400C0D3BC /* UndismissableView.swift in Sources */,
 				4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */,
+				4A4A933626CCB113006A4DFD /* AlertDetailView.swift in Sources */,
 				4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */,
 				4A18A7F021B8B90D00D1042F /* GetOffAlertSettingsViewController.swift in Sources */,
 				4A85DA9D21BF4CB000F84F85 /* RootViewController.swift in Sources */,

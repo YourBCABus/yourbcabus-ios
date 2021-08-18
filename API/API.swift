@@ -813,3 +813,160 @@ public final class GetBusesQuery: GraphQLQuery {
     }
   }
 }
+
+public final class GetAlertQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    query GetAlert($alertID: ID!) {
+      alert(id: $alertID) {
+        __typename
+        title
+        content
+        type {
+          __typename
+          name
+        }
+      }
+    }
+    """
+
+  public let operationName: String = "GetAlert"
+
+  public var alertID: GraphQLID
+
+  public init(alertID: GraphQLID) {
+    self.alertID = alertID
+  }
+
+  public var variables: GraphQLMap? {
+    return ["alertID": alertID]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Query"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("alert", arguments: ["id": GraphQLVariable("alertID")], type: .object(Alert.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(alert: Alert? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "alert": alert.flatMap { (value: Alert) -> ResultMap in value.resultMap }])
+    }
+
+    public var alert: Alert? {
+      get {
+        return (resultMap["alert"] as? ResultMap).flatMap { Alert(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "alert")
+      }
+    }
+
+    public struct Alert: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["Alert"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("title", type: .nonNull(.scalar(String.self))),
+          GraphQLField("content", type: .nonNull(.scalar(String.self))),
+          GraphQLField("type", type: .object(`Type`.selections)),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(title: String, content: String, type: `Type`? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Alert", "title": title, "content": content, "type": type.flatMap { (value: `Type`) -> ResultMap in value.resultMap }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var title: String {
+        get {
+          return resultMap["title"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "title")
+        }
+      }
+
+      public var content: String {
+        get {
+          return resultMap["content"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "content")
+        }
+      }
+
+      public var type: `Type`? {
+        get {
+          return (resultMap["type"] as? ResultMap).flatMap { `Type`(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "type")
+        }
+      }
+
+      public struct `Type`: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["AlertType"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("name", type: .scalar(String.self)),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(name: String? = nil) {
+          self.init(unsafeResultMap: ["__typename": "AlertType", "name": name])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var name: String? {
+          get {
+            return resultMap["name"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+      }
+    }
+  }
+}
