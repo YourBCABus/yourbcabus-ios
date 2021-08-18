@@ -290,7 +290,7 @@
 				4A8C4B3826B87F76006A93A7 /* App.swift */,
 				4A8C4B4A26B8A07E006A93A7 /* ApolloClient.swift */,
 				4A8C4B3B26B882C6006A93A7 /* Views */,
-				4AC8477D2185070B001E8698 /* View Controllers */,
+				4A933F5426CDA0270033BE70 /* View Controllers */,
 				4A3E7F7226CCC8600043658C /* Utilities */,
 				4A113B09217A986E00B7640E /* AppDelegate.swift */,
 				4A39FB09217FF18B008032DE /* BusManager.swift */,
@@ -320,16 +320,6 @@
 				4A113B2D217A987100B7640E /* Info.plist */,
 			);
 			path = YourBCABusUITests;
-			sourceTree = "<group>";
-		};
-		4A1E96DE21B2F62600FB4038 /* Get Off Alerts */ = {
-			isa = PBXGroup;
-			children = (
-				4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */,
-				4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */,
-				4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */,
-			);
-			name = "Get Off Alerts";
 			sourceTree = "<group>";
 		};
 		4A3E7F7226CCC8600043658C /* Utilities */ = {
@@ -385,6 +375,17 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		4A933F5426CDA0270033BE70 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */,
+				4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */,
+				4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */,
+				4ADEE49C2180CF5200F827FB /* MapViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 		4AB0327822A2FDEC00143805 /* YourBCABus Notification Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,15 +394,6 @@
 				4AB0327B22A2FDEC00143805 /* Info.plist */,
 			);
 			path = "YourBCABus Notification Service";
-			sourceTree = "<group>";
-		};
-		4AC8477D2185070B001E8698 /* View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				4AE70671218FE83400A95AC0 /* Navigation */,
-				4ADEE49C2180CF5200F827FB /* MapViewController.swift */,
-			);
-			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		4AD3AB0D2230411100FD58C2 /* YourBCABus Embedded */ = {
@@ -433,14 +425,6 @@
 				4A83526F22333D8C008B3EF3 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4AE70671218FE83400A95AC0 /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				4A1E96DE21B2F62600FB4038 /* Get Off Alerts */,
-			);
-			name = Navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
