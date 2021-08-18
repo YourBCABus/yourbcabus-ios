@@ -51,6 +51,28 @@ query GetBuses($schoolID: ID!) {
     }
 }
 
+query GetBusDetails($busID: ID!) {
+    bus(id: $busID) {
+        otherNames
+        company
+        phone
+        numbers
+        stops {
+            id
+            name
+            description
+            location {
+                lat
+                long
+            }
+            order
+            arrivalTime
+            invalidateTime
+            available
+        }
+    }
+}
+
 query GetAlert($alertID: ID!) {
     alert(id: $alertID) {
         title

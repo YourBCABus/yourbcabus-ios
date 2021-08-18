@@ -27,7 +27,7 @@ struct BusRowView: View {
                 let boardingArea = bus.getBoardingArea()
                 VStack(alignment: .leading) {
                     Text(bus.name ?? "(unnamed bus)").fontWeight(.bold).lineLimit(1).foregroundColor(.primary)
-                    Text(boardingArea != nil ? "Arrived at BCA" : (bus.available ? "Not at BCA" : "Not running")).foregroundColor(.secondary)
+                    Text(bus.status()).foregroundColor(.secondary)
                 }
                 Spacer()
                 Button {
@@ -37,15 +37,7 @@ struct BusRowView: View {
                 } label: {
                     Image(systemName: isStarred ? "star.fill" : "star").foregroundColor(isStarred ? .blue : .secondary)
                 }.accessibility(label: Text(isStarred ? "Unstar" : "Star"))
-                ZStack {
-                    if let area = boardingArea {
-                        Circle().fill(Color.accentColor)
-                        Text(area).foregroundColor(.white).fontWeight(.bold)
-                    } else {
-                        Circle().stroke(Color.accentColor)
-                        Text("?").foregroundColor(.primary).fontWeight(.bold)
-                    }
-                }.aspectRatio(1, contentMode: .fit).frame(height: 48)
+                BoardingAreaView(boardingArea).frame(height: 48)
             }.padding(.horizontal)
             // TODO: Does this work with RTL?
             Image(systemName: "chevron.right").font(.caption).foregroundColor(.secondary).padding(.trailing, 3)

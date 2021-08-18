@@ -8,18 +8,15 @@
 
 import Foundation
 
-protocol BusModel {
-    var id: String { get }
-    var name: String? { get }
-    var boardingArea: String? { get }
+protocol Invalidatable {
     var invalidateTime: String? { get }
 }
 
-let formatter = ISO8601DateFormatter()
+let isoFormatter = ISO8601DateFormatter()
 
-extension BusModel {
+extension Invalidatable {
     var invalidates: Date? {
-        invalidateTime.flatMap { formatter.date(from: $0) }
+        invalidateTime.flatMap { isoFormatter.date(from: $0) }
     }
     
     func isValidated(at date: Date = Date()) -> Bool {
@@ -29,9 +26,28 @@ extension BusModel {
             return true
         }
     }
-    
+}
+
+protocol BusModel: Invalidatable {
+    var id: String { get }
+    var name: String? { get }
+    var boardingArea: String? { get }
+    var available: Bool { get }
+}
+
+extension BusModel {
     func getBoardingArea(at date: Date = Date()) -> String? {
         return isValidated(at: date) ? boardingArea : nil
+    }
+    
+    func status(at date: Date = Date()) -> String {
+        if boardingArea != nil {
+            return "Arrived"
+        } else if available {
+            return "Not at school"
+        } else {
+            return "Not running"
+        }
     }
 }
 

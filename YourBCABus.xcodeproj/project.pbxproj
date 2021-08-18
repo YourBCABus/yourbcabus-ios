@@ -39,6 +39,10 @@
 		4A8C4B4726B89C9A006A93A7 /* queries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 4A8C4B4626B89C9A006A93A7 /* queries.graphql */; };
 		4A8C4B4926B89D80006A93A7 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B4826B89D80006A93A7 /* API.swift */; };
 		4A8C4B4B26B8A07E006A93A7 /* ApolloClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B4A26B8A07E006A93A7 /* ApolloClient.swift */; };
+		4A933F4D26CD86F60033BE70 /* BusDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A933F4C26CD86F60033BE70 /* BusDetailView.swift */; };
+		4A933F4F26CD8CB30033BE70 /* BoardingAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A933F4E26CD8CB30033BE70 /* BoardingAreaView.swift */; };
+		4A933F5126CD97AF0033BE70 /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A933F5026CD97AE0033BE70 /* SwiftExtensions.swift */; };
+		4A933F5326CD9D0B0033BE70 /* StopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A933F5226CD9D0B0033BE70 /* StopModel.swift */; };
 		4A9526D226BC9338007C58CA /* SchoolsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A9526D126BC9338007C58CA /* SchoolsView.storyboard */; };
 		4A9D8B4226C0B4CD0075DC13 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D8B4126C0B4CD0075DC13 /* AlertView.swift */; };
 		4AB0327A22A2FDEC00143805 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB0327922A2FDEC00143805 /* NotificationService.swift */; };
@@ -164,6 +168,10 @@
 		4A8C4B4626B89C9A006A93A7 /* queries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = queries.graphql; sourceTree = "<group>"; };
 		4A8C4B4826B89D80006A93A7 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		4A8C4B4A26B8A07E006A93A7 /* ApolloClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClient.swift; sourceTree = "<group>"; };
+		4A933F4C26CD86F60033BE70 /* BusDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusDetailView.swift; sourceTree = "<group>"; };
+		4A933F4E26CD8CB30033BE70 /* BoardingAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingAreaView.swift; sourceTree = "<group>"; };
+		4A933F5026CD97AE0033BE70 /* SwiftExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
+		4A933F5226CD9D0B0033BE70 /* StopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopModel.swift; sourceTree = "<group>"; };
 		4A9526D126BC9338007C58CA /* SchoolsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SchoolsView.storyboard; sourceTree = "<group>"; };
 		4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLocationView.swift; sourceTree = "<group>"; };
 		4A9D8B4126C0B4CD0075DC13 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
@@ -330,6 +338,8 @@
 				4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */,
 				4A0E564421BC86C90019F6B0 /* CoreLocationExtensions.swift */,
 				4A1FD73F26C1E50B001D5D06 /* BusModel.swift */,
+				4A933F5226CD9D0B0033BE70 /* StopModel.swift */,
+				4A933F5026CD97AE0033BE70 /* SwiftExtensions.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -353,6 +363,8 @@
 				4A8C4B3E26B89633006A93A7 /* SchoolsView.swift */,
 				4A9526D126BC9338007C58CA /* SchoolsView.storyboard */,
 				4A642DC526BDB09B00C0D3BC /* BusesView.swift */,
+				4A933F4E26CD8CB30033BE70 /* BoardingAreaView.swift */,
+				4A933F4C26CD86F60033BE70 /* BusDetailView.swift */,
 				4A9D8B4126C0B4CD0075DC13 /* AlertView.swift */,
 				4A4A933526CCB113006A4DFD /* AlertDetailView.swift */,
 				4A216F2026C5B3F90077E208 /* MapView.swift */,
@@ -780,6 +792,7 @@
 				4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */,
 				4A642DC426BDAD1900C0D3BC /* SearchView.swift in Sources */,
 				4A642DCC26BDC68D00C0D3BC /* FooterView.swift in Sources */,
+				4A933F4F26CD8CB30033BE70 /* BoardingAreaView.swift in Sources */,
 				4A642DCA26BDC1D900C0D3BC /* ReloadControl.swift in Sources */,
 				4A8C4B4B26B8A07E006A93A7 /* ApolloClient.swift in Sources */,
 				4A642DC226BD9EE400C0D3BC /* UndismissableView.swift in Sources */,
@@ -789,14 +802,17 @@
 				4A18A7F021B8B90D00D1042F /* GetOffAlertSettingsViewController.swift in Sources */,
 				4A642DC026BD9BCC00C0D3BC /* OnboardingView.swift in Sources */,
 				4A0E564521BC86C90019F6B0 /* CoreLocationExtensions.swift in Sources */,
+				4A933F5326CD9D0B0033BE70 /* StopModel.swift in Sources */,
 				4A8C4B3926B87F76006A93A7 /* App.swift in Sources */,
 				4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */,
 				4A1E96E221B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift in Sources */,
 				4A8C4B3D26B88305006A93A7 /* ContentView.swift in Sources */,
+				4A933F5126CD97AF0033BE70 /* SwiftExtensions.swift in Sources */,
 				4A8C4B3F26B89633006A93A7 /* SchoolsView.swift in Sources */,
 				4A216F2126C5B3FA0077E208 /* MapView.swift in Sources */,
 				4A8C4B4926B89D80006A93A7 /* API.swift in Sources */,
 				4AD3AB1E2230417300FD58C2 /* BusManager.swift in Sources */,
+				4A933F4D26CD86F60033BE70 /* BusDetailView.swift in Sources */,
 				4A642DC626BDB09B00C0D3BC /* BusesView.swift in Sources */,
 				4A642DC826BDB16000C0D3BC /* SettingsView.swift in Sources */,
 				4A1FD74026C1E50B001D5D06 /* BusModel.swift in Sources */,
