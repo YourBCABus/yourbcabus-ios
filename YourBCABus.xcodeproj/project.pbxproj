@@ -283,12 +283,15 @@
 				4A8C4B4A26B8A07E006A93A7 /* ApolloClient.swift */,
 				4A8C4B3B26B882C6006A93A7 /* Views */,
 				4AC8477D2185070B001E8698 /* View Controllers */,
-				4AC8478321850792001E8698 /* Utilities */,
+				4A3E7F7226CCC8600043658C /* Utilities */,
 				4A113B09217A986E00B7640E /* AppDelegate.swift */,
 				4A39FB09217FF18B008032DE /* BusManager.swift */,
 				4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */,
 				4A113B12217A987100B7640E /* Assets.xcassets */,
-				4AC84784218507A4001E8698 /* Resources */,
+				4A113B17217A987100B7640E /* Info.plist */,
+				4ABB8C7D2180C05A00158FD6 /* GoogleService-Info.plist */,
+				4AD958322180AEEA00AC7EA9 /* YourBCABus.entitlements */,
+				4A3E7F7426CCC88E0043658C /* Resources */,
 			);
 			path = YourBCABus;
 			sourceTree = "<group>";
@@ -319,6 +322,25 @@
 				4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */,
 			);
 			name = "Get Off Alerts";
+			sourceTree = "<group>";
+		};
+		4A3E7F7226CCC8600043658C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */,
+				4A0E564421BC86C90019F6B0 /* CoreLocationExtensions.swift */,
+				4A1FD73F26C1E50B001D5D06 /* BusModel.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		4A3E7F7426CCC88E0043658C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4A113B14217A987100B7640E /* LaunchScreen.storyboard */,
+				4A4E48382293875500B3F90C /* alerts-script.js */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		4A8C4B3B26B882C6006A93A7 /* Views */ = {
@@ -368,28 +390,6 @@
 				4ADEE49C2180CF5200F827FB /* MapViewController.swift */,
 			);
 			name = "View Controllers";
-			sourceTree = "<group>";
-		};
-		4AC8478321850792001E8698 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */,
-				4A0E564421BC86C90019F6B0 /* CoreLocationExtensions.swift */,
-				4A1FD73F26C1E50B001D5D06 /* BusModel.swift */,
-			);
-			name = Utilities;
-			sourceTree = "<group>";
-		};
-		4AC84784218507A4001E8698 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				4A113B14217A987100B7640E /* LaunchScreen.storyboard */,
-				4AD958322180AEEA00AC7EA9 /* YourBCABus.entitlements */,
-				4A113B17217A987100B7640E /* Info.plist */,
-				4ABB8C7D2180C05A00158FD6 /* GoogleService-Info.plist */,
-				4A4E48382293875500B3F90C /* alerts-script.js */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		4AD3AB0D2230411100FD58C2 /* YourBCABus Embedded */ = {
