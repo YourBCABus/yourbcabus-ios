@@ -10,6 +10,8 @@ import SwiftUI
 import Apollo
 import Combine
 
+let refreshInterval: TimeInterval = 15
+
 struct ContentView: View {
     @Binding var schoolID: String?
     let endRefreshSubject = PassthroughSubject<Void, Never>()
@@ -19,6 +21,8 @@ struct ContentView: View {
     @State var isStarred = Set<String>()
     @State var dismissedAlerts = Set<String>()
     @State var selectedID: String?
+    
+    let refreshTimer = Timer.publish(every: refreshInterval, on: .main, in: .common).autoconnect()
     
     func reloadData(schoolID: String) {
         loadCancellable?.cancel()
@@ -76,6 +80,10 @@ struct ContentView: View {
             result = nil
             selectedID = nil
             if let id = id {
+                reloadData(schoolID: id)
+            }
+        }.onReceive(refreshTimer) { _ in
+            if let id = schoolID {
                 reloadData(schoolID: id)
             }
         }
