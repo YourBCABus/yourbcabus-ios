@@ -142,7 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        APIService.shared.getSchool(schoolId: Constants.schoolId, cachingMode: .forceFetch, { schoolResult in
+        /* APIService.shared.getSchool(schoolId: Constants.schoolId, cachingMode: .forceFetch, { schoolResult in
             if let zoneName = schoolResult.result?.timezone, let zone = TimeZone(identifier: zoneName) {
                 let date = Date()
                 APIService.shared.getDismissal(schoolId: Constants.schoolId, date: date, { dismissalResult in
@@ -160,7 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                     }
                 })
             }
-        })
+        }) */
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A009614223592ED00DDC754 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A37C1EA219CF2FB0088D3CF /* GradientView.swift */; };
 		4A0096162235931F00DDC754 /* Embedded Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A0096152235931F00DDC754 /* Embedded Assets.xcassets */; };
 		4A0E564521BC86C90019F6B0 /* CoreLocationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564421BC86C90019F6B0 /* CoreLocationExtensions.swift */; };
 		4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B09217A986E00B7640E /* AppDelegate.swift */; };
@@ -21,7 +20,6 @@
 		4A1FD74026C1E50B001D5D06 /* BusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1FD73F26C1E50B001D5D06 /* BusModel.swift */; };
 		4A216F2126C5B3FA0077E208 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A216F2026C5B3F90077E208 /* MapView.swift */; };
 		4A4A933626CCB113006A4DFD /* AlertDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A933526CCB113006A4DFD /* AlertDetailView.swift */; };
-		4A4E4835229355B500B3F90C /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4E4834229355B500B3F90C /* Alerts.swift */; };
 		4A4E48392293875500B3F90C /* alerts-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E48382293875500B3F90C /* alerts-script.js */; };
 		4A5E8A0026A730E300A612AF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E89FF26A730E300A612AF /* Routes.swift */; };
 		4A642DC026BD9BCC00C0D3BC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DBF26BD9BCC00C0D3BC /* OnboardingView.swift */; };
@@ -31,7 +29,6 @@
 		4A642DC826BDB16000C0D3BC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC726BDB16000C0D3BC /* SettingsView.swift */; };
 		4A642DCA26BDC1D900C0D3BC /* ReloadControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC926BDC1D900C0D3BC /* ReloadControl.swift */; };
 		4A642DCC26BDC68D00C0D3BC /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DCB26BDC68D00C0D3BC /* FooterView.swift */; };
-		4A83527F22333DBC008B3EF3 /* BusLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */; };
 		4A8C4B3926B87F76006A93A7 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B3826B87F76006A93A7 /* App.swift */; };
 		4A8C4B3D26B88305006A93A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B3C26B88305006A93A7 /* ContentView.swift */; };
 		4A8C4B3F26B89633006A93A7 /* SchoolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B3E26B89633006A93A7 /* SchoolsView.swift */; };
@@ -54,9 +51,6 @@
 		4AD3AB132230411100FD58C2 /* YourBCABus_Embedded.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3AB0C2230411100FD58C2 /* YourBCABus_Embedded.framework */; };
 		4AD3AB142230411100FD58C2 /* YourBCABus_Embedded.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3AB0C2230411100FD58C2 /* YourBCABus_Embedded.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4AD3AB1A2230414600FD58C2 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3D217AA94A00B7640E /* Models.swift */; };
-		4AD3AB1C2230414600FD58C2 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B3F217AAC5B00B7640E /* APIService.swift */; };
-		4AD3AB1D2230414600FD58C2 /* CustomStops.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564A21BC9A110019F6B0 /* CustomStops.swift */; };
-		4AD3AB1F223045B900FD58C2 /* BusStatusColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C032B22261A37004FA580 /* BusStatusColors.swift */; };
 		4AD958352180AEF800AC7EA9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD958342180AEF800AC7EA9 /* MapKit.framework */; };
 		4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEE49C2180CF5200F827FB /* MapViewController.swift */; };
 		4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */; };
@@ -126,7 +120,6 @@
 		44ED9BE1A0D8DC87FB08C455 /* Pods-YourBCABusTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABusTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABusTests/Pods-YourBCABusTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4A0096152235931F00DDC754 /* Embedded Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Embedded Assets.xcassets"; sourceTree = "<group>"; };
 		4A0E564421BC86C90019F6B0 /* CoreLocationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationExtensions.swift; sourceTree = "<group>"; };
-		4A0E564A21BC9A110019F6B0 /* CustomStops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStops.swift; sourceTree = "<group>"; };
 		4A113B06217A986E00B7640E /* YourBCABus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YourBCABus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A113B09217A986E00B7640E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A113B12217A987100B7640E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -139,15 +132,12 @@
 		4A113B2B217A987100B7640E /* YourBCABusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourBCABusUITests.swift; sourceTree = "<group>"; };
 		4A113B2D217A987100B7640E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A113B3D217AA94A00B7640E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		4A113B3F217AAC5B00B7640E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertSettingsViewController.swift; sourceTree = "<group>"; };
 		4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertPromptViewController.swift; sourceTree = "<group>"; };
 		4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertEventReceiver.swift; sourceTree = "<group>"; };
 		4A1FD73F26C1E50B001D5D06 /* BusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusModel.swift; sourceTree = "<group>"; };
 		4A216F2026C5B3F90077E208 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		4A37C1EA219CF2FB0088D3CF /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4A4A933526CCB113006A4DFD /* AlertDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDetailView.swift; sourceTree = "<group>"; };
-		4A4E4834229355B500B3F90C /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		4A4E48382293875500B3F90C /* alerts-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "alerts-script.js"; sourceTree = "<group>"; };
 		4A5E89FF26A730E300A612AF /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		4A642DBF26BD9BCC00C0D3BC /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -158,7 +148,6 @@
 		4A642DC926BDC1D900C0D3BC /* ReloadControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadControl.swift; sourceTree = "<group>"; };
 		4A642DCB26BDC68D00C0D3BC /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		4A83526F22333D8C008B3EF3 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		4A8C032B22261A37004FA580 /* BusStatusColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStatusColors.swift; sourceTree = "<group>"; };
 		4A8C4B3826B87F76006A93A7 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		4A8C4B3C26B88305006A93A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4A8C4B3E26B89633006A93A7 /* SchoolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolsView.swift; sourceTree = "<group>"; };
@@ -171,7 +160,6 @@
 		4A933F5026CD97AE0033BE70 /* SwiftExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
 		4A933F5226CD9D0B0033BE70 /* StopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopModel.swift; sourceTree = "<group>"; };
 		4A9526D126BC9338007C58CA /* SchoolsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SchoolsView.storyboard; sourceTree = "<group>"; };
-		4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLocationView.swift; sourceTree = "<group>"; };
 		4A9D8B4126C0B4CD0075DC13 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		4AB0327722A2FDEC00143805 /* YourBCABus Notification Service.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "YourBCABus Notification Service.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AB0327922A2FDEC00143805 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -396,15 +384,9 @@
 		4AD3AB0D2230411100FD58C2 /* YourBCABus Embedded */ = {
 			isa = PBXGroup;
 			children = (
-				4A97EC12217EAEDA003C7C60 /* BusLocationView.swift */,
-				4A37C1EA219CF2FB0088D3CF /* GradientView.swift */,
 				4A113B3D217AA94A00B7640E /* Models.swift */,
-				4A0E564A21BC9A110019F6B0 /* CustomStops.swift */,
-				4A4E4834229355B500B3F90C /* Alerts.swift */,
 				4AC07B43228CFB25002F2537 /* Constants.swift */,
 				4A5E89FF26A730E300A612AF /* Routes.swift */,
-				4A113B3F217AAC5B00B7640E /* APIService.swift */,
-				4A8C032B22261A37004FA580 /* BusStatusColors.swift */,
 				4AD3AB0E2230411100FD58C2 /* YourBCABus_Embedded.h */,
 				4AD3AB0F2230411100FD58C2 /* lnfo.plist */,
 				4A0096152235931F00DDC754 /* Embedded Assets.xcassets */,
@@ -828,14 +810,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AD3AB1F223045B900FD58C2 /* BusStatusColors.swift in Sources */,
-				4A83527F22333DBC008B3EF3 /* BusLocationView.swift in Sources */,
 				4AD3AB1A2230414600FD58C2 /* Models.swift in Sources */,
-				4AD3AB1C2230414600FD58C2 /* APIService.swift in Sources */,
 				4A5E8A0026A730E300A612AF /* Routes.swift in Sources */,
-				4A4E4835229355B500B3F90C /* Alerts.swift in Sources */,
-				4AD3AB1D2230414600FD58C2 /* CustomStops.swift in Sources */,
-				4A009614223592ED00DDC754 /* GradientView.swift in Sources */,
 				4AC07B44228CFB25002F2537 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

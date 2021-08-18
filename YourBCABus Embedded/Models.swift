@@ -46,13 +46,6 @@ struct CoordinatePair: Equatable, Hashable {
     }
 }
 
-public struct School: Codable {
-    public let _id: String
-    public let name: String
-    public let location: Coordinate
-    public let timezone: String?
-}
-
 public struct Bus: Codable, Comparable, CustomStringConvertible {
     static private let formatter = ISO8601DateFormatter()
     static private func formatDate(from: String) -> Date? {
@@ -306,89 +299,4 @@ func departureToString(_ departure: Int) -> String? {
     let date = calendar.date(bySettingHour: departure / 60, minute: departure % 60, second: 0, of: now)
     
     return date.map { date in "Departs at \(departureDateFormatter.string(from: date))" }
-}
-
-public enum BusStatus: CustomStringConvertible {
-    case unavailable(departure: Int?)
-    case notArrived(boarding: Int?, departure: Int?)
-    case arrived(departure: Int?)
-    
-    public var description: String {
-        switch self {
-        case .unavailable(let departure):
-            if let departure = departure {
-                if let str = departureToString(departure) {
-                    return str
-                }
-            }
-            return "Not running"
-        case .notArrived(let boarding, let departure):
-            if let departure = departure {
-                if let str = departureToString(departure) {
-                    return str
-                }
-            }
-            if let time = boarding {
-                let group: String
-                
-                if time < 150 {
-                    group = "Early"
-                } else if time <= 600 {
-                    group = "On Time"
-                } else if time <= 900 {
-                    group = "Slightly Late"
-                } else if time < 1200 {
-                    group = "Late"
-                } else {
-                    group = "Very Late"
-                }
-                
-                return "Expected \(group)"
-            } else {
-                return "Not at BCA"
-            }
-        case .arrived(let departure):
-            if let departure = departure {
-                if let str = departureToString(departure) {
-                    return str
-                }
-            }
-            return "Arrived at BCA"
-        default:
-            return "Unknown"
-        }
-    }
-}
-
-public extension Bus {
-    var status: BusStatus {
-        guard available else {
-            return .unavailable(departure: departure)
-        }
-        
-        if location == nil {
-            return .notArrived(boarding: validated ? boarding : nil, departure: departure)
-        } else {
-            return .arrived(departure: departure)
-        }
-    }
-    
-    @available(*, deprecated, message: "Use status instead") func getStatus() -> String {
-        return status.description
-    }
-}
-
-public extension CLLocationCoordinate2D {
-    init(from: Coordinate) {
-        self.init(latitude: CLLocationDegrees(from.latitude), longitude: CLLocationDegrees(from.longitude))
-    }
-}
-
-public struct DismissalResult: Codable {
-    public let ok: Bool
-    public let found: Bool?
-    public let dismissal_time: Int?
-    public let departure_time: Int?
-    public let start_time: Int?
-    public let end_time: Int?
 }
