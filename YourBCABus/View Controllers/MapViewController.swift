@@ -56,6 +56,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     static let useFlyoverMapDefaultsKey = "mapViewControllerUseFlyoverMap"
         
     var mapView: MKMapView!
+    weak var delegate: MapViewControllerDelegate?
         
     var busImage = UIImage(named: "Annotation - Bus")!
     var starredImage = UIImage(named: "Annotation - Bus Starred")!
@@ -212,7 +213,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         switch view.annotation {
         case let annotation as BusAnnotation:
-            break
+            delegate?.busSelected(id: annotation.bus.id)
         default:
             break
         }
@@ -224,4 +225,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         renderer.lineWidth = 3
         return renderer
     }
+}
+
+protocol MapViewControllerDelegate: AnyObject {
+    func busSelected(id: String)
 }

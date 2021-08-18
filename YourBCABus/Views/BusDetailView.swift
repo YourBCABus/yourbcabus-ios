@@ -40,6 +40,10 @@ struct BusDetailView: View {
     }()
     
     var bus: BusModel
+    var school: GetBusesQuery.Data.School?
+    var starredIDs: Set<String>?
+    var selectedID: Binding<String?>?
+    
     @State var result: Result<GraphQLResult<GetBusDetailsQuery.Data>, Error>?
     @State var loadCancellable: Apollo.Cancellable?
     
@@ -56,10 +60,13 @@ struct BusDetailView: View {
     
     var body: some View {
         let now = Date()
-        return Group {
+        return VStack(spacing: 0) {
+            if let school = school, let mappingData = school.mappingData {
+                MapView(mappingData: mappingData, buses: school.buses, starredIDs: starredIDs ?? [], showScrim: true, selectedID: selectedID, detailBusID: bus.id).edgesIgnoringSafeArea(.all).frame(height: 200)
+            }
             switch result {
             case .none:
-                ProgressView("Loading")
+                ProgressView("Loading").frame(maxHeight: .infinity)
             case .some(.success(let result)):
                 if let details = result.data?.bus {
                     ScrollView {
@@ -71,7 +78,7 @@ struct BusDetailView: View {
                                 }.multilineTextAlignment(.leading)
                                 Spacer()
                                 BoardingAreaView(bus.getBoardingArea()).font(.title).frame(height: 96)
-                            }.padding([.horizontal, .bottom])
+                            }.padding(.all)
                             LazyVGrid(columns: Array(repeating: .init(.adaptive(minimum: 150)), count: 3), alignment: .leading, spacing: 12) {
                                 if let company = details.company {
                                     BusDetailAttributeView(title: "Operator", content: Text(company))
@@ -126,10 +133,10 @@ struct BusDetailView: View {
                         }
                     }
                 } else {
-                    Text("An error occurred.").foregroundColor(.red)
+                    Text("An error occurred.").foregroundColor(.red).frame(maxHeight: .infinity)
                 }
             default:
-                Text("An error occurred.").foregroundColor(.red)
+                Text("An error occurred.").foregroundColor(.red).frame(maxHeight: .infinity)
             }
         }.navigationTitle(bus.name ?? "Bus").navigationBarTitleDisplayMode(.inline).onAppear {
             loadDetails()

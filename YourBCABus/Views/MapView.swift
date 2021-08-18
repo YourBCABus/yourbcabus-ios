@@ -50,12 +50,13 @@ extension CLLocationCoordinate2D {
 struct MapView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
-    init(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], starredIDs: Set<String> = [], showScrim: Bool = false, selectedID: Binding<String?>? = nil) {
+    init(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], starredIDs: Set<String> = [], showScrim: Bool = false, selectedID: Binding<String?>? = nil, detailBusID: String? = nil) {
         self.mappingData = mappingData
         self.buses = buses
         self.starredIDs = starredIDs
         self.showScrim = showScrim
         self.selectedID = selectedID
+        self.detailBusID = detailBusID
     }
     
     var mappingData: GetBusesQuery.Data.School.MappingDatum
@@ -63,15 +64,14 @@ struct MapView: View {
     var starredIDs: Set<String>
     var showScrim: Bool
     var selectedID: Binding<String?>?
-    
-    @State var highlightedID: String?
-    
+    var detailBusID: String?
+        
     var body: some View {
         ZStack(alignment: .top) {
             let baseColor = colorScheme == .dark ? Color.black : Color.white
-            MapInternalView(mappingData: mappingData, buses: buses, starredIDs: starredIDs).edgesIgnoringSafeArea(.all)
+            MapInternalView(mappingData: mappingData, buses: buses, starredIDs: starredIDs, selectedID: selectedID, detailBusID: detailBusID).edgesIgnoringSafeArea(.all)
             if showScrim {
-                Rectangle().fill(LinearGradient(colors: [baseColor.opacity(0.9), baseColor.opacity(0.9), baseColor.opacity(0.6), baseColor.opacity(0)], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 0, y: 1))).frame(maxWidth: .infinity).frame(height: 100).allowsHitTesting(false)
+                Rectangle().fill(LinearGradient(colors: [baseColor.opacity(0.9), baseColor.opacity(0.9), baseColor.opacity(0.6), baseColor.opacity(0)], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 0, y: 1))).frame(maxWidth: .infinity).frame(height: 110).allowsHitTesting(false)
             }
         }.edgesIgnoringSafeArea(.all)
     }
@@ -81,6 +81,8 @@ struct MapInternalView: UIViewControllerRepresentable {
     var mappingData: GetBusesQuery.Data.School.MappingDatum
     var buses: [GetBusesQuery.Data.School.Bus]
     var starredIDs: Set<String>
+    var selectedID: Binding<String?>?
+    var detailBusID: String?
     
     func makeUIViewController(context: Context) -> MapViewController {
         let controller = MapViewController()
@@ -92,14 +94,32 @@ struct MapInternalView: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: MapViewController, context: Context) {
         let reframe = uiViewController.mappingData != mappingData
+        uiViewController.delegate = context.coordinator
         uiViewController.mappingData = mappingData
         uiViewController.buses = buses
         uiViewController.isStarred = starredIDs
+        uiViewController.detailBus = detailBusID
         if reframe {
             uiViewController.reframeMap()
         }
         uiViewController.reloadBuses()
         uiViewController.reloadStops()
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: MapViewControllerDelegate {
+        let parent: MapInternalView
+        
+        init(_ parent: MapInternalView) {
+            self.parent = parent
+        }
+        
+        func busSelected(id: String) {
+            parent.selectedID?.wrappedValue = parent.starredIDs.contains(id) ? "starred.\(id)" : "all.\(id)"
+        }
     }
 }
 
