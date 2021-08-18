@@ -101,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 Messaging.messaging().unsubscribe(fromTopic: "school.\(self.schoolId).bus.\(bus)")
             }
             
-            UserDefaults.standard.set(true, forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)
+            // UserDefaults.standard.set(true, forKey: MasterViewController.didAskToSetUpNotificationsDefaultsKey)
         }))
         
         notificationTokens.append(NotificationCenter.default.observe(name: AppDelegate.didChangeRouteSummaryNotifications, object: nil, queue: nil, using: { _ in
@@ -190,11 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
-        if let navigation = (window?.rootViewController as? UISplitViewController)?.viewControllers[0] as? UINavigationController {
-            if let master = navigation.topViewController as? MasterViewController {
-                master.performSegue(withIdentifier: "openSettings", sender: notification)
-            }
-        }
+        
     }
     
     // MARK: - Split view

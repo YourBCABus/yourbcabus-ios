@@ -369,10 +369,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "mapToDetail" {
-            let destination = segue.destination as! DetailViewController
+            /* let destination = segue.destination as! DetailViewController
             let bus = (sender as! BusAnnotation).bus!
             destination.detailItem = bus
-            destination.navigationItem.title = bus.description
+            destination.navigationItem.title = bus.description */
         }
     }
     
