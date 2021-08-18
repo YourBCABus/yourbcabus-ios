@@ -87,49 +87,9 @@ struct BusesView: View {
     @Binding var dismissedAlerts: Set<String>
     @Binding var selectedID: String?
     
-    var links: some View {
-        Group {
-            switch result {
-            case .some(.success(let result)):
-                if let school = result.data?.school {
-                    let buses = school.buses
-                    let alerts = school.alerts
-                    let starredBuses = buses.filter { isStarred.contains($0.id) }
-                    ForEach(alerts, id: \.id) { alert in
-                        NavigationLink(destination: AlertDetailView(alertID: alert.id), tag: alert.id, selection: $selectedID) {
-                            EmptyView()
-                        }
-                    }
-                    if let mappingData = school.mappingData {
-                        NavigationLink(destination: fullScreenMap(mappingData: mappingData, buses: buses, starredIDs: isStarred, selectedID: $selectedID), tag: "map", selection: $selectedID) {
-                            EmptyView()
-                        }
-                    }
-                    ForEach(starredBuses.map { ($0, "starred.\($0.id)") }, id: \.1) { tuple in
-                        let (bus, uiID) = tuple
-                        NavigationLink(destination: Text(bus.name ?? "(unnamed bus)").navigationBarTitle(bus.name ?? "(unnamed bus)", displayMode: .inline), tag: uiID, selection: $selectedID) {
-                            EmptyView()
-                        }
-                    }
-                    ForEach(buses.map { ($0, "all.\($0.id)") }, id: \.1) { tuple in
-                        let (bus, uiID) = tuple
-                        NavigationLink(destination: Text(bus.name ?? "(unnamed bus)").navigationBarTitle(bus.name ?? "(unnamed bus)", displayMode: .inline), tag: uiID, selection: $selectedID) {
-                            EmptyView()
-                        }
-                    }
-                } else {
-                    EmptyView()
-                }
-            default:
-                EmptyView()
-            }
-        }
-    }
-    
     var body: some View {
         let now = Date()
         return SearchView {
-            links
             ScrollView {
                 LazyVStack(spacing: 0) {
                     #if !targetEnvironment(macCatalyst)

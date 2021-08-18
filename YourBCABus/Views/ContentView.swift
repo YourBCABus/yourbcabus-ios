@@ -46,26 +46,70 @@ struct ContentView: View {
         }
     }
     
-    var content: AnyView {
-        if let id = schoolID {
-            return AnyView(NavigationView {
-                BusesView(schoolID: id, onRefresh: {
-                    reloadData(schoolID: id)
-                }, endRefreshSubject: endRefreshSubject, result: $result, isStarred: $isStarred, dismissedAlerts: $dismissedAlerts, selectedID: $selectedID).edgesIgnoringSafeArea(.all).navigationTitle("YourBCABus").toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            settingsVisible = true
-                        } label: {
-                            Label("Settings", systemImage: "gear")
+    var links: some View {
+        Group {
+            switch result {
+            case .some(.success(let result)):
+                if let school = result.data?.school {
+                    let buses = school.buses
+                    let alerts = school.alerts
+                    let starredBuses = buses.filter { isStarred.contains($0.id) }
+                    ForEach(alerts, id: \.id) { alert in
+                        NavigationLink(destination: AlertDetailView(alertID: alert.id), tag: alert.id, selection: $selectedID) {
+                            EmptyView()
                         }
                     }
+                    if let mappingData = school.mappingData {
+                        NavigationLink(destination: fullScreenMap(mappingData: mappingData, buses: buses, starredIDs: isStarred, selectedID: $selectedID), tag: "map", selection: $selectedID) {
+                            EmptyView()
+                        }
+                    }
+                    ForEach(starredBuses.map { ($0, "starred.\($0.id)") }, id: \.1) { tuple in
+                        let (bus, uiID) = tuple
+                        NavigationLink(destination: Text(bus.name ?? "(unnamed bus)").navigationBarTitle(bus.name ?? "(unnamed bus)", displayMode: .inline), tag: uiID, selection: $selectedID) {
+                            EmptyView()
+                        }
+                    }
+                    ForEach(buses.map { ($0, "all.\($0.id)") }, id: \.1) { tuple in
+                        let (bus, uiID) = tuple
+                        NavigationLink(destination: Text(bus.name ?? "(unnamed bus)").navigationBarTitle(bus.name ?? "(unnamed bus)", displayMode: .inline), tag: uiID, selection: $selectedID) {
+                            EmptyView()
+                        }
+                    }
+                } else {
+                    EmptyView()
                 }
-                Group {
-                    if case let .success(result) = result {
-                        if let mappingData = result.data?.school?.mappingData {
-                            fullScreenMap(mappingData: mappingData, buses: result.data!.school!.buses, starredIDs: isStarred, selectedID: $selectedID)
-                        } else {
-                            Text("No Bus Selected").foregroundColor(.secondary)
+            default:
+                EmptyView()
+            }
+        }
+    }
+    
+    var content: AnyView {
+        if let id = schoolID {
+            return AnyView(Group {
+                NavigationView {
+                    Group {
+                        BusesView(schoolID: id, onRefresh: {
+                            reloadData(schoolID: id)
+                        }, endRefreshSubject: endRefreshSubject, result: $result, isStarred: $isStarred, dismissedAlerts: $dismissedAlerts, selectedID: $selectedID).edgesIgnoringSafeArea(.all).navigationTitle("YourBCABus").toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button {
+                                    settingsVisible = true
+                                } label: {
+                                    Label("Settings", systemImage: "gear")
+                                }
+                            }
+                        }
+                        links
+                    }
+                    Group {
+                        if case let .success(result) = result {
+                            if let mappingData = result.data?.school?.mappingData {
+                                fullScreenMap(mappingData: mappingData, buses: result.data!.school!.buses, starredIDs: isStarred, selectedID: $selectedID)
+                            } else {
+                                Text("No Bus Selected").foregroundColor(.secondary)
+                            }
                         }
                     }
                 }
