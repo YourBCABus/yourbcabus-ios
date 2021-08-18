@@ -64,62 +64,42 @@ struct MapView: View {
     var showScrim: Bool
     var selectedID: Binding<String?>?
     
-    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
     @State var highlightedID: String?
-    
-    func recomputeRegion(mappingData: GetBusesQuery.Data.School.MappingDatum) {
-        region = MKCoordinateRegion(MKMapRect(a: MKMapPoint(CLLocationCoordinate2D(mappingData.boundingBoxA)), b: MKMapPoint(CLLocationCoordinate2D(mappingData.boundingBoxB))))
-    }
     
     var body: some View {
         ZStack(alignment: .top) {
-            let boardingAreas = [String: CLLocationCoordinate2D](mappingData.boardingAreas.map { ($0.name, CLLocationCoordinate2D($0.location)) }, uniquingKeysWith: { (_, last) in
-                last
-            })
-            let now = Date()
-            let annotations = buses.filter { bus in
-                if let area = bus.getBoardingArea(at: now) {
-                    return boardingAreas[area] != nil
-                }
-                return false
-            }
             let baseColor = colorScheme == .dark ? Color.black : Color.white
-            Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: annotations) { bus in
-                MapAnnotation(coordinate: boardingAreas[bus.boardingArea!]!) {
-                    ZStack {
-                        Image(starredIDs.contains(bus.id) ? "Annotation - Bus Starred" : "Annotation - Bus").accessibility(label: Text(bus.name ?? "Bus")).frame(width: 44, height: 44).onTapGesture {
-                            if highlightedID == bus.id {
-                                highlightedID = nil
-                            } else {
-                                highlightedID = bus.id
-                            }
-                        }
-                        if highlightedID == bus.id {
-                            HStack {
-                                Text(bus.name ?? "(unnamed bus)").foregroundColor(.primary)
-                                if let area = bus.boardingArea {
-                                    Text(area).fontWeight(.bold).foregroundColor(.primary)
-                                }
-                                if selectedID != nil {
-                                    Button {
-                                        selectedID?.wrappedValue = starredIDs.contains(bus.id) ? "starred.\(bus.id)" : "all.\(bus.id)"
-                                    } label: {
-                                        Image(systemName: "chevron.right.circle.fill").accessibility(label: Text("Details"))
-                                    }
-                                }
-                            }.fixedSize(horizontal: true, vertical: false).padding(.horizontal).padding(.vertical, 8).background(baseColor.opacity(0.75)).cornerRadius(10).shadow(radius: 10).frame(height: 105, alignment: .top)
-                        }
-                    }.frame(width: 300, height: 200)
-                }
-            }.edgesIgnoringSafeArea(.all)
+            MapInternalView(mappingData: mappingData, buses: buses, starredIDs: starredIDs).edgesIgnoringSafeArea(.all)
             if showScrim {
-                Rectangle().fill(LinearGradient(colors: [baseColor.opacity(0.9), baseColor.opacity(0.6), baseColor.opacity(0)], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 0, y: 1))).frame(maxWidth: .infinity).frame(height: 100).allowsHitTesting(false)
+                Rectangle().fill(LinearGradient(colors: [baseColor.opacity(0.9), baseColor.opacity(0.9), baseColor.opacity(0.6), baseColor.opacity(0)], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 0, y: 1))).frame(maxWidth: .infinity).frame(height: 100).allowsHitTesting(false)
             }
-        }.edgesIgnoringSafeArea(.all).onAppear {
-            recomputeRegion(mappingData: mappingData)
-        }.onChange(of: mappingData) { data in
-            recomputeRegion(mappingData: data)
+        }.edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct MapInternalView: UIViewControllerRepresentable {
+    var mappingData: GetBusesQuery.Data.School.MappingDatum
+    var buses: [GetBusesQuery.Data.School.Bus]
+    var starredIDs: Set<String>
+    
+    func makeUIViewController(context: Context) -> MapViewController {
+        let controller = MapViewController()
+        controller.view = MKMapView()
+        controller.setupView()
+        updateUIViewController(controller, context: context)
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: MapViewController, context: Context) {
+        let reframe = uiViewController.mappingData != mappingData
+        uiViewController.mappingData = mappingData
+        uiViewController.buses = buses
+        uiViewController.isStarred = starredIDs
+        if reframe {
+            uiViewController.reframeMap()
         }
+        uiViewController.reloadBuses()
+        uiViewController.reloadStops()
     }
 }
 
