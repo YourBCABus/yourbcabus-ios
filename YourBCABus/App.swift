@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import YourBCABus_Embedded
 
 @main
 struct YourBCABus: App {
@@ -17,8 +18,10 @@ struct YourBCABus: App {
     @State var schoolID: String? = {
         if let id = UserDefaults.standard.string(forKey: schoolDefaultsKey) {
             return id
+        } else if UserDefaults.standard.object(forKey: "starredBuses") != nil {
+            UserDefaults.standard.set(Constants.schoolId, forKey: Self.schoolDefaultsKey)
+            return Constants.schoolId
         } else {
-            // TODO: Default to BCA under certain conditions to facilitate updates
             return nil
         }
     }()

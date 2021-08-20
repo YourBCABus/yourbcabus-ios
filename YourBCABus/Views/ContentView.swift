@@ -26,6 +26,24 @@ extension UserDefaults {
     }
 }
 
+func migrateOldStarredBuses() -> Set<String> {
+    if let dict = UserDefaults.standard.dictionary(forKey: "starredBuses") as? [String: Bool] {
+        UserDefaults.standard.set([String: Bool](), forKey: "starredBuses")
+        return Set(dict.filter { $0.value }.keys)
+    } else {
+        return []
+    }
+}
+
+func migrateOldDismissedAlerts() -> Set<String> {
+    if let dict = UserDefaults.standard.dictionary(forKey: "dismissedAlerts") {
+        UserDefaults.standard.set([String: Any](), forKey: "dismissedAlerts")
+        return Set(dict.keys)
+    } else {
+        return []
+    }
+}
+
 struct ContentView: View {
     @Binding var schoolID: String?
     let endRefreshSubject = PassthroughSubject<Void, Never>()
@@ -33,8 +51,8 @@ struct ContentView: View {
     @State var notificationPromptVisible = false
     @State var result: Result<GraphQLResult<GetBusesQuery.Data>, Error>?
     @State var loadCancellable: Apollo.Cancellable?
-    @State var isStarred = UserDefaults.standard.readSet("YBBStarredBusesSet")
-    @State var dismissedAlerts = UserDefaults.standard.readSet("YBBDismissedAlertsSet")
+    @State var isStarred = UserDefaults.standard.readSet("YBBStarredBusesSet").union(migrateOldStarredBuses())
+    @State var dismissedAlerts = UserDefaults.standard.readSet("YBBDismissedAlertsSet").union(migrateOldDismissedAlerts())
     @State var selectedID: String?
     @EnvironmentObject var appDelegate: AppDelegate
     
