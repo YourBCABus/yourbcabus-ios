@@ -10,6 +10,8 @@ import SwiftUI
 
 @main
 struct YourBCABus: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     static private let schoolDefaultsKey = "YBBSchoolID"
     
     @State var schoolID: String? = {

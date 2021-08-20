@@ -30,11 +30,15 @@ struct ContentView: View {
     @Binding var schoolID: String?
     let endRefreshSubject = PassthroughSubject<Void, Never>()
     @State var settingsVisible = false
+    @State var notificationPromptVisible = false
     @State var result: Result<GraphQLResult<GetBusesQuery.Data>, Error>?
     @State var loadCancellable: Apollo.Cancellable?
     @State var isStarred = UserDefaults.standard.readSet("YBBStarredBusesSet")
     @State var dismissedAlerts = UserDefaults.standard.readSet("YBBDismissedAlertsSet")
     @State var selectedID: String?
+    @EnvironmentObject var appDelegate: AppDelegate
+    
+    @State var busArrivalNotifications = UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey)
     
     let refreshTimer = Timer.publish(every: refreshInterval, on: .main, in: .common).autoconnect()
     
@@ -127,9 +131,11 @@ struct ContentView: View {
                 OnboardingView(schoolID: $schoolID).undismissable()
             }
         }.sheet(isPresented: $settingsVisible) {
-            SettingsView(schoolID: $schoolID) {
+            SettingsView(schoolID: $schoolID, busArrivalNotifications: $busArrivalNotifications) {
                 settingsVisible = false
             }
+        }.sheet(isPresented: $notificationPromptVisible) {
+            Text("Notification prompt")
         }.onAppear {
             if let id = schoolID {
                 reloadData(schoolID: id)
@@ -144,10 +150,26 @@ struct ContentView: View {
             if let id = schoolID, UIApplication.shared.applicationState == .active {
                 reloadData(schoolID: id)
             }
-        }.onChange(of: isStarred) { starred in
+        }.onChange(of: isStarred) { [isStarred] starred in
+            if busArrivalNotifications {
+                appDelegate.subscribe(busIDs: starred.subtracting(isStarred))
+                appDelegate.unsubscribe(busIDs: isStarred.subtracting(starred))
+            } else if starred.count > isStarred.count && !UserDefaults.standard.bool(forKey: "didAskToSetUpBusArrivalNotifications") {
+                UserDefaults.standard.set(true, forKey: "didAskToSetUpBusArrivalNotifications")
+                notificationPromptVisible = true
+            }
             UserDefaults.standard.writeSet(starred, to: "YBBStarredBusesSet")
         }.onChange(of: dismissedAlerts) { dismissedAlerts in
             UserDefaults.standard.writeSet(dismissedAlerts, to: "YBBDismissedAlertsSet")
+        }.onChange(of: busArrivalNotifications) { [busArrivalNotifications] newValue in
+            if busArrivalNotifications != newValue {
+                UserDefaults.standard.set(newValue, forKey: AppDelegate.busArrivalNotificationsDefaultKey)
+                if newValue {
+                    appDelegate.subscribe(busIDs: isStarred)
+                } else {
+                    appDelegate.unsubscribe(busIDs: isStarred)
+                }
+            }
         }
     }
 }

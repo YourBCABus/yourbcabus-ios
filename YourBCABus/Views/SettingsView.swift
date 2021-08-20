@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Binding var schoolID: String?
-    @State var placeholder = false
+    @Binding var busArrivalNotifications: Bool
     var dismiss: () -> Void
     
     var body: some View {
@@ -21,7 +21,12 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("Notifications")) {
-                    Toggle("Placeholder", isOn: $placeholder)
+                    let toggle = Toggle("Starred Buses", isOn: $busArrivalNotifications)
+                    if #available(iOS 15.0, *) {
+                        toggle.tint(Color.accentColor)
+                    } else {
+                        toggle
+                    }
                 }
             }.navigationBarTitle("Settings", displayMode: .inline).toolbar {
                 ToolbarItem(placement: .primaryAction) {
