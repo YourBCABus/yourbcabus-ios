@@ -18,7 +18,7 @@ struct YourBCABus: App {
     @State var schoolID: String? = {
         if let id = UserDefaults.standard.string(forKey: schoolDefaultsKey) {
             return id
-        } else if UserDefaults.standard.object(forKey: "starredBuses") != nil {
+        } else if UserDefaults.standard.object(forKey: "starredBuses") != nil || UserDefaults(suiteName: Constants.groupId)?.object(forKey: Constants.currentDestinationDefaultsKey) != nil {
             UserDefaults.standard.set(Constants.schoolId, forKey: Self.schoolDefaultsKey)
             return Constants.schoolId
         } else {

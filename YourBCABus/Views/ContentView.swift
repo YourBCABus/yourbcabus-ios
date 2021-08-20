@@ -9,6 +9,7 @@
 import SwiftUI
 import Apollo
 import Combine
+import YourBCABus_Embedded
 
 let refreshInterval: TimeInterval = 15
 
@@ -27,12 +28,16 @@ extension UserDefaults {
 }
 
 func migrateOldStarredBuses() -> Set<String> {
+    var result = Set<String>()
     if let dict = UserDefaults.standard.dictionary(forKey: "starredBuses") as? [String: Bool] {
         UserDefaults.standard.set([String: Bool](), forKey: "starredBuses")
-        return Set(dict.filter { $0.value }.keys)
-    } else {
-        return []
+        result.formUnion(dict.filter { $0.value }.keys)
     }
+    if let suite = UserDefaults(suiteName: Constants.groupId), let data = suite.data(forKey: Constants.currentDestinationDefaultsKey), let route = try? PropertyListDecoder().decode(Route.self, from: data), let busID = route.bus?._id {
+        result.insert(busID)
+        suite.removeObject(forKey: Constants.currentDestinationDefaultsKey)
+    }
+    return result
 }
 
 func migrateOldDismissedAlerts() -> Set<String> {
