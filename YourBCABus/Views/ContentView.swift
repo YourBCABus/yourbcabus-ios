@@ -45,7 +45,15 @@ func migrateOldStarredBuses() -> Set<String> {
         Messaging.messaging().unsubscribe(fromTopic: "school.\(Constants.schoolId).bus.\(id)")
     }
     if !result.isEmpty {
+        // TODO: Definitely better place to put this
+        if UserDefaults.standard.bool(forKey: AppDelegate.busArrivalNotificationsDefaultKey) {
+            result.forEach { id in
+                Messaging.messaging().subscribe(toTopic: "bus.\(id)")
+            }
+        }
+        
         Messaging.messaging().unsubscribe(fromTopic: "school.\(Constants.schoolId).dismissal.banner")
+        UserDefaults.standard.writeSet(result, to: "YBBStarredBusesSet")
     }
     return result
 }
@@ -53,7 +61,9 @@ func migrateOldStarredBuses() -> Set<String> {
 func migrateOldDismissedAlerts() -> Set<String> {
     if let dict = UserDefaults.standard.dictionary(forKey: "dismissedAlerts") {
         UserDefaults.standard.set([String: Any](), forKey: "dismissedAlerts")
-        return Set(dict.keys)
+        let set = Set(dict.keys)
+        UserDefaults.standard.writeSet(set, to: "YBBDismissedAlertsSet")
+        return set
     } else {
         return []
     }

@@ -16,8 +16,9 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text(schoolID ?? "School")) {
+                Section(header: Text("School")) {
                     NavigationLink("Change School", destination: SchoolsView(schoolID: $schoolID))
+                    Text("School ID: \(schoolID ?? "None")")
                 }
                 
                 Section(header: Text("Notifications")) {

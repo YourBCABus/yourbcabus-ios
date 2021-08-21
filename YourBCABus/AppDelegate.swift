@@ -59,10 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
-        
-    }
-    
     func subscribe(busIDs: Set<String>) {
         busIDs.forEach { id in
             Messaging.messaging().subscribe(toTopic: "bus.\(id)")
