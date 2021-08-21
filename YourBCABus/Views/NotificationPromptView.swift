@@ -15,7 +15,7 @@ struct NotificationPromptView: View {
     
     var body: some View {
         VStack {
-            Text("Set up notifications").fontWeight(.bold).font(.largeTitle).padding(.top, 64)
+            Text("Get notified when your bus arrives").fontWeight(.bold).font(.largeTitle).padding(.top, 64).padding(.horizontal)
             Spacer()
             Button("Enable notifications") {
                 UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { settings in
