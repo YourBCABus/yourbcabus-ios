@@ -82,8 +82,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if stopsToDisplay.isEmpty {
             mapView.setVisibleMapRect(schoolRect, animated: false)
         } else {
-            let latitudes = stopsToDisplay.map { $0.stopLocation!.lat }
-            let longitudes = stopsToDisplay.map { $0.stopLocation!.long }
+            var latitudes = stopsToDisplay.map { $0.stopLocation!.lat }
+            var longitudes = stopsToDisplay.map { $0.stopLocation!.long }
+            if let mappingData = mappingData {
+                latitudes += [mappingData.boundingBoxA.lat, mappingData.boundingBoxB.lat]
+                longitudes += [mappingData.boundingBoxA.long, mappingData.boundingBoxB.long]
+            }
             let a = MKMapPoint(CLLocationCoordinate2D(latitude: latitudes.min()!, longitude: longitudes.min()!))
             let b = MKMapPoint(CLLocationCoordinate2D(latitude: latitudes.max()!, longitude: longitudes.max()!))
             mapView.setVisibleMapRect(MKMapRect(a: a, b: b), animated: false)
