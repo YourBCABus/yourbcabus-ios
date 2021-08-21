@@ -1,0 +1,88 @@
+query GetSchools {
+    schools {
+        id
+        name
+        readable
+    }
+}
+
+query GetBuses($schoolID: ID!) {
+    school(id: $schoolID) {
+        name
+        buses {
+            id
+            name
+            available
+            boardingArea
+            invalidateTime
+        }
+        alerts {
+            id
+            start
+            end
+            title
+            type {
+                name
+                color {
+                    r
+                    g
+                    b
+                }
+            }
+            dismissable
+        }
+        mappingData {
+            boundingBoxA {
+                lat
+                long
+            }
+            boundingBoxB {
+                lat
+                long
+            }
+            boardingAreas {
+                name
+                location {
+                    lat
+                    long
+                }
+            }
+        }
+        location {
+            lat
+            long
+        }
+    }
+}
+
+query GetBusDetails($busID: ID!) {
+    bus(id: $busID) {
+        otherNames
+        company
+        phone
+        numbers
+        stops {
+            id
+            name
+            description
+            location {
+                lat
+                long
+            }
+            order
+            arrivalTime
+            invalidateTime
+            available
+        }
+    }
+}
+
+query GetAlert($alertID: ID!) {
+    alert(id: $alertID) {
+        title
+        content
+        type {
+            name
+        }
+    }
+}
