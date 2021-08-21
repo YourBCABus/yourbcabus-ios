@@ -23,8 +23,9 @@ struct OnboardingContentView: View {
     
     var body: some View {
         VStack {
-            Text("Onboarding content")
-            NavigationLink("Get started", destination: SchoolsView(schoolID: $schoolID))
-        }
+            Text("Welcome to YourBCABus").fontWeight(.bold).font(.largeTitle).padding(.top, 64)
+            Spacer()
+            NavigationLink("Get started", destination: SchoolsView(schoolID: $schoolID)).font(.title).padding(.bottom, 64)
+        }.navigationBarHidden(true)
     }
 }

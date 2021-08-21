@@ -168,7 +168,7 @@ struct ContentView: View {
                 settingsVisible = false
             }
         }.sheet(isPresented: $notificationPromptVisible) {
-            Text("Notification prompt")
+            NotificationPromptView(isVisible: $notificationPromptVisible, busArrivalNotifications: $busArrivalNotifications)
         }.onAppear {
             if let id = schoolID {
                 reloadData(schoolID: id)
