@@ -9,7 +9,9 @@
 import Foundation
 
 protocol StopModel: Invalidatable {
+    var name: String? { get }
     var arrivalTime: String? { get }
+    var stopLocation: LocationModel? { get }
 }
 
 extension StopModel {
@@ -18,4 +20,9 @@ extension StopModel {
     }
 }
 
-extension GetBusDetailsQuery.Data.Bus.Stop: StopModel {}
+extension GetBusDetailsQuery.Data.Bus.Stop.Location: LocationModel {}
+extension GetBusDetailsQuery.Data.Bus.Stop: StopModel {
+    var stopLocation: LocationModel? {
+        location
+    }
+}

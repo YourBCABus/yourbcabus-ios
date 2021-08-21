@@ -168,6 +168,11 @@ public final class GetBusesQuery: GraphQLQuery {
             }
           }
         }
+        location {
+          __typename
+          lat
+          long
+        }
       }
     }
     """
@@ -222,6 +227,7 @@ public final class GetBusesQuery: GraphQLQuery {
           GraphQLField("buses", type: .nonNull(.list(.nonNull(.object(Bus.selections))))),
           GraphQLField("alerts", type: .nonNull(.list(.nonNull(.object(Alert.selections))))),
           GraphQLField("mappingData", type: .object(MappingDatum.selections)),
+          GraphQLField("location", type: .object(Location.selections)),
         ]
       }
 
@@ -231,8 +237,8 @@ public final class GetBusesQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String? = nil, buses: [Bus], alerts: [Alert], mappingData: MappingDatum? = nil) {
-        self.init(unsafeResultMap: ["__typename": "School", "name": name, "buses": buses.map { (value: Bus) -> ResultMap in value.resultMap }, "alerts": alerts.map { (value: Alert) -> ResultMap in value.resultMap }, "mappingData": mappingData.flatMap { (value: MappingDatum) -> ResultMap in value.resultMap }])
+      public init(name: String? = nil, buses: [Bus], alerts: [Alert], mappingData: MappingDatum? = nil, location: Location? = nil) {
+        self.init(unsafeResultMap: ["__typename": "School", "name": name, "buses": buses.map { (value: Bus) -> ResultMap in value.resultMap }, "alerts": alerts.map { (value: Alert) -> ResultMap in value.resultMap }, "mappingData": mappingData.flatMap { (value: MappingDatum) -> ResultMap in value.resultMap }, "location": location.flatMap { (value: Location) -> ResultMap in value.resultMap }])
       }
 
       public var __typename: String {
@@ -277,6 +283,15 @@ public final class GetBusesQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue?.resultMap, forKey: "mappingData")
+        }
+      }
+
+      public var location: Location? {
+        get {
+          return (resultMap["location"] as? ResultMap).flatMap { Location(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "location")
         }
       }
 
@@ -807,6 +822,55 @@ public final class GetBusesQuery: GraphQLQuery {
                 resultMap.updateValue(newValue, forKey: "long")
               }
             }
+          }
+        }
+      }
+
+      public struct Location: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["Location"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("lat", type: .nonNull(.scalar(Double.self))),
+            GraphQLField("long", type: .nonNull(.scalar(Double.self))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(lat: Double, long: Double) {
+          self.init(unsafeResultMap: ["__typename": "Location", "lat": lat, "long": long])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var lat: Double {
+          get {
+            return resultMap["lat"]! as! Double
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "lat")
+          }
+        }
+
+        public var long: Double {
+          get {
+            return resultMap["long"]! as! Double
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "long")
           }
         }
       }

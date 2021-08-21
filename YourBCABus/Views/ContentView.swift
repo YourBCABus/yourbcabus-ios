@@ -14,6 +14,8 @@ import YourBCABus_Embedded
 
 let refreshInterval: TimeInterval = 15
 
+extension GetBusesQuery.Data.School.Location: LocationModel {}
+
 extension UserDefaults {
     func readSet(_ key: String) -> Set<String> {
         if let array = array(forKey: key) as? [String] {
@@ -41,6 +43,9 @@ func migrateOldStarredBuses() -> Set<String> {
     result.forEach { id in
         // TODO: Better place to put this?
         Messaging.messaging().unsubscribe(fromTopic: "school.\(Constants.schoolId).bus.\(id)")
+    }
+    if !result.isEmpty {
+        Messaging.messaging().unsubscribe(fromTopic: "school.\(Constants.schoolId).dismissal.banner")
     }
     return result
 }
@@ -98,13 +103,13 @@ struct ContentView: View {
                     }
                     ForEach(starredBuses.map { ($0, "starred.\($0.id)") }, id: \.1) { tuple in
                         let (bus, uiID) = tuple
-                        NavigationLink(destination: BusDetailView(bus: bus, school: school, starredIDs: isStarred, selectedID: $selectedID), tag: uiID, selection: $selectedID) {
+                        NavigationLink(destination: BusDetailView(bus: bus, school: school, starredIDs: isStarred, selectedID: $selectedID, schoolLocation: school.location), tag: uiID, selection: $selectedID) {
                             EmptyView()
                         }
                     }
                     ForEach(buses.map { ($0, "all.\($0.id)") }, id: \.1) { tuple in
                         let (bus, uiID) = tuple
-                        NavigationLink(destination: BusDetailView(bus: bus, school: school, starredIDs: isStarred, selectedID: $selectedID), tag: uiID, selection: $selectedID) {
+                        NavigationLink(destination: BusDetailView(bus: bus, school: school, starredIDs: isStarred, selectedID: $selectedID, schoolLocation: school.location), tag: uiID, selection: $selectedID) {
                             EmptyView()
                         }
                     }

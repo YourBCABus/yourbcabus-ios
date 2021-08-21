@@ -48,7 +48,8 @@ class StopAnnotation: MKPointAnnotation {
     }
     
     func updateContent() {
-        
+        coordinate = CLLocationCoordinate2D(stop.stopLocation!)
+        title = stop.name
     }
 }
 
@@ -77,8 +78,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func reframeMap() {
-        mapView.setVisibleMapRect(schoolRect, animated: false)
-        mapView.mapType = schoolAreaMapType
+        let stopsToDisplay = stops.filter { $0.stopLocation != nil }
+        if stopsToDisplay.isEmpty {
+            mapView.setVisibleMapRect(schoolRect, animated: false)
+        } else {
+            let latitudes = stopsToDisplay.map { $0.stopLocation!.lat }
+            let longitudes = stopsToDisplay.map { $0.stopLocation!.long }
+            let a = MKMapPoint(CLLocationCoordinate2D(latitude: latitudes.min()!, longitude: longitudes.min()!))
+            let b = MKMapPoint(CLLocationCoordinate2D(latitude: latitudes.max()!, longitude: longitudes.max()!))
+            mapView.setVisibleMapRect(MKMapRect(a: a, b: b), animated: false)
+        }
+        if reloadsMapTypeOnRegionChange {
+            reloadMapType()
+        } else {
+            mapView.mapType = schoolAreaMapType
+        }
     }
     
     func reloadBuses() {
@@ -106,30 +120,27 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func reloadStops() {
-        /* mapView.removeOverlays(mapView.overlays)
+        mapView.removeOverlays(mapView.overlays)
         mapView.removeAnnotations(mapView.annotations.filter { $0 is StopAnnotation })
         
-        if let pointSets = mapPoints {
-            let rootAnnotation = StopAnnotation()
-            rootAnnotation.coordinate = points.school
-            rootAnnotation.title = "BCA"
-            mapView.addAnnotation(rootAnnotation)
-            
-            pointSets.forEach { pointSet in
-                let coords = [points.school] + pointSet.map { $0.coordinate }
-                let overlay = MKPolyline(coordinates: coords, count: coords.count)
-                mapView.addOverlay(overlay)
-                
-                mapView.addAnnotations(pointSet.map { point in
-                    let annotation = StopAnnotation()
-                    annotation.stopId = point.stopId
-                    annotation.coordinate = point.coordinate
-                    annotation.title = point.title
-                    annotation.bus = point.bus
-                    return annotation
-                })
-            }
-        } */
+        let stopsToDisplay = stops.filter { $0.stopLocation != nil }
+        
+        if !stops.isEmpty {
+            var coords = schoolLocation.map { [$0] } ?? []
+            coords.append(contentsOf: stopsToDisplay.map { stop in
+                CLLocationCoordinate2D(stop.stopLocation!)
+            })
+            let overlay = MKPolyline(coordinates: coords, count: coords.count)
+            mapView.addOverlay(overlay)
+        }
+        
+        mapView.addAnnotations(stopsToDisplay.map { stop in
+            StopAnnotation(stop)
+        })
+    }
+    
+    func focus(on coordinate: CLLocationCoordinate2D) {
+        mapView.setRegion(MKCoordinateRegion(center: coordinate, latitudinalMeters: 500, longitudinalMeters: 500), animated: true)
     }
     
     override func viewDidLoad() {

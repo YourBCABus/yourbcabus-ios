@@ -48,6 +48,10 @@ query GetBuses($schoolID: ID!) {
                 }
             }
         }
+        location {
+            lat
+            long
+        }
     }
 }
 

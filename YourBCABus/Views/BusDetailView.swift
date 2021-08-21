@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Apollo
+import Combine
 
 extension Array where Element == String {
     func toFormattedString() -> String {
@@ -43,9 +44,12 @@ struct BusDetailView: View {
     var school: GetBusesQuery.Data.School?
     var starredIDs: Set<String>?
     var selectedID: Binding<String?>?
+    var schoolLocation: LocationModel?
     
     @State var result: Result<GraphQLResult<GetBusDetailsQuery.Data>, Error>?
     @State var loadCancellable: Apollo.Cancellable?
+    
+    let focusSubject = PassthroughSubject<LocationModel, Never>()
     
     func loadDetails(id: String) {
         loadCancellable?.cancel()
@@ -61,14 +65,14 @@ struct BusDetailView: View {
     var body: some View {
         let now = Date()
         return VStack(spacing: 0) {
-            if let school = school, let mappingData = school.mappingData {
-                MapView(mappingData: mappingData, buses: school.buses, starredIDs: starredIDs ?? [], showScrim: true, selectedID: selectedID, detailBusID: bus.id).edgesIgnoringSafeArea(.all).frame(height: 200)
-            }
             switch result {
             case .none:
                 ProgressView("Loading").frame(maxHeight: .infinity)
             case .some(.success(let result)):
                 if let details = result.data?.bus {
+                    if let school = school, let mappingData = school.mappingData {
+                        MapView(mappingData: mappingData, buses: school.buses, schoolLocation: schoolLocation, stops: details.stops, starredIDs: starredIDs ?? [], showScrim: true, selectedID: selectedID, detailBusID: bus.id, focusSubject: focusSubject).edgesIgnoringSafeArea(.all).frame(height: 200)
+                    }
                     ScrollView {
                         LazyVStack(alignment: .leading, spacing: 0) {
                             HStack {
@@ -114,7 +118,7 @@ struct BusDetailView: View {
                                             }
                                             Circle().fill(Color.accentColor).frame(width: 16, height: 16)
                                         }.frame(width: 16)
-                                        VStack(alignment: .leading) {
+                                        let stopContents = VStack(alignment: .leading) {
                                             HStack(alignment: .top) {
                                                 Text(stop.name ?? "(unnamed stop)")
                                                 Spacer()
@@ -126,7 +130,16 @@ struct BusDetailView: View {
                                             if let description = stop.description {
                                                 Text(description).font(.caption)
                                             }
-                                        }.multilineTextAlignment(.leading)
+                                        }.multilineTextAlignment(.leading).foregroundColor(.primary)
+                                        if let location = stop.stopLocation {
+                                            Button {
+                                                focusSubject.send(location)
+                                            } label: {
+                                                stopContents
+                                            }
+                                        } else {
+                                            stopContents
+                                        }
                                     }.frame(minHeight: 32).padding(.horizontal)
                                 }
                             }
