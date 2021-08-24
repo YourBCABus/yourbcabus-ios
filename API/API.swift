@@ -112,6 +112,99 @@ public final class GetSchoolsQuery: GraphQLQuery {
   }
 }
 
+public final class GetSchoolNameQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    query GetSchoolName($schoolID: ID!) {
+      school(id: $schoolID) {
+        __typename
+        name
+      }
+    }
+    """
+
+  public let operationName: String = "GetSchoolName"
+
+  public var schoolID: GraphQLID
+
+  public init(schoolID: GraphQLID) {
+    self.schoolID = schoolID
+  }
+
+  public var variables: GraphQLMap? {
+    return ["schoolID": schoolID]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Query"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("school", arguments: ["id": GraphQLVariable("schoolID")], type: .object(School.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(school: School? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "school": school.flatMap { (value: School) -> ResultMap in value.resultMap }])
+    }
+
+    public var school: School? {
+      get {
+        return (resultMap["school"] as? ResultMap).flatMap { School(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "school")
+      }
+    }
+
+    public struct School: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["School"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("name", type: .scalar(String.self)),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(name: String? = nil) {
+        self.init(unsafeResultMap: ["__typename": "School", "name": name])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var name: String? {
+        get {
+          return resultMap["name"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "name")
+        }
+      }
+    }
+  }
+}
+
 public final class GetBusesQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =

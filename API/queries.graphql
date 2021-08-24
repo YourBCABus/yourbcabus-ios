@@ -6,6 +6,12 @@ query GetSchools {
     }
 }
 
+query GetSchoolName($schoolID: ID!) {
+    school(id: $schoolID) {
+        name
+    }
+}
+
 query GetBuses($schoolID: ID!) {
     school(id: $schoolID) {
         name
