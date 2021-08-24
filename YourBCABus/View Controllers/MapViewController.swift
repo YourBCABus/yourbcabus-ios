@@ -69,6 +69,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var isStarred = Set<String>()
     var detailBus: String?
     
+    var latitudeInset: CLLocationDegrees = 0.02
+    var longitudeInset: CLLocationDegrees = 0.01
+    
     var schoolRect: MKMapRect {
         if let mappingData = mappingData {
             return MKMapRect(a: MKMapPoint(CLLocationCoordinate2D(mappingData.boundingBoxA)), b: MKMapPoint(CLLocationCoordinate2D(mappingData.boundingBoxB)))
@@ -88,8 +91,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 latitudes += [mappingData.boundingBoxA.lat, mappingData.boundingBoxB.lat]
                 longitudes += [mappingData.boundingBoxA.long, mappingData.boundingBoxB.long]
             }
-            let a = MKMapPoint(CLLocationCoordinate2D(latitude: latitudes.min()!, longitude: longitudes.min()!))
-            let b = MKMapPoint(CLLocationCoordinate2D(latitude: latitudes.max()!, longitude: longitudes.max()!))
+            let a = MKMapPoint(CLLocationCoordinate2D(latitude: latitudes.min()! - latitudeInset, longitude: longitudes.min()! - longitudeInset))
+            let b = MKMapPoint(CLLocationCoordinate2D(latitude: latitudes.max()! + latitudeInset, longitude: longitudes.max()! + longitudeInset))
             mapView.setVisibleMapRect(MKMapRect(a: a, b: b), animated: false)
         }
         if reloadsMapTypeOnRegionChange {
@@ -131,7 +134,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         if !stops.isEmpty {
             var coords = schoolLocation.map { [$0] } ?? []
-            coords.append(contentsOf: stopsToDisplay.map { stop in
+            coords.append(contentsOf: stopsToDisplay.sorted { a, b in
+                (a.order ?? .infinity) < (b.order ?? .infinity)
+            }.map { stop in
                 CLLocationCoordinate2D(stop.stopLocation!)
             })
             let overlay = MKPolyline(coordinates: coords, count: coords.count)
@@ -150,6 +155,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+    }
+    
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        reframeMap()
     }
     
     func setupView() {

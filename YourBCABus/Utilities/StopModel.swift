@@ -12,6 +12,7 @@ protocol StopModel: Invalidatable {
     var name: String? { get }
     var arrivalTime: String? { get }
     var stopLocation: LocationModel? { get }
+    var order: Double? { get }
 }
 
 extension StopModel {
