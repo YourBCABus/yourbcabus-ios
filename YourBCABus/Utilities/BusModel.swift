@@ -12,7 +12,11 @@ protocol Invalidatable {
     var invalidateTime: String? { get }
 }
 
-let isoFormatter = ISO8601DateFormatter()
+let isoFormatter: ISO8601DateFormatter = {
+    let formatter = ISO8601DateFormatter()
+    formatter.formatOptions.insert(.withFractionalSeconds)
+    return formatter
+}()
 
 extension Invalidatable {
     var invalidates: Date? {

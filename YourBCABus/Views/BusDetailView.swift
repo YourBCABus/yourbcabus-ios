@@ -123,7 +123,7 @@ struct BusDetailView: View {
                                                 Text(stop.name ?? "(unnamed stop)")
                                                 Spacer()
                                                 if let arrives = stop.arrives {
-                                                    let past = arrives > now
+                                                    let past = now > arrives
                                                     Text("\(arrives, formatter: BusDetailView.timeFormatter)").foregroundColor(past ? .secondary : .primary).accessibility(label: Text(past ? "\(arrives, formatter: BusDetailView.timeFormatter) - Past" : "\(arrives, formatter: BusDetailView.timeFormatter)"))
                                                 }
                                             }
