@@ -40,7 +40,7 @@ struct AlertDetailView: View {
             default:
                 Text("Error").foregroundColor(.red)
             }
-        }.navigationBarTitleDisplayMode(.inline).onAppear {
+        }.onAppear {
             loadAlert()
         }.onChange(of: alertID) { id in
             loadAlert(id: id)
@@ -94,11 +94,10 @@ class AlertContentController: UIViewController, WKNavigationDelegate {
     
     func setupView() {
         webView?.navigationDelegate = self
-        webView?.backgroundColor = .systemBackground
-        if #available(iOS 15.0, *) {
-            webView?.underPageBackgroundColor = .systemBackground
-        }
+        webView?.backgroundColor = .clear
+        webView?.isOpaque = false
         webView?.scrollView.alwaysBounceHorizontal = false
+        webView?.isHidden = true
         
         if let path = Bundle.main.path(forResource: "alerts-script", ofType: "js") {
             alertsScript = try? String(contentsOfFile: path)

@@ -103,7 +103,7 @@ struct ContentView: View {
                     let alerts = school.alerts
                     let starredBuses = buses.filter { isStarred.contains($0.id) }
                     ForEach(alerts, id: \.id) { alert in
-                        NavigationLink(destination: AlertDetailView(alertID: alert.id), tag: alert.id, selection: $selectedID) {
+                        NavigationLink(destination: AlertDetailView(alertID: alert.id).navigationTitle(Text(alert.title)).navigationBarTitleDisplayMode(.inline), tag: alert.id, selection: $selectedID) {
                             EmptyView()
                         }
                     }
