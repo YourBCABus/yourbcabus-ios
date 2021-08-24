@@ -22,7 +22,8 @@ struct BusRowView: View {
     @Binding var selectedID: String?
     
     var linkContent: some View {
-        ZStack(alignment: .trailing) {
+        ZStack {
+            Rectangle().fill(Color.accentColor.opacity(0.3)).cornerRadius(8).padding(.horizontal, 8).animation(nil).opacity(selectedID == uiID ? 1 : 0).animation(.linear)
             HStack {
                 let boardingArea = bus.getBoardingArea()
                 VStack(alignment: .leading) {
@@ -38,10 +39,10 @@ struct BusRowView: View {
                     Image(systemName: isStarred ? "star.fill" : "star").foregroundColor(isStarred ? .blue : .secondary)
                 }.accessibility(label: Text(isStarred ? "Unstar" : "Star"))
                 BoardingAreaView(boardingArea).frame(height: 48)
-            }.padding(.horizontal)
-            // TODO: Does this work with RTL?
-            Image(systemName: "chevron.right").font(.caption).foregroundColor(.secondary).padding(.trailing, 3)
-        }.padding(.vertical, 4)
+                // TODO: Does this work with RTL?
+                Image(systemName: "chevron.right").font(.caption).foregroundColor(.secondary).padding(.trailing, 3)
+            }.padding(.horizontal).padding(.vertical, 4).accessibility(addTraits: selectedID == uiID ? .isSelected : [])
+        }
     }
     
     var body: some View {
