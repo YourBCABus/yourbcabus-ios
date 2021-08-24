@@ -76,13 +76,15 @@ struct MapView: View {
     var useFlyoverMap: Bool
         
     var body: some View {
-        ZStack(alignment: .top) {
-            let baseColor = colorScheme == .dark ? Color.black : Color.white
-            MapInternalView(mappingData: mappingData, buses: buses, schoolLocation: schoolLocation, stops: stops, starredIDs: starredIDs, selectedID: selectedID, detailBusID: detailBusID, focusSubject: focusSubject, useFlyoverMap: useFlyoverMap).edgesIgnoringSafeArea(.all)
-            if showScrim {
-                Rectangle().fill(LinearGradient(colors: [baseColor.opacity(0.9), baseColor.opacity(0.9), baseColor.opacity(0.6), baseColor.opacity(0)], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 0, y: 1))).frame(maxWidth: .infinity).frame(height: 110).allowsHitTesting(false)
-            }
-        }.edgesIgnoringSafeArea(.all)
+        GeometryReader { geometry in
+            ZStack(alignment: .top) {
+                let baseColor = colorScheme == .dark ? Color.black : Color.white
+                MapInternalView(mappingData: mappingData, buses: buses, schoolLocation: schoolLocation, stops: stops, starredIDs: starredIDs, selectedID: selectedID, detailBusID: detailBusID, focusSubject: focusSubject, useFlyoverMap: useFlyoverMap).edgesIgnoringSafeArea(.all)
+                if showScrim {
+                    Rectangle().fill(LinearGradient(colors: [baseColor.opacity(0.9), baseColor.opacity(0.9), baseColor.opacity(0.6), baseColor.opacity(0)], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 0, y: 1))).frame(maxWidth: .infinity).frame(height: geometry.safeAreaInsets.top + 16).allowsHitTesting(false).edgesIgnoringSafeArea(.top)
+                }
+            }.edgesIgnoringSafeArea(.all)
+        }
     }
 }
 

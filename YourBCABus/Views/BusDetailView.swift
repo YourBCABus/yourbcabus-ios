@@ -48,6 +48,7 @@ struct BusDetailView: View {
     
     @State var result: Result<GraphQLResult<GetBusDetailsQuery.Data>, Error>?
     @State var loadCancellable: Apollo.Cancellable?
+    @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     
     let focusSubject = PassthroughSubject<LocationModel, Never>()
     
@@ -72,7 +73,7 @@ struct BusDetailView: View {
             case .some(.success(let result)):
                 if let details = result.data?.bus {
                     if let school = school, let mappingData = school.mappingData {
-                        MapView(mappingData: mappingData, buses: school.buses, schoolLocation: schoolLocation, stops: details.stops, starredIDs: starredIDs ?? [], showScrim: true, selectedID: selectedID, detailBusID: bus.id, focusSubject: focusSubject, useFlyoverMap: useFlyoverMap).edgesIgnoringSafeArea(.all).frame(height: 200)
+                        MapView(mappingData: mappingData, buses: school.buses, schoolLocation: schoolLocation, stops: details.stops, starredIDs: starredIDs ?? [], showScrim: true, selectedID: selectedID, detailBusID: bus.id, focusSubject: focusSubject, useFlyoverMap: useFlyoverMap).frame(height: verticalSizeClass == .compact ? 150 : 300)
                     }
                     ScrollView {
                         LazyVStack(alignment: .leading, spacing: 0) {
