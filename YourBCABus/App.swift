@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import YourBCABus_Embedded
+import YourBCABus_Core
 
 @main
 struct YourBCABus: App {

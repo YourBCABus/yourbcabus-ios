@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 import UserNotifications
 import CoreLocation
-import YourBCABus_Embedded
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate, ObservableObject {
     static let busArrivalNotificationsDefaultKey = "busArrivalNotifications"

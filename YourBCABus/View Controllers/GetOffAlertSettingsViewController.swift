@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 import UserNotifications
-import YourBCABus_Embedded
+import YourBCABus_Core
 
 class GetOffAlertSettingsViewController: UITableViewController, CLLocationManagerDelegate {
     

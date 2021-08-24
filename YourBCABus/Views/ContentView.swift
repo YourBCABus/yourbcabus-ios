@@ -10,7 +10,7 @@ import SwiftUI
 import Apollo
 import Combine
 import FirebaseMessaging
-import YourBCABus_Embedded
+import YourBCABus_Core
 
 let refreshInterval: TimeInterval = 15
 
