@@ -14,6 +14,6 @@ FOUNDATION_EXPORT double YourBCABus_CoreVersionNumber;
 //! Project version string for YourBCABus_Core.
 FOUNDATION_EXPORT const unsigned char YourBCABus_CoreVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <YourBCABus_Embedded/PublicHeader.h>
+// In this header, you should import all the public headers of your framework using statements like #import <YourBCABus_Core/PublicHeader.h>
 
 
