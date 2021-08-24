@@ -53,7 +53,7 @@ struct BusDetailView: View {
     
     func loadDetails(id: String) {
         loadCancellable?.cancel()
-        loadCancellable = Network.shared.apollo.fetch(query: GetBusDetailsQuery(busID: id)) { result in
+        loadCancellable = Network.shared.apollo.fetch(query: GetBusDetailsQuery(busID: id), cachePolicy: .fetchIgnoringCacheData) { result in
             self.result = result
         }
     }
@@ -63,7 +63,6 @@ struct BusDetailView: View {
     }
     
     var body: some View {
-        let now = Date()
         return VStack(spacing: 0) {
             switch result {
             case .none:
@@ -81,7 +80,7 @@ struct BusDetailView: View {
                                     Text(bus.status()).foregroundColor(.secondary)
                                 }.multilineTextAlignment(.leading)
                                 Spacer()
-                                BoardingAreaView(bus.getBoardingArea()).font(.title).frame(height: 96)
+                                BoardingAreaView(bus.getBoardingArea()).font(.title).frame(height: 72)
                             }.padding(.all)
                             LazyVGrid(columns: Array(repeating: .init(.adaptive(minimum: 150)), count: 3), alignment: .leading, spacing: 12) {
                                 if let company = details.company {
@@ -123,8 +122,7 @@ struct BusDetailView: View {
                                                 Text(stop.name ?? "(unnamed stop)")
                                                 Spacer()
                                                 if let arrives = stop.arrives {
-                                                    let past = now > arrives
-                                                    Text("\(arrives, formatter: BusDetailView.timeFormatter)").foregroundColor(past ? .secondary : .primary).accessibility(label: Text(past ? "\(arrives, formatter: BusDetailView.timeFormatter) - Past" : "\(arrives, formatter: BusDetailView.timeFormatter)"))
+                                                    Text("\(arrives, formatter: BusDetailView.timeFormatter)")
                                                 }
                                             }
                                             if let description = stop.description {
