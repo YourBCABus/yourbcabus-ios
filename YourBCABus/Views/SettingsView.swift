@@ -11,6 +11,7 @@ import SwiftUI
 struct SettingsView: View {
     @Binding var schoolID: String?
     @Binding var busArrivalNotifications: Bool
+    @Binding var useFlyoverMap: Bool
     var dismiss: () -> Void
     
     var body: some View {
@@ -23,6 +24,15 @@ struct SettingsView: View {
                 
                 Section(header: Text("Notifications")) {
                     let toggle = Toggle("Starred Buses", isOn: $busArrivalNotifications)
+                    if #available(iOS 15.0, *) {
+                        toggle.tint(Color.accentColor)
+                    } else {
+                        toggle
+                    }
+                }
+                
+                Section(header: Text("Map")) {
+                    let toggle = Toggle("Use 3D Satellite Map", isOn: $useFlyoverMap)
                     if #available(iOS 15.0, *) {
                         toggle.tint(Color.accentColor)
                     } else {

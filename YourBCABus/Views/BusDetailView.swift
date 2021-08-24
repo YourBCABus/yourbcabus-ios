@@ -51,6 +51,8 @@ struct BusDetailView: View {
     
     let focusSubject = PassthroughSubject<LocationModel, Never>()
     
+    var useFlyoverMap: Bool
+    
     func loadDetails(id: String) {
         loadCancellable?.cancel()
         loadCancellable = Network.shared.apollo.fetch(query: GetBusDetailsQuery(busID: id), cachePolicy: .fetchIgnoringCacheData) { result in
@@ -70,7 +72,7 @@ struct BusDetailView: View {
             case .some(.success(let result)):
                 if let details = result.data?.bus {
                     if let school = school, let mappingData = school.mappingData {
-                        MapView(mappingData: mappingData, buses: school.buses, schoolLocation: schoolLocation, stops: details.stops, starredIDs: starredIDs ?? [], showScrim: true, selectedID: selectedID, detailBusID: bus.id, focusSubject: focusSubject).edgesIgnoringSafeArea(.all).frame(height: 200)
+                        MapView(mappingData: mappingData, buses: school.buses, schoolLocation: schoolLocation, stops: details.stops, starredIDs: starredIDs ?? [], showScrim: true, selectedID: selectedID, detailBusID: bus.id, focusSubject: focusSubject, useFlyoverMap: useFlyoverMap).edgesIgnoringSafeArea(.all).frame(height: 200)
                     }
                     ScrollView {
                         LazyVStack(alignment: .leading, spacing: 0) {

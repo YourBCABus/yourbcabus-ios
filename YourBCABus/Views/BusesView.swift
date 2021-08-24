@@ -78,6 +78,7 @@ struct BusesView: View {
     @Binding var isStarred: Set<String>
     @Binding var dismissedAlerts: Set<String>
     @Binding var selectedID: String?
+    var useFlyoverMap: Bool
     
     var body: some View {
         let now = Date()
@@ -138,7 +139,7 @@ struct BusesView: View {
                             }
                             if let mappingData = school.mappingData {
                                 ZStack(alignment: .bottom) {
-                                    MapView(mappingData: mappingData, buses: buses, starredIDs: isStarred, selectedID: $selectedID).frame(height: 250)
+                                    MapView(mappingData: mappingData, buses: buses, starredIDs: isStarred, selectedID: $selectedID, useFlyoverMap: useFlyoverMap).frame(height: 250)
                                     Button {
                                         selectedID = "map"
                                     } label: {

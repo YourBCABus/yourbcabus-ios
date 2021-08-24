@@ -51,7 +51,7 @@ extension CLLocationCoordinate2D {
 struct MapView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
-    init(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], schoolLocation: LocationModel? = nil, stops: [StopModel] = [], starredIDs: Set<String> = [], showScrim: Bool = false, selectedID: Binding<String?>? = nil, detailBusID: String? = nil, focusSubject: PassthroughSubject<LocationModel, Never>? = nil) {
+    init(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], schoolLocation: LocationModel? = nil, stops: [StopModel] = [], starredIDs: Set<String> = [], showScrim: Bool = false, selectedID: Binding<String?>? = nil, detailBusID: String? = nil, focusSubject: PassthroughSubject<LocationModel, Never>? = nil, useFlyoverMap: Bool = false) {
         self.mappingData = mappingData
         self.buses = buses
         self.schoolLocation = schoolLocation
@@ -61,6 +61,7 @@ struct MapView: View {
         self.selectedID = selectedID
         self.detailBusID = detailBusID
         self.focusSubject = focusSubject
+        self.useFlyoverMap = useFlyoverMap
     }
     
     var mappingData: GetBusesQuery.Data.School.MappingDatum
@@ -72,11 +73,12 @@ struct MapView: View {
     var selectedID: Binding<String?>?
     var detailBusID: String?
     let focusSubject: PassthroughSubject<LocationModel, Never>?
+    var useFlyoverMap: Bool
         
     var body: some View {
         ZStack(alignment: .top) {
             let baseColor = colorScheme == .dark ? Color.black : Color.white
-            MapInternalView(mappingData: mappingData, buses: buses, schoolLocation: schoolLocation, stops: stops, starredIDs: starredIDs, selectedID: selectedID, detailBusID: detailBusID, focusSubject: focusSubject).edgesIgnoringSafeArea(.all)
+            MapInternalView(mappingData: mappingData, buses: buses, schoolLocation: schoolLocation, stops: stops, starredIDs: starredIDs, selectedID: selectedID, detailBusID: detailBusID, focusSubject: focusSubject, useFlyoverMap: useFlyoverMap).edgesIgnoringSafeArea(.all)
             if showScrim {
                 Rectangle().fill(LinearGradient(colors: [baseColor.opacity(0.9), baseColor.opacity(0.9), baseColor.opacity(0.6), baseColor.opacity(0)], startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 0, y: 1))).frame(maxWidth: .infinity).frame(height: 110).allowsHitTesting(false)
             }
@@ -93,6 +95,7 @@ struct MapInternalView: UIViewControllerRepresentable {
     var selectedID: Binding<String?>?
     var detailBusID: String?
     let focusSubject: PassthroughSubject<LocationModel, Never>?
+    var useFlyoverMap: Bool
     
     func makeUIViewController(context: Context) -> MapViewController {
         let controller = MapViewController()
@@ -112,6 +115,7 @@ struct MapInternalView: UIViewControllerRepresentable {
         uiViewController.reloadsMapTypeOnRegionChange = !stops.isEmpty
         uiViewController.isStarred = starredIDs
         uiViewController.detailBus = detailBusID
+        uiViewController.schoolAreaMapType = useFlyoverMap ? .hybridFlyover : .hybrid
         context.coordinator.cancellables = []
         focusSubject?.sink { location in
             uiViewController.focus(on: CLLocationCoordinate2D(location))
@@ -119,6 +123,7 @@ struct MapInternalView: UIViewControllerRepresentable {
         if reframe {
             uiViewController.reframeMap()
         }
+        uiViewController.reloadMapType()
         uiViewController.reloadBuses()
         uiViewController.reloadStops()
     }
@@ -141,6 +146,6 @@ struct MapInternalView: UIViewControllerRepresentable {
     }
 }
 
-func fullScreenMap(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], starredIDs: Set<String> = [], selectedID: Binding<String?>? = nil) -> some View {
-    MapView(mappingData: mappingData, buses: buses, starredIDs: starredIDs, showScrim: true, selectedID: selectedID).navigationBarTitle("Map", displayMode: .inline)
+func fullScreenMap(mappingData: GetBusesQuery.Data.School.MappingDatum, buses: [GetBusesQuery.Data.School.Bus] = [], starredIDs: Set<String> = [], selectedID: Binding<String?>? = nil, useFlyoverMap: Bool = false) -> some View {
+    MapView(mappingData: mappingData, buses: buses, starredIDs: starredIDs, showScrim: true, selectedID: selectedID, useFlyoverMap: useFlyoverMap).navigationBarTitle("Map", displayMode: .inline)
 }

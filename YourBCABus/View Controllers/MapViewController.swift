@@ -95,11 +95,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let b = MKMapPoint(CLLocationCoordinate2D(latitude: latitudes.max()! + latitudeInset, longitude: longitudes.max()! + longitudeInset))
             mapView.setVisibleMapRect(MKMapRect(a: a, b: b), animated: false)
         }
-        if reloadsMapTypeOnRegionChange {
-            reloadMapType()
-        } else {
-            mapView.mapType = schoolAreaMapType
-        }
     }
     
     func reloadBuses() {
@@ -166,10 +161,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if mapView == nil {
             mapView = view as? MKMapView
         }
-        
-        if UserDefaults.standard.bool(forKey: MapViewController.useFlyoverMapDefaultsKey) {
-            schoolAreaMapType = .hybridFlyover
-        }
 
         // Do any additional setup after loading the view.
         mapView.showsUserLocation = true
@@ -178,6 +169,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: "StopView")
         
         reframeMap()
+        reloadMapType()
         reloadBuses()
         reloadStops()
     }
@@ -187,7 +179,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var standardMapType = MKMapType.mutedStandard
     
     func reloadMapType() {
-        if mapView.camera.altitude < schoolAreaMapTypeMaxAltitude && mapView.visibleMapRect.intersects(schoolRect) {
+        if !reloadsMapTypeOnRegionChange || (mapView.camera.altitude < schoolAreaMapTypeMaxAltitude && mapView.visibleMapRect.intersects(schoolRect)) {
             if mapView.mapType != schoolAreaMapType {
                 mapView.mapType = schoolAreaMapType
             }
@@ -201,9 +193,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBInspectable var reloadsMapTypeOnRegionChange = false
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        if reloadsMapTypeOnRegionChange {
-            reloadMapType()
-        }
+        reloadMapType()
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

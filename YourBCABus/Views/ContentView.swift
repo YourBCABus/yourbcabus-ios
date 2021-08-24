@@ -78,6 +78,7 @@ struct ContentView: View {
     @State var loadCancellable: Apollo.Cancellable?
     @State var isStarred = UserDefaults.standard.readSet("YBBStarredBusesSet").union(migrateOldStarredBuses())
     @State var dismissedAlerts = UserDefaults.standard.readSet("YBBDismissedAlertsSet").union(migrateOldDismissedAlerts())
+    @State var useFlyoverMap = UserDefaults.standard.bool(forKey: MapViewController.useFlyoverMapDefaultsKey)
     @State var selectedID: String?
     @EnvironmentObject var appDelegate: AppDelegate
     
@@ -107,19 +108,19 @@ struct ContentView: View {
                         }
                     }
                     if let mappingData = school.mappingData {
-                        NavigationLink(destination: fullScreenMap(mappingData: mappingData, buses: buses, starredIDs: isStarred, selectedID: $selectedID), tag: "map", selection: $selectedID) {
+                        NavigationLink(destination: fullScreenMap(mappingData: mappingData, buses: buses, starredIDs: isStarred, selectedID: $selectedID, useFlyoverMap: useFlyoverMap), tag: "map", selection: $selectedID) {
                             EmptyView()
                         }
                     }
                     ForEach(starredBuses.map { ($0, "starred.\($0.id)") }, id: \.1) { tuple in
                         let (bus, uiID) = tuple
-                        NavigationLink(destination: BusDetailView(bus: bus, school: school, starredIDs: isStarred, selectedID: $selectedID, schoolLocation: school.location), tag: uiID, selection: $selectedID) {
+                        NavigationLink(destination: BusDetailView(bus: bus, school: school, starredIDs: isStarred, selectedID: $selectedID, schoolLocation: school.location, useFlyoverMap: useFlyoverMap), tag: uiID, selection: $selectedID) {
                             EmptyView()
                         }
                     }
                     ForEach(buses.map { ($0, "all.\($0.id)") }, id: \.1) { tuple in
                         let (bus, uiID) = tuple
-                        NavigationLink(destination: BusDetailView(bus: bus, school: school, starredIDs: isStarred, selectedID: $selectedID, schoolLocation: school.location), tag: uiID, selection: $selectedID) {
+                        NavigationLink(destination: BusDetailView(bus: bus, school: school, starredIDs: isStarred, selectedID: $selectedID, schoolLocation: school.location, useFlyoverMap: useFlyoverMap), tag: uiID, selection: $selectedID) {
                             EmptyView()
                         }
                     }
@@ -139,7 +140,7 @@ struct ContentView: View {
                     Group {
                         BusesView(schoolID: id, onRefresh: {
                             reloadData(schoolID: id)
-                        }, endRefreshSubject: endRefreshSubject, result: $result, isStarred: $isStarred, dismissedAlerts: $dismissedAlerts, selectedID: $selectedID).edgesIgnoringSafeArea(.all).navigationTitle("YourBCABus").toolbar {
+                        }, endRefreshSubject: endRefreshSubject, result: $result, isStarred: $isStarred, dismissedAlerts: $dismissedAlerts, selectedID: $selectedID, useFlyoverMap: useFlyoverMap).edgesIgnoringSafeArea(.all).navigationTitle("YourBCABus").toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button {
                                     settingsVisible = true
@@ -174,7 +175,7 @@ struct ContentView: View {
                 OnboardingView(schoolID: $schoolID).undismissable()
             }
         }.sheet(isPresented: $settingsVisible) {
-            SettingsView(schoolID: $schoolID, busArrivalNotifications: $busArrivalNotifications) {
+            SettingsView(schoolID: $schoolID, busArrivalNotifications: $busArrivalNotifications, useFlyoverMap: $useFlyoverMap) {
                 settingsVisible = false
             }
         }.sheet(isPresented: $notificationPromptVisible) {
@@ -212,6 +213,10 @@ struct ContentView: View {
                 } else {
                     appDelegate.unsubscribe(busIDs: isStarred)
                 }
+            }
+        }.onChange(of: useFlyoverMap) { [useFlyoverMap] newValue in
+            if useFlyoverMap != newValue {
+                UserDefaults.standard.set(newValue, forKey: MapViewController.useFlyoverMapDefaultsKey)
             }
         }
     }
