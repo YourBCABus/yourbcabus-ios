@@ -65,6 +65,22 @@ struct BusDetailView: View {
         loadDetails(id: bus.id)
     }
     
+    func menuItems(for stop: StopModel) -> some View {
+        Group {
+            Button {
+                focusSubject.send(stop.stopLocation!)
+            } label: {
+                Label("Show in Map", systemImage: "mappin.and.ellipse")
+            }.disabled(stop.stopLocation == nil)
+            
+            Button {
+                
+            } label: {
+                Label("Add Get Off Alert", systemImage: "bell.fill")
+            }.disabled(true)
+        }
+    }
+    
     var body: some View {
         return VStack(spacing: 0) {
             switch result {
@@ -120,18 +136,19 @@ struct BusDetailView: View {
                                             }
                                             Circle().fill(Color.accentColor).frame(width: 16, height: 16)
                                         }.frame(width: 16)
-                                        let stopContents = VStack(alignment: .leading) {
-                                            HStack(alignment: .top) {
+                                        let stopContents = HStack {
+                                            VStack(alignment: .leading) {
                                                 Text(stop.name ?? "(unnamed stop)")
-                                                Spacer()
-                                                if let arrives = stop.arrives {
-                                                    Text("\(arrives, formatter: BusDetailView.timeFormatter)")
+                                                if let description = stop.description {
+                                                    Text(description).font(.caption)
                                                 }
                                             }
-                                            if let description = stop.description {
-                                                Text(description).font(.caption)
+                                            Spacer()
+                                            if let arrives = stop.arrives {
+                                                Text("\(arrives, formatter: BusDetailView.timeFormatter)")
                                             }
                                         }.multilineTextAlignment(.leading).foregroundColor(.primary)
+                                        
                                         if let location = stop.stopLocation {
                                             Button {
                                                 focusSubject.send(location)
@@ -141,7 +158,14 @@ struct BusDetailView: View {
                                         } else {
                                             stopContents
                                         }
-                                    }.frame(minHeight: 32).padding(.horizontal)
+                                        Menu {
+                                            menuItems(for: stop)
+                                        } label: {
+                                            Image(systemName: "ellipsis.circle.fill").accessibility(label: Text("Actions..."))
+                                        }
+                                    }.frame(minHeight: 32).padding(.horizontal).contextMenu {
+                                        menuItems(for: stop)
+                                    }
                                 }
                             }
                         }
