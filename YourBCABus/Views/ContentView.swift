@@ -202,6 +202,7 @@ struct ContentView: View {
                 UserDefaults.standard.set(true, forKey: "didAskToSetUpBusArrivalNotifications")
                 notificationPromptVisible = true
             }
+            notificationPromptVisible = true
             UserDefaults.standard.writeSet(starred, to: "YBBStarredBusesSet")
         }.onChange(of: dismissedAlerts) { dismissedAlerts in
             UserDefaults.standard.writeSet(dismissedAlerts, to: "YBBDismissedAlertsSet")
