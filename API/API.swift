@@ -982,21 +982,6 @@ public final class GetBusDetailsQuery: GraphQLQuery {
         company
         phone
         numbers
-        stops {
-          __typename
-          id
-          name
-          description
-          location {
-            __typename
-            lat
-            long
-          }
-          order
-          arrivalTime
-          invalidateTime
-          available
-        }
       }
     }
     """
@@ -1051,7 +1036,6 @@ public final class GetBusDetailsQuery: GraphQLQuery {
           GraphQLField("company", type: .scalar(String.self)),
           GraphQLField("phone", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
           GraphQLField("numbers", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
-          GraphQLField("stops", type: .nonNull(.list(.nonNull(.object(Stop.selections))))),
         ]
       }
 
@@ -1061,8 +1045,8 @@ public final class GetBusDetailsQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(otherNames: [String], company: String? = nil, phone: [String], numbers: [String], stops: [Stop]) {
-        self.init(unsafeResultMap: ["__typename": "Bus", "otherNames": otherNames, "company": company, "phone": phone, "numbers": numbers, "stops": stops.map { (value: Stop) -> ResultMap in value.resultMap }])
+      public init(otherNames: [String], company: String? = nil, phone: [String], numbers: [String]) {
+        self.init(unsafeResultMap: ["__typename": "Bus", "otherNames": otherNames, "company": company, "phone": phone, "numbers": numbers])
       }
 
       public var __typename: String {
@@ -1107,6 +1091,104 @@ public final class GetBusDetailsQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "numbers")
+        }
+      }
+    }
+  }
+}
+
+public final class GetStopsQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    query GetStops($busID: ID!) {
+      bus(id: $busID) {
+        __typename
+        stops {
+          __typename
+          id
+          name
+          description
+          location {
+            __typename
+            lat
+            long
+          }
+          order
+          arrivalTime
+          invalidateTime
+          available
+        }
+      }
+    }
+    """
+
+  public let operationName: String = "GetStops"
+
+  public var busID: GraphQLID
+
+  public init(busID: GraphQLID) {
+    self.busID = busID
+  }
+
+  public var variables: GraphQLMap? {
+    return ["busID": busID]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Query"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("bus", arguments: ["id": GraphQLVariable("busID")], type: .object(Bus.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(bus: Bus? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "bus": bus.flatMap { (value: Bus) -> ResultMap in value.resultMap }])
+    }
+
+    public var bus: Bus? {
+      get {
+        return (resultMap["bus"] as? ResultMap).flatMap { Bus(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "bus")
+      }
+    }
+
+    public struct Bus: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["Bus"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("stops", type: .nonNull(.list(.nonNull(.object(Stop.selections))))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(stops: [Stop]) {
+        self.init(unsafeResultMap: ["__typename": "Bus", "stops": stops.map { (value: Stop) -> ResultMap in value.resultMap }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
         }
       }
 

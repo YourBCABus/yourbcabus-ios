@@ -67,6 +67,11 @@ query GetBusDetails($busID: ID!) {
         company
         phone
         numbers
+    }
+}
+
+query GetStops($busID: ID!) {
+    bus(id: $busID) {
         stops {
             id
             name

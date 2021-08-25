@@ -21,8 +21,8 @@ extension StopModel {
     }
 }
 
-extension GetBusDetailsQuery.Data.Bus.Stop.Location: LocationModel {}
-extension GetBusDetailsQuery.Data.Bus.Stop: StopModel {
+extension GetStopsQuery.Data.Bus.Stop.Location: LocationModel {}
+extension GetStopsQuery.Data.Bus.Stop: StopModel {
     var stopLocation: LocationModel? {
         location
     }

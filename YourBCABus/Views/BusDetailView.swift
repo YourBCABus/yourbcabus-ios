@@ -32,6 +32,15 @@ struct BusDetailAttributeView: View {
     }
 }
 
+extension Result where Success == GraphQLResult<GetStopsQuery.Data> {
+    var stops: [GetStopsQuery.Data.Bus.Stop] {
+        if case .success(let result) = self {
+            return result.data?.bus?.stops ?? []
+        }
+        return []
+    }
+}
+
 struct BusDetailView: View {
     static let timeFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -47,7 +56,8 @@ struct BusDetailView: View {
     var schoolLocation: LocationModel?
     
     @State var result: Result<GraphQLResult<GetBusDetailsQuery.Data>, Error>?
-    @State var loadCancellable: Apollo.Cancellable?
+    @State var stopsResult: Result<GraphQLResult<GetStopsQuery.Data>, Error>?
+    @State var loadCancellables = [Apollo.Cancellable]()
     @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
     
     let focusSubject = PassthroughSubject<LocationModel, Never>()
@@ -55,10 +65,15 @@ struct BusDetailView: View {
     var useFlyoverMap: Bool
     
     func loadDetails(id: String) {
-        loadCancellable?.cancel()
-        loadCancellable = Network.shared.apollo.fetch(query: GetBusDetailsQuery(busID: id), cachePolicy: .fetchIgnoringCacheData) { result in
-            self.result = result
-        }
+        loadCancellables.forEach { $0.cancel() }
+        loadCancellables = [
+            Network.shared.apollo.fetch(query: GetBusDetailsQuery(busID: id), cachePolicy: .fetchIgnoringCacheData) { result in
+                self.result = result
+            },
+            Network.shared.apollo.fetch(query: GetStopsQuery(busID: id), cachePolicy: .fetchIgnoringCacheData) { result in
+                self.stopsResult = result
+            }
+        ]
     }
     
     func loadDetails() {
@@ -81,6 +96,83 @@ struct BusDetailView: View {
         }
     }
     
+    var stopsList: AnyView {
+        switch stopsResult {
+        case .none:
+            return AnyView(
+                ProgressView("Loading").frame(maxWidth: .infinity)
+            )
+        case .some(.success(let result)):
+            if let stops = result.data?.bus?.stops {
+                if stops.isEmpty {
+                    return AnyView(
+                        Text("No stop data").fontWeight(.bold).foregroundColor(.secondary).textCase(.uppercase).padding(.horizontal)
+                    )
+                } else {
+                    return AnyView(Group {
+                        HStack {
+                            Rectangle().fill(LinearGradient(colors: [Color.accentColor.opacity(0), Color.accentColor], startPoint: .init(x: 0, y: 0), endPoint: .init(x: 0, y: 1))).frame(width: 4).frame(width: 16)
+                            // TODO: Better plural localization
+                            Text(stops.count == 1 ? "1 stop" : "\(stops.count) stops").fontWeight(.bold).foregroundColor(.secondary).textCase(.uppercase)
+                        }.frame(minHeight: 32).padding(.horizontal)
+                        ForEach(Array(stops.sorted(with: { $0.order ?? .infinity }).enumerated()), id: \.1.id) { item in
+                            let (index, stop) = item
+                            HStack {
+                                ZStack {
+                                    if index + 1 >= stops.endIndex {
+                                        GeometryReader { geometry in
+                                            Rectangle().fill(Color.accentColor).frame(height: geometry.size.height / 2)
+                                        }.frame(width: 4)
+                                    } else {
+                                        Rectangle().fill(Color.accentColor).frame(width: 4)
+                                    }
+                                    Circle().fill(Color.accentColor).frame(width: 16, height: 16)
+                                }.frame(width: 16)
+                                let stopContents = HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(stop.name ?? "(unnamed stop)")
+                                        if let description = stop.description {
+                                            Text(description).font(.caption)
+                                        }
+                                    }
+                                    Spacer()
+                                    if let arrives = stop.arrives {
+                                        Text("\(arrives, formatter: BusDetailView.timeFormatter)")
+                                    }
+                                }.multilineTextAlignment(.leading).foregroundColor(.primary)
+                                
+                                if let location = stop.stopLocation {
+                                    Button {
+                                        focusSubject.send(location)
+                                    } label: {
+                                        stopContents
+                                    }
+                                } else {
+                                    stopContents
+                                }
+                                Menu {
+                                    menuItems(for: stop)
+                                } label: {
+                                    Image(systemName: "ellipsis.circle.fill").accessibility(label: Text("Actions...")).padding(4)
+                                }
+                            }.frame(minHeight: 32).padding(.horizontal).contextMenu {
+                                menuItems(for: stop)
+                            }
+                        }
+                    })
+                }
+            } else {
+                return AnyView(
+                    Text("Could not load stops").foregroundColor(.red).frame(maxWidth: .infinity)
+                )
+            }
+        case .some(.failure(_)):
+            return AnyView(
+                Text("Could not load stops").foregroundColor(.red).frame(maxWidth: .infinity)
+            )
+        }
+    }
+    
     var body: some View {
         return VStack(spacing: 0) {
             switch result {
@@ -89,7 +181,13 @@ struct BusDetailView: View {
             case .some(.success(let result)):
                 if let details = result.data?.bus {
                     if let school = school, let mappingData = school.mappingData {
-                        MapView(mappingData: mappingData, buses: school.buses, schoolLocation: schoolLocation, stops: details.stops, starredIDs: starredIDs ?? [], showScrim: true, selectedID: selectedID, detailBusID: bus.id, focusSubject: focusSubject, useFlyoverMap: useFlyoverMap).frame(height: verticalSizeClass == .compact ? 150 : 300)
+                        Group {
+                            if let stopsResult = stopsResult {
+                                MapView(mappingData: mappingData, buses: school.buses, schoolLocation: schoolLocation, stops: stopsResult.stops, starredIDs: starredIDs ?? [], showScrim: true, selectedID: selectedID, detailBusID: bus.id, focusSubject: focusSubject, useFlyoverMap: useFlyoverMap)
+                            } else {
+                                Rectangle().fill(Color.primary.opacity(0.1))
+                            }
+                        }.frame(height: verticalSizeClass == .compact ? 150 : 300)
                     }
                     ScrollView {
                         LazyVStack(alignment: .leading, spacing: 0) {
@@ -115,59 +213,7 @@ struct BusDetailView: View {
                                     BusDetailAttributeView(title: "Other Names", content: Text("\(details.otherNames.toFormattedString())"))
                                 }
                             }.padding(.horizontal)
-                            if details.stops.isEmpty {
-                                Text("No stop data").fontWeight(.bold).foregroundColor(.secondary).textCase(.uppercase).padding(.horizontal)
-                            } else {
-                                HStack {
-                                    Rectangle().fill(LinearGradient(colors: [Color.accentColor.opacity(0), Color.accentColor], startPoint: .init(x: 0, y: 0), endPoint: .init(x: 0, y: 1))).frame(width: 4).frame(width: 16)
-                                    // TODO: Better plural localization
-                                    Text(details.stops.count == 1 ? "1 stop" : "\(details.stops.count) stops").fontWeight(.bold).foregroundColor(.secondary).textCase(.uppercase)
-                                }.frame(minHeight: 32).padding(.horizontal)
-                                ForEach(Array(details.stops.sorted(with: { $0.order ?? .infinity }).enumerated()), id: \.1.id) { item in
-                                    let (index, stop) = item
-                                    HStack {
-                                        ZStack {
-                                            if index + 1 >= details.stops.endIndex {
-                                                GeometryReader { geometry in
-                                                    Rectangle().fill(Color.accentColor).frame(height: geometry.size.height / 2)
-                                                }.frame(width: 4)
-                                            } else {
-                                                Rectangle().fill(Color.accentColor).frame(width: 4)
-                                            }
-                                            Circle().fill(Color.accentColor).frame(width: 16, height: 16)
-                                        }.frame(width: 16)
-                                        let stopContents = HStack {
-                                            VStack(alignment: .leading) {
-                                                Text(stop.name ?? "(unnamed stop)")
-                                                if let description = stop.description {
-                                                    Text(description).font(.caption)
-                                                }
-                                            }
-                                            Spacer()
-                                            if let arrives = stop.arrives {
-                                                Text("\(arrives, formatter: BusDetailView.timeFormatter)")
-                                            }
-                                        }.multilineTextAlignment(.leading).foregroundColor(.primary)
-                                        
-                                        if let location = stop.stopLocation {
-                                            Button {
-                                                focusSubject.send(location)
-                                            } label: {
-                                                stopContents
-                                            }
-                                        } else {
-                                            stopContents
-                                        }
-                                        Menu {
-                                            menuItems(for: stop)
-                                        } label: {
-                                            Image(systemName: "ellipsis.circle.fill").accessibility(label: Text("Actions..."))
-                                        }
-                                    }.frame(minHeight: 32).padding(.horizontal).contextMenu {
-                                        menuItems(for: stop)
-                                    }
-                                }
-                            }
+                            stopsList
                         }
                     }
                 } else {
