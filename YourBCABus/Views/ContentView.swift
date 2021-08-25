@@ -114,13 +114,13 @@ struct ContentView: View {
                     }
                     ForEach(starredBuses.map { ($0, "starred.\($0.id)") }, id: \.1) { tuple in
                         let (bus, uiID) = tuple
-                        NavigationLink(destination: BusDetailView(bus: bus, school: school, starredIDs: isStarred, selectedID: $selectedID, schoolLocation: school.location, useFlyoverMap: useFlyoverMap), tag: uiID, selection: $selectedID) {
+                        NavigationLink(destination: BusDetailView(bus: bus, school: school, starredIDs: $isStarred, selectedID: $selectedID, schoolLocation: school.location, useFlyoverMap: useFlyoverMap), tag: uiID, selection: $selectedID) {
                             EmptyView()
                         }
                     }
                     ForEach(buses.map { ($0, "all.\($0.id)") }, id: \.1) { tuple in
                         let (bus, uiID) = tuple
-                        NavigationLink(destination: BusDetailView(bus: bus, school: school, starredIDs: isStarred, selectedID: $selectedID, schoolLocation: school.location, useFlyoverMap: useFlyoverMap), tag: uiID, selection: $selectedID) {
+                        NavigationLink(destination: BusDetailView(bus: bus, school: school, starredIDs: $isStarred, selectedID: $selectedID, schoolLocation: school.location, useFlyoverMap: useFlyoverMap), tag: uiID, selection: $selectedID) {
                             EmptyView()
                         }
                     }

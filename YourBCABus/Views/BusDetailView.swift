@@ -51,8 +51,8 @@ struct BusDetailView: View {
     
     var bus: BusModel
     var school: GetBusesQuery.Data.School?
-    var starredIDs: Set<String>?
-    var selectedID: Binding<String?>?
+    @Binding var starredIDs: Set<String>
+    @Binding var selectedID: String?
     var schoolLocation: LocationModel?
     
     @State var result: Result<GraphQLResult<GetBusDetailsQuery.Data>, Error>?
@@ -67,10 +67,10 @@ struct BusDetailView: View {
     func loadDetails(id: String) {
         loadCancellables.forEach { $0.cancel() }
         loadCancellables = [
-            Network.shared.apollo.fetch(query: GetBusDetailsQuery(busID: id), cachePolicy: .fetchIgnoringCacheData) { result in
+            Network.shared.apollo.watch(query: GetBusDetailsQuery(busID: id), cachePolicy: .returnCacheDataAndFetch) { result in
                 self.result = result
             },
-            Network.shared.apollo.fetch(query: GetStopsQuery(busID: id), cachePolicy: .fetchIgnoringCacheData) { result in
+            Network.shared.apollo.watch(query: GetStopsQuery(busID: id), cachePolicy: .returnCacheDataAndFetch) { result in
                 self.stopsResult = result
             }
         ]
@@ -183,7 +183,7 @@ struct BusDetailView: View {
                     if let school = school, let mappingData = school.mappingData {
                         Group {
                             if let stopsResult = stopsResult {
-                                MapView(mappingData: mappingData, buses: school.buses, schoolLocation: schoolLocation, stops: stopsResult.stops, starredIDs: starredIDs ?? [], showScrim: true, selectedID: selectedID, detailBusID: bus.id, focusSubject: focusSubject, useFlyoverMap: useFlyoverMap)
+                                MapView(mappingData: mappingData, buses: school.buses, schoolLocation: schoolLocation, stops: stopsResult.stops, starredIDs: starredIDs, showScrim: true, selectedID: $selectedID, detailBusID: bus.id, focusSubject: focusSubject, useFlyoverMap: useFlyoverMap)
                             } else {
                                 Rectangle().fill(Color.primary.opacity(0.1))
                             }
@@ -222,7 +222,24 @@ struct BusDetailView: View {
             default:
                 Text("An error occurred.").foregroundColor(.red).frame(maxHeight: .infinity)
             }
-        }.navigationTitle(bus.name ?? "Bus").navigationBarTitleDisplayMode(.inline).onAppear {
+        }.navigationTitle(bus.name ?? "Bus").navigationBarTitleDisplayMode(.inline).toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if starredIDs.contains(bus.id) {
+                    Button {
+                        selectedID = "all.\(bus.id)"
+                        starredIDs.remove(bus.id)
+                    } label: {
+                        Image(systemName: "star.fill").accessibility(label: Text("Starred"))
+                    }
+                } else {
+                    Button {
+                        starredIDs.insert(bus.id)
+                    } label: {
+                        Image(systemName: "star").accessibility(label: Text("Star"))
+                    }
+                }
+            }
+        }.onAppear {
             loadDetails()
         }.onChange(of: bus.id) { id in
             loadDetails(id: id)
