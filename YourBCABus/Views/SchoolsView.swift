@@ -21,7 +21,7 @@ struct SchoolsView: View {
             Network.shared.apollo.fetch(query: GetSchoolsQuery()) { result in
                 self.result = result
             }
-        }.edgesIgnoringSafeArea(.all).navigationBarTitle("Schools", displayMode: .inline)
+        }.edgesIgnoringSafeArea(.all).navigationBarTitle("Select Your School", displayMode: .inline)
     }
 }
 
