@@ -10,6 +10,7 @@ import SwiftUI
 
 struct AlertView: View {
     var alert: GetBusesQuery.Data.School.Alert
+    var isActive: Bool
     var onDismiss: () -> Void
     
     var body: some View {
@@ -29,12 +30,12 @@ struct AlertView: View {
                 }
                 Image(systemName: "chevron.right").foregroundColor(.secondary)
             }.padding([.horizontal, .bottom], 8)
-        }.frame(maxWidth: .infinity, alignment: .leading).background(Color.primary.opacity(0.1)).cornerRadius(8)
+        }.frame(maxWidth: .infinity, alignment: .leading).background(isActive ? .accentColor.opacity(0.2) : Color(.secondarySystemBackground)).cornerRadius(8)
     }
 }
 
 struct AlertView_Previews: PreviewProvider {
     static var previews: some View {
-        AlertView(alert: GetBusesQuery.Data.School.Alert(id: "f", start: "0", end: "1", title: "sdf", type: nil, dismissable: false)) {}.padding()
+        AlertView(alert: GetBusesQuery.Data.School.Alert(id: "f", start: "0", end: "1", title: "sdf", type: nil, dismissable: false), isActive: false) {}.padding()
     }
 }

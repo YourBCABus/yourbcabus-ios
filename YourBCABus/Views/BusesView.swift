@@ -145,7 +145,7 @@ struct BusesView: View {
                                 Button {
                                     selectedID = alert.id
                                 } label: {
-                                    AlertView(alert: alert) {
+                                    AlertView(alert: alert, isActive: selectedID == alert.id) {
                                         dismissedAlerts.insert(alert.id)
                                     }
                                 }.padding(.horizontal).padding(.bottom, 8)

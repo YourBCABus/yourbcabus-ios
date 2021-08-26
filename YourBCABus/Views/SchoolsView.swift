@@ -54,6 +54,7 @@ class SchoolsViewController: UITableViewController, UISearchResultsUpdating {
             }
         }
     }
+    var schools = [GetSchoolsQuery.Data.School]()
     
     func updateSearchResults(for searchController: UISearchController) {
         let resultsController = searchController.searchResultsController as! SchoolsSearchResultsViewController
@@ -79,7 +80,7 @@ class SchoolsViewController: UITableViewController, UISearchResultsUpdating {
                     predicates.append(idPredicate)
                     
                     let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicates)
-                    resultsController.schools = data.schools.filter { predicate.evaluate(with: $0) }
+                    resultsController.schools = data.schools.filter { $0.readable && predicate.evaluate(with: $0) }
                 } else {
                     resultsController.schools = []
                 }
@@ -92,7 +93,15 @@ class SchoolsViewController: UITableViewController, UISearchResultsUpdating {
     }
     
     var searchController: UISearchController?
-    var result: Result<GraphQLResult<GetSchoolsQuery.Data>, Error>?
+    var result: Result<GraphQLResult<GetSchoolsQuery.Data>, Error>? {
+        didSet {
+            if case .some(.success(let result)) = result {
+                schools = result.data?.schools.filter { $0.readable } ?? []
+            } else {
+                schools = []
+            }
+        }
+    }
     var onSelect: ((String) -> Void)?
     
     override func viewDidLoad() {
@@ -122,8 +131,8 @@ class SchoolsViewController: UITableViewController, UISearchResultsUpdating {
         case .none:
             return 1
         case .some(.success(let result)):
-            if let data = result.data {
-                return data.schools.count
+            if result.data != nil {
+                return schools.count
             } else {
                 return 1
             }
@@ -139,9 +148,9 @@ class SchoolsViewController: UITableViewController, UISearchResultsUpdating {
         case .none:
             cell.textLabel!.text = "Loading..."
         case .some(.success(let result)):
-            if let data = result.data {
-                cell.textLabel!.text = data.schools[indexPath.row].name ?? "(unnamed school)"
-                if data.schools[indexPath.row].id == selectedID {
+            if result.data != nil {
+                cell.textLabel!.text = schools[indexPath.row].name ?? "(unnamed school)"
+                if schools[indexPath.row].id == selectedID {
                     cell.accessoryType = .checkmark
                 }
             } else {
@@ -167,8 +176,8 @@ class SchoolsViewController: UITableViewController, UISearchResultsUpdating {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if case .some(.success(let result)) = result, let data = result.data {
-            onSelect?(data.schools[indexPath.row].id)
+        if case .some(.success(let result)) = result, result.data != nil {
+            onSelect?(schools[indexPath.row].id)
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
