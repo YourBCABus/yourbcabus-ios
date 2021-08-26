@@ -155,7 +155,7 @@ struct BusDetailView: View {
                                 } label: {
                                     Image(systemName: "ellipsis.circle.fill").accessibility(label: Text("Actions...")).padding(4)
                                 }
-                            }.frame(minHeight: 32).padding(.horizontal).contextMenu {
+                            }.frame(minHeight: 32).padding(.horizontal).background(Color(.systemBackground)).contextMenu {
                                 menuItems(for: stop)
                             }
                         }

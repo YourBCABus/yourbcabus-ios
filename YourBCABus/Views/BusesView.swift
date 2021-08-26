@@ -32,9 +32,7 @@ struct BusRowView: View {
                 }
                 Spacer()
                 Button {
-                    withAnimation {
-                        isStarred.toggle()
-                    }
+                    isStarred.toggle()
                 } label: {
                     Image(systemName: isStarred ? "star.fill" : "star").foregroundColor(isStarred ? .blue : .secondary)
                 }.accessibility(label: Text(isStarred ? "Unstar" : "Star"))
@@ -49,19 +47,19 @@ struct BusRowView: View {
         Button {
             selectedID = uiID
         } label: {
-            linkContent
-        }.contextMenu {
-            if isStarred {
-                Button {
-                    isStarred = false
-                } label: {
-                    Label("Unstar", systemImage: "star.slash.fill")
-                }
-            } else {
-                Button {
-                    isStarred = true
-                } label: {
-                    Label("Star", systemImage: "star.fill")
+            linkContent.background(Color(.systemBackground)).contextMenu {
+                if isStarred {
+                    Button {
+                        isStarred = false
+                    } label: {
+                        Label("Unstar", systemImage: "star.slash.fill")
+                    }
+                } else {
+                    Button {
+                        isStarred = true
+                    } label: {
+                        Label("Star", systemImage: "star.fill")
+                    }
                 }
             }
         }
