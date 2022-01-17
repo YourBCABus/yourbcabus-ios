@@ -57,6 +57,7 @@
 		4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */; };
 		4AE7066C218FE4C100A95AC0 /* Navigation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */; };
 		7C738D456BF364DD8B3E1793 /* Pods_YourBCABusUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */; };
+		89A029C8279612DB005B5D3E /* PhoneNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A029C7279612DB005B5D3E /* PhoneNumbers.swift */; };
 		BDEF7596E79AB6338CCFAF6F /* Pods_YourBCABusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56128607A369641345A3EA52 /* Pods_YourBCABusTests.framework */; };
 		E4310F9683A7319F8290BE04 /* Pods_YourBCABus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A35AB7A4B47B8135C0288F /* Pods_YourBCABus.framework */; };
 /* End PBXBuildFile section */
@@ -183,6 +184,7 @@
 		6B5398EEA0CBDDEF93168D39 /* Pods-YourBCABusUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABusUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABusUITests/Pods-YourBCABusUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		706AE1EA193D8582EF80A1A0 /* Pods-YourBCABus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABus/Pods-YourBCABus.debug.xcconfig"; sourceTree = "<group>"; };
 		86A35AB7A4B47B8135C0288F /* Pods_YourBCABus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		89A029C7279612DB005B5D3E /* PhoneNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumbers.swift; sourceTree = "<group>"; };
 		B0DEAFF2C7F0B2A4D3AD4F0F /* Pods-YourBCABus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABus.release.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABus/Pods-YourBCABus.release.xcconfig"; sourceTree = "<group>"; };
 		B8E7953EA58932F4E7E52919 /* Pods-YourBCABusTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABusTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABusTests/Pods-YourBCABusTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -327,6 +329,7 @@
 				4A1FD73F26C1E50B001D5D06 /* BusModel.swift */,
 				4A933F5226CD9D0B0033BE70 /* StopModel.swift */,
 				4A933F5026CD97AE0033BE70 /* SwiftExtensions.swift */,
+				89A029C7279612DB005B5D3E /* PhoneNumbers.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -764,6 +767,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */,
+				89A029C8279612DB005B5D3E /* PhoneNumbers.swift in Sources */,
 				4A642DC426BDAD1900C0D3BC /* SearchView.swift in Sources */,
 				4A642DCC26BDC68D00C0D3BC /* FooterView.swift in Sources */,
 				4A933F4F26CD8CB30033BE70 /* BoardingAreaView.swift in Sources */,
@@ -990,12 +994,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Primary;
 				CODE_SIGN_ENTITLEMENTS = YourBCABus/YourBCABus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2021.12.10;
+				CURRENT_PROJECT_VERSION = 2022.0.17;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = YourBCABus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1006,7 +1009,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_UIKITFORMAC = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1019,12 +1022,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Primary;
 				CODE_SIGN_ENTITLEMENTS = YourBCABus/YourBCABus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2021.12.10;
+				CURRENT_PROJECT_VERSION = 2022.0.17;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = YourBCABus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1035,7 +1037,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_UIKITFORMAC = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1126,7 +1128,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "YourBCABus Notification Service/YourBCABus Notification Service.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2021.8.25;
+				CURRENT_PROJECT_VERSION = 2022.0.17;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = "YourBCABus Notification Service/Info.plist";
@@ -1152,7 +1154,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "YourBCABus Notification Service/YourBCABus Notification Service.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2021.8.25;
+				CURRENT_PROJECT_VERSION = 2022.0.17;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				INFOPLIST_FILE = "YourBCABus Notification Service/Info.plist";
@@ -1178,7 +1180,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2021.8.25;
+				CURRENT_PROJECT_VERSION = 2022.0.17;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1208,7 +1210,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2021.8.25;
+				CURRENT_PROJECT_VERSION = 2022.0.17;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 9DDM72ZZ79;
 				DYLIB_COMPATIBILITY_VERSION = 1;

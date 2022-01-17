@@ -199,7 +199,7 @@ struct BusDetailView: View {
                                 Spacer()
                                 BoardingAreaView(bus.getBoardingArea()).font(.title).frame(height: 72)
                             }.padding(.all)
-                            LazyVGrid(columns: Array(repeating: .init(.adaptive(minimum: 150)), count: 3), alignment: .leading, spacing: 12) {
+                            LazyVGrid(columns: [.init(.adaptive(minimum: 300))], alignment: .leading, spacing: 12) {
                                 if let company = details.company {
                                     BusDetailAttributeView(title: "Operator", content: Text(company))
                                 }
@@ -207,12 +207,30 @@ struct BusDetailView: View {
                                     BusDetailAttributeView(title: "Bus No.", content: Text("\(details.numbers.toFormattedString())"))
                                 }
                                 if !details.phone.isEmpty {
-                                    BusDetailAttributeView(title: "Phone", content: Text("\(details.phone.toFormattedString())"))
+                                    VStack(alignment: .leading) {
+                                        Text("Phone").font(.caption).fontWeight(.bold).foregroundColor(.secondary).textCase(.uppercase)
+                                        VStack(alignment: .leading) {
+                                            ForEach(details.phone, id: \.self) { phone in
+                                                let url = URL(string: "telprompt://\(phone.filter { $0.isNumber })")
+                                                Button {
+                                                    UIApplication.shared.open(url!, options: [:]) { success in
+                                                        if !success {
+                                                            if let url = URL(string: "tel://\(phone.filter { $0.isNumber })") {
+                                                                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                                            }
+                                                        }
+                                                    }
+                                                } label: {
+                                                    Text(phone).font(.title3).fontWeight(.medium).multilineTextAlignment(.leading)
+                                                }.disabled(url == nil)
+                                            }
+                                        }
+                                    }
                                 }
                                 if !details.otherNames.isEmpty {
                                     BusDetailAttributeView(title: "Other Names", content: Text("\(details.otherNames.toFormattedString())"))
                                 }
-                            }.padding(.horizontal)
+                            }.padding([.horizontal, .bottom])
                             stopsList
                         }
                     }
