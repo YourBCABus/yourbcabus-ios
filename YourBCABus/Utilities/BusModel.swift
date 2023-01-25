@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 protocol Invalidatable {
     var invalidateTime: String? { get }
@@ -44,8 +45,8 @@ extension BusModel {
         return isValidated(at: date) ? boardingArea : nil
     }
     
-    func status(at date: Date = Date()) -> String {
-        if boardingArea != nil {
+    func status(at date: Date = Date()) -> LocalizedStringKey {
+        if getBoardingArea(at: date) != nil {
             return "Arrived"
         } else if available {
             return "Not at school"

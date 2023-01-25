@@ -40,21 +40,11 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("Notifications")) {
-                    let toggle = Toggle("Starred Buses", isOn: $busArrivalNotifications)
-                    if #available(iOS 15.0, *) {
-                        toggle.tint(Color.accentColor)
-                    } else {
-                        toggle
-                    }
+                    Toggle("Starred Buses", isOn: $busArrivalNotifications).tint(Color.accentColor)
                 }
                 
                 Section(header: Text("Map")) {
-                    let toggle = Toggle("Use 3D Satellite Map", isOn: $useFlyoverMap)
-                    if #available(iOS 15.0, *) {
-                        toggle.tint(Color.accentColor)
-                    } else {
-                        toggle
-                    }
+                    Toggle("Use 3D Satellite Map", isOn: $useFlyoverMap).tint(Color.accentColor)
                 }
                 
                 Section(header: Text("Advanced")) {
@@ -63,6 +53,14 @@ struct SettingsView: View {
                         UIPasteboard.general.string = schoolID
                     }.disabled(schoolID == nil).foregroundColor(.primary)
                 }
+                
+                #if DEBUG
+                Section(header: Text("Debug")) {
+                    Button("Reset school") {
+                        schoolID = nil
+                    }.foregroundColor(.primary)
+                }
+                #endif
                 
                 Section(header: Text("About")) {
                     Link("YourBCABus Website", destination: URL(string: "https://yourbcabus.com")!).foregroundColor(.primary)

@@ -85,8 +85,7 @@ struct BusesSectionHeader: View {
 
 struct BusesView: View {
     var schoolID: String
-    var onRefresh: () -> Void
-    var endRefreshSubject: PassthroughSubject<Void, Never>
+    var onRefresh: () async -> Void
     @Binding var result: Result<GraphQLResult<GetBusesQuery.Data>, Error>?
     @Binding var isStarred: Set<String>
     @Binding var dismissedAlerts: Set<String>
@@ -97,12 +96,7 @@ struct BusesView: View {
         let now = Date()
         return SearchView {
             ScrollView {
-                LazyVStack(spacing: 0) {
-                    #if !targetEnvironment(macCatalyst)
-                    ReloadControl(endRefreshSubject: endRefreshSubject) {
-                        onRefresh()
-                    }.frame(height: 1) // It's a hack but it works for iOS 14
-                    #endif
+                VStack(spacing: 0) {
                     switch result {
                     case .none:
                         ProgressView("Loading").padding(.vertical, 64)
@@ -165,35 +159,37 @@ struct BusesView: View {
                                     }
                                 }.frame(maxWidth: .infinity).background(Color.blue).cornerRadius(16).padding([.horizontal, .bottom]).accessibility(label: Text("Map"))
                             }
-                            if !starredBuses.isEmpty {
-                                BusesSectionHeader(text: "Starred")
-                            }
-                            ForEach(starredBuses.map { ($0, "starred.\($0.id)") }, id: \.1) { tuple in
-                                let (bus, uiID) = tuple
-                                BusRowView(uiID: uiID, bus: bus, isStarred: Binding {
-                                    isStarred.contains(bus.id)
-                                } set: { starred in
-                                    if starred {
-                                        isStarred.insert(bus.id)
-                                    } else {
-                                        isStarred.remove(bus.id)
-                                    }
-                                }, selectedID: $selectedID)
-                            }
-                            if !starredBuses.isEmpty {
-                                BusesSectionHeader(text: "All")
-                            }
-                            ForEach(buses.map { ($0, "all.\($0.id)") }, id: \.1) { tuple in
-                                let (bus, uiID) = tuple
-                                BusRowView(uiID: uiID, bus: bus, isStarred: Binding {
-                                    isStarred.contains(bus.id)
-                                } set: { starred in
-                                    if starred {
-                                        isStarred.insert(bus.id)
-                                    } else {
-                                        isStarred.remove(bus.id)
-                                    }
-                                }, selectedID: $selectedID)
+                            LazyVStack(spacing: 0) {
+                                if !starredBuses.isEmpty {
+                                    BusesSectionHeader(text: "Starred")
+                                }
+                                ForEach(starredBuses.map { ($0, "starred.\($0.id)") }, id: \.1) { tuple in
+                                    let (bus, uiID) = tuple
+                                    BusRowView(uiID: uiID, bus: bus, isStarred: Binding {
+                                        isStarred.contains(bus.id)
+                                    } set: { starred in
+                                        if starred {
+                                            isStarred.insert(bus.id)
+                                        } else {
+                                            isStarred.remove(bus.id)
+                                        }
+                                    }, selectedID: $selectedID)
+                                }
+                                if !starredBuses.isEmpty {
+                                    BusesSectionHeader(text: "All")
+                                }
+                                ForEach(buses.map { ($0, "all.\($0.id)") }, id: \.1) { tuple in
+                                    let (bus, uiID) = tuple
+                                    BusRowView(uiID: uiID, bus: bus, isStarred: Binding {
+                                        isStarred.contains(bus.id)
+                                    } set: { starred in
+                                        if starred {
+                                            isStarred.insert(bus.id)
+                                        } else {
+                                            isStarred.remove(bus.id)
+                                        }
+                                    }, selectedID: $selectedID)
+                                }
                             }
                         } else {
                             BusesErrorView()
@@ -204,6 +200,11 @@ struct BusesView: View {
                     FooterView().padding()
                 }.listStyle(PlainListStyle())
             }
+            #if !targetEnvironment(macCatalyst)
+            .refreshable {
+                await onRefresh()
+            }
+            #endif
         } searchResultsContent: { text -> AnyView in
             if text.isEmpty {
                 return AnyView(EmptyView())

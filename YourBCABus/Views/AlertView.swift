@@ -8,6 +8,16 @@
 
 import SwiftUI
 
+extension GetBusesQuery.Data.School.Alert {
+    var highlightColor: Color {
+        if let color = type?.color {
+            return Color(red: Double(color.r) / 255, green: Double(color.g) / 255, blue: Double(color.b) / 255)
+        } else {
+            return .accentColor
+        }
+    }
+}
+
 struct AlertView: View {
     var alert: GetBusesQuery.Data.School.Alert
     var isActive: Bool
@@ -16,7 +26,7 @@ struct AlertView: View {
     var body: some View {
         VStack(alignment: .leading) {
             if let type = alert.type, let name = type.name {
-                Text(name).font(.caption).fontWeight(.bold).textCase(.uppercase).padding(.vertical, 4).padding(.horizontal, 8).multilineTextAlignment(.leading).frame(maxWidth: .infinity, alignment: .leading).background(Color.accentColor).foregroundColor(.white)
+                Text(name).font(.caption).fontWeight(.bold).textCase(.uppercase).padding(.vertical, 4).padding(.horizontal, 8).multilineTextAlignment(.leading).frame(maxWidth: .infinity, alignment: .leading).background(alert.highlightColor).foregroundColor(.white)
             }
             HStack {
                 Text(alert.title).multilineTextAlignment(.leading).foregroundColor(.primary)
@@ -30,7 +40,7 @@ struct AlertView: View {
                 }
                 Image(systemName: "chevron.right").foregroundColor(.secondary)
             }.padding([.horizontal, .bottom], 8)
-        }.frame(maxWidth: .infinity, alignment: .leading).background(isActive ? .accentColor.opacity(0.2) : Color(.secondarySystemBackground)).cornerRadius(8)
+        }.frame(maxWidth: .infinity, alignment: .leading).background( alert.highlightColor.opacity(isActive ? 0.4 : 0.2)).cornerRadius(8)
     }
 }
 

@@ -140,7 +140,14 @@ struct ContentView: View {
                     Group {
                         BusesView(schoolID: id, onRefresh: {
                             reloadData(schoolID: id)
-                        }, endRefreshSubject: endRefreshSubject, result: $result, isStarred: $isStarred, dismissedAlerts: $dismissedAlerts, selectedID: $selectedID, useFlyoverMap: useFlyoverMap).edgesIgnoringSafeArea(.all).navigationTitle("YourBCABus").toolbar {
+                            var bag = Set<AnyCancellable>()
+                            await withCheckedContinuation { continuation in
+                                endRefreshSubject.sink(receiveCompletion: { _ in }, receiveValue: { _ in
+                                    continuation.resume()
+                                }).store(in: &bag)
+                            }
+                            try? await Task.sleep(nanoseconds: 500_000_000)
+                        }, result: $result, isStarred: $isStarred, dismissedAlerts: $dismissedAlerts, selectedID: $selectedID, useFlyoverMap: useFlyoverMap).edgesIgnoringSafeArea(.all).navigationTitle("YourBCABus").toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button {
                                     settingsVisible = true
@@ -169,11 +176,7 @@ struct ContentView: View {
     
     var body: some View {
         content.sheet(isPresented: .constant(schoolID == nil)) {
-            if #available(iOS 15.0, *) {
-                OnboardingView(schoolID: $schoolID).interactiveDismissDisabled()
-            } else {
-                OnboardingView(schoolID: $schoolID).undismissable()
-            }
+            OnboardingView(schoolID: $schoolID).interactiveDismissDisabled()
         }.sheet(isPresented: $settingsVisible) {
             SettingsView(schoolID: $schoolID, busArrivalNotifications: $busArrivalNotifications, useFlyoverMap: $useFlyoverMap) {
                 settingsVisible = false

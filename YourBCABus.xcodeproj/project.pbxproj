@@ -23,11 +23,9 @@
 		4A4E48392293875500B3F90C /* alerts-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E48382293875500B3F90C /* alerts-script.js */; };
 		4A5E8A0026A730E300A612AF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E89FF26A730E300A612AF /* Routes.swift */; };
 		4A642DC026BD9BCC00C0D3BC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DBF26BD9BCC00C0D3BC /* OnboardingView.swift */; };
-		4A642DC226BD9EE400C0D3BC /* UndismissableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC126BD9EE400C0D3BC /* UndismissableView.swift */; };
 		4A642DC426BDAD1900C0D3BC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC326BDAD1900C0D3BC /* SearchView.swift */; };
 		4A642DC626BDB09B00C0D3BC /* BusesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC526BDB09B00C0D3BC /* BusesView.swift */; };
 		4A642DC826BDB16000C0D3BC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC726BDB16000C0D3BC /* SettingsView.swift */; };
-		4A642DCA26BDC1D900C0D3BC /* ReloadControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC926BDC1D900C0D3BC /* ReloadControl.swift */; };
 		4A642DCC26BDC68D00C0D3BC /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DCB26BDC68D00C0D3BC /* FooterView.swift */; };
 		4A8C4B3926B87F76006A93A7 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B3826B87F76006A93A7 /* App.swift */; };
 		4A8C4B3D26B88305006A93A7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C4B3C26B88305006A93A7 /* ContentView.swift */; };
@@ -58,6 +56,8 @@
 		4AE7066C218FE4C100A95AC0 /* Navigation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */; };
 		7C738D456BF364DD8B3E1793 /* Pods_YourBCABusUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */; };
 		89A029C8279612DB005B5D3E /* PhoneNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A029C7279612DB005B5D3E /* PhoneNumbers.swift */; };
+		89A07BCD2981991500EC7B6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89A07BCF2981991500EC7B6B /* Localizable.strings */; };
+		89A07BD02981992200EC7B6B /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 89A07BD22981992200EC7B6B /* Localizable.stringsdict */; };
 		BDEF7596E79AB6338CCFAF6F /* Pods_YourBCABusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56128607A369641345A3EA52 /* Pods_YourBCABusTests.framework */; };
 		E4310F9683A7319F8290BE04 /* Pods_YourBCABus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A35AB7A4B47B8135C0288F /* Pods_YourBCABus.framework */; };
 /* End PBXBuildFile section */
@@ -144,11 +144,9 @@
 		4A4E48382293875500B3F90C /* alerts-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "alerts-script.js"; sourceTree = "<group>"; };
 		4A5E89FF26A730E300A612AF /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		4A642DBF26BD9BCC00C0D3BC /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		4A642DC126BD9EE400C0D3BC /* UndismissableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndismissableView.swift; sourceTree = "<group>"; };
 		4A642DC326BDAD1900C0D3BC /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		4A642DC526BDB09B00C0D3BC /* BusesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusesView.swift; sourceTree = "<group>"; };
 		4A642DC726BDB16000C0D3BC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		4A642DC926BDC1D900C0D3BC /* ReloadControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadControl.swift; sourceTree = "<group>"; };
 		4A642DCB26BDC68D00C0D3BC /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		4A83526F22333D8C008B3EF3 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		4A8C4B3826B87F76006A93A7 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -185,6 +183,10 @@
 		706AE1EA193D8582EF80A1A0 /* Pods-YourBCABus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABus/Pods-YourBCABus.debug.xcconfig"; sourceTree = "<group>"; };
 		86A35AB7A4B47B8135C0288F /* Pods_YourBCABus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89A029C7279612DB005B5D3E /* PhoneNumbers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumbers.swift; sourceTree = "<group>"; };
+		89A07BCE2981991500EC7B6B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		89A07BD12981992200EC7B6B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		89A07BD32981995C00EC7B6B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		89A07BD42981995C00EC7B6B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		B0DEAFF2C7F0B2A4D3AD4F0F /* Pods-YourBCABus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABus.release.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABus/Pods-YourBCABus.release.xcconfig"; sourceTree = "<group>"; };
 		B8E7953EA58932F4E7E52919 /* Pods-YourBCABusTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABusTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABusTests/Pods-YourBCABusTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -298,6 +300,8 @@
 				4A113B17217A987100B7640E /* Info.plist */,
 				4ABB8C7D2180C05A00158FD6 /* GoogleService-Info.plist */,
 				4AD958322180AEEA00AC7EA9 /* YourBCABus.entitlements */,
+				89A07BCF2981991500EC7B6B /* Localizable.strings */,
+				89A07BD22981992200EC7B6B /* Localizable.stringsdict */,
 				4A3E7F7426CCC88E0043658C /* Resources */,
 			);
 			path = YourBCABus;
@@ -347,7 +351,6 @@
 			isa = PBXGroup;
 			children = (
 				4A8C4B3C26B88305006A93A7 /* ContentView.swift */,
-				4A642DC126BD9EE400C0D3BC /* UndismissableView.swift */,
 				4A642DC326BDAD1900C0D3BC /* SearchView.swift */,
 				4A642DBF26BD9BCC00C0D3BC /* OnboardingView.swift */,
 				4A95ED1726D0AFEB00D1DD5F /* NotificationPromptView.swift */,
@@ -360,7 +363,6 @@
 				4A4A933526CCB113006A4DFD /* AlertDetailView.swift */,
 				4A216F2026C5B3F90077E208 /* MapView.swift */,
 				4A642DCB26BDC68D00C0D3BC /* FooterView.swift */,
-				4A642DC926BDC1D900C0D3BC /* ReloadControl.swift */,
 				4A642DC726BDB16000C0D3BC /* SettingsView.swift */,
 			);
 			path = Views;
@@ -591,6 +593,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 4A113AFD217A986E00B7640E;
 			packageReferences = (
@@ -614,10 +617,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89A07BD02981992200EC7B6B /* Localizable.stringsdict in Resources */,
 				4AE7066C218FE4C100A95AC0 /* Navigation.storyboard in Resources */,
 				4A9526D226BC9338007C58CA /* SchoolsView.storyboard in Resources */,
 				4AC07B46228D03B9002F2537 /* Assets.xcassets in Resources */,
 				4A113B16217A987100B7640E /* LaunchScreen.storyboard in Resources */,
+				89A07BCD2981991500EC7B6B /* Localizable.strings in Resources */,
 				4A113B13217A987100B7640E /* Assets.xcassets in Resources */,
 				4A8C4B4726B89C9A006A93A7 /* queries.graphql in Resources */,
 				4ABB8C7E2180C05A00158FD6 /* GoogleService-Info.plist in Resources */,
@@ -771,9 +776,7 @@
 				4A642DC426BDAD1900C0D3BC /* SearchView.swift in Sources */,
 				4A642DCC26BDC68D00C0D3BC /* FooterView.swift in Sources */,
 				4A933F4F26CD8CB30033BE70 /* BoardingAreaView.swift in Sources */,
-				4A642DCA26BDC1D900C0D3BC /* ReloadControl.swift in Sources */,
 				4A8C4B4B26B8A07E006A93A7 /* ApolloClient.swift in Sources */,
-				4A642DC226BD9EE400C0D3BC /* UndismissableView.swift in Sources */,
 				4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */,
 				4A4A933626CCB113006A4DFD /* AlertDetailView.swift in Sources */,
 				4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */,
@@ -866,6 +869,24 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		89A07BCF2981991500EC7B6B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89A07BCE2981991500EC7B6B /* en */,
+				89A07BD32981995C00EC7B6B /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		89A07BD22981992200EC7B6B /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89A07BD12981992200EC7B6B /* en */,
+				89A07BD42981995C00EC7B6B /* fr */,
+			);
+			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -873,6 +894,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -920,7 +942,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -934,6 +956,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -975,7 +998,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -996,9 +1019,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2022.0.17;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
-				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				DEVELOPMENT_TEAM = 9G475R3MEF;
 				INFOPLIST_FILE = YourBCABus/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1024,9 +1047,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2022.0.17;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
-				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				DEVELOPMENT_TEAM = 9G475R3MEF;
 				INFOPLIST_FILE = YourBCABus/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1130,9 +1153,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2022.0.17;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
-				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				DEVELOPMENT_TEAM = 9G475R3MEF;
 				INFOPLIST_FILE = "YourBCABus Notification Service/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1156,9 +1179,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2022.0.17;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
-				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				DEVELOPMENT_TEAM = 9G475R3MEF;
 				INFOPLIST_FILE = "YourBCABus Notification Service/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1182,13 +1205,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2022.0.17;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				DEVELOPMENT_TEAM = 9G475R3MEF;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Core/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1212,13 +1235,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2022.0.17;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 9DDM72ZZ79;
+				DEVELOPMENT_TEAM = 9G475R3MEF;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Core/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

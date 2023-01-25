@@ -10,16 +10,6 @@ import SwiftUI
 import Apollo
 import Combine
 
-extension Array where Element == String {
-    func toFormattedString() -> String {
-        if #available(iOS 15.0, *) {
-            return formatted()
-        } else {
-            return joined(separator: ", ")
-        }
-    }
-}
-
 struct BusDetailAttributeView: View {
     var title: LocalizedStringKey
     var content: Text
@@ -112,8 +102,7 @@ struct BusDetailView: View {
                     return AnyView(Group {
                         HStack {
                             Rectangle().fill(LinearGradient(colors: [Color.accentColor.opacity(0), Color.accentColor], startPoint: .init(x: 0, y: 0), endPoint: .init(x: 0, y: 1))).frame(width: 4).frame(width: 16)
-                            // TODO: Better plural localization
-                            Text(stops.count == 1 ? "1 stop" : "\(stops.count) stops").fontWeight(.bold).foregroundColor(.secondary).textCase(.uppercase)
+                            Text("\(stops.count) stop(s)").fontWeight(.bold).foregroundColor(.secondary).textCase(.uppercase)
                         }.frame(minHeight: 32).padding(.horizontal)
                         ForEach(Array(stops.sorted(with: { $0.order ?? .infinity }).enumerated()), id: \.1.id) { item in
                             let (index, stop) = item
@@ -204,7 +193,7 @@ struct BusDetailView: View {
                                     BusDetailAttributeView(title: "Operator", content: Text(company))
                                 }
                                 if !details.numbers.isEmpty {
-                                    BusDetailAttributeView(title: "Bus No.", content: Text("\(details.numbers.toFormattedString())"))
+                                    BusDetailAttributeView(title: "Bus No.", content: Text("\(details.numbers.formatted())"))
                                 }
                                 if !details.phone.isEmpty {
                                     VStack(alignment: .leading) {
@@ -228,7 +217,7 @@ struct BusDetailView: View {
                                     }
                                 }
                                 if !details.otherNames.isEmpty {
-                                    BusDetailAttributeView(title: "Other Names", content: Text("\(details.otherNames.toFormattedString())"))
+                                    BusDetailAttributeView(title: "Other Names", content: Text("\(details.otherNames.formatted())"))
                                 }
                             }.padding([.horizontal, .bottom])
                             stopsList

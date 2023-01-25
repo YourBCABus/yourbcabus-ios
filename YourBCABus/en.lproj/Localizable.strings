@@ -1,0 +1,43 @@
+/* 
+  Localizable.strings
+  YourBCABus
+
+  Created by Anthony Li on 1/25/23.
+  Copyright © 2023 YourBCABus. All rights reserved.
+*/
+
+/* Onboarding */
+"Welcome to YourBCABus" = "Welcome to YourBCABus";
+"Know where your bus is" = "Know where your bus is";
+"See all your buses in a list or on a map, with detailed information." = "See all your buses in a list or on a map, with detailed information.";
+"Star your favorite buses" = "Star your favorite buses";
+"Keep track of your favorite buses by starring them." = "Keep track of your favorite buses by starring them.";
+"End the guessing game" = "End the guessing game";
+"Get notified when your bus arrives." = "Get notified when your bus arrives.";
+"Get Started" = "Get Started";
+
+/* Home Page */
+"Starred" = "Starred";
+"All" = "All";
+"Arrived" = "Arrived";
+"Not at school" = "Not at school";
+"Not running" = "Not running";
+"No stop data" = "No stop data";
+
+/* Settings */
+"Settings" = "Settings";
+"Done" = "Done";
+"Change School" = "Change School";
+"Select Your School" = "Select Your School";
+"Notifications" = "Notifications";
+"Starred Buses" = "Starred Buses";
+"Map" = "Map";
+"Use 3D Satellite Map" = "Use 3D Satellite Map";
+"Advanced" = "Advanced";
+"School ID: %@" = "School ID: %@";
+"Copy School ID" = "Copy School ID";
+"About" = "About";
+"YourBCABus Website" = "YourBCABus Website";
+"YourBCABus Support" = "YourBCABus Support";
+"YourBCABus Privacy Policy" = "YourBCABus Privacy Policy";
+"Version %@ (Build %@)" = "Version %@ (Build %@)";
