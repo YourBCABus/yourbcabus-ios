@@ -9,12 +9,13 @@
 /* Onboarding */
 "Welcome to YourBCABus" = "Bienvenue à YourBCABus";
 "Know where your bus is" = "Connaissez où se trouve votre bus";
-"See all your buses in a list or on a map, with detailed information." = "Regardez tous vos bus sur une liste ou un plan, avec des informations détaillés.";
+"See all your buses in a list or on a map, with detailed information." = "Regardez tous vos bus sur une liste ou un plan, avec des informations détaillées.";
 "Star your favorite buses" = "Marquer vos bus favoris";
 "Keep track of your favorite buses by starring them." = "Suivez vos bus favoris en les marquant.";
 "End the guessing game" = "Mettez fin à la devinette";
 "Get notified when your bus arrives." = "Soyez ^[informé](inflect: true, inflectionAlternative: 'informé(e)') de l'arrivée de votre bus.";
 "Get Started" = "Commencer";
+"Enable Test Schools" = "Activer les écoles de test";
 
 /* Home Page */
 "Starred" = "Favoris";
@@ -27,23 +28,36 @@
 "Unstar" = "Démarquer";
 "Dismiss" = "Fermer";
 
+/* Notification Prompt */
+"You just starred a bus!" = "Vous avez marqué un bus!";
+"Would you like to be notified when a starred bus arrives?" = "Voulez-vous être ^[informé](inflect: true, inflectionAlternative: 'informé(e)') de l'arrivée d'un bus favori?";
+"Enable notifications" = "Activer les notifications";
+"You can change this option in Settings." = "Vous pouvez modifier ce choix dans Réglages.";
+"Not now" = "Pas maintenant";
+"Enable Notifications" = "Activer les Notifications";
+"Please enable Notifications to receive bus alerts." = "Veuillez permettre les Notifications pour recevoir les alertes de bus.";
+"Close" = "Fermer";
+
 /* Bus Detail */
+"No Bus Selected" = "Aucun bus sélectionné";
 "Map" = "Plan";
 "Show in Map" = "Montrer au plan";
-"Actions..." = "Actions";
+"Actions..." = "Actions...";
 "Starred" = "Favori";
 
 /* Settings */
 "Settings" = "Réglages";
 "Done" = "Terminé";
+"School" = "École";
 "Change School" = "Changer l'école";
-"Select Your School" = "Selectionnez votre école";
+"Select Your School" = "Sélectionnez votre école";
 "Notifications" = "Notifications";
 "Starred Buses" = "Buses favoris";
 "Use 3D Satellite Map" = "Utiliser le plan en 3D";
 "Advanced" = "Avancé";
 "School ID: %@" = "ID d'école: %@";
-"Copy School ID" = "Copier l'identifiant";
+"Copy School ID" = "Copier l'identifiant d'école";
+"Copy FCM Token" = "Copier le jeton de FCM";
 "About" = "Informations";
 "YourBCABus Website" = "Site web de YourBCABus";
 "YourBCABus Support" = "Assistance";

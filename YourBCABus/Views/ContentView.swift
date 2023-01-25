@@ -147,7 +147,7 @@ struct ContentView: View {
                                 }).store(in: &bag)
                             }
                             try? await Task.sleep(nanoseconds: 500_000_000)
-                        }, result: $result, isStarred: $isStarred, dismissedAlerts: $dismissedAlerts, selectedID: $selectedID, useFlyoverMap: useFlyoverMap).edgesIgnoringSafeArea(.all).navigationTitle("YourBCABus").toolbar {
+                        }, result: $result, isStarred: $isStarred, dismissedAlerts: $dismissedAlerts, selectedID: $selectedID, useFlyoverMap: useFlyoverMap).navigationTitle("YourBCABus").toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 Button {
                                     settingsVisible = true

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import FirebaseMessaging
 import Apollo
 
 struct SettingsView: View {
@@ -52,11 +53,14 @@ struct SettingsView: View {
                     Button("Copy School ID") {
                         UIPasteboard.general.string = schoolID
                     }.disabled(schoolID == nil).foregroundColor(.primary)
+                    Button("Copy FCM Token") {
+                        UIPasteboard.general.string = Messaging.messaging().fcmToken ?? "Unknown"
+                    }.foregroundColor(.primary)
                 }
                 
                 #if DEBUG
                 Section(header: Text("Debug")) {
-                    Button("Reset school") {
+                    Button("Onboarding") {
                         schoolID = nil
                     }.foregroundColor(.primary)
                 }

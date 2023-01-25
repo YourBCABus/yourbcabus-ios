@@ -9,19 +9,88 @@
 import SwiftUI
 import Apollo
 
+extension GetSchoolsQuery.Data.School: Identifiable {}
+
 struct SchoolsView: View {
     @Binding var schoolID: String?
     @State var result: Result<GraphQLResult<GetSchoolsQuery.Data>, Error>?
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @State var searchText = ""
+    @State var showTestSchools = false
+    
+    func filter(schools: [GetSchoolsQuery.Data.School]) -> [GetSchoolsQuery.Data.School] {
+        let available = schools.filter { school in
+            return school.readable && (showTestSchools || school.available)
+        }
+        if searchText.isEmpty {
+            return available
+        } else {
+            var predicates = [NSPredicate]()
+            let stringExpression = NSExpression(forConstantValue: searchText)
+            
+            let nameExpression = NSExpression(block: { (school, _, _) in
+                return (school as! GetSchoolsQuery.Data.School).name ?? "(unnamed school)"
+            }, arguments: nil)
+            let namePredicate = NSComparisonPredicate(leftExpression: nameExpression, rightExpression: stringExpression, modifier: .direct, type: .contains, options: [.caseInsensitive, .diacriticInsensitive])
+            predicates.append(namePredicate)
+            
+            let idExpression = NSExpression(block: { (school, _, _) in
+                return (school as! GetSchoolsQuery.Data.School).id
+            }, arguments: nil)
+            let idPredicate = NSComparisonPredicate(leftExpression: idExpression, rightExpression: stringExpression, modifier: .direct, type: .equalTo, options: [.caseInsensitive, .diacriticInsensitive])
+            predicates.append(idPredicate)
+            
+            let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicates)
+            return available.filter { $0.readable && predicate.evaluate(with: $0) }
+        }
+    }
     
     var body: some View {
-        SchoolsInternalView(result: result, onSelect: { id in
-            schoolID = id
-        }, selectedID: schoolID).onAppear {
+        List {
+            switch result {
+            case .none:
+                Text("Loading...")
+            case .some(.success(let result)):
+                if let data = result.data {
+                    ForEach(filter(schools: data.schools.sorted(with: { $0.name ?? "" }))) { school in
+                        Button {
+                            schoolID = school.id
+                        } label: {
+                            HStack {
+                                if !school.available {
+                                    Image(systemName: "testtube.2").accessibilityLabel(Text("Test"))
+                                }
+                                if let name = school.name {
+                                    Text(name)
+                                } else {
+                                    Text("(unnamed school)")
+                                }
+                                Spacer()
+                                if schoolID == school.id {
+                                    Image(systemName: "checkmark.circle.fill").accessibilityLabel(Text("Selected")).foregroundColor(.accentColor)
+                                }
+                            }
+                        }.foregroundColor(.primary)
+                    }
+                } else {
+                    Text("An error occurred. Please try again.")
+                }
+            default:
+                Text("An error occurred. Please try again.")
+            }
+        }.searchable(text: $searchText).onAppear {
             Network.shared.apollo.fetch(query: GetSchoolsQuery()) { result in
                 self.result = result
             }
-        }.edgesIgnoringSafeArea(.all).navigationBarTitle("Select Your School", displayMode: .inline)
+        }.listStyle(.plain).navigationBarTitle("Select Your School", displayMode: .inline).toolbar {
+            Menu {
+                Toggle(isOn: $showTestSchools) {
+                    Label("Enable Test Schools", systemImage: "testtube")
+                }
+            } label: {
+                Image(systemName: "ellipsis.circle")
+                    .accessibilityLabel(/*@START_MENU_TOKEN@*/"Label"/*@END_MENU_TOKEN@*/)
+            }
+        }
     }
 }
 

@@ -14,16 +14,12 @@
 		4A113B16217A987100B7640E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A113B14217A987100B7640E /* LaunchScreen.storyboard */; };
 		4A113B21217A987100B7640E /* YourBCABusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B20217A987100B7640E /* YourBCABusTests.swift */; };
 		4A113B2C217A987100B7640E /* YourBCABusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B2B217A987100B7640E /* YourBCABusUITests.swift */; };
-		4A18A7F021B8B90D00D1042F /* GetOffAlertSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */; };
-		4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */; };
-		4A1E96E221B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */; };
 		4A1FD74026C1E50B001D5D06 /* BusModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1FD73F26C1E50B001D5D06 /* BusModel.swift */; };
 		4A216F2126C5B3FA0077E208 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A216F2026C5B3F90077E208 /* MapView.swift */; };
 		4A4A933626CCB113006A4DFD /* AlertDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A933526CCB113006A4DFD /* AlertDetailView.swift */; };
 		4A4E48392293875500B3F90C /* alerts-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 4A4E48382293875500B3F90C /* alerts-script.js */; };
 		4A5E8A0026A730E300A612AF /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E89FF26A730E300A612AF /* Routes.swift */; };
 		4A642DC026BD9BCC00C0D3BC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DBF26BD9BCC00C0D3BC /* OnboardingView.swift */; };
-		4A642DC426BDAD1900C0D3BC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC326BDAD1900C0D3BC /* SearchView.swift */; };
 		4A642DC626BDB09B00C0D3BC /* BusesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC526BDB09B00C0D3BC /* BusesView.swift */; };
 		4A642DC826BDB16000C0D3BC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DC726BDB16000C0D3BC /* SettingsView.swift */; };
 		4A642DCC26BDC68D00C0D3BC /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A642DCB26BDC68D00C0D3BC /* FooterView.swift */; };
@@ -38,7 +34,6 @@
 		4A933F4F26CD8CB30033BE70 /* BoardingAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A933F4E26CD8CB30033BE70 /* BoardingAreaView.swift */; };
 		4A933F5126CD97AF0033BE70 /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A933F5026CD97AE0033BE70 /* SwiftExtensions.swift */; };
 		4A933F5326CD9D0B0033BE70 /* StopModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A933F5226CD9D0B0033BE70 /* StopModel.swift */; };
-		4A9526D226BC9338007C58CA /* SchoolsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A9526D126BC9338007C58CA /* SchoolsView.storyboard */; };
 		4A95ED1826D0AFEC00D1DD5F /* NotificationPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A95ED1726D0AFEB00D1DD5F /* NotificationPromptView.swift */; };
 		4A9D8B4226C0B4CD0075DC13 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D8B4126C0B4CD0075DC13 /* AlertView.swift */; };
 		4AB0327A22A2FDEC00143805 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB0327922A2FDEC00143805 /* NotificationService.swift */; };
@@ -53,7 +48,6 @@
 		4AD958352180AEF800AC7EA9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD958342180AEF800AC7EA9 /* MapKit.framework */; };
 		4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEE49C2180CF5200F827FB /* MapViewController.swift */; };
 		4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */; };
-		4AE7066C218FE4C100A95AC0 /* Navigation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */; };
 		7C738D456BF364DD8B3E1793 /* Pods_YourBCABusUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */; };
 		89A029C8279612DB005B5D3E /* PhoneNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A029C7279612DB005B5D3E /* PhoneNumbers.swift */; };
 		89A07BCD2981991500EC7B6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89A07BCF2981991500EC7B6B /* Localizable.strings */; };
@@ -135,16 +129,12 @@
 		4A113B2B217A987100B7640E /* YourBCABusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourBCABusUITests.swift; sourceTree = "<group>"; };
 		4A113B2D217A987100B7640E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A113B3D217AA94A00B7640E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertSettingsViewController.swift; sourceTree = "<group>"; };
-		4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertPromptViewController.swift; sourceTree = "<group>"; };
-		4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOffAlertEventReceiver.swift; sourceTree = "<group>"; };
 		4A1FD73F26C1E50B001D5D06 /* BusModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusModel.swift; sourceTree = "<group>"; };
 		4A216F2026C5B3F90077E208 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4A4A933526CCB113006A4DFD /* AlertDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDetailView.swift; sourceTree = "<group>"; };
 		4A4E48382293875500B3F90C /* alerts-script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "alerts-script.js"; sourceTree = "<group>"; };
 		4A5E89FF26A730E300A612AF /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		4A642DBF26BD9BCC00C0D3BC /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		4A642DC326BDAD1900C0D3BC /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		4A642DC526BDB09B00C0D3BC /* BusesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusesView.swift; sourceTree = "<group>"; };
 		4A642DC726BDB16000C0D3BC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4A642DCB26BDC68D00C0D3BC /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
@@ -160,7 +150,6 @@
 		4A933F4E26CD8CB30033BE70 /* BoardingAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingAreaView.swift; sourceTree = "<group>"; };
 		4A933F5026CD97AE0033BE70 /* SwiftExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
 		4A933F5226CD9D0B0033BE70 /* StopModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopModel.swift; sourceTree = "<group>"; };
-		4A9526D126BC9338007C58CA /* SchoolsView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SchoolsView.storyboard; sourceTree = "<group>"; };
 		4A95ED1726D0AFEB00D1DD5F /* NotificationPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPromptView.swift; sourceTree = "<group>"; };
 		4A9D8B4126C0B4CD0075DC13 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		4AB0327722A2FDEC00143805 /* YourBCABus Notification Service.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "YourBCABus Notification Service.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,7 +164,6 @@
 		4AD958342180AEF800AC7EA9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		4ADEE49C2180CF5200F827FB /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterHelpers.swift; sourceTree = "<group>"; };
-		4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Navigation.storyboard; sourceTree = "<group>"; };
 		4CFBF44AFBEE9A224C81F575 /* Pods-YourBCABusUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABusUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABusUITests/Pods-YourBCABusUITests.release.xcconfig"; sourceTree = "<group>"; };
 		56128607A369641345A3EA52 /* Pods_YourBCABusTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABusTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABusUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -295,7 +283,6 @@
 				4A3E7F7226CCC8600043658C /* Utilities */,
 				4A08A7DD26D59DB200B2A7ED /* Old */,
 				4A113B09217A986E00B7640E /* AppDelegate.swift */,
-				4AE7066B218FE4C100A95AC0 /* Navigation.storyboard */,
 				4A113B12217A987100B7640E /* Assets.xcassets */,
 				4A113B17217A987100B7640E /* Info.plist */,
 				4ABB8C7D2180C05A00158FD6 /* GoogleService-Info.plist */,
@@ -351,11 +338,9 @@
 			isa = PBXGroup;
 			children = (
 				4A8C4B3C26B88305006A93A7 /* ContentView.swift */,
-				4A642DC326BDAD1900C0D3BC /* SearchView.swift */,
 				4A642DBF26BD9BCC00C0D3BC /* OnboardingView.swift */,
 				4A95ED1726D0AFEB00D1DD5F /* NotificationPromptView.swift */,
 				4A8C4B3E26B89633006A93A7 /* SchoolsView.swift */,
-				4A9526D126BC9338007C58CA /* SchoolsView.storyboard */,
 				4A642DC526BDB09B00C0D3BC /* BusesView.swift */,
 				4A933F4E26CD8CB30033BE70 /* BoardingAreaView.swift */,
 				4A933F4C26CD86F60033BE70 /* BusDetailView.swift */,
@@ -381,9 +366,6 @@
 		4A933F5426CDA0270033BE70 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4A1E96E121B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift */,
-				4A18A7EF21B8B90D00D1042F /* GetOffAlertSettingsViewController.swift */,
-				4A1E96DF21B2F64D00FB4038 /* GetOffAlertPromptViewController.swift */,
 				4ADEE49C2180CF5200F827FB /* MapViewController.swift */,
 			);
 			path = "View Controllers";
@@ -618,8 +600,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				89A07BD02981992200EC7B6B /* Localizable.stringsdict in Resources */,
-				4AE7066C218FE4C100A95AC0 /* Navigation.storyboard in Resources */,
-				4A9526D226BC9338007C58CA /* SchoolsView.storyboard in Resources */,
 				4AC07B46228D03B9002F2537 /* Assets.xcassets in Resources */,
 				4A113B16217A987100B7640E /* LaunchScreen.storyboard in Resources */,
 				89A07BCD2981991500EC7B6B /* Localizable.strings in Resources */,
@@ -773,20 +753,16 @@
 			files = (
 				4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */,
 				89A029C8279612DB005B5D3E /* PhoneNumbers.swift in Sources */,
-				4A642DC426BDAD1900C0D3BC /* SearchView.swift in Sources */,
 				4A642DCC26BDC68D00C0D3BC /* FooterView.swift in Sources */,
 				4A933F4F26CD8CB30033BE70 /* BoardingAreaView.swift in Sources */,
 				4A8C4B4B26B8A07E006A93A7 /* ApolloClient.swift in Sources */,
 				4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */,
 				4A4A933626CCB113006A4DFD /* AlertDetailView.swift in Sources */,
-				4A1E96E021B2F64D00FB4038 /* GetOffAlertPromptViewController.swift in Sources */,
-				4A18A7F021B8B90D00D1042F /* GetOffAlertSettingsViewController.swift in Sources */,
 				4A642DC026BD9BCC00C0D3BC /* OnboardingView.swift in Sources */,
 				4A0E564521BC86C90019F6B0 /* CoreLocationExtensions.swift in Sources */,
 				4A933F5326CD9D0B0033BE70 /* StopModel.swift in Sources */,
 				4A8C4B3926B87F76006A93A7 /* App.swift in Sources */,
 				4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */,
-				4A1E96E221B2FA5F00FB4038 /* GetOffAlertEventReceiver.swift in Sources */,
 				4A8C4B3D26B88305006A93A7 /* ContentView.swift in Sources */,
 				4A933F5126CD97AF0033BE70 /* SwiftExtensions.swift in Sources */,
 				4A8C4B3F26B89633006A93A7 /* SchoolsView.swift in Sources */,
@@ -1017,7 +993,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Primary;
 				CODE_SIGN_ENTITLEMENTS = YourBCABus/YourBCABus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2022.0.17;
+				CURRENT_PROJECT_VERSION = 2023.1.25;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 9G475R3MEF;
 				INFOPLIST_FILE = YourBCABus/Info.plist;
@@ -1045,7 +1021,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = Primary;
 				CODE_SIGN_ENTITLEMENTS = YourBCABus/YourBCABus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2022.0.17;
+				CURRENT_PROJECT_VERSION = 2023.1.25;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 9G475R3MEF;
 				INFOPLIST_FILE = YourBCABus/Info.plist;
@@ -1151,7 +1127,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "YourBCABus Notification Service/YourBCABus Notification Service.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2022.0.17;
+				CURRENT_PROJECT_VERSION = 2023.1.25;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 9G475R3MEF;
 				INFOPLIST_FILE = "YourBCABus Notification Service/Info.plist";
@@ -1177,7 +1153,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "YourBCABus Notification Service/YourBCABus Notification Service.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2022.0.17;
+				CURRENT_PROJECT_VERSION = 2023.1.25;
 				DERIVE_UIKITFORMAC_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = 9G475R3MEF;
 				INFOPLIST_FILE = "YourBCABus Notification Service/Info.plist";

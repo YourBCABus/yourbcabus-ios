@@ -15,6 +15,7 @@
 "End the guessing game" = "End the guessing game";
 "Get notified when your bus arrives." = "Get notified when your bus arrives.";
 "Get Started" = "Get Started";
+"Enable Test Schools" = "Enable Test Schools";
 
 /* Home Page */
 "Starred" = "Starred";
@@ -27,15 +28,27 @@
 "Unstar" = "Unstar";
 "Dismiss" = "Dismiss";
 
+/* Notification Prompt */
+"You just starred a bus!" = "You just starred a bus!";
+"Would you like to be notified when a starred bus arrives?" = "Would you like to be notified when a starred bus arrives?";
+"Enable notifications" = "Enable notifications";
+"You can change this option in Settings." = "You can change this option in Settings.";
+"Not now" = "Not now";
+"Enable Notifications" = "Enable Notifications";
+"Please enable Notifications to receive bus alerts." = "Please enable Notifications to receive bus alerts.";
+"Close" = "Close";
+
 /* Bus Detail */
-"Map" = "Plan";
-"Show in Map" = "Montrer au plan";
-"Actions..." = "Actions";
+"No Bus Selected" = "No Bus Selected";
+"Map" = "Map";
+"Show in Map" = "Show in Map";
+"Actions..." = "Actions...";
 "Starred" = "Starred";
 
 /* Settings */
 "Settings" = "Settings";
 "Done" = "Done";
+"School" = "School";
 "Change School" = "Change School";
 "Select Your School" = "Select Your School";
 "Notifications" = "Notifications";
@@ -44,6 +57,7 @@
 "Advanced" = "Advanced";
 "School ID: %@" = "School ID: %@";
 "Copy School ID" = "Copy School ID";
+"Copy FCM Token" = "Copy FCM Token";
 "About" = "About";
 "YourBCABus Website" = "YourBCABus Website";
 "YourBCABus Support" = "YourBCABus Support";

@@ -77,12 +77,6 @@ struct BusDetailView: View {
             } label: {
                 Label("Show in Map", systemImage: "mappin.and.ellipse")
             }.disabled(stop.stopLocation == nil)
-            
-            Button {
-                
-            } label: {
-                Label("Add Get Off Alert", systemImage: "bell.fill")
-            }.disabled(true)
         }
     }
     

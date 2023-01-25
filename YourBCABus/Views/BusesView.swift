@@ -29,7 +29,7 @@ struct BusRowView: View {
                 VStack(alignment: .leading) {
                     Text(bus.name ?? "(unnamed bus)").fontWeight(.bold).lineLimit(1).foregroundColor(.primary)
                     Text(bus.status()).foregroundColor(.secondary)
-                }
+                }.multilineTextAlignment(.leading)
                 Spacer()
                 Button {
                     isStarred.toggle()
@@ -86,6 +86,7 @@ struct BusesSectionHeader: View {
 struct BusesView: View {
     var schoolID: String
     var onRefresh: () async -> Void
+    @State var searchText: String = ""
     @Binding var result: Result<GraphQLResult<GetBusesQuery.Data>, Error>?
     @Binding var isStarred: Set<String>
     @Binding var dismissedAlerts: Set<String>
@@ -94,47 +95,48 @@ struct BusesView: View {
     
     var body: some View {
         let now = Date()
-        return SearchView {
-            ScrollView {
-                VStack(spacing: 0) {
-                    switch result {
-                    case .none:
-                        ProgressView("Loading").padding(.vertical, 64)
-                    case .some(.success(let result)):
-                        if let school = result.data?.school, let buses = school.buses.sorted(by: { a, b in
-                            if a.available && !b.available {
-                                return true
-                            } else if !a.available && b.available {
-                                return false
-                            }
-                            
-                            if let aName = a.name, let bName = b.name {
-                                return aName < bName
-                            } else if a.name != nil && b.name == nil {
-                                return true
-                            } else if a.name == nil && b.name != nil {
-                                return false
-                            } else {
-                                return a.id < b.id
-                            }
-                        }), let starredBuses = buses.filter { isStarred.contains($0.id) }, let alerts = school.alerts.filter { alert in
-                            if dismissedAlerts.contains(alert.id) {
-                                return false
-                            }
-                            if let end = isoStringToDate(alert.end) {
-                                if end >= now {
-                                    if let start = isoStringToDate(alert.start) {
-                                        return start <= now
-                                    } else {
-                                        return true
-                                    }
+        return ScrollView {
+            VStack(spacing: 0) {
+                switch result {
+                case .none:
+                    ProgressView("Loading").padding(.vertical, 64)
+                case .some(.success(let result)):
+                    let predicate = searchText.isEmpty ? nil : busPredicate(for: searchText)
+                    if let school = result.data?.school, let buses = school.buses.filter { predicate?.evaluate(with: $0) ?? true }.sorted(by: { a, b in
+                        if a.available && !b.available {
+                            return true
+                        } else if !a.available && b.available {
+                            return false
+                        }
+                        
+                        if let aName = a.name, let bName = b.name {
+                            return aName < bName
+                        } else if a.name != nil && b.name == nil {
+                            return true
+                        } else if a.name == nil && b.name != nil {
+                            return false
+                        } else {
+                            return a.id < b.id
+                        }
+                    }), let starredBuses = buses.filter { isStarred.contains($0.id) }, let alerts = school.alerts.filter { alert in
+                        if dismissedAlerts.contains(alert.id) {
+                            return false
+                        }
+                        if let end = isoStringToDate(alert.end) {
+                            if end >= now {
+                                if let start = isoStringToDate(alert.start) {
+                                    return start <= now
                                 } else {
-                                    return false
+                                    return true
                                 }
                             } else {
-                                return true
+                                return false
                             }
-                        } {
+                        } else {
+                            return true
+                        }
+                    } {
+                        if searchText.isEmpty {
                             ForEach(alerts, id: \.id) { alert in
                                 Button {
                                     selectedID = alert.id
@@ -155,103 +157,59 @@ struct BusesView: View {
                                             Text(school.name ?? "Map").lineLimit(1)
                                             Spacer()
                                             Image(systemName: "chevron.right")
-                                        }.padding().frame(maxWidth: .infinity).background(Color.black.opacity(0.6)).foregroundColor(.white)
-                                    }
+                                        }.padding().frame(maxWidth: .infinity).background(Material.thinMaterial).foregroundColor(.primary)
+                                    }.environment(\.colorScheme, .dark)
                                 }.frame(maxWidth: .infinity).background(Color.blue).cornerRadius(16).padding([.horizontal, .bottom]).accessibility(label: Text("Map"))
                             }
-                            LazyVStack(spacing: 0) {
-                                if !starredBuses.isEmpty {
-                                    BusesSectionHeader(text: "Starred")
-                                }
-                                ForEach(starredBuses.map { ($0, "starred.\($0.id)") }, id: \.1) { tuple in
-                                    let (bus, uiID) = tuple
-                                    BusRowView(uiID: uiID, bus: bus, isStarred: Binding {
-                                        isStarred.contains(bus.id)
-                                    } set: { starred in
-                                        if starred {
-                                            isStarred.insert(bus.id)
-                                        } else {
-                                            isStarred.remove(bus.id)
-                                        }
-                                    }, selectedID: $selectedID)
-                                }
-                                if !starredBuses.isEmpty {
-                                    BusesSectionHeader(text: "All")
-                                }
-                                ForEach(buses.map { ($0, "all.\($0.id)") }, id: \.1) { tuple in
-                                    let (bus, uiID) = tuple
-                                    BusRowView(uiID: uiID, bus: bus, isStarred: Binding {
-                                        isStarred.contains(bus.id)
-                                    } set: { starred in
-                                        if starred {
-                                            isStarred.insert(bus.id)
-                                        } else {
-                                            isStarred.remove(bus.id)
-                                        }
-                                    }, selectedID: $selectedID)
-                                }
-                            }
-                        } else {
-                            BusesErrorView()
                         }
-                    case .some(.failure(_)):
+                        LazyVStack(spacing: 0) {
+                            if !starredBuses.isEmpty {
+                                BusesSectionHeader(text: "Starred")
+                            }
+                            ForEach(starredBuses.map { ($0, "starred.\($0.id)") }, id: \.1) { tuple in
+                                let (bus, uiID) = tuple
+                                BusRowView(uiID: uiID, bus: bus, isStarred: Binding {
+                                    isStarred.contains(bus.id)
+                                } set: { starred in
+                                    if starred {
+                                        isStarred.insert(bus.id)
+                                    } else {
+                                        isStarred.remove(bus.id)
+                                    }
+                                }, selectedID: $selectedID)
+                            }
+                            if !starredBuses.isEmpty {
+                                BusesSectionHeader(text: "All")
+                            }
+                            ForEach(buses.map { ($0, "all.\($0.id)") }, id: \.1) { tuple in
+                                let (bus, uiID) = tuple
+                                BusRowView(uiID: uiID, bus: bus, isStarred: Binding {
+                                    isStarred.contains(bus.id)
+                                } set: { starred in
+                                    if starred {
+                                        isStarred.insert(bus.id)
+                                    } else {
+                                        isStarred.remove(bus.id)
+                                    }
+                                }, selectedID: $selectedID)
+                            }
+                        }
+                    } else {
                         BusesErrorView()
                     }
-                    FooterView().padding()
-                }.listStyle(PlainListStyle())
-            }
-            #if !targetEnvironment(macCatalyst)
-            .refreshable {
-                await onRefresh()
-            }
-            #endif
-        } searchResultsContent: { text -> AnyView in
-            if text.isEmpty {
-                return AnyView(EmptyView())
-            } else {
-                switch result {
-                case .some(.success(let result)):
-                    let predicate = busPredicate(for: text)
-                    if let buses = result.data?.school?.buses.filter({ predicate.evaluate(with: $0) }).sorted(by: { a, b in
-                        if a.available && !b.available {
-                            return true
-                        } else if !a.available && b.available {
-                            return false
-                        }
-                        
-                        if let aName = a.name, let bName = b.name {
-                            return aName < bName
-                        } else if a.name != nil && b.name == nil {
-                            return true
-                        } else if a.name == nil && b.name != nil {
-                            return false
-                        } else {
-                            return a.id < b.id
-                        }
-                    }) {
-                        return AnyView(ScrollView {
-                            LazyVStack {
-                                ForEach(buses.map { ($0, isStarred.contains($0.id) ? "starred.\($0.id)" : "all.\($0.id)") }, id: \.1) { tuple in
-                                    let (bus, uiID) = tuple
-                                    BusRowView(uiID: uiID, bus: bus, isStarred: Binding {
-                                        isStarred.contains(bus.id)
-                                    } set: { starred in
-                                        if starred {
-                                            isStarred.insert(bus.id)
-                                        } else {
-                                            isStarred.remove(bus.id)
-                                        }
-                                    }, selectedID: $selectedID)
-                                }
-                            }
-                        }.accentColor(Color("Primary")))
-                    } else {
-                        return AnyView(EmptyView())
-                    }
-                default:
-                    return AnyView(EmptyView())
+                case .some(.failure(_)):
+                    BusesErrorView()
                 }
-            }
-        }.edgesIgnoringSafeArea(.all)
+                if searchText == "" {
+                    FooterView().padding()
+                }
+            }.listStyle(PlainListStyle())
+        }
+#if !targetEnvironment(macCatalyst)
+        .refreshable {
+            await onRefresh()
+        }
+#endif
+        .searchable(text: $searchText)
     }
 }

@@ -176,16 +176,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     var schoolAreaMapType = MKMapType.hybrid
     var schoolAreaMapTypeMaxAltitude: CLLocationDistance = 1500
-    var standardMapType = MKMapType.mutedStandard
+    let standardMapType = MKMapType.mutedStandard
     
     func reloadMapType() {
         if !reloadsMapTypeOnRegionChange || (mapView.camera.altitude < schoolAreaMapTypeMaxAltitude && mapView.visibleMapRect.intersects(schoolRect)) {
-            if mapView.mapType != schoolAreaMapType {
-                mapView.mapType = schoolAreaMapType
+            if #available(iOS 16.0, *) {
+                let elevationStyle = schoolAreaMapType == .hybridFlyover ? MKMapConfiguration.ElevationStyle.realistic : .flat
+                if !(mapView.preferredConfiguration is MKHybridMapConfiguration) || (mapView.preferredConfiguration as! MKHybridMapConfiguration).elevationStyle != elevationStyle {
+                    mapView.preferredConfiguration = MKHybridMapConfiguration(elevationStyle: elevationStyle)
+                }
+            } else {
+                if mapView.mapType != schoolAreaMapType {
+                    mapView.mapType = schoolAreaMapType
+                }
             }
         } else {
-            if mapView.mapType != standardMapType {
-                mapView.mapType = standardMapType
+            if #available(iOS 16.0, *) {
+                if !(mapView.preferredConfiguration is MKStandardMapConfiguration) {
+                    mapView.preferredConfiguration = MKStandardMapConfiguration(elevationStyle: .flat, emphasisStyle: .muted)
+                }
+            } else {
+                if mapView.mapType != schoolAreaMapType {
+                    mapView.mapType = standardMapType
+                }
             }
         }
     }
