@@ -23,6 +23,15 @@
 "Not at school" = "Not at school";
 "Not running" = "Not running";
 "No stop data" = "No stop data";
+"Star" = "Star";
+"Unstar" = "Unstar";
+"Dismiss" = "Dismiss";
+
+/* Bus Detail */
+"Map" = "Plan";
+"Show in Map" = "Montrer au plan";
+"Actions..." = "Actions";
+"Starred" = "Starred";
 
 /* Settings */
 "Settings" = "Settings";
@@ -31,7 +40,6 @@
 "Select Your School" = "Select Your School";
 "Notifications" = "Notifications";
 "Starred Buses" = "Starred Buses";
-"Map" = "Map";
 "Use 3D Satellite Map" = "Use 3D Satellite Map";
 "Advanced" = "Advanced";
 "School ID: %@" = "School ID: %@";
