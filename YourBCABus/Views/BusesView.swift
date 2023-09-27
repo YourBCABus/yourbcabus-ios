@@ -102,8 +102,8 @@ struct BusesView: View {
                     ProgressView("Loading").padding(.vertical, 64)
                 case .some(.success(let result)):
                     let predicate = searchText.isEmpty ? nil : busPredicate(for: searchText)
-                    let school = result.data?.school;
-                    if let buses = school?.buses.filter({ predicate?.evaluate(with: $0) ?? true }).sorted(by: { a, b in
+                    if let school = result.data?.school {
+                        let buses = school.buses.filter({ predicate?.evaluate(with: $0) ?? true }).sorted(by: { a, b in
                         if a.available && !b.available {
                             return true
                         } else if !a.available && b.available {
