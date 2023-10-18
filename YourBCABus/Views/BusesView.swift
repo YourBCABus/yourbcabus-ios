@@ -102,8 +102,8 @@ struct BusesView: View {
                     ProgressView("Loading").padding(.vertical, 64)
                 case .some(.success(let result)):
                     let predicate = searchText.isEmpty ? nil : busPredicate(for: searchText)
-                    if let school = result.data?.school {
-                        let buses = school.buses.filter({ predicate?.evaluate(with: $0) ?? true }).sorted(by: { a, b in
+                    let school = result.data?.school;
+                    if let buses = school?.buses.filter({ predicate?.evaluate(with: $0) ?? true }).sorted(by: { a, b in
                         if a.available && !b.available {
                             return true
                         } else if !a.available && b.available {
@@ -163,7 +163,7 @@ struct BusesView: View {
                                 }.frame(maxWidth: .infinity).background(Color.blue).cornerRadius(16).padding([.horizontal, .bottom]).accessibility(label: Text("Map"))
                             }
                         }
-                        let starredBuses = buses.filter({ isStarred.contains($0.id) })
+                        let starredBuses = buses.filter { isStarred.contains($0.id) }
                         LazyVStack(spacing: 0) {
                             if !starredBuses.isEmpty {
                                 BusesSectionHeader(text: "Starred")
