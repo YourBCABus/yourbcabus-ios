@@ -102,7 +102,8 @@ struct BusesView: View {
                     ProgressView("Loading").padding(.vertical, 64)
                 case .some(.success(let result)):
                     let predicate = searchText.isEmpty ? nil : busPredicate(for: searchText)
-                    if let school = result.data?.school, let buses = school.buses.filter { predicate?.evaluate(with: $0) ?? true }.sorted(by: { a, b in
+                    let school = result.data?.school;
+                    if let buses = school?.buses.filter({ predicate?.evaluate(with: $0) ?? true }).sorted(by: { a, b in
                         if a.available && !b.available {
                             return true
                         } else if !a.available && b.available {
@@ -118,7 +119,7 @@ struct BusesView: View {
                         } else {
                             return a.id < b.id
                         }
-                    }), let starredBuses = buses.filter { isStarred.contains($0.id) }, let alerts = school.alerts.filter { alert in
+                    }), let alerts = school?.alerts.filter({ alert in
                         if dismissedAlerts.contains(alert.id) {
                             return false
                         }
@@ -135,7 +136,7 @@ struct BusesView: View {
                         } else {
                             return true
                         }
-                    } {
+                    }) {
                         if searchText.isEmpty {
                             ForEach(alerts, id: \.id) { alert in
                                 Button {
@@ -146,7 +147,7 @@ struct BusesView: View {
                                     }
                                 }.padding(.horizontal).padding(.bottom, 8)
                             }
-                            if let mappingData = school.mappingData {
+                            if let mappingData = school?.mappingData {
                                 ZStack(alignment: .bottom) {
                                     MapView(mappingData: mappingData, buses: buses, starredIDs: isStarred, selectedID: $selectedID, useFlyoverMap: useFlyoverMap).frame(height: 250)
                                     Button {
@@ -154,7 +155,7 @@ struct BusesView: View {
                                     } label: {
                                         HStack {
                                             Image(systemName: "map")
-                                            Text(school.name ?? "Map").lineLimit(1)
+                                            Text(school?.name ?? "Map").lineLimit(1)
                                             Spacer()
                                             Image(systemName: "chevron.right")
                                         }.padding().frame(maxWidth: .infinity).background(Material.thinMaterial).foregroundColor(.primary)
@@ -162,6 +163,7 @@ struct BusesView: View {
                                 }.frame(maxWidth: .infinity).background(Color.blue).cornerRadius(16).padding([.horizontal, .bottom]).accessibility(label: Text("Map"))
                             }
                         }
+                        let starredBuses = buses.filter { isStarred.contains($0.id) }
                         LazyVStack(spacing: 0) {
                             if !starredBuses.isEmpty {
                                 BusesSectionHeader(text: "Starred")
