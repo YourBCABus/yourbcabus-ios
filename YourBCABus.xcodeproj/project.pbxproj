@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		236499DFCAAEBA4A0341A5F2 /* Pods_YourBCABus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65190BFA2B0D185200E38DC9 /* Pods_YourBCABus.framework */; };
 		4A0096162235931F00DDC754 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A0096152235931F00DDC754 /* Assets.xcassets */; };
 		4A0E564521BC86C90019F6B0 /* CoreLocationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0E564421BC86C90019F6B0 /* CoreLocationExtensions.swift */; };
 		4A113B0A217A986E00B7640E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A113B09217A986E00B7640E /* AppDelegate.swift */; };
@@ -48,12 +49,21 @@
 		4AD958352180AEF800AC7EA9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD958342180AEF800AC7EA9 /* MapKit.framework */; };
 		4ADEE49D2180CF5200F827FB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADEE49C2180CF5200F827FB /* MapViewController.swift */; };
 		4AE1F4082182962000ACDF76 /* NotificationCenterHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1F4072182962000ACDF76 /* NotificationCenterHelpers.swift */; };
+		65190BDD2B0D163A00E38DC9 /* YourBCABusWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65190BDC2B0D163A00E38DC9 /* YourBCABusWatchApp.swift */; };
+		65190BDF2B0D163A00E38DC9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65190BDE2B0D163A00E38DC9 /* ContentView.swift */; };
+		65190BE12B0D163B00E38DC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65190BE02B0D163B00E38DC9 /* Assets.xcassets */; };
+		65190BE42B0D163B00E38DC9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65190BE32B0D163B00E38DC9 /* Preview Assets.xcassets */; };
+		65190BE72B0D163B00E38DC9 /* YourBCABusWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 65190BDA2B0D163A00E38DC9 /* YourBCABusWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		65190BED2B0D175000E38DC9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC07B43228CFB25002F2537 /* Constants.swift */; };
+		65190BFE2B0D18DD00E38DC9 /* YourBCABus_Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3AB0C2230411100FD58C2 /* YourBCABus_Core.framework */; };
+		65190BFF2B0D18DD00E38DC9 /* YourBCABus_Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3AB0C2230411100FD58C2 /* YourBCABus_Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7C738D456BF364DD8B3E1793 /* Pods_YourBCABusUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */; };
 		89A029C8279612DB005B5D3E /* PhoneNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A029C7279612DB005B5D3E /* PhoneNumbers.swift */; };
 		89A07BCD2981991500EC7B6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89A07BCF2981991500EC7B6B /* Localizable.strings */; };
 		89A07BD02981992200EC7B6B /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 89A07BD22981992200EC7B6B /* Localizable.stringsdict */; };
 		BDEF7596E79AB6338CCFAF6F /* Pods_YourBCABusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56128607A369641345A3EA52 /* Pods_YourBCABusTests.framework */; };
 		E4310F9683A7319F8290BE04 /* Pods_YourBCABus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86A35AB7A4B47B8135C0288F /* Pods_YourBCABus.framework */; };
+		F4FCDA723A3E91EA53947969 /* Pods_YourBCABus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65190BF42B0D17DF00E38DC9 /* Pods_YourBCABus.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +95,20 @@
 			remoteGlobalIDString = 4AD3AB0B2230411100FD58C2;
 			remoteInfo = "YourBCABus Embedded";
 		};
+		65190BE52B0D163B00E38DC9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A113AFE217A986E00B7640E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65190BD92B0D163A00E38DC9;
+			remoteInfo = "YourBCABusWatch Watch App";
+		};
+		65190C002B0D18DD00E38DC9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A113AFE217A986E00B7640E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4AD3AB0B2230411100FD58C2;
+			remoteInfo = "YourBCABus Core";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -106,6 +130,28 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4AD3AB142230411100FD58C2 /* YourBCABus_Core.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65190BEB2B0D163B00E38DC9 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				65190BE72B0D163B00E38DC9 /* YourBCABusWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65190C022B0D18DD00E38DC9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				65190BFF2B0D18DD00E38DC9 /* YourBCABus_Core.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,6 +213,13 @@
 		4CFBF44AFBEE9A224C81F575 /* Pods-YourBCABusUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABusUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABusUITests/Pods-YourBCABusUITests.release.xcconfig"; sourceTree = "<group>"; };
 		56128607A369641345A3EA52 /* Pods_YourBCABusTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABusTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FD88CFCCFC2371321989B1 /* Pods_YourBCABusUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABusUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65190BDA2B0D163A00E38DC9 /* YourBCABusWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "YourBCABusWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		65190BDC2B0D163A00E38DC9 /* YourBCABusWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourBCABusWatchApp.swift; sourceTree = "<group>"; };
+		65190BDE2B0D163A00E38DC9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		65190BE02B0D163B00E38DC9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		65190BE32B0D163B00E38DC9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		65190BF42B0D17DF00E38DC9 /* Pods_YourBCABus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_YourBCABus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65190BFA2B0D185200E38DC9 /* Pods_YourBCABus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_YourBCABus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B5398EEA0CBDDEF93168D39 /* Pods-YourBCABusUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABusUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABusUITests/Pods-YourBCABusUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		706AE1EA193D8582EF80A1A0 /* Pods-YourBCABus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YourBCABus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YourBCABus/Pods-YourBCABus.debug.xcconfig"; sourceTree = "<group>"; };
 		86A35AB7A4B47B8135C0288F /* Pods_YourBCABus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YourBCABus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +241,8 @@
 				4A8C4B4226B89B63006A93A7 /* Apollo in Frameworks */,
 				4AD3AB132230411100FD58C2 /* YourBCABus_Core.framework in Frameworks */,
 				E4310F9683A7319F8290BE04 /* Pods_YourBCABus.framework in Frameworks */,
+				F4FCDA723A3E91EA53947969 /* Pods_YourBCABus.framework in Frameworks */,
+				236499DFCAAEBA4A0341A5F2 /* Pods_YourBCABus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +273,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65190BD72B0D163A00E38DC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65190BFE2B0D18DD00E38DC9 /* YourBCABus_Core.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +318,7 @@
 				4A113B1F217A987100B7640E /* YourBCABusTests */,
 				4A113B2A217A987100B7640E /* YourBCABusUITests */,
 				4AB0327822A2FDEC00143805 /* YourBCABus Notification Service */,
+				65190BDB2B0D163A00E38DC9 /* YourBCABusWatch Watch App */,
 				4A113B07217A986E00B7640E /* Products */,
 				4AD958332180AEF800AC7EA9 /* Frameworks */,
 				0F33409A133A340ED16293BE /* Pods */,
@@ -269,6 +333,7 @@
 				4A113B27217A987100B7640E /* YourBCABusUITests.xctest */,
 				4AD3AB0C2230411100FD58C2 /* YourBCABus_Core.framework */,
 				4AB0327722A2FDEC00143805 /* YourBCABus Notification Service.appex */,
+				65190BDA2B0D163A00E38DC9 /* YourBCABusWatch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -395,6 +460,8 @@
 		4AD958332180AEF800AC7EA9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				65190BFA2B0D185200E38DC9 /* Pods_YourBCABus.framework */,
+				65190BF42B0D17DF00E38DC9 /* Pods_YourBCABus.framework */,
 				4AD958342180AEF800AC7EA9 /* MapKit.framework */,
 				86A35AB7A4B47B8135C0288F /* Pods_YourBCABus.framework */,
 				56128607A369641345A3EA52 /* Pods_YourBCABusTests.framework */,
@@ -402,6 +469,25 @@
 				4A83526F22333D8C008B3EF3 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		65190BDB2B0D163A00E38DC9 /* YourBCABusWatch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				65190BDC2B0D163A00E38DC9 /* YourBCABusWatchApp.swift */,
+				65190BDE2B0D163A00E38DC9 /* ContentView.swift */,
+				65190BE02B0D163B00E38DC9 /* Assets.xcassets */,
+				65190BE22B0D163B00E38DC9 /* Preview Content */,
+			);
+			path = "YourBCABusWatch Watch App";
+			sourceTree = "<group>";
+		};
+		65190BE22B0D163B00E38DC9 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				65190BE32B0D163B00E38DC9 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -430,12 +516,14 @@
 				6C18B3431541F9DD8AEB17AA /* [CP] Embed Pods Frameworks */,
 				4AD3AB182230411100FD58C2 /* Embed Frameworks */,
 				4A83527E22333D8C008B3EF3 /* Embed App Extensions */,
+				65190BEB2B0D163B00E38DC9 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				4AD3AB122230411100FD58C2 /* PBXTargetDependency */,
 				4AB0327D22A2FDEC00143805 /* PBXTargetDependency */,
+				65190BE62B0D163B00E38DC9 /* PBXTargetDependency */,
 			);
 			name = YourBCABus;
 			packageProductDependencies = (
@@ -518,13 +606,32 @@
 			productReference = 4AD3AB0C2230411100FD58C2 /* YourBCABus_Core.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		65190BD92B0D163A00E38DC9 /* YourBCABusWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65190BE82B0D163B00E38DC9 /* Build configuration list for PBXNativeTarget "YourBCABusWatch Watch App" */;
+			buildPhases = (
+				65190BD62B0D163A00E38DC9 /* Sources */,
+				65190BD72B0D163A00E38DC9 /* Frameworks */,
+				65190BD82B0D163A00E38DC9 /* Resources */,
+				65190C022B0D18DD00E38DC9 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65190C012B0D18DD00E38DC9 /* PBXTargetDependency */,
+			);
+			name = "YourBCABusWatch Watch App";
+			productName = "YourBCABusWatch Watch App";
+			productReference = 65190BDA2B0D163A00E38DC9 /* YourBCABusWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		4A113AFE217A986E00B7640E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = YourBCABus;
 				TargetAttributes = {
@@ -566,6 +673,9 @@
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
 					};
+					65190BD92B0D163A00E38DC9 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
 				};
 			};
 			buildConfigurationList = 4A113B01217A986E00B7640E /* Build configuration list for PBXProject "YourBCABus" */;
@@ -590,6 +700,7 @@
 				4A113B26217A987100B7640E /* YourBCABusUITests */,
 				4AD3AB0B2230411100FD58C2 /* YourBCABus Core */,
 				4AB0327622A2FDEC00143805 /* YourBCABus Notification Service */,
+				65190BD92B0D163A00E38DC9 /* YourBCABusWatch Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -636,6 +747,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A0096162235931F00DDC754 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65190BD82B0D163A00E38DC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65190BE42B0D163B00E38DC9 /* Preview Assets.xcassets in Resources */,
+				65190BE12B0D163B00E38DC9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -811,6 +931,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		65190BD62B0D163A00E38DC9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65190BDF2B0D163A00E38DC9 /* ContentView.swift in Sources */,
+				65190BDD2B0D163A00E38DC9 /* YourBCABusWatchApp.swift in Sources */,
+				65190BED2B0D175000E38DC9 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -833,6 +963,16 @@
 			isa = PBXTargetDependency;
 			target = 4AD3AB0B2230411100FD58C2 /* YourBCABus Core */;
 			targetProxy = 4AD3AB112230411100FD58C2 /* PBXContainerItemProxy */;
+		};
+		65190BE62B0D163B00E38DC9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65190BD92B0D163A00E38DC9 /* YourBCABusWatch Watch App */;
+			targetProxy = 65190BE52B0D163B00E38DC9 /* PBXContainerItemProxy */;
+		};
+		65190C012B0D18DD00E38DC9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4AD3AB0B2230411100FD58C2 /* YourBCABus Core */;
+			targetProxy = 65190C002B0D18DD00E38DC9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1197,12 +1337,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.ios.YourBCABus-Embedded";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,4";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Debug;
 		};
@@ -1229,12 +1370,88 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.ios.YourBCABus-Embedded";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator watchos watchsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,4";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		65190BE92B0D163B00E38DC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"YourBCABusWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 9G475R3MEF;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "YourBCABusWatch-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = YourBCABusWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.yourbcabus.yourbcabus-ios";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		65190BEA2B0D163B00E38DC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"YourBCABusWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 9G475R3MEF;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "YourBCABusWatch-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = YourBCABusWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.yourbcabus.yourbcabus-ios";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourbcabus.yourbcabus-ios.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 			};
 			name = Release;
 		};
@@ -1291,6 +1508,15 @@
 			buildConfigurations = (
 				4AD3AB162230411100FD58C2 /* Debug */,
 				4AD3AB172230411100FD58C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65190BE82B0D163B00E38DC9 /* Build configuration list for PBXNativeTarget "YourBCABusWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65190BE92B0D163B00E38DC9 /* Debug */,
+				65190BEA2B0D163B00E38DC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
